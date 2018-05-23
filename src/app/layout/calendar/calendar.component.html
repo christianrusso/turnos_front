@@ -1,0 +1,436 @@
+<!-- CALENDARIO -->
+<section class="calendario-section col-xs-12">   
+
+    <!-- Menú -->
+    <div class="col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
+        <h1 class="col-xxs-4 col-xs-5 col-sm-2">Calendario</h1>
+
+        <div class="menu-acciones mobile col-xs-7">
+            <a href="#"><i class="fa fa-print"></i></a>
+            <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
+        </div>
+
+        <div class="menu-calendario col-xs-12 col-sm-5">
+            <a (click)="showCalendarWeek()" id="semana-menu">Semana</a>
+            <a (click)="showCalendarDay()" id="dia-menu">Día</a>
+        </div>
+
+        <div class="menu-acciones desk col-xs-12 col-sm-5">
+            <a href="#"><i class="fa fa-print"></i></a>
+            <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
+        </div>
+
+    </div>
+
+    <!-- Días -->
+    <section class="dia-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
+
+        <!-- Filtros -->
+        <div class="col-xs-12 col-sm-2 filtros-calendario">
+
+            <form>
+
+                <!-- Médicos -->
+                <div class="form-group">
+                    <label for="">Médico</label>
+                    <select class="js-example-basic-single" name="state" lang="es">
+                        <option value="">Todos</option>
+                        <option value="">Christian Russo</option>
+                        <option value="">Sabrina Fillol</option>
+                        <option value="">Mirta Gonzalez</option>
+                        <option value="">Esteban Dalmaso</option>
+                    </select>
+                </div>
+                <!-- Medicos -->
+
+                <!-- Especialidad -->
+                <div class="form-group">
+                    <label for="">Especialidad</label>
+                    <ng-select2 [data]="specialtyOptions" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
+                    </ng-select2>
+                </div>
+
+                <!-- Sub-especialidad -->
+                <div class="form-group">
+                    <label for="">Sub especialidad</label>
+                    <ng-select2 [data]="subspecialtyOptions" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
+                </div>
+
+            </form>
+            
+        </div>
+
+        <!-- Horarios -->
+        <div class="col-xs-12 col-sm-10 horarios">
+
+            <!-- Prev y Next -->
+            <div class="prev-next">
+                <a id="prev-btn" (click)="previousDay()"><i class="fa fa-caret-left"></i></a>
+                <a id="next-btn" (click)="nextDay()"><i class="fa fa-caret-right"></i></a>
+            </div>
+
+            <!-- Días-->
+            <div class="dias col-xs-12">
+
+                <!-- Día puntual -->
+                <div class="col-xs-12 div-puntual">
+                    <div class="col-xs-12 div-fecha"><span>{{ getDayOfWeek() }}</span>, {{ getDate() }}</div>
+
+                    <div class="col-xs-12 div-contenido-fecha">
+
+                        <div class="col-xs-12 col-sm-3" *ngFor="let data of requestedAppointmentsPerDoctor">
+
+                            <h3>{{ data.doctorFirstName + ' ' + data.doctorLastName }}</h3>
+
+                            <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
+
+                                <div class="pacientes-medico col-xs-9">
+                                    <div *ngFor="let appointment of appointmentData.appointments">
+                                        <span>{{ getHour(appointment.hour) }}</span>
+                                        <p> - {{ appointment.patient }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 horario-medico">
+                                    {{ appointmentData.hour }}:00
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>             
+                </div>
+                <!-- // dia puntual -->
+
+            </div>
+            <!-- //dias -->
+            
+        </div>
+        <!-- // horarios -->
+
+    </section>
+    <!-- //días -->
+
+    <!-- Semanas -->
+    <section class="semana-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
+
+        <!-- Filtros -->
+        <div class="col-xs-12 col-sm-2 filtros-calendario">
+
+            <form>
+
+                <!-- Médicos -->
+                <div class="form-group">
+                    <label for="">Médico</label>
+                    <select class="js-example-basic-single" name="state" lang="es">
+                        <option value="">Todos</option>
+                        <option value="">Christian Russo</option>
+                        <option value="">Sabrina Fillol</option>
+                        <option value="">Mirta Gonzalez</option>
+                        <option value="">Esteban Dalmaso</option>
+                    </select>
+                </div>
+                <!-- Medicos -->
+
+                <!-- Especialidad -->
+                <div class="form-group">
+                    <label for="">Especialidad</label>
+                    <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
+                    </ng-select2>
+                </div>
+
+                <!-- Sub-especialidad -->
+                <div class="form-group">
+                    <label for="">Sub especialidad</label>
+                    <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
+                </div>
+
+            </form>
+            
+        </div>
+        
+        <!-- Horarios -->
+        <div class="col-xs-12 col-sm-10 horarios">
+
+            <!-- Prev y Next -->
+            <div class="prev-next">
+                <a (click)="previousWeek()" id="prev-btn"><i class="fa fa-caret-left"></i></a>
+                <a (click)="nextWeek()" id="next-btn"><i class="fa fa-caret-right"></i></a>
+            </div>
+
+            <!-- Semanas-->
+            <div class="semanas col-xs-12">
+
+                <!-- Semana -->
+                <div class="col-xs-12 div-puntual2">
+                    <div class="col-xs-12 div-fecha"><span>Lunes</span>, {{ getMondayDate() }} - <span>Domingo</span>, {{ getSundayDate() }}</div>
+
+                        <!-- Días semana -->
+                        <div class="col-xs-12 div-contenido-fecha">
+
+                            <div class="col-xs-6 col-sm-2" *ngFor="let weekDay of week;">
+                                <h3><span>{{ getDayOfWeekDescription(weekDay.day) }}</span><p>{{ getDateDescription(weekDay.day) }}</p></h3>
+
+                                <div class="pacientes-horario col-xs-12" *ngFor="let weekHour of weekDay.hours;">
+                                    <div class="pacientes-turno col-xs-8">
+                                        <div [hidden]="weekHour.totalAppointments == 0">{{ weekHour.totalAppointments }} turnos</div>
+                                    </div>
+
+                                    <div class="col-xs-4 horario-medico">{{ getHourDescription(weekHour.hour) }}</div>
+
+                                    <div class="modal-turnos" >
+
+                                        <h4 [hidden]="weekHour.totalAppointments != 0">No hay reservaciones</h4>
+
+                                        <h4 [hidden]="weekHour.totalAppointments == 0">Reservaciones</h4>
+
+                                        <ul [hidden]="weekHour.totalAppointments == 0">
+                                            <li *ngFor="let specialty of weekHour.appointmentsPerSpecialty;">
+                                                {{ specialty.specialtyDescription }} <span>({{ specialty.appointments }})</span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- // dias semana -->   
+                </div>
+                <!-- // semana -->
+
+            </div>
+            <!-- //semanas -->
+            
+        </div>
+        <!-- // horarios -->
+
+    </section>
+    <!-- //semanas -->
+
+</section>
+<!-- // calendario -->
+
+
+<!-- Agregar turno -->
+<div class="col-xs-12 modal-agregar-turno">
+    <div class="inside-modal-agregar-turno col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-agregar-turno col-xs-12">
+            <h2>Nuevo turno</h2>
+            <a (click)="hideRequestAppointment()" class="close-modal-agregar-turno">X</a>
+        </div>
+
+        <div class="col-xs-12 buttons-turno">
+            <a (click)="showPatientTab()" id="paciente-turno">Paciente</a>
+            <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
+            <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
+        </div>
+
+        <!-- Pacientes -->
+        <div class="col-xs-12 paciente-cluster">
+            <div class="col-xs-12 p-c-2">
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Fecha</label>      
+                    <label>
+                        <input [(ngModel)]="selectedDate" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
+                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
+                    </label>
+                </div>
+                
+                <div class="col-xs-12 col-sm-4">
+                    <label>Médico</label>
+                    <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Hora</label>
+                    <label [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
+                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 table-cluster">
+                <h3>Seleccionar Paciente</h3>
+                <div class="col-xs-12 container-de-tabla">
+                    <table id="table-agregar-turno" class="table table-sortable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Nombre y Apellido <i class="fa fa-sort-desc"></i></th>
+                                <th>Email</th>
+                                <th>Turnos Realizados</th>
+                                <th class="center">Seleccionar</th>
+                            </tr>
+                        </thead>
+                            
+                        <tbody>
+                            <tr *ngFor="let patient of patients; let i = index">
+                                <td>{{ patient.firstName + ' ' + patient.lastName }}</td>
+                                <td>{{ patient.email }}</td>
+                                <td>{{ patient.reservedAppointments }}</td>
+                                <td class="center"><input type="radio" name="patientRadioGroup" value="i" (change)="selectedPatientChange(patient)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 center">
+                <a (click)="requestAppointmentForPatient()" id="add-paciente">Agregar</a>
+            </div>
+
+        </div>
+
+        <!-- Clientes -->
+         <div class="col-xs-12 cliente-cluster">
+            <div class="col-xs-12 p-c-2">
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Fecha</label>      
+                    <label>
+                        <input [(ngModel)]="selectedDate" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
+                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
+                    </label>
+                </div>
+                
+                <div class="col-xs-12 col-sm-4">
+                    <label>Médico</label>
+                    <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Hora</label>
+                    <label [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
+                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-xs-12 center">
+                <div class="form-group">
+                    <label for="firstName">Nombre: </label>
+                    <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" >
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Apellido: </label>
+                    <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" >
+                </div>
+                <div class="form-group">
+                    <label for="address">Direccion: </label>
+                    <input type="text" id="address" name="address" [(ngModel)]="address" >
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Telefono: </label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                </div>
+                <div class="form-group">
+                    <label for="dni">Dni: </label>
+                    <input type="text" id="dni" name="dni" [(ngModel)]="dni" >
+                </div>
+                <div class="form-group">
+                    <label for="">Plan medico</label>
+                    <ng-select2 [data]="medicalPlanOptions" [value]="medicalPlan" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+            </div>
+            <div class="col-xs-12 table-cluster">
+                <h3>Seleccionar Cliente</h3>
+                <div class="col-xs-12 container-de-tabla">
+                    <table id="table-agregar-turno" class="table table-sortable">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th class="center">Seleccionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients; let i = index">
+                                <td>{{ client.email }}</td>
+                                <td class="center"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
+                            </tr>
+                        </tbody>
+                            
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-xs-12 center">
+                <a (click)="requestAppointmentForClient()" id="add-cliente">Agregar</a>
+            </div>
+        </div>
+
+         <div class="col-xs-12 noexiste-cluster">
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-2 no-existente">
+                
+                    <div class="col-xs-12 p-c-2">
+
+                        <div class="col-xs-12 col-sm-4">
+                            <label>Fecha</label>      
+                            <label>
+                                <input [(ngModel)]="selectedDate" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
+                                <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
+                            </label>
+                        </div>
+                        
+                        <div class="col-xs-12 col-sm-4">
+                            <label>Médico</label>
+                            <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                        </div>
+        
+                        <div class="col-xs-12 col-sm-4">
+                            <label>Hora</label>
+                            <label [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
+                            <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                                <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                            </select>
+                        </div>
+        
+                    </div>
+                    <div class="col-xs-12 center">
+                        <div class="form-group">
+                            <label for="firstName">Nombre: </label>
+                            <input type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Apellido: </label>
+                            <input type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Direccion: </label>
+                            <input type="text" id="address2" name="address" [(ngModel)]="address" >
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Telefono: </label>
+                            <input type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                        </div>
+                        <div class="form-group">
+                            <label for="dni">Dni: </label>
+                            <input type="text" id="dni2" name="dni" [(ngModel)]="dni" >
+                        </div>
+                        <div class="form-group">
+                            <label for="">Plan medico</label>
+                            <ng-select2 [data]="medicalPlanOptions" [value]="medicalPlan" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                            </ng-select2>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email: </label>
+                            <input type="text" id="email2" name="email" [(ngModel)]="email" >
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña: </label>
+                            <input type="password" id="password2" name="password" [(ngModel)]="password" >
+                        </div>
+                    </div>
+
+            </div>
+            <div class="col-xs-12 center">
+                <a (click)="requestAppointmentForNonClient()" id="add-nuevo-paciente">Agregar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // agregar turno -->

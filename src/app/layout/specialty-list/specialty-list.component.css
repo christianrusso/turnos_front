@@ -1,0 +1,87 @@
+.panelGeneral div{
+text-align: right;
+margin-top: 30px;
+}
+
+.panelGeneral a#medicos-link, .panelGeneral a#especialidades-link, .panelGeneral a#pacientes-link{
+padding: 10px;
+width: 180px;
+display: inline-block;
+text-align: center;
+background: #6dc98e;
+color: #fff;
+text-transform: uppercase;
+font-size: 15px;
+font-weight: 600;
+letter-spacing: 1px;
+margin-right: 10px;
+}
+
+.panelGeneral a#medicos-link:hover, .panelGeneral a#especialidades-link:hover, .panelGeneral a#pacientes-link:hover{
+opacity: .7;
+}
+
+.panelGeneral a#medicos-link.active, .panelGeneral a#especialidades-link.active, .panelGeneral a#pacientes-link.active{
+background: #ccc;
+}
+
+.especialidades{
+min-height: 100vh;
+}
+.especialidades table tr td{
+text-align: left;
+color: #777;
+letter-spacing: 0.5px;
+font-size: 13px;
+}
+
+.especialidades table th[scope="col"]{
+text-align: center;
+color: #555;
+background: #e2e2e2;
+}
+
+.especialidades a{
+display: inline;
+float: left;
+background: #6dc98e;
+color: #fff;
+padding: 10px;
+font-weight: 600;
+font-size: 15px;
+letter-spacing: 1px;
+margin-bottom: 20px;
+margin-top: 40px;
+}
+
+.especialidades a i{
+margin-right: 5px;
+}
+
+.especialidades a:hover{
+opacity: .7;
+}
+
+.especialidades  table a{
+display: inline-block;
+float: none;
+text-align: center;
+background: transparent;
+color: #999;
+padding: 0;
+font-weight: normal;
+font-size: 16px;
+letter-spacing: 0;
+margin-bottom: 0;
+margin-top: 0;
+margin-right: 10px;
+}
+
+.especialidades table tr td.acciones{
+text-align: center;
+}
+
+
+.especialidades table tr td.acciones{
+text-align: center;
+}

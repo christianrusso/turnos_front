@@ -1,0 +1,15 @@
+<section class="loginAdmin">
+    <div>
+        <h1>Todo Reserva</h1>
+        <h2>Bienvenido a su sistema de turnos</h2>
+        <div class="bg-white">
+            <form action="panel.html" method="">
+                <div id="mail"><img src="assets/img/user.png" alt="Usuario"><input type="email" placeholder="Email" [(ngModel)]="email" name="email"><i class="fa fa-close"></i></div>
+                <div id="pass"><img src="assets/img/lock.png" alt="Contraseña"><input type="password" placeholder="Contraseña" name="password" [(ngModel)]="password"><i class="fa fa-close"></i></div>
+                <input type="submit" value="Ingresar" (click)="login()">
+                <a href="">¿Olvidaste tu contraseña?</a>
+            </form>
+        </div>
+        <p>Hecho por <a href="http://orbit.com.ar" target="_blank"><img src="assets/img/logo-footer-orbit.png" alt="Orbit"></a></p>
+    </div>
+</section>

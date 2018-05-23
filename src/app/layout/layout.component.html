@@ -1,0 +1,68 @@
+<!-- Menú -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Menú</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt="Logo"></a>
+      </div>
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+              <!-- Notificaciones -->
+              <li class="dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle notif-menu"><i class="fa fa-bell-o"></i><i></i></a>
+                   <ul class="dropdown-menu">
+                   </ul>
+              </li>
+              <!-- // notificaciones -->
+
+              <!-- Usuario -->
+              <li class="dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle user"><img src="assets/img/logo-usuario.png" alt="Usuario"><i class="fa fa-caret-down"></i></a>
+                   <ul class="dropdown-menu dropdown-menu-right">
+                       <li><a href="#">Editar datos</a></li>
+                         <li><a href="#">Configurar cuenta</a></li>
+                       <li><a href="#">Ayuda</a></li>
+                         <li><a id="logout-link" (click)="logout()">Salir</a></li>
+                   </ul>
+              </li>
+              <!-- // usuario -->
+
+              <!-- Logout -->
+              <li (click)="logout()" class="logout">
+                  <a class="dropdown-toggle notif-menu"><i class="fa fa-sign-out"></i></a>
+                   <ul class="dropdown-menu">
+                   </ul>
+              </li>
+              <!-- // logout -->
+
+            </ul>
+
+         </div>
+
+      <!-- Menú links -->
+      <div class="menu-words col-xs-10">
+          <a [routerLink]="['DoctorList']" id="medicos-panel">Médicos</a>
+          <a [routerLink]="['SpecialtyList']" id="especialidades-panel">Especialidades</a>
+          <a [routerLink]="['PatientList']" id="pacientes-panel">Pacientes</a>
+          <a [routerLink]="['Calendar']" id="calendario-panel">Calendario</a>
+          <a [routerLink]="['MedicalInsuranceList']" id="obrassocial-panel">Obras sociales</a>
+      </div>
+      <!-- // menu links -->
+
+    </div>
+</nav>
+<!-- // menú -->
+
+<router-outlet></router-outlet>
+
+
+
+
+
