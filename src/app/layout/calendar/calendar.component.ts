@@ -21,6 +21,7 @@ import { WeekDay } from '../../model/week-day.class';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { MedicalPlanService } from '../../service/medicalPlan.service';
 
 @Component({
     selector: 'app-calendar',
@@ -53,6 +54,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public address: string;
     public phoneNumber: string;
     public dni: string;
+    public medicalInsuranceOptions: Array<Select2OptionData>;
+    public medicalInsurance: string;
     public medicalPlanOptions: Array<Select2OptionData>;
     public medicalPlan: string;
     public email: string;
@@ -78,6 +81,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         private patientService: PatientService,
         private clientService: ClientService,
         private medicalInsuranceService: MedicalInsuranceService,
+        private medicalPlanService: MedicalPlanService,
         private loaderService: Ng4LoadingSpinnerService,
         private toastrService: ToastrService
     ) {
@@ -97,10 +101,10 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.subspecialtyFilter = "-1";
         this.getAllSpecialties();
         this.getAllSubSpecialties();
+        this.getAllMedicalInsurance();
         this.getAllDoctors();
         this.getAllPatients();
         this.getAllClientsNonPatients();
-        this.getAllMedicalPlans();
     }
 
     getAllSpecialties() {
@@ -146,11 +150,36 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         });
     }
 
-    getAllMedicalPlans() {
+    // getAllMedicalPlans() {
+    //     this.loaderService.show();
+    //     this.medicalInsuranceService.getAllMedicalPlanForSelect().subscribe(res => {
+    //         this.medicalPlanOptions = res;
+    //         this.medicalPlan = "-1";
+    //         this.loaderService.hide();
+    //     })
+    // }
+
+    getAllMedicalInsurance(): any {
         this.loaderService.show();
-        this.medicalInsuranceService.getAllMedicalPlanForSelect().subscribe(res => {
+        this.medicalInsuranceService.getAllMedicalInsurancesForSelect().subscribe(res => {
+            this.medicalInsuranceOptions = res.slice(0);
+            this.medicalInsuranceOptions.shift();
+            this.medicalInsurance = "-1";
+            this.loaderService.hide();
+        });;
+    }
+
+    medicalInsuranceChange(selection){
+        this.loaderService.show();
+        this.medicalInsurance = selection.value;
+        this.getAllMedicalPlansOfInsurance();
+    }
+
+    private getAllMedicalPlansOfInsurance() {
+        const filter = new IdFilter();
+        filter.id = parseInt(this.medicalInsurance);
+        this.medicalPlanService.getAllMedicalPlansOfInsuranceForSelect(filter).subscribe(res => {
             this.medicalPlanOptions = res;
-            this.medicalPlan = "-1";
             this.loaderService.hide();
         })
     }
@@ -304,6 +333,11 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     }
 
     requestAppointmentForPatient() {
+        if (this.selectedPatient == null) {
+            this.toastrService.error('Debe seleccionar un paciente.');
+            return;
+        }
+
         this.loaderService.show();
         let requestAppointment = new RequestAppointmentPatient();
         requestAppointment.doctorId = parseInt(this.selectedDoctor);
@@ -319,18 +353,23 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     }
 
     requestAppointmentForClient() {
+        if (this.selectedClient == null) {
+            this.toastrService.error('Debe seleccionar un cliente.');
+            return;
+        }
+
         this.loaderService.show();
         let requestAppointment = new RequestAppointmentClient();
         requestAppointment.doctorId = parseInt(this.selectedDoctor);
         requestAppointment.day = this.selectedDate.toJSON();
         requestAppointment.time = this.selectedHour;
-        requestAppointment.clientId = this.selectedClient.id;
         requestAppointment.firstName = this.firstName;
         requestAppointment.lastName = this.lastName;
         requestAppointment.address = this.address;
         requestAppointment.phoneNumber = this.phoneNumber;
         requestAppointment.dni = this.dni;
         requestAppointment.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
+        requestAppointment.clientId = this.selectedClient.id;
 
         this.appointmentService.requestAppointmentForClient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();

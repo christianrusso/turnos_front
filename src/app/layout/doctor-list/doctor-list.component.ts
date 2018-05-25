@@ -16,7 +16,6 @@ import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
 
-
 @Component({
     selector: 'app-doctor-list',
     templateUrl: './doctor-list.component.html',
@@ -194,8 +193,8 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     showAddDoctor() {
         this.doctorFirstName = "";
         this.doctorLastName = "";
-        this.doctorSpecialty = "-1";
-        this.doctorSubspecialty = "-1";
+        this.doctorSpecialty = null;
+        this.doctorSubspecialty = null;
         this.doctorConsultationLength = new Date(this.zeroHour);
         this.doctorMondayWorks = false;
         this.doctorTuesdayWorks = false;
@@ -238,7 +237,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorFirstName = doctor.firstName;
         this.doctorLastName = doctor.lastName;
         this.doctorSpecialty = doctor.specialtyId.toString();
-        this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : '-1';
+        this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : "-1";
         this.doctorConsultationLength = new Date(this.zeroHour);
         this.doctorConsultationLength.setMinutes(doctor.consultationLength);
 
@@ -321,9 +320,8 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     specialtyChangeDoctor(selection) {
         this.loaderService.show();
         this.doctorSpecialty = selection.value;
-        this.doctorSubspecialty = "-1";
         let filter = new IdFilter();
-        filter.id = parseInt(this.doctorSpecialty);
+        filter.id = this.doctorSpecialty != null ? parseInt(this.doctorSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
             this.subspecialtyOptionsDoctor = res;
             this.subspecialtyOptionsDoctor[0].text = 'Ninguna';

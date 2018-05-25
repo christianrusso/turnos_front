@@ -11,7 +11,8 @@ import { RequestAppointmentClient } from '../../model/request-appointment-client
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
-
+import { IdFilter } from '../../model/id-filter.class';
+import { MedicalPlanService } from '../../service/medicalPlan.service';
 
 @Component({
     selector: 'app-patient-list',
@@ -25,7 +26,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public selectedPatientName = '';
     public selectedPatient: Patient;
     
-    public medicalInsuranceOptions: Array<Select2OptionData>;
+    public medicalInsuranceFilterOptions: Array<Select2OptionData>;
     public medicalInsuranceFilter: string;
 
     public clients = new Array<Client>();
@@ -37,6 +38,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public address: string;
     public phoneNumber: string;
     public dni: string;
+    public medicalInsuranceOptions: Array<Select2OptionData>;
+    public medicalInsurance: string;
     public medicalPlanOptions: Array<Select2OptionData>;
     public medicalPlan: string;
     public email: string;
@@ -46,6 +49,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         private patientService: PatientService,
         private clientService: ClientService,
         private medicalInsuranceService: MedicalInsuranceService,
+        private medicalPlanService: MedicalPlanService,
         private router: Router,
         private loaderService: Ng4LoadingSpinnerService,
         private toastrService: ToastrService
@@ -58,21 +62,21 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $("a#obrassocial-panel").removeClass('active');
         this.getAllPatientsByFilter();
         this.getAllMedicalInsurance();
-        this.getAllMedicalPlans();
         this.getAllClientsNonPatients();
     }
 
     private reloadPage(){
         this.getAllPatientsByFilter();
         this.getAllMedicalInsurance();
-        this.getAllMedicalPlans();
         this.getAllClientsNonPatients();
     }
 
-    private getAllMedicalPlans() {
-        this.medicalInsuranceService.getAllMedicalPlanForSelect().subscribe(res => {
+    private getAllMedicalPlansOfInsurance() {
+        const filter = new IdFilter();
+        filter.id = parseInt(this.medicalInsurance);
+        this.medicalPlanService.getAllMedicalPlansOfInsuranceForSelect(filter).subscribe(res => {
             this.medicalPlanOptions = res;
-            this.medicalPlan = "-1";
+            this.loaderService.hide();
         })
     }
 
@@ -86,10 +90,16 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         await this.loadScript('../assets/pacientes.js');
     }
     
-    medicalInsuranceChange(selection){
+    medicalInsuranceFilterChange(selection){
         this.loaderService.show();
         this.medicalInsuranceFilter = selection.value;
         this.getAllPatientsByFilter();
+    }
+    
+    medicalInsuranceChange(selection){
+        this.loaderService.show();
+        this.medicalInsurance = selection.value;
+        this.getAllMedicalPlansOfInsurance();
     }
 
     getAllPatients() {
@@ -113,8 +123,11 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     getAllMedicalInsurance(): any {
         this.loaderService.show();
         this.medicalInsuranceService.getAllMedicalInsurancesForSelect().subscribe(res => {
-            this.medicalInsuranceOptions = res;
+            this.medicalInsuranceFilterOptions = res;
+            this.medicalInsuranceOptions = res.slice(0);
+            this.medicalInsuranceOptions.shift();
             this.medicalInsuranceFilter = "-1";
+            this.medicalInsurance = "-1";
             this.loaderService.hide();
         });;
     }
@@ -148,6 +161,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.address = "";
         this.phoneNumber = "";
         this.dni = "";
+        this.medicalInsurance = "-1";
         this.medicalPlan = "-1";
         this.email = "";
         this.password = "";
@@ -225,13 +239,14 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     // Edit Patient
-    showEditPatient(patientIndex: number){
+    showEditPatient(patientIndex: number) {
         this.selectedPatient = this.patients[patientIndex];
         this.firstName = this.selectedPatient.firstName;
         this.lastName = this.selectedPatient.lastName;
         this.address = this.selectedPatient.address;
         this.phoneNumber = this.selectedPatient.phoneNumber;
         this.dni = this.selectedPatient.dni;
+        this.medicalInsurance = this.selectedPatient.medicalInsuranceId.toString();
         this.medicalPlan = this.selectedPatient.medicalPlanId.toString();
         $(".modal-editar-paciente").fadeIn();
     }

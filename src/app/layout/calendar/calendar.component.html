@@ -19,7 +19,6 @@
             <a href="#"><i class="fa fa-print"></i></a>
             <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
         </div>
-
     </div>
 
     <!-- Días -->
@@ -331,8 +330,13 @@
                     <input type="text" id="dni" name="dni" [(ngModel)]="dni" >
                 </div>
                 <div class="form-group">
+                    <label for="">Obra social</label>
+                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+                <div class="form-group">
                     <label for="">Plan medico</label>
-                    <ng-select2 [data]="medicalPlanOptions" [value]="medicalPlan" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
                 </div>
             </div>
@@ -410,6 +414,11 @@
                         <div class="form-group">
                             <label for="dni">Dni: </label>
                             <input type="text" id="dni2" name="dni" [(ngModel)]="dni" >
+                        </div>
+                        <div class="form-group">
+                            <label for="">Obra social</label>
+                            <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
+                            </ng-select2>
                         </div>
                         <div class="form-group">
                             <label for="">Plan medico</label>

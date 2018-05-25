@@ -112,10 +112,11 @@
             <a class="close-modal-horarios">X</a>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3" [hidden]="selectedDoctorWorkingHours.length > 0">
+            <p>Este medico no tiene horarios asignados.</p>
         </div>
 
-        <div *ngFor="let wh of selectedDoctorWorkingHours" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+        <div *ngFor="let wh of selectedDoctorWorkingHours" [hidden]="selectedDoctorWorkingHours.length <= 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
             <div class="col-xs-12 col-sm-5">
                 <h3>{{ getDayName(wh) }}</h3>
             </div>
@@ -183,16 +184,14 @@
             </div>
 
             <div class="col-xs-12 col-sm-8">
-                <label for="especialidad-medico-modal">Especialidad</label>
-                <ng-select2 [data]="specialtyOptionsDoctor" [value]="doctorSpecialty" (valueChanged)="specialtyChangeDoctor($event)" name="especialidad-medico-modal" lang="es"></ng-select2>
+                <ng-select2 [data]="specialtyOptionsDoctor" [value]="doctorSpecialty" (valueChanged)="specialtyChangeDoctor($event)" [options]="{placeholder: 'Especialidad'}" name="especialidad-medico-modal" lang="es"></ng-select2>
             </div>
 
             <div class="col-xs-12 col-sm-4">
             </div>
 
             <div class="col-xs-12 col-sm-8">
-                <label for="subespecialidad-medico-modal">Subespecialidad</label>
-                <ng-select2 [data]="subspecialtyOptionsDoctor" [value]="doctorSubspecialty" (valueChanged)="subspecialtyChangeDoctor($event)" name="subespecialidad-medico-modal" lang="es"></ng-select2>
+                <ng-select2 [data]="subspecialtyOptionsDoctor" [value]="doctorSubspecialty" (valueChanged)="subspecialtyChangeDoctor($event)" [options]="{placeholder: 'Subespecialidad'}" name="subespecialidad-medico-modal" lang="es"></ng-select2>
             </div>
             
         </div>

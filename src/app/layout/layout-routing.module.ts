@@ -16,7 +16,7 @@ const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: 'Home' },
+            { path: '', redirectTo: 'DoctorList' },
             { path: 'Home', component: HomeComponent },
             { path: 'SpecialtyList', component: SpecialtyListComponent },
             { path: 'PatientList', component: PatientListComponent },

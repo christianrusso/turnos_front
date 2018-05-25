@@ -47,8 +47,4 @@ export class MedicalInsuranceService extends BaseService
     public remove(medicalInsurance: MedicalInsurance): Observable<Object> {
         return this.post(this.url + '/Remove', null, medicalInsurance);
     }
-
-    public getAllMedicalPlanForSelect(): Observable<SelectOption[]> {
-        return this.getAll<SelectOption>(this.url + "/GetAllMedicalPlansForSelect", null);
-    }
 }
