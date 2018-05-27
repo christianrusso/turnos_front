@@ -76,3 +76,18 @@
     margin-top: 0;
     margin-right: 10px;
   }
+
+  .doctor-wh-container {
+    display: inline-flex;
+    align-items: center;
+  }
+
+
+  .doctor-wh-container input {
+    margin-bottom: 5px;
+  }
+
+  .doctor-wh-container span {
+    margin-left: 10px;
+    margin-right: 10px;
+  }

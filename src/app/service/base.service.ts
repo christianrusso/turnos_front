@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/empty';
-import { NgbModal, NgbActiveModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from '../model/alert.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -17,7 +16,6 @@ export class BaseService {
 
     constructor(
         protected httpClient: HttpClient,
-        protected modalService: NgbModal,
         protected toastrService: ToastrService,
         protected loaderService: Ng4LoadingSpinnerService
     ) { }

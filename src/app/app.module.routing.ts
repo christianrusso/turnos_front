@@ -6,8 +6,8 @@ import { LayoutModule } from './layout/layout.module';
 import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-    { path: '', loadChildren: () => AccessModule },
-    { path: 'Layout', loadChildren: () => LayoutModule, canActivate: [AuthGuard] }
+    { path: '', loadChildren: './access/access.module#AccessModule' },
+    { path: 'Layout', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard] }
 ];
 
 @NgModule({

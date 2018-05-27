@@ -5,7 +5,7 @@ import { AccountService } from '../service/account.service';
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
-    styleUrls: ['/layout.component.css']
+    styleUrls: ['layout.component.css']
 })
 export class LayoutComponent {
 

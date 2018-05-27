@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgbModalModule, NgbDropdownModule, NgbAlertModule  } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccessRoutingModule } from './access-routing.module';
 
@@ -15,11 +14,8 @@ import { LoginComponent } from './login/login.component';
 @NgModule({
     imports: [
         CommonModule,
-        AccessRoutingModule,
-        NgbModalModule.forRoot(),
-        NgbDropdownModule.forRoot(),
-        NgbAlertModule.forRoot(),
-        FormsModule
+        FormsModule,
+        AccessRoutingModule
     ],
     declarations: [
         // Paginas principales del layout
@@ -29,9 +25,6 @@ import { LoginComponent } from './login/login.component';
     // Servicios
     providers: [
         AccountService,
-    ],
-    // Popups
-    entryComponents: [
     ]
 })
 export class AccessModule {}

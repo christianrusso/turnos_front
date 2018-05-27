@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from '../../service/account.service';
 import { Login } from '../../model/login.class';
 import { Router } from '@angular/router';
@@ -17,11 +16,10 @@ import { BaseComponent } from '../../core/base.component';
 
 export class LoginComponent extends BaseComponent {
 
-    private email: string;
-    private password: string;
+    public email: string;
+    public password: string;
 
     constructor(
-        private modalService: NgbModal,
         private accountService: AccountService,
         private router: Router,
         private loaderService: Ng4LoadingSpinnerService
@@ -30,7 +28,7 @@ export class LoginComponent extends BaseComponent {
         sessionStorage.clear();
     }
 
-    private login() {
+    public login() {
         this.loaderService.show();
         let loginData = new Login();
         loginData.email = this.email;

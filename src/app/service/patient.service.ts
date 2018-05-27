@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Patient } from '../model/patient.class';
 import { RequestAppointmentClient } from '../model/request-appointment-client.class';
 import { PatientFilter } from '../model/patient-filter.class';
@@ -16,11 +15,10 @@ export class PatientService extends BaseService {
 
     constructor(
         protected httpClient: HttpClient,
-        protected modalService: NgbModal,
         protected toastrService: ToastrService,
         protected loaderService: Ng4LoadingSpinnerService
     ) {
-        super(httpClient, modalService, toastrService, loaderService);
+        super(httpClient, toastrService, loaderService);
     }
 
     public add(patient: Patient): Observable<Object> {

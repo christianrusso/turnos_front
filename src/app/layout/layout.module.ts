@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgbModalModule, NgbDropdownModule, NgbAlertModule  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelect2Module } from 'ng-select2';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -32,10 +32,8 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
     imports: [
         CommonModule,
         LayoutRoutingModule,
-        NgbModalModule.forRoot(),
-        NgbDropdownModule.forRoot(),
-        NgbAlertModule.forRoot(),
         FormsModule,
+        NgbModule.forRoot(),
         NgSelect2Module,
         OwlDateTimeModule, 
         OwlNativeDateTimeModule,
@@ -61,9 +59,6 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
         MedicalInsuranceService,
         MedicalPlanService,
         ClientService
-    ],
-    // Popups
-    entryComponents: [
     ]
 })
 export class LayoutModule {}

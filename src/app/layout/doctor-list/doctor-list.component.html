@@ -113,7 +113,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-6 col-sm-offset-3" [hidden]="selectedDoctorWorkingHours.length > 0">
-            <p>Este medico no tiene horarios asignados.</p>
+            <p style="text-align: center;">Este medico no tiene horarios asignados.</p>
         </div>
 
         <div *ngFor="let wh of selectedDoctorWorkingHours" [hidden]="selectedDoctorWorkingHours.length <= 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
@@ -206,117 +206,77 @@
                 <h4>Horarios y días</h4>
             </div>
                 
-            <div>
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorMondayWorks" name="doctorMondayWorks" id="doctorMondayWorks">Lunes
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorMondayWhStart" [disabled]="!doctorMondayWorks" [owlDateTimeTrigger]="dtMondayStart" [owlDateTime]="dtMondayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtMondayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorMondayWhEnd" [disabled]="!doctorMondayWorks" [owlDateTimeTrigger]="dtMondayEnd" [owlDateTime]="dtMondayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtMondayEnd></owl-date-time>
-                    </label>
+            <div class="text-center">
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorMondayWorks">
+                    <span><strong>Lunes</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorMondayWhStart" [disabled]="!doctorMondayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorMondayWhEnd" [disabled]="!doctorMondayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorTuesdayWorks" name="doctorTuesdayWorks" id="doctorTuesdayWorks">Martes
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorTuesdayWhStart" [disabled]="!doctorTuesdayWorks" [owlDateTimeTrigger]="dtTuesdayStart" [owlDateTime]="dtTuesdayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtTuesdayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorTuesdayWhEnd" [disabled]="!doctorTuesdayWorks" [owlDateTimeTrigger]="dtTuesdayEnd" [owlDateTime]="dtTuesdayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtTuesdayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorTuesdayWorks">
+                    <span><strong>Martes</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorTuesdayWhStart" [disabled]="!doctorTuesdayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorTuesdayWhEnd" [disabled]="!doctorTuesdayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorWednesdayWorks" name="doctorWednesdayWorks" id="doctorWednesdayWorks">Miercoles
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorWednesdayWhStart" [disabled]="!doctorWednesdayWorks" [owlDateTimeTrigger]="dtWednesdayStart" [owlDateTime]="dtWednesdayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtWednesdayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorWednesdayWhEnd" [disabled]="!doctorWednesdayWorks" [owlDateTimeTrigger]="dtWednesdayEnd" [owlDateTime]="dtWednesdayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtWednesdayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorWednesdayWorks">
+                    <span><strong>Miercoles</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorWednesdayWhStart" [disabled]="!doctorWednesdayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorWednesdayWhEnd" [disabled]="!doctorWednesdayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorThursdayWorks" name="doctorThursdayWorks" id="doctorThursdayWorks">Jueves
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorThursdayWhStart" [disabled]="!doctorThursdayWorks" [owlDateTimeTrigger]="dtThursdayStart" [owlDateTime]="dtThursdayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtThursdayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorThursdayWhEnd" [disabled]="!doctorThursdayWorks" [owlDateTimeTrigger]="dtThursdayEnd" [owlDateTime]="dtThursdayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtThursdayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorThursdayWorks">
+                    <span><strong>Jueves</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorThursdayWhStart" [disabled]="!doctorThursdayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorThursdayWhEnd" [disabled]="!doctorThursdayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorFridayWorks" name="doctorFridayWorks" id="doctorFridayWorks">Viernes
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorFridayWhStart" [disabled]="!doctorFridayWorks" [owlDateTimeTrigger]="dtFridayStart" [owlDateTime]="dtFridayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtFridayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorFridayWhEnd" [disabled]="!doctorFridayWorks" [owlDateTimeTrigger]="dtFridayEnd" [owlDateTime]="dtFridayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtFridayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorFridayWorks">
+                    <span><strong>Viernes</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorFridayWhStart" [disabled]="!doctorFridayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorFridayWhEnd" [disabled]="!doctorFridayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorSaturdayWorks" name="doctorSaturdayWorks" id="doctorSaturdayWorks">Sabado
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorSaturdayWhStart" [disabled]="!doctorSaturdayWorks" [owlDateTimeTrigger]="dtSaturdayStart" [owlDateTime]="dtSaturdayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtSaturdayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorSaturdayWhEnd" [disabled]="!doctorSaturdayWorks" [owlDateTimeTrigger]="dtSaturdayEnd" [owlDateTime]="dtSaturdayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtSaturdayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorSaturdayWorks">
+                    <span><strong>Sabado</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorSaturdayWhStart" [disabled]="!doctorSaturdayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorSaturdayWhEnd" [disabled]="!doctorSaturdayWorks"></ngb-timepicker>
                 </div>
 
-                <div>
-                    <label>
-                        <input type="checkbox" [(ngModel)]="doctorSundayWorks" name="doctorSundayWorks" id="doctorSundayWorks">Domingo
-                    </label>
-                    <label>
-                        <input [(ngModel)]="doctorSundayWhStart" [disabled]="!doctorSundayWorks" [owlDateTimeTrigger]="dtSundayStart" [owlDateTime]="dtSundayStart">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtSundayStart></owl-date-time>
-                    </label>
-                    <span> a </span>
-                    <label>
-                        <input [(ngModel)]="doctorSundayWhEnd" [disabled]="!doctorSundayWorks" [owlDateTimeTrigger]="dtSundayEnd" [owlDateTime]="dtSundayEnd">
-                        <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dtSundayEnd></owl-date-time>
-                    </label>
+                <div class="doctor-wh-container">
+                    <input type="checkbox" [(ngModel)]="doctorSundayWorks">
+                    <span><strong>Domingo</strong></span>
+                    <span> desde </span>
+                    <ngb-timepicker [(ngModel)]="doctorSundayWhStart" [disabled]="!doctorSundayWorks"></ngb-timepicker>
+                    <span> hasta </span>
+                    <ngb-timepicker [(ngModel)]="doctorSundayWhEnd" [disabled]="!doctorSundayWorks"></ngb-timepicker>
                 </div>
             </div>
-                <h5>Duración de consulta</h5>
-                <label>
-                    <input [(ngModel)]="doctorConsultationLength" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4">
-                    <owl-date-time [pickerType]="'timer'" [startAt]="startAt" #dt4></owl-date-time>
-                </label>
+
+            <div class="text-center">
+                <div class="doctor-wh-container">
+                    <span><strong>Duración de consulta</strong></span>
+                    <ngb-timepicker [(ngModel)]="doctorConsultationLength"></ngb-timepicker>
+                </div>
+            </div>
 
         </div>
         <div class="div-add-medico">

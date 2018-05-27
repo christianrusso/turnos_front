@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subspecialty } from '../model/subspecialty.class';
 import { Specialty } from '../model/specialty.class';
 import { IdFilter } from '../model/id-filter.class';
@@ -17,11 +16,10 @@ export class SubspecialtyService extends BaseService {
 
     constructor(
         protected httpClient: HttpClient,
-        protected modalService: NgbModal,
         protected toastrService: ToastrService,
         protected loaderService: Ng4LoadingSpinnerService
     ) {
-        super(httpClient, modalService, toastrService, loaderService);
+        super(httpClient, toastrService, loaderService);
     }
 
     public add(subspecialty: Subspecialty): Observable<Object> {
