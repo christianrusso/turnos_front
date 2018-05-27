@@ -37,6 +37,8 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public subspecialtyOptions: Array<Select2OptionData>;
     public subspecialtyFilter: string;
 
+    public butttonLabel: string;
+
     public specialtyOptionsDoctor: Array<Select2OptionData>;
     public subspecialtyOptionsDoctor: Array<Select2OptionData>;
 
@@ -199,6 +201,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorSundayWhStart ={hour: 0, minute: 0, second: 0};
         this.doctorSundayWhEnd = {hour: 0, minute: 0, second: 0};
         sessionStorage.removeItem('doctorId');
+        this.butttonLabel = "Agregar";
         $(".modal-agregar-medico").fadeIn();
     }
 
@@ -284,7 +287,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
                     break;
             }
         });
-
+        this.butttonLabel = "Guardar";
         $(".modal-agregar-medico").fadeIn();
     }
 

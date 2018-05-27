@@ -55,7 +55,7 @@
                                 <td>{{ doctor.specialtyDescription }}</td>
                                 <td>{{ doctor.subspecialtyDescription }}</td>
                                 <td class="state active"><span></span>Activo</td>
-                                <td><a class="link-modal-horarios" (click)="showDoctorWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
+                                <td align="center"><a class="link-modal-horarios" (click)="showDoctorWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
                                 <td class="actions">
                                     <a (click)="editDoctor(i)"><i class="fa fa-pencil"></i></a>
                                     <a class="borrar-med" (click)="setSelectedDoctor(i)"><i class="fa fa-trash"></i></a>
@@ -280,7 +280,7 @@
 
         </div>
         <div class="div-add-medico">
-            <a id="agregar-medico-btn" (click)="addDoctor()">Agregar</a>
+            <a id="agregar-medico-btn" (click)="addDoctor()">{{butttonLabel}}</a>
         </div>
     </div>
             
