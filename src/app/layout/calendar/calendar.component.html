@@ -3,19 +3,27 @@
 
     <!-- Menú -->
     <div class="col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
-        <h1 class="col-xxs-4 col-xs-5 col-sm-2">Calendario</h1>
+        <h1 class="col-xxs-12 col-xs-12 col-sm-2">Calendario</h1>
 
-        <div class="menu-acciones mobile col-xs-7">
-            <a href="#"><i class="fa fa-print"></i></a>
-            <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
-        </div>
-
-        <div class="menu-calendario col-xs-12 col-sm-5">
+        <div class="menu-calendario col-xs-12 col-sm-8">
             <a (click)="showCalendarWeek()" id="semana-menu">Semana</a>
             <a (click)="showCalendarDay()" id="dia-menu">Día</a>
+
+            <!-- Especialidad -->
+            <div class="form-group">
+                <label for="">Especialidad</label>
+                <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
+                </ng-select2>
+            </div>
+
+            <!-- Sub-especialidad -->
+            <div class="form-group">
+                <label for="">Sub especialidad</label>
+                <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
+            </div>
         </div>
 
-        <div class="menu-acciones desk col-xs-12 col-sm-5">
+        <div class="menu-acciones desk col-xs-12 col-sm-2">
             <a href="#"><i class="fa fa-print"></i></a>
             <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
         </div>
@@ -24,30 +32,8 @@
     <!-- Días -->
     <section class="dia-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
 
-        <!-- Filtros -->
-        <div class="col-xs-12 col-sm-2 filtros-calendario">
-
-            <form>
-
-                <!-- Especialidad -->
-                <div class="form-group">
-                    <label for="">Especialidad</label>
-                    <ng-select2 [data]="specialtyOptions" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
-                    </ng-select2>
-                </div>
-
-                <!-- Sub-especialidad -->
-                <div class="form-group">
-                    <label for="">Sub especialidad</label>
-                    <ng-select2 [data]="subspecialtyOptions" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
-                </div>
-
-            </form>
-            
-        </div>
-
         <!-- Horarios -->
-        <div class="col-xs-12 col-sm-10 horarios">
+        <div class="col-xs-12 col-sm-12 horarios">
 
             <!-- Prev y Next -->
             <div class="prev-next">
@@ -100,30 +86,8 @@
     <!-- Semanas -->
     <section class="semana-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
 
-        <!-- Filtros -->
-        <div class="col-xs-12 col-sm-2 filtros-calendario">
-
-            <form>
-
-                <!-- Especialidad -->
-                <div class="form-group">
-                    <label for="">Especialidad</label>
-                    <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
-                    </ng-select2>
-                </div>
-
-                <!-- Sub-especialidad -->
-                <div class="form-group">
-                    <label for="">Sub especialidad</label>
-                    <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
-                </div>
-
-            </form>
-            
-        </div>
-        
         <!-- Horarios -->
-        <div class="col-xs-12 col-sm-10 horarios">
+        <div class="col-xs-12 col-sm-12 horarios">
 
             <!-- Prev y Next -->
             <div class="prev-next">

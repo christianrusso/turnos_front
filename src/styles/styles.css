@@ -1639,7 +1639,7 @@ ul {
   position: absolute;
   left: 0;
   right: 0;
-  top: 22%;
+  top: 12%;
   background: #f4f8f9;
   margin: auto;
   max-width: 500px;
@@ -1870,10 +1870,8 @@ ul {
 }
 
 .inside-modal-horarios p{
-
-text-align: right;
-
-font-size: 13.5px;
+  text-align: left;
+  font-size: 13.5px;
 }
 
 .close-modal-horarios,.close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-agregar-paciente, .close-modal-editar-paciente{
@@ -2744,7 +2742,6 @@ svg:not(:root){
   margin-bottom: 5px;
   height: auto;
   max-height: 150px;
-  cursor: pointer;
   padding-top: 20px;
   padding-bottom: 20px;
   background: #fff;
@@ -3266,7 +3263,8 @@ a#add-cluster-plan {
 }
 
 .menu-medicos .select2-container .select2-selection--single .select2-selection__rendered {
-    padding-right: 25px!important;}
+    padding-right: 25px!important;
+  }
 
 .listado-medicos .table-responsive::-webkit-scrollbar {
     width: 5px;
@@ -3337,4 +3335,59 @@ div..header-modal-horarios{
 .divGeneralHorario{
   display: inline-block;
     margin-left: 30px;
+}
+
+.menu-calendario{
+  font-family: sf_ui_displayregular;
+  margin-top: 25px;
+}
+
+.menu-calendario .form-group{
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.menu-calendario label{
+  display: inline-block;
+  font-family: sf_ui_displayregular;
+  font-weight: normal;
+  color: #555;
+}
+
+.menu-calendario .form-group .select2-container {
+  width: 100px!important;
+  margin-left: 10px;
+  text-align:  center;
+}
+
+.menu-calendario .form-group .select2-container--default .select2-selection--single {
+  background-color: #1558fd;
+}
+
+.menu-calendario .form-group .select2-container--default .select2-selection--single {
+  box-shadow: none!important;
+  border: none!important;
+  border-radius: 25px!important;
+  text-align: center;
+}
+
+.menu-calendario .form-group .select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #fff!important;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.menu-calendario .form-group  .select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border-color: #fff transparent transparent transparent;
+}
+.menu-calendario  .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #fff transparent;
+}
+
+.menu-calendario .select2-container .select2-selection--single .select2-selection__rendered {
+  padding-right: 25px!important;
+}
+
+a {
+  cursor: pointer;
 }

@@ -297,7 +297,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     }
 
     getWorkingHourDescription(workingHour: WorkingHour): string {
-        return workingHour.start + ' a ' + workingHour.end + ' hs';
+        return workingHour.start.slice(0, -3) + ' a ' + workingHour.end.slice(0, -3) + ' hs';
     }
 
     getDayName(workingHour: WorkingHour): string {

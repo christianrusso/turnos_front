@@ -10,20 +10,20 @@
                 <h1 class="col-xxs-12 col-xs-12 col-sm-12">Listado de médicos ({{ doctors.length }})</h1>
 
                 <div class="menu-medicos col-xs-12 col-sm-8">
-            <form>
-                <!-- Especialidad -->
-                <div class="form-group">
-                    <label for="">Especialidad</label>
-                    <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-medico-seccion" lang="es">
-                    </ng-select2>
-                </div>
+                    <form>
+                        <!-- Especialidad -->
+                        <div class="form-group">
+                            <label for="">Especialidad</label>
+                            <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-medico-seccion" lang="es">
+                            </ng-select2>
+                        </div>
 
-                <!-- Sub-especialidad -->
-                <div class="form-group">
-                    <label for="">Sub especialidad</label>
-                    <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
-                </div>
-            </form>
+                        <!-- Sub-especialidad -->
+                        <div class="form-group">
+                            <label for="">Sub especialidad</label>
+                            <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
+                        </div>
+                    </form>
                 </div>
 
                 <div class="menu-acciones desk col-xs-12 col-sm-4">
@@ -119,7 +119,7 @@
             <div class="col-xs-12 col-sm-5">
                 <h3>{{ getDayName(wh) }}</h3>
             </div>
-            <div class="col-xs-12 col-sm-7">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-3">
                 <p>{{ getWorkingHourDescription(wh) }}</p>
             </div>
         </div>
