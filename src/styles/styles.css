@@ -1102,7 +1102,7 @@ svg:not(:root){
     transform: translateY(8px);
 }
 
-#add-paciente, #add-cliente, #add-nuevo-paciente, #edit-nuevo-paciente{
+#add-paciente, #add-cliente, #edit-cliente, #guardar-obra-social, #editar-obra-social, #add-nuevo-paciente, #edit-nuevo-paciente{
   background: #0dae2d;
   color: #fff;
   padding: 5px 25px;
