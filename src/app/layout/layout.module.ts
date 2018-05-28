@@ -28,6 +28,9 @@ import { AppointmentConfirmationComponent } from './appointment-confirmation/app
 import { CalendarComponent } from './calendar/calendar.component';
 import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insurance-list.component';
 
+// Pipes
+import { TruncatePipe } from '../pipe/truncate.pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -46,7 +49,8 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
         DoctorListComponent,
         AppointmentConfirmationComponent,
         CalendarComponent,
-        MedicalInsuranceComponent
+        MedicalInsuranceComponent,
+        TruncatePipe
     ],
     // Servicios
     providers: [

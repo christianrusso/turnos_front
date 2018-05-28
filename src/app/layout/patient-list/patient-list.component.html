@@ -45,12 +45,12 @@
                         
                         <tbody>
                             <tr *ngFor="let patient of patients; let i = index">
-                                <td>{{patient.firstName}} {{patient.lastName}}</td>
-                                <td>{{patient.email}}</td>
-                                <td>{{patient.phoneNumber}}</td>
-                                <td>{{patient.medicalInsurance}}/{{patient.medicalPlan}}</td>
-                                <td>{{patient.reservedAppointments}}</td>
-                                <td>{{patient.concretedAppointments}}</td>
+                                <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
+                                <td>{{ patient.email | truncate }}</td>
+                                <td>{{ patient.phoneNumber | truncate }}</td>
+                                <td>{{ patient.medicalInsurance  | truncate }}/{{ patient.medicalPlan  | truncate }}</td>
+                                <td>{{ patient.reservedAppointments}}</td>
+                                <td>{{ patient.concretedAppointments}}</td>
                                 <td class="actions">
                                     <a (click)="showEditPatient(i)"><i class="fa fa-pencil"></i></a>
                                     <a class="borrar-paciente" (click)="setSelectedPatient(i)"><i class="fa fa-trash"></i></a>

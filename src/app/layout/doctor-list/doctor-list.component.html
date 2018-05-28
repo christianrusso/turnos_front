@@ -51,9 +51,9 @@
                         
                         <tbody>
                             <tr *ngFor="let doctor of doctors; let i = index">
-                                <td>{{ doctor.firstName }} {{ doctor.lastName }}</td>
-                                <td>{{ doctor.specialtyDescription }}</td>
-                                <td>{{ doctor.subspecialtyDescription }}</td>
+                                <td>{{ doctor.firstName + ' ' + doctor.lastName | truncate }}</td>
+                                <td>{{ doctor.specialtyDescription | truncate }}</td>
+                                <td>{{ doctor.subspecialtyDescription | truncate }}</td>
                                 <td class="state active"><span></span>Activo</td>
                                 <td><a class="link-modal-horarios" (click)="showDoctorWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
                                 <td class="actions">
@@ -70,7 +70,6 @@
 
         </div>
         <!-- // listado y menu -->
-
 
         <!-- Calendario mini -->
         <div class="col-xs-12 col-sm-3 calendario-medicos">

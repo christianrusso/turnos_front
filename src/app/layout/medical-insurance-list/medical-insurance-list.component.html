@@ -62,12 +62,12 @@
 
                     <div class="col-xs-12 cluster-obras-sociales" id="diva" >
                         <div class="col-xs-12 col-sm-3" *ngFor="let medicalInsurance of medicalInsurances; let i = index">
-                            <h2>{{medicalInsurance.description}}</h2>
+                            <h2>{{ medicalInsurance.description | truncate }}</h2>
                             <h3 [hidden]="medicalInsurance.medicalPlans.length > 0">
                                 <span>No posee planes</span>
                             </h3>
                             <h3 *ngFor="let plan of medicalInsurance.medicalPlans; let j = index">
-                                <span style="margin-right: 10px">{{plan.description}}</span> <i class="fa fa-close" (click)="showRemoveMedicalPlan(i,j)"></i>
+                                <span style="margin-right: 10px">{{ plan.description  | truncate }}</span> <i class="fa fa-close" (click)="showRemoveMedicalPlan(i,j)"></i>
                             </h3>
                             <div class="col-xs-12 actions-obras-sociales">
                                 <a class="edit-obra-social" (click)="showEditMedicalInsurance(i)"><i class="fa fa-pencil"></i></a>
@@ -130,13 +130,13 @@
 
         <form action="">
 
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <input type="text" placeholder="Obra Social" name="addNewMedicalInsuranceDescription" [(ngModel)]="medicalInsuranceDescription">
-        </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <input type="text" placeholder="Obra Social" name="addNewMedicalInsuranceDescription" [(ngModel)]="medicalInsuranceDescription">
+            </div>
 
-        <div class="div-add-medico">
-            <a id="guardar-obra-social" (click)="addMedicalInsurance()">Agregar</a>
-        </div>
+            <div class="div-add-medico">
+                <a id="guardar-obra-social" (click)="addMedicalInsurance()">Agregar</a>
+            </div>
 
         </form>
                 

@@ -85,3 +85,7 @@
   .pacientes table tr td.acciones{
     text-align: center;
   }
+
+  ng-select2 {
+    text-align: center;
+  }

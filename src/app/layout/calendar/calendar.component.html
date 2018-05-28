@@ -29,19 +29,6 @@
 
             <form>
 
-                <!-- Médicos -->
-                <div class="form-group">
-                    <label for="">Médico</label>
-                    <select class="js-example-basic-single" name="state" lang="es">
-                        <option value="">Todos</option>
-                        <option value="">Christian Russo</option>
-                        <option value="">Sabrina Fillol</option>
-                        <option value="">Mirta Gonzalez</option>
-                        <option value="">Esteban Dalmaso</option>
-                    </select>
-                </div>
-                <!-- Medicos -->
-
                 <!-- Especialidad -->
                 <div class="form-group">
                     <label for="">Especialidad</label>
@@ -79,7 +66,7 @@
 
                         <div class="col-xs-12 col-sm-3" *ngFor="let data of requestedAppointmentsPerDoctor">
 
-                            <h3>{{ data.doctorFirstName + ' ' + data.doctorLastName }}</h3>
+                            <h3>{{ data.doctorFirstName + ' ' + data.doctorLastName | truncate }}</h3>
 
                             <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
 
@@ -117,19 +104,6 @@
         <div class="col-xs-12 col-sm-2 filtros-calendario">
 
             <form>
-
-                <!-- Médicos -->
-                <div class="form-group">
-                    <label for="">Médico</label>
-                    <select class="js-example-basic-single" name="state" lang="es">
-                        <option value="">Todos</option>
-                        <option value="">Christian Russo</option>
-                        <option value="">Sabrina Fillol</option>
-                        <option value="">Mirta Gonzalez</option>
-                        <option value="">Esteban Dalmaso</option>
-                    </select>
-                </div>
-                <!-- Medicos -->
 
                 <!-- Especialidad -->
                 <div class="form-group">
@@ -267,8 +241,8 @@
                             
                         <tbody>
                             <tr *ngFor="let patient of patients; let i = index">
-                                <td>{{ patient.firstName + ' ' + patient.lastName }}</td>
-                                <td>{{ patient.email }}</td>
+                                <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
+                                <td>{{ patient.email | truncate }}</td>
                                 <td>{{ patient.reservedAppointments }}</td>
                                 <td class="center"><input type="radio" name="patientRadioGroup" value="i" (change)="selectedPatientChange(patient)"></td>
                             </tr>
@@ -352,7 +326,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let client of clients; let i = index">
-                                <td>{{ client.email }}</td>
+                                <td>{{ client.email | truncate  }}</td>
                                 <td class="center"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
                             </tr>
                         </tbody>

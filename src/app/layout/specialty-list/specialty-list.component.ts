@@ -9,6 +9,7 @@ import { SpecialtyFilter } from '../../model/specialty-filter.class';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-specialty-list',
@@ -22,7 +23,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
 
     public newSpecialtyDescription: string;
     public newSubspecialtyDescription: string;
-    public newSubspecialtyConsultationLength: number;
+    public newSubspecialtyConsultationLength: NgbTimeStruct;
 
     public letterFilter: string;
     public searchDescription: string;
@@ -127,7 +128,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     /* Agregar subespecialidad */
     showAddSubspecialty(specialtyIndex: number) {
         this.newSubspecialtyDescription = '';
-        this.newSubspecialtyConsultationLength = 0;
+        this.newSubspecialtyConsultationLength = { hour: 0, minute: 0, second: 0 };
         this.selectedSpecialty = this.specialties[specialtyIndex];
         $(".modal-nueva-subespecialidad").fadeIn();
     }
@@ -137,7 +138,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         let subspecialty = new Subspecialty();
         subspecialty.specialtyId = this.selectedSpecialty.id;
         subspecialty.description = this.newSubspecialtyDescription;
-        subspecialty.consultationLength = this.newSubspecialtyConsultationLength;
+        subspecialty.consultationLength = this.newSubspecialtyConsultationLength.hour * 60 + this.newSubspecialtyConsultationLength.minute;
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {
             $(".modal-nueva-subespecialidad").fadeOut();
