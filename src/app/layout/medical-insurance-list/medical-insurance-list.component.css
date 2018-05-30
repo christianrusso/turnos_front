@@ -2,3 +2,7 @@
     margin: auto;
     margin-bottom: 20px;
 }
+
+.delete-plan-obra-social {
+    cursor: pointer;
+}

@@ -290,7 +290,8 @@ function sortTable2(n) {
       /* Check if the two rows should switch place,
       based on the direction, asc or desc: */
       if (dir2 == "asc") {
-          $(".table#table-medicos thead i").addClass('active');
+          $(".table#table-medicos thead i").removeClass('active');
+          $(".table#table-medicos thead i").eq(n).addClass('active');
         if (x2.innerHTML.toLowerCase() > y2.innerHTML.toLowerCase()) {
           // If so, mark as a switch and break the loop:
           shouldSwitch2= true;

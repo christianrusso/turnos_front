@@ -123,14 +123,15 @@ function sortTable(n) {
       /* Check if the two rows should switch place,
       based on the direction, asc or desc: */
       if (dir == "asc") {
-          $(".table#table-medicos thead i").addClass('active');
+          $(".table#table-pacientes thead i").removeClass('active');
+          $(".table#table-pacientes thead i").eq(n).addClass('active');
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
           // If so, mark as a switch and break the loop:
           shouldSwitch= true;
           break;
         }
       } else if (dir == "desc") {
-        $(".table#table-medicos thead i").removeClass('active');
+        $(".table#table-pacientes thead i").removeClass('active');
         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
           // If so, mark as a switch and break the loop:
           shouldSwitch= true;

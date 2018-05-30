@@ -14,7 +14,7 @@
                 <div class="menu-acciones desk col-xs-12 col-sm-6">
                     <form action="">
                         <div class="form-group">
-                            <input type="search" name="searchDescription" [(ngModel)]="searchDescription">
+                            <input type="search" name="searchDescription" [(ngModel)]="searchDescription" (keyup.enter)="searchSpecialties()">
                             <button type="button" (click)="searchSpecialties()"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
@@ -134,7 +134,7 @@
 
         <form action="">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="addNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
+                <input type="text" placeholder="Especialidad" name="addNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription" (keyup.enter)="addSpecialty()">
             </div>
 
             <div class="div-add-especialidad">
@@ -157,7 +157,7 @@
 
         <form action="">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="editNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
+                <input type="text" placeholder="Especialidad" name="editNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription" (keyup.enter)="editSpecialty()">
             </div>
 
             <div class="div-add-especialidad">
