@@ -24,7 +24,7 @@
 
               <!-- Usuario -->
               <li class="dropdown">
-                  <a href="#" data-toggle="dropdown" class="dropdown-toggle user"><img src="assets/img/logo-usuario.png" alt="Usuario"><i class="fa fa-caret-down"></i></a>
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle user"><img [src]="logo | safeHtml" alt="Usuario"><i class="fa fa-caret-down"></i></a>
                    <ul class="dropdown-menu dropdown-menu-right">
                        <li><a href="#">Editar datos</a></li>
                        <li><a href="#">Ayuda</a></li>

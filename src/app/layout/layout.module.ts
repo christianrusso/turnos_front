@@ -30,6 +30,7 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
 
 // Pipes
 import { TruncatePipe } from '../pipe/truncate.pipe';
+import { SafeHtml } from '../pipe/safe-html.pipe';
 
 @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import { TruncatePipe } from '../pipe/truncate.pipe';
         AppointmentConfirmationComponent,
         CalendarComponent,
         MedicalInsuranceComponent,
-        TruncatePipe
+        TruncatePipe,
+        SafeHtml
     ],
     // Servicios
     providers: [

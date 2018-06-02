@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
 import { Login } from '../model/login.class';
-import { Token } from '../model/token.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Logon } from '../model/logon.class';
 
 @Injectable()
 export class AccountService extends BaseService {
@@ -20,8 +20,8 @@ export class AccountService extends BaseService {
         super(httpClient, toastrService, loaderService);
     }
 
-    public login(login: Login): Observable<Token> {
-        return this.post<Token>(this.url + '/Login', null, login);
+    public login(login: Login): Observable<Logon> {
+        return this.post<Logon>(this.url + '/Login', null, login);
     }
 
     public logout(): Observable<Object> {

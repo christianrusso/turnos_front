@@ -97,9 +97,8 @@
 
 </section>
 
-
 <!-- Modal Eliminar Paciente -->
-<div class="col-xs-12 modal-borrar-paciente">
+<div class="col-xs-12 modal-borrar-paciente" (keyup.enter)="removeSelectedPatient()">
     <div class="inside-borrar-paciente col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-borrar-paciente col-xs-12">
             <h2>Eliminar paciente</h2>
@@ -138,7 +137,7 @@
         </div>
         
         <!-- Clientes -->
-        <div class="col-xs-12 cliente-cluster">
+        <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
            
             <div class="col-xs-12 center">
                 <div class="form-group">
@@ -199,7 +198,7 @@
         </div>
 
         <!-- No Existe -->
-         <div class="col-xs-12 noexiste-cluster">
+         <div class="col-xs-12 noexiste-cluster" (keyup.enter)="addPatientForNonClient()">
 
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 no-existente">
                 <div class="col-xs-12 center">
@@ -256,7 +255,7 @@
 <!-- // agregar paciente --> 
 
 <!-- Editar Paciente -->
-<div class="col-xs-12 modal-editar-paciente">
+<div class="col-xs-12 modal-editar-paciente" (keyup.enter)="editPatientForClient()">
     <div class="inside-modal-editar-paciente col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-editar-paciente col-xs-12">
             <h2>Editar Paciente</h2>
@@ -296,13 +295,8 @@
             </div>
             
             <div class="col-xs-12 center">
-                <a (click)="edditPatientForClient()" id="edit-cliente">Modificar</a>
-            </div>
-
-            <div class="col-xs-12 center">
-                <a (click)="addPatientForClient()" id="add-cliente">Agregar</a>
+                <a (click)="editPatientForClient()" id="edit-cliente">Modificar</a>
             </div>
     </div>
 </div>
 <!-- // editar paciente --> 
-

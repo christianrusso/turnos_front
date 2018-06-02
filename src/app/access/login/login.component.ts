@@ -36,6 +36,7 @@ export class LoginComponent extends BaseComponent {
         this.accountService.login(loginData).subscribe(
             res => {
                 sessionStorage.setItem("token", res.token);
+                sessionStorage.setItem("logo", res.logo);
                 this.loaderService.hide();
                 this.router.navigate(['Layout']);
             }

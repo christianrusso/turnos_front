@@ -255,7 +255,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $(".modal-editar-paciente").fadeOut();
     }
 
-    edditPatientForClient(){
+    editPatientForClient(){
         this.loaderService.show();
         let patient = new Patient();
         patient.id = this.selectedPatient.id;

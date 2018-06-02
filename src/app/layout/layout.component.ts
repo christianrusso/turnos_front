@@ -7,12 +7,16 @@ import { AccountService } from '../service/account.service';
     templateUrl: './layout.component.html',
     styleUrls: ['layout.component.css']
 })
+
 export class LayoutComponent {
+
+    public logo: string;
 
     constructor (
         private accountService: AccountService,
         private router: Router
     ) {
+        this.logo = sessionStorage.getItem("logo");
     }
 
     logout() {

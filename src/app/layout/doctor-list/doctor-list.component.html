@@ -129,7 +129,7 @@
 <!-- // modal horarios -->
 
 <!-- Modal Eliminar Médico -->
-<div class="col-xs-12 modal-borrar-medico">
+<div class="col-xs-12 modal-borrar-medico" (keyup.enter)="removeSelectedDoctor()">
     <div class="inside-borrar-medico col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-borrar-medico col-xs-12">
             <h2>Eliminar médico</h2>
@@ -145,18 +145,15 @@
         </div>
 
         <div class="div-borrar-osocial">
-                <a id="borrar-medico-btn" (click)="removeSelectedDoctor()">Eliminar</a>
-                <a id="cancelar-medico-btn" (click)="cancelRemoveDoctor()">Cancelar</a>
+            <a id="borrar-medico-btn" (click)="removeSelectedDoctor()">Eliminar</a>
+            <a id="cancelar-medico-btn" (click)="cancelRemoveDoctor()">Cancelar</a>
         </div>
-
-                
     </div>
-            
 </div>
 <!-- // modal eliminar médico -->
 
 <!-- Modal Agrega Médico -->
-<div class="col-xs-12 modal-agregar-medico">
+<div class="col-xs-12 modal-agregar-medico" (keyup.enter)="addDoctor()">
     <div class="inside-modal-agregar-medico col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-agregar-medico col-xs-12">
             <h2>Nuevo médico</h2>

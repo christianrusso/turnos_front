@@ -125,7 +125,7 @@
 <!-- // especialidades -->
 
 <!-- Modal Nueva Especialidad -->
-<div class="col-xs-12 modal-nueva-especialidad">
+<div class="col-xs-12 modal-nueva-especialidad" (keyup.enter)="addSpecialty()">
     <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-nueva-especialidad col-xs-12">
             <h2>Nueva especialidad</h2>
@@ -134,7 +134,7 @@
 
         <form action="">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="addNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription" (keyup.enter)="addSpecialty()">
+                <input type="text" placeholder="Especialidad" name="addNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
             </div>
 
             <div class="div-add-especialidad">
@@ -148,7 +148,7 @@
 <!-- // modal nueva especialidad -->
 
 <!-- Modal Editar Especialidad -->
-<div class="col-xs-12 modal-editar-especialidad">
+<div class="col-xs-12 modal-editar-especialidad" (keyup.enter)="editSpecialty()">
     <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-nueva-especialidad col-xs-12">
             <h2>Editar especialidad</h2>
@@ -157,7 +157,7 @@
 
         <form action="">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="editNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription" (keyup.enter)="editSpecialty()">
+                <input type="text" placeholder="Especialidad" name="editNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
             </div>
 
             <div class="div-add-especialidad">
@@ -169,7 +169,7 @@
 <!-- // modal editar especialidad -->
 
 <!-- Modal Nueva Sub especialidad -->
-<div class="col-xs-12 modal-nueva-subespecialidad">
+<div class="col-xs-12 modal-nueva-subespecialidad" (keyup.enter)="addSubspecialty()">
     <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-nueva-subespecialidad col-xs-12">
             <h2>Nueva subespecialidad</h2>
@@ -197,7 +197,7 @@
 <!-- // modal nueva sub especialidad -->
 
 <!-- Modal Eliminar Especialidad -->
-<div class="col-xs-12 modal-borrar-especialidad">
+<div class="col-xs-12 modal-borrar-especialidad" (keyup.enter)="removeSpecialty()">
     <div class="inside-modal-borrar-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-borrar-especialidad col-xs-12">
             <h2>Eliminar especialidad</h2>
@@ -221,7 +221,7 @@
 <!-- // modal eliminar especialidad -->
 
 <!-- Modal Eliminar Sub Especialidad -->
-<div class="col-xs-12 modal-borrar-subespecialidad">
+<div class="col-xs-12 modal-borrar-subespecialidad" (keyup.enter)="removeSubspecialty()">
     <div class="inside-modal-borrar-subespecialidad col-xs-12 col-sm-6 col-sm-offset-3">
         <div class="header-modal-borrar-subespecialidad col-xs-12">
             <h2>Eliminar subespecialidad</h2>
