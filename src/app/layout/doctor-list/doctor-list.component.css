@@ -91,3 +91,13 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
+  .inside-modal-horarios {
+    top: 8%;
+  }
+
+  .inside-modal-horarios .horarios-separador {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
