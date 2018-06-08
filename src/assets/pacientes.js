@@ -173,3 +173,4 @@ $( document ).on( 'keydown', function ( e ) {
     }
 });
 
+$('[data-toggle="tooltip"]').tooltip();
