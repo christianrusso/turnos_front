@@ -1306,11 +1306,6 @@ input#fecha, input#fecha2{
     border-color: transparent transparent #fff transparent;
 }
 
-.listado-menu-2 .menu-acciones {
-  margin-top: 30px;
-}
-
-
 .especialidades-section .listado-menu-2 .menu-acciones {
   margin-top: 0px;
 }
@@ -2443,7 +2438,6 @@ svg:not(:root){
 }
 
 .obrassocial-section .letras{
-/*border-right: 1px solid #ccc; */
     padding-right: 0px;
     text-align: center;
     color: #555;
@@ -2451,14 +2445,12 @@ svg:not(:root){
     width: 40px;
     text-align: center;
     padding-left: 0;
-    margin-right: 35px;
 }
 
 .obrassocial-section .letras div{
     padding: 3px;
     margin-bottom: 0;
     font-size: 11.5px;
-    /* margin-right: 10px; */
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
 }
@@ -2499,12 +2491,13 @@ svg:not(:root){
 
 .content-obras-sociales div.cluster-obras-sociales{
   max-height: 590px;
+  width: 111%;
 }
 
 .content-obras-sociales div.cluster-obras-sociales div{
   margin-top: 5px;
   border-radius: 10px;
-  width: 24%;
+  width: 19.1%;
   margin-bottom: 5px;
   margin-right: 7px;
   background: #fff;
@@ -2686,7 +2679,6 @@ svg:not(:root){
   width: 40px;
   text-align: center;
   padding-left: 0;
-  margin-right: 35px;
 }
 
 .especialidades-section .letras div{
@@ -2747,7 +2739,7 @@ svg:not(:root){
   background: #fff;
   border: 3px solid transparent;
   transition: all 0.3s ease-in-out;
-  width: 98%;
+  width: 106%;
 }
 
 .content-especialidades div.cluster-especialidades>div:hover{
@@ -2763,9 +2755,8 @@ svg:not(:root){
 
 .content-especialidades div.cluster-especialidades div.actions-especialidades a{
   color:#999;
-  margin-right: 25px;
+  margin-right: 10px;
   font-size: 18px;
-  /* float: right; */
 }
 
 .content-especialidades div.cluster-especialidades div.actions-especialidades a:hover{
@@ -2824,15 +2815,15 @@ svg:not(:root){
 }
 
 .body-especialidades{
-  padding-top: 15px;
   border-left: 1px solid #ccc;
   padding-bottom: 15px;
   border-right: 1px solid #ccc;
 }
 
 .body-especialidades div{
-  margin-top: 25px;
-  float: left;
+  margin-top: 20px;
+  max-height: 70px;
+  overflow-y: scroll;
 }
 
 .body-especialidades h4{
@@ -2861,7 +2852,7 @@ svg:not(:root){
   font-size: 13px;
   padding-left: 10px;
   margin-right: 10px;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .body-especialidades p i{
@@ -3095,10 +3086,6 @@ section.pacientes-section.col-xs-12 {}
     border-color: transparent transparent #fff transparent;
 }
 
-.listado-menu-2 .menu-acciones {
-  margin-top: 30px;
-}
-
 .listado-menu-2 .menu-acciones a {
   background: #0dae2d;
   color: #fff;
@@ -3280,7 +3267,7 @@ a#add-cluster-plan {
 }
 
 .listado-medicos{
-    width: 96.5%;
+    width: 98%;
     background: #ffffff;
     margin: auto;
     margin-left: 14px;
