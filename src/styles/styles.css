@@ -687,9 +687,11 @@ svg:not(:root){
 .div-contenido-fecha{
   margin-top: 10px;
   border-right: 1px solid #ccc;
-  display: table;
   box-sizing: border-box;
   background: #fff;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 
@@ -740,10 +742,9 @@ svg:not(:root){
 }
 .div-contenido-fecha div.col-xs-12.col-sm-3{
   padding: 0!important;
-  display: table-cell;
-  float: none;
   vertical-align: top;
   border: 1px solid #ccc;
+  flex: 0 0 auto;
 }
 .div-contenido-fecha div.col-xs-6.col-sm-2{
   padding: 0!important;
