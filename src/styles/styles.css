@@ -684,7 +684,15 @@ svg:not(:root){
   padding: 0!important;
 }
 
-.div-contenido-fecha{
+.div-contenido-fecha {
+  margin-top: 10px;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
+  background: #fff;
+  display: table;
+}
+
+.div-contenido-fecha-scrolleable {
   margin-top: 10px;
   border-right: 1px solid #ccc;
   box-sizing: border-box;
@@ -695,7 +703,7 @@ svg:not(:root){
 }
 
 
-.div-contenido-fecha h3{
+.div-contenido-fecha h3, .div-contenido-fecha-scrolleable h3 {
   margin: 0;
   background: #d3edfc;
   padding: 19px 10px;
@@ -713,7 +721,7 @@ svg:not(:root){
   line-height: 14px;
 }
 
-.dias .div-contenido-fecha h3 {
+.dias .div-contenido-fecha h3, .div-contenido-fecha-scrolleable h3 {
     margin: 0;
     background: #f1f5fe;
     padding: 20px 10px;
@@ -731,22 +739,29 @@ svg:not(:root){
     line-height: 30px;
 }
 
-.div-contenido-fecha h3 p{
+.div-contenido-fecha h3 p, .div-contenido-fecha-scrolleable h3 p{
   font-family: 'sf_ui_displayregular';
   margin-bottom: 0;
   margin-top: 5px;
 }
 
-.div-contenido-fecha h3:last-of-type{
+.div-contenido-fecha h3:last-of-type, .div-contenido-fecha-scrolleable h3:last-of-type {
   border-right: none;
 }
-.div-contenido-fecha div.col-xs-12.col-sm-3{
+.div-contenido-fecha div.col-xs-12.col-sm-3 {
+  padding: 0!important;
+  vertical-align: top;
+  border: 1px solid #ccc;
+  display: table-cell;
+  float: none;
+}
+.div-contenido-fecha-scrolleable div.col-xs-12.col-sm-3 {
   padding: 0!important;
   vertical-align: top;
   border: 1px solid #ccc;
   flex: 0 0 auto;
 }
-.div-contenido-fecha div.col-xs-6.col-sm-2{
+.div-contenido-fecha div.col-xs-6.col-sm-2, .div-contenido-fecha-scrolleable div.col-xs-6.col-sm-2{
   padding: 0!important;
   display: table-cell;
   float: none;
@@ -754,7 +769,7 @@ svg:not(:root){
   border: 1px solid #ccc;
 }
 
-.div-contenido-fecha div.col-sm-2{
+.div-contenido-fecha div.col-sm-2, .div-contenido-fecha-scrolleable div.col-sm-2 {
       width: 14%;
 }
 .pacientes-medico{
@@ -846,7 +861,7 @@ svg:not(:root){
 .semanas{
   padding: 0!important;
 }
-.semana-calendario .div-contenido-fecha{
+.semana-calendario .div-contenido-fecha, .semana-calendario .div-contenido-fecha-scrolleable {
   border-bottom: 1px solid #ccc;
 }
 .horario-medico{

@@ -150,15 +150,6 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         });
     }
 
-    // getAllMedicalPlans() {
-    //     this.loaderService.show();
-    //     this.medicalInsuranceService.getAllMedicalPlanForSelect().subscribe(res => {
-    //         this.medicalPlanOptions = res;
-    //         this.medicalPlan = "-1";
-    //         this.loaderService.hide();
-    //     })
-    // }
-
     getAllMedicalInsurance(): any {
         this.loaderService.show();
         this.medicalInsuranceService.getAllMedicalInsurancesForSelect().subscribe(res => {

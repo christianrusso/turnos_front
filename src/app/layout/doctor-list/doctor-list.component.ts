@@ -335,13 +335,20 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
 
     subspecialtyChangeDoctor(selection) {
         this.doctorSubspecialty = selection.value;
-        if (this.doctorConsultationLength.hour == 0 && this.doctorConsultationLength.minute == 0) {
-            let subspecialtyId = parseInt(this.doctorSubspecialty);
-            let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
-            let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
-            this.doctorConsultationLength.hour = Math.floor(consultationLength / 60);
-            this.doctorConsultationLength.minute = consultationLength % 60;
-            this.doctorConsultationLength.second = 0
+
+        if (sessionStorage.getItem("doctorId") != null) {
+            sessionStorage.removeItem("doctorId");
+            return;
+        }
+
+        let subspecialtyId = parseInt(this.doctorSubspecialty);
+        let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
+        let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
+
+        this.doctorConsultationLength = {
+            hour: Math.floor(consultationLength / 60),
+            minute: consultationLength % 60,
+            second: 0
         }
     }
 
