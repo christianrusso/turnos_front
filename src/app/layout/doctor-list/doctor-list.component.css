@@ -77,19 +77,22 @@
     margin-right: 10px;
   }
 
-  .doctor-wh-container {
-    display: inline-flex;
-    align-items: center;
+  .time-input {
+    line-height: 20px;
   }
 
-
-  .doctor-wh-container input {
-    margin-bottom: 5px;
+  .header-container {
+    border-bottom: 1px solid #ddd;
   }
 
-  .doctor-wh-container span {
-    margin-left: 10px;
-    margin-right: 10px;
+  .wh-container {
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .cl-container {
+    padding-bottom: 15px;
   }
 
   .inside-modal-horarios {
@@ -100,4 +103,8 @@
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+  }
+
+  #agregar-medico-btn {
+    margin-bottom: 0px;
   }

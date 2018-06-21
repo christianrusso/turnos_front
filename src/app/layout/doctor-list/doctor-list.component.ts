@@ -14,7 +14,6 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-doctor-list',
@@ -46,35 +45,35 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public doctorLastName: string;
     public doctorSpecialty: string;
     public doctorSubspecialty: string;
-    public doctorConsultationLength: NgbTimeStruct;
+    public doctorConsultationLength: string;
 
     public doctorMondayWorks: boolean;;
-    public doctorMondayWhStart: NgbTimeStruct;
-    public doctorMondayWhEnd: NgbTimeStruct;
+    public doctorMondayWhStart: string;
+    public doctorMondayWhEnd: string;
 
     public doctorTuesdayWorks: boolean;
-    public doctorTuesdayWhStart: NgbTimeStruct;
-    public doctorTuesdayWhEnd: NgbTimeStruct;
+    public doctorTuesdayWhStart: string;
+    public doctorTuesdayWhEnd: string;
 
     public doctorWednesdayWorks: boolean;
-    public doctorWednesdayWhStart: NgbTimeStruct;
-    public doctorWednesdayWhEnd: NgbTimeStruct;
+    public doctorWednesdayWhStart: string;
+    public doctorWednesdayWhEnd: string;
 
     public doctorThursdayWorks: boolean;
-    public doctorThursdayWhStart: NgbTimeStruct;
-    public doctorThursdayWhEnd: NgbTimeStruct;
+    public doctorThursdayWhStart: string;
+    public doctorThursdayWhEnd: string;
 
     public doctorFridayWorks: boolean;
-    public doctorFridayWhStart: NgbTimeStruct;
-    public doctorFridayWhEnd: NgbTimeStruct;
+    public doctorFridayWhStart: string;
+    public doctorFridayWhEnd: string;
 
     public doctorSaturdayWorks: boolean;
-    public doctorSaturdayWhStart: NgbTimeStruct;
-    public doctorSaturdayWhEnd: NgbTimeStruct;
+    public doctorSaturdayWhStart: string;
+    public doctorSaturdayWhEnd: string;
 
     public doctorSundayWorks: boolean;
-    public doctorSundayWhStart: NgbTimeStruct;
-    public doctorSundayWhEnd: NgbTimeStruct;
+    public doctorSundayWhStart: string;
+    public doctorSundayWhEnd: string;
 
     constructor(
         private doctorService: DoctorService,
@@ -185,21 +184,21 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorFridayWorks = false;
         this.doctorSaturdayWorks = false;
         this.doctorSundayWorks = false;
-        this.doctorConsultationLength = {hour: 0, minute: 0, second: 0};
-        this.doctorMondayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorMondayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorTuesdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorTuesdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorWednesdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorWednesdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorThursdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorThursdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorFridayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorFridayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorSaturdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorSaturdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorSundayWhStart ={hour: 0, minute: 0, second: 0};
-        this.doctorSundayWhEnd = {hour: 0, minute: 0, second: 0};
+        this.doctorConsultationLength = '';
+        this.doctorMondayWhStart = '09:00';
+        this.doctorMondayWhEnd = '21:00';
+        this.doctorTuesdayWhStart = '09:00';
+        this.doctorTuesdayWhEnd = '21:00';
+        this.doctorWednesdayWhStart = '09:00';
+        this.doctorWednesdayWhEnd = '21:00';
+        this.doctorThursdayWhStart = '09:00';
+        this.doctorThursdayWhEnd = '21:00';
+        this.doctorFridayWhStart = '09:00';
+        this.doctorFridayWhEnd = '21:00';
+        this.doctorSaturdayWhStart = '09:00';
+        this.doctorSaturdayWhEnd = '21:00';
+        this.doctorSundayWhStart = '09:00';
+        this.doctorSundayWhEnd = '21:00';
         sessionStorage.removeItem('doctorId');
         this.butttonLabel = "Agregar";
         $(".modal-agregar-medico").fadeIn();
@@ -226,25 +225,27 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorFridayWorks = false;
         this.doctorSaturdayWorks = false;
         this.doctorSundayWorks = false;
-        this.doctorMondayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorMondayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorTuesdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorTuesdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorWednesdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorWednesdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorThursdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorThursdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorFridayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorFridayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorSaturdayWhStart = {hour: 0, minute: 0, second: 0};
-        this.doctorSaturdayWhEnd = {hour: 0, minute: 0, second: 0};
-        this.doctorSundayWhStart ={hour: 0, minute: 0, second: 0};
-        this.doctorSundayWhEnd = {hour: 0, minute: 0, second: 0};
+        this.doctorMondayWhStart = '09:00';
+        this.doctorMondayWhEnd = '21:00';
+        this.doctorTuesdayWhStart = '09:00';
+        this.doctorTuesdayWhEnd = '21:00';
+        this.doctorWednesdayWhStart = '09:00';
+        this.doctorWednesdayWhEnd = '21:00';
+        this.doctorThursdayWhStart = '09:00';
+        this.doctorThursdayWhEnd = '21:00';
+        this.doctorFridayWhStart = '09:00';
+        this.doctorFridayWhEnd = '21:00';
+        this.doctorSaturdayWhStart = '09:00';
+        this.doctorSaturdayWhEnd = '21:00';
+        this.doctorSundayWhStart = '09:00';
+        this.doctorSundayWhEnd = '21:00';
 
         sessionStorage.setItem('doctorId', doctor.id.toString());
         this.doctorFirstName = doctor.firstName;
         this.doctorLastName = doctor.lastName;
-        this.doctorConsultationLength = { hour: Math.floor(doctor.consultationLength / 60), minute: doctor.consultationLength % 60, second: 0 };
+        const hours = Math.floor(doctor.consultationLength / 60);
+        const minutes = doctor.consultationLength % 60;
+        this.doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
         this.doctorSpecialty = doctor.specialtyId.toString();
         this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : "-1";
 
@@ -252,38 +253,38 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
             switch (wh.dayNumber){
                 case 1:
                     this.doctorMondayWorks = true;
-                    this.doctorMondayWhStart = this.getDateFromString(wh.start);
-                    this.doctorMondayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorMondayWhStart = this.getHourFromString(wh.start);
+                    this.doctorMondayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 2:
                     this.doctorTuesdayWorks = true;
-                    this.doctorTuesdayWhStart = this.getDateFromString(wh.start);
-                    this.doctorTuesdayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorTuesdayWhStart = this.getHourFromString(wh.start);
+                    this.doctorTuesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 3:
                     this.doctorWednesdayWorks = true;
-                    this.doctorWednesdayWhStart = this.getDateFromString(wh.start);
-                    this.doctorWednesdayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorWednesdayWhStart = this.getHourFromString(wh.start);
+                    this.doctorWednesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 4:
                     this.doctorThursdayWorks = true;
-                    this.doctorThursdayWhStart = this.getDateFromString(wh.start);
-                    this.doctorThursdayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorThursdayWhStart = this.getHourFromString(wh.start);
+                    this.doctorThursdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 5:
                     this.doctorFridayWorks = true;
-                    this.doctorFridayWhStart = this.getDateFromString(wh.start);
-                    this.doctorFridayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorFridayWhStart = this.getHourFromString(wh.start);
+                    this.doctorFridayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 6:
                     this.doctorSaturdayWorks = true;
-                    this.doctorSaturdayWhStart = this.getDateFromString(wh.start);
-                    this.doctorSaturdayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorSaturdayWhStart = this.getHourFromString(wh.start);
+                    this.doctorSaturdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 0:
                     this.doctorSundayWorks = true;
-                    this.doctorSundayWhStart = this.getDateFromString(wh.start);
-                    this.doctorSundayWhEnd = this.getDateFromString(wh.end);
+                    this.doctorSundayWhStart = this.getHourFromString(wh.start);
+                    this.doctorSundayWhEnd = this.getHourFromString(wh.end);
                     break;
             }
         });
@@ -291,9 +292,9 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         $(".modal-agregar-medico").fadeIn();
     }
 
-    getDateFromString(strDate: string): NgbTimeStruct {
-        let dateData = strDate.split(":");
-        return { hour: parseInt(dateData[0]), minute: parseInt(dateData[1]), second: 0}
+    getHourFromString(strDate: string): string {
+        let timeData = strDate.split(":");
+        return timeData[0] + ':' + timeData[1];
     }
 
     getWorkingHourDescription(workingHour: WorkingHour): string {
@@ -345,11 +346,9 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
         let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
 
-        this.doctorConsultationLength = {
-            hour: Math.floor(consultationLength / 60),
-            minute: consultationLength % 60,
-            second: 0
-        }
+        const hours = Math.floor(consultationLength / 60);
+        const minutes = consultationLength % 60;
+        this.doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
     }
 
     addDoctor() {
@@ -360,15 +359,17 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         doctor.lastName = this.doctorLastName;
         doctor.specialtyId = parseInt(this.doctorSpecialty)
         doctor.subspecialtyId = subspecialtyId != -1 ? subspecialtyId : null;
-        doctor.consultationLength = this.doctorConsultationLength.hour * 60 + this.doctorConsultationLength.minute;
+        const consultationLengthString = this.doctorConsultationLength.split(':');
+        doctor.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
         doctor.workingHours = [];
-        if (this.doctorMondayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(1, this.doctorMondayWhStart, this.doctorMondayWhEnd));
-        if (this.doctorTuesdayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(2, this.doctorTuesdayWhStart, this.doctorTuesdayWhEnd));
-        if (this.doctorWednesdayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(3, this.doctorWednesdayWhStart, this.doctorWednesdayWhEnd));
-        if (this.doctorThursdayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(4, this.doctorThursdayWhStart, this.doctorThursdayWhEnd));
-        if (this.doctorFridayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(5, this.doctorFridayWhStart, this.doctorFridayWhEnd));
-        if (this.doctorSaturdayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(6, this.doctorSaturdayWhStart, this.doctorSaturdayWhEnd));
-        if (this.doctorSundayWorks) doctor.workingHours.push(this.getWorkingHourFromDate(0, this.doctorSundayWhStart, this.doctorSundayWhEnd));
+
+        if (this.doctorMondayWorks) doctor.workingHours.push(this.getWorkingHourFromString(1, this.doctorMondayWhStart, this.doctorMondayWhEnd));
+        if (this.doctorTuesdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(2, this.doctorTuesdayWhStart, this.doctorTuesdayWhEnd));
+        if (this.doctorWednesdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(3, this.doctorWednesdayWhStart, this.doctorWednesdayWhEnd));
+        if (this.doctorThursdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(4, this.doctorThursdayWhStart, this.doctorThursdayWhEnd));
+        if (this.doctorFridayWorks) doctor.workingHours.push(this.getWorkingHourFromString(5, this.doctorFridayWhStart, this.doctorFridayWhEnd));
+        if (this.doctorSaturdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(6, this.doctorSaturdayWhStart, this.doctorSaturdayWhEnd));
+        if (this.doctorSundayWorks) doctor.workingHours.push(this.getWorkingHourFromString(0, this.doctorSundayWhStart, this.doctorSundayWhEnd));
 
         let doctorId = sessionStorage.getItem('doctorId');
 
@@ -388,11 +389,21 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         }
     }
 
-    getWorkingHourFromDate(dayNumber: number, start: NgbTimeStruct, end: NgbTimeStruct): WorkingHour {
+     getWorkingHourFromString(dayNumber: number, start: string, end: string): WorkingHour {
         let wh = new WorkingHour();
         wh.dayNumber = dayNumber;
-        wh.start = start.hour + ':' + start.minute;
-        wh.end = end.hour+ ':' + end.minute;
+
+        if (start.indexOf('-') != -1 || end.indexOf('-') != -1) {
+            this.toastrService.error('Los horarios ingresados para el día ' + this.getDayName(wh) + ' son invalidos.');
+        }
+        wh.start = start;
+        wh.end = end;
         return wh;
+     }
+
+     convertHoursAndMinutesToString(hours: number, minutes: number): string {
+         const hoursString = hours < 10 ? '0' + hours : hours;
+         const minutesString = minutes < 10 ? '0' + minutes : minutes;
+         return hoursString + ':' + minutesString; 
      }
 }
