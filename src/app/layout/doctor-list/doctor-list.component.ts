@@ -41,6 +41,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public specialtyOptionsDoctor: Array<Select2OptionData>;
     public subspecialtyOptionsDoctor: Array<Select2OptionData>;
 
+    public doctorId: number;
     public doctorFirstName: string;
     public doctorLastName: string;
     public doctorSpecialty: string;
@@ -241,6 +242,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorSundayWhEnd = '21:00';
 
         sessionStorage.setItem('doctorId', doctor.id.toString());
+        this.doctorId = doctor.id;
         this.doctorFirstName = doctor.firstName;
         this.doctorLastName = doctor.lastName;
         const hours = Math.floor(doctor.consultationLength / 60);
@@ -371,16 +373,14 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         if (this.doctorSaturdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(6, this.doctorSaturdayWhStart, this.doctorSaturdayWhEnd));
         if (this.doctorSundayWorks) doctor.workingHours.push(this.getWorkingHourFromString(0, this.doctorSundayWhStart, this.doctorSundayWhEnd));
 
-        let doctorId = sessionStorage.getItem('doctorId');
-
-        if (doctorId == null) { // Agregar doctor
+        if (this.butttonLabel == "Agregar") { // Agregar doctor
             this.doctorService.add(doctor).subscribe(ok => {
                 $(".modal-agregar-medico").fadeOut();
                 this.toastrService.success('Doctor agregado correctamente.');
                 this.getAllDoctorsByFilter();
             });
         } else { // Editar doctor
-            doctor.id = parseInt(doctorId);
+            doctor.id = this.doctorId;
             this.doctorService.edit(doctor).subscribe(ok => {
                 $(".modal-agregar-medico").fadeOut();
                 this.toastrService.success('Doctor modificado correctamente.');
