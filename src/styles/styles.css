@@ -2859,6 +2859,15 @@ svg:not(:root){
   font-size: 12px;
 }
 
+.agregar-plan{
+  background: #0dae2d;
+  color: #fff !important;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
 .body-especialidades p{
   display: inline-block;
   background: #1558fd;
