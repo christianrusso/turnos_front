@@ -1,4 +1,4 @@
-<section class="calendario-section col-xs-12">   
+<section class="calendario-section col-xs-12">
 
     <!-- Menú -->
     <div class="col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
@@ -29,7 +29,7 @@
     </div>
 
     <!-- Días -->
-    <section id="calendario-diario" class="dia-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
+    <section id="calendario-diario" class="dia-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
 
         <!-- Horarios -->
         <div class="col-xs-12 col-sm-12 horarios">
@@ -55,27 +55,31 @@
 
                             <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
 
-                                <div class="pacientes-medico col-xs-9">
-                                    <div *ngFor="let appointment of appointmentData.appointments">
+                                <div class="pacientes-medico col-xs-10">
+                                    <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments">
                                         <span>{{ getHour(appointment.hour) }}</span>
                                         <p> - {{ appointment.patient }}</p>
+                                        <div class="hover-paciente">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3 horario-medico">
+                                <div class="col-xs-2 horario-medico">
                                     {{ appointmentData.hour }}:00
                                 </div>
 
                             </div>
 
                         </div>
-                    </div>             
+                    </div>
                 </div>
                 <!-- // dia puntual -->
 
             </div>
             <!-- //dias -->
-            
+
         </div>
         <!-- // horarios -->
 
@@ -83,7 +87,7 @@
     <!-- //días -->
 
     <!-- Semanas -->
-    <section id="calendario-semanal" class="semana-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">   
+    <section id="calendario-semanal" class="semana-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
 
         <!-- Horarios -->
         <div class="col-xs-12 col-sm-12 horarios">
@@ -131,13 +135,13 @@
                             </div>
 
                         </div>
-                        <!-- // dias semana -->   
+                        <!-- // dias semana -->
                 </div>
                 <!-- // semana -->
 
             </div>
             <!-- //semanas -->
-            
+
         </div>
         <!-- // horarios -->
 
@@ -172,7 +176,7 @@
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
                     </label>
                 </div>
-                
+
                 <div class="col-xs-12 col-sm-4">
                     <label>Médico</label><br>
                     <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" name="agregar-turnos" lang="es"></ng-select2>
@@ -200,7 +204,7 @@
                                 <th class="center">Seleccionar</th>
                             </tr>
                         </thead>
-                            
+
                         <tbody>
                             <tr *ngFor="let patient of patients; let i = index">
                                 <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
@@ -229,7 +233,7 @@
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
                     </label>
                 </div>
-                
+
                 <div class="col-xs-12 col-sm-4">
                     <label>Médico</label><br>
                     <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" name="agregar-turnos" lang="es"></ng-select2>
@@ -300,11 +304,11 @@
                                 <td class="center"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
                             </tr>
                         </tbody>
-                            
+
                     </table>
                 </div>
             </div>
-            
+
             <div class="col-xs-12 center">
                 <a (click)="requestAppointmentForClient()" id="add-cliente">Agregar</a>
             </div>
