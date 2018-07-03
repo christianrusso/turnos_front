@@ -3420,3 +3420,11 @@ a {
 .ptop {
   padding-top: 40px;
 }
+
+.z99 {
+  z-index: 99;
+}
+
+.div-contenido-fecha-scrolleable::-webkit-scrollbar {
+  height: 8px;
+}

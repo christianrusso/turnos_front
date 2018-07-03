@@ -15,7 +15,7 @@
             <ul class="nav navbar-nav">
 
               <!-- Notificaciones -->
-              <li class="dropdown">
+              <li class="dropdown z99">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle notif-menu"><i class="fa fa-bell-o"></i><i></i></a>
                    <ul class="dropdown-menu">
                    </ul>
@@ -23,7 +23,7 @@
               <!-- // notificaciones -->
 
               <!-- Usuario -->
-              <li class="dropdown">
+              <li class="dropdown z99">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle user"><img [src]="logo | safeHtml" alt="Usuario"><i class="fa fa-caret-down"></i></a>
                    <ul class="dropdown-menu dropdown-menu-right">
                        <li><a href="#">Editar datos</a></li>
@@ -33,7 +33,7 @@
               <!-- // usuario -->
 
               <!-- Logout -->
-              <li (click)="logout()" class="logout">
+              <li (click)="logout()" class="logout z99">
                   <a class="dropdown-toggle notif-menu"><i class="fa fa-sign-out"></i></a>
                    <ul class="dropdown-menu">
                    </ul>
@@ -45,7 +45,7 @@
          </div>
 
       <!-- Menú links -->
-      <div class="menu-words col-xs-10">
+      <div class="menu-words col-xs-12">
           <a [routerLink]="['DoctorList']" id="medicos-panel">Médicos</a>
           <a [routerLink]="['SpecialtyList']" id="especialidades-panel">Especialidades</a>
           <a [routerLink]="['PatientList']" id="pacientes-panel">Pacientes</a>

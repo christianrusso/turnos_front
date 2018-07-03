@@ -101,7 +101,7 @@
             <a (click)="hideAddPatient()" class="close-modal-agregar-paciente">X</a>
         </div>
 
-        <div class="col-xs-12 buttons-turno" style="margin-bottom: 15px;">
+        <div class="col-xs-12 buttons-turno" style="margin-bottom: 25px;">
             <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
             <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
         </div>
@@ -109,33 +109,33 @@
         <!-- Clientes -->
         <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
            
-            <div class="col-xs-12 center">
-                <div class="form-group">
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="firstName">Nombre: </label>
                     <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" >
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="lastName">Apellido: </label>
                     <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" >
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="address">Direccion: </label>
                     <input type="text" id="address" name="address" [(ngModel)]="address" >
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="phoneNumber">Telefono: </label>
                     <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" >
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="dni">Dni: </label>
                     <input type="text" id="dni" name="dni" [(ngModel)]="dni" >
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="">Obra social</label>
                     <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
                 </div>
-                <div class="form-group">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
                     <label for="">Plan medico</label>
                     <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
@@ -170,51 +170,48 @@
         <!-- No Existe -->
          <div class="col-xs-12 noexiste-cluster" (keyup.enter)="addPatientForNonClient()">
 
-            <div class="col-xs-12 col-sm-10 col-sm-offset-2 no-existente">
-                <div class="col-xs-12 center">
-                    <div class="form-group">
-                        <label for="firstName">Nombre: </label>
-                        <input type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Apellido: </label>
-                        <input type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Direccion: </label>
-                        <input type="text" id="address2" name="address" [(ngModel)]="address" >
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumber">Telefono: </label>
-                        <input type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
-                    </div>
-                    <div class="form-group">
-                        <label for="dni">Dni: </label>
-                        <input type="text" id="dni2" name="dni" [(ngModel)]="dni" >
-                    </div>
-                    <div class="form-group">
-                        <label for="">Obra social</label>
-                        <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
-                        </ng-select2>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Plan medico</label>
-                        <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
-                        </ng-select2>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email: </label>
-                        <input type="text" id="email2" name="email" [(ngModel)]="email" >
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña: </label>
-                        <input type="password" id="password2" name="password" [(ngModel)]="password" >
-                    </div>
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="firstName">Nombre: </label><br>
+                    <input type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
                 </div>
-
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="lastName">Apellido: </label><br>
+                    <input type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="address">Direccion: </label><br>
+                    <input type="text" id="address2" name="address" [(ngModel)]="address" >
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="phoneNumber">Telefono: </label><br>
+                    <input type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="dni">Dni: </label><br>
+                    <input type="text" id="dni2" name="dni" [(ngModel)]="dni" >
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="">Obra social</label><br>
+                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="">Plan medico</label><br>
+                    <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="email">Email: </label><br>
+                    <input type="text" id="email2" name="email" [(ngModel)]="email" >
+                </div>
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="password">Contraseña: </label><br>
+                    <input type="password" id="password2" name="password" [(ngModel)]="password" >
+                </div>
             </div>
 
-            <div class="col-xs-12 center">
+            <div class="col-xs-12 center ptop">
                 <a (click)="addPatientForNonClient()" id="add-nuevo-paciente">Agregar</a>
             </div>
 
