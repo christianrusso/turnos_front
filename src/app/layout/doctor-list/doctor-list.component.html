@@ -9,8 +9,8 @@
             <div class="col-xs-12 listado-menu-2">
                 <h1 class="col-xxs-12 col-xs-12 col-sm-12">Listado de médicos ({{ doctors.length }})</h1>
 
-                <div class="menu-medicos col-xs-12 col-sm-8">
-                    <form>
+                <div class="menu-medicos col-xs-12 col-sm-12">
+                    <form class="col-sm-8">
                         <!-- Especialidad -->
                         <div class="form-group">
                             <label for="">Especialidad</label>
@@ -24,11 +24,12 @@
                             <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
                         </div>
                     </form>
+                    <div class="menu-acciones desk col-xs-12 col-sm-4">
+                        <a id="agregar-medico" (click)="showAddDoctor()">Agregar médico</a>
+                    </div>
                 </div>
 
-                <div class="menu-acciones desk col-xs-12 col-sm-4">
-                    <a id="agregar-medico" (click)="showAddDoctor()">Agregar médico</a>
-                </div>
+                
 
             </div>
             <!-- // menu -->
