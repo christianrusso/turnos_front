@@ -1659,7 +1659,7 @@ ul {
   left: 0;
   right: 0;
   top: 3%;
-  max-height: 750px;
+  max-height: 700px;
   background: #f4f8f9;
   margin: auto;
   max-width: 100%;
@@ -1670,6 +1670,10 @@ ul {
   font-family: sf_ui_displayregular;
   padding-bottom: 30px;
   height: 100%;
+}
+
+.inside-modal-editar-paciente {
+  max-height: 400px;
 }
 
 .header-modal-horarios, .header-modal-agregar-turno, .header-borrar-medico,.header-borrar-paciente, .header-modal-nueva-subespecialidad, .header-modal-agregar-medico, .header-modal-obra-social, .header-borrar-obra-social, .header-modal-nueva-especialidad, .header-modal-borrar-especialidad, .header-modal-borrar-subespecialidad, .header-modal-nuevo-plan, .header-modal-agregar-paciente, .header-modal-editar-paciente{
@@ -3420,10 +3424,6 @@ a {
 
 .ptop {
   padding-top: 40px;
-}
-
-.ptop2 {
-  padding-top: 100px;
 }
 
 .z99 {
