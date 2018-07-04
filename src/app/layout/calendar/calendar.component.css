@@ -45,3 +45,13 @@
 .horario-medico{
   transform: translateX(-10px);
 }
+
+.picker-fecha {
+  width: 100%;
+  text-align: center;
+  height: 28px;
+}
+
+.w100 {
+  width: 100%;
+}

@@ -93,3 +93,12 @@
   .fa-question-circle-o {
     font-size: 13px;
   }
+
+  
+.w100 {
+  width: 100%;
+}
+
+input {
+  height: 28px;
+}
