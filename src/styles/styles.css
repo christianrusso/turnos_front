@@ -1058,6 +1058,7 @@ svg:not(:root){
 
 .noexiste-cluster{
   display: none;
+  padding-top: 90px;
 }
 
 .p-c-2{
@@ -1171,8 +1172,8 @@ input#fecha, input#fecha2{
 }
 
 .container-de-tabla{
-      padding: 0;
-    height: 265px;
+    padding: 0;
+    max-height: 265px;
     overflow-y: scroll;
     margin-bottom: 30px;
 }
@@ -3421,10 +3422,14 @@ a {
   padding-top: 40px;
 }
 
+.ptop2 {
+  padding-top: 100px;
+}
+
 .z99 {
   z-index: 99;
 }
 
 .div-contenido-fecha-scrolleable::-webkit-scrollbar {
-  height: 8px;
+  height: 5px;
 }
