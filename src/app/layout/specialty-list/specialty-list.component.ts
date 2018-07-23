@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Specialty } from '../../model/specialty.class';
 import { SpecialtyService } from '../../service/specialty.service';
-import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { SubspecialtyService } from '../../service/subspecialty.service';
 import { LetterFilter } from '../../model/letter-filter.class';
 import { Subspecialty } from '../../model/subspecialty.class';
@@ -10,6 +9,9 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { SelectOption } from '../../model/select/select-option.class';
+import { IdFilter } from '../../model/id-filter.class';
+import { DataService } from '../../service/data.service';
 
 @Component({
     selector: 'app-specialty-list',
@@ -21,8 +23,11 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
 
     public specialties = new Array<Specialty>();
 
-    public newSpecialtyDescription: string;
-    public newSubspecialtyDescription: string;
+    public specialtyOptions = new Array<SelectOption>();
+    public subspecialtyOptions = new Array<SelectOption>();
+
+    public specialtyId: string;
+    public subspecialtyId: string;
     public newSubspecialtyConsultationLength: NgbTimeStruct;
 
     public letterFilter: string;
@@ -38,8 +43,9 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     constructor(
         private specialtyService: SpecialtyService,
         private subspecialtyService: SubspecialtyService,
+        private dataService: DataService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
     ) {
         super();
         $("a#medicos-panel").removeClass('active');
@@ -66,14 +72,23 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
 
     /* Agregar especialidad */
     showAddSpecialty() {
-        this.newSpecialtyDescription = '';
-        $(".modal-nueva-especialidad").fadeIn();
+        this.loaderService.show()
+        this.specialtyOptions = [];
+        this.dataService.getSpecialtiesForSelect(null).subscribe(res => {
+            this.specialtyOptions = res;
+            this.loaderService.hide();
+            $(".modal-nueva-especialidad").fadeIn();
+        });
+    }
+
+    specialtyChange(selection) {
+        this.specialtyId = selection.value;
     }
 
     addSpecialty() {
         this.loaderService.show();
-        let specialty = new Specialty();
-        specialty.description = this.newSpecialtyDescription;
+        let specialty = new IdFilter();
+        specialty.id = parseInt(this.specialtyId);
 
         this.specialtyService.add(specialty).subscribe(ok => {
             $(".modal-nueva-especialidad").fadeOut();
@@ -101,43 +116,35 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         $(".modal-borrar-especialidad").fadeOut();
     }
 
-    /* Editar especialidad */
-    showEditSpecialty(specialtyIndex: number) {
-        this.selectedSpecialty = this.specialties[specialtyIndex];
-        this.newSpecialtyDescription = this.selectedSpecialty.description;
-        $(".modal-editar-especialidad").fadeIn();
-    }
-
-    editSpecialty() {
-        this.loaderService.show();
-        let specialty = new Specialty();
-        specialty.id = this.selectedSpecialty.id;
-        specialty.description = this.newSpecialtyDescription;
-
-        this.specialtyService.edit(specialty).subscribe(ok => {
-            $(".modal-editar-especialidad").fadeOut();
-            this.toastrService.success('Especialidad modificada correctamente.');
-            this.getSpecialtiesByLetter(this.letterFilter);
-        });
-    }
-
     closeEditSpecialty() {
         $(".modal-editar-especialidad").fadeOut();
     }
 
     /* Agregar subespecialidad */
     showAddSubspecialty(specialtyIndex: number) {
-        this.newSubspecialtyDescription = '';
         this.newSubspecialtyConsultationLength = { hour: 0, minute: 0, second: 0 };
         this.selectedSpecialty = this.specialties[specialtyIndex];
-        $(".modal-nueva-subespecialidad").fadeIn();
+
+        const specialtyId = new IdFilter();
+        specialtyId.id = this.selectedSpecialty.id;
+        this.loaderService.show()
+        this.subspecialtyOptions = [];
+        this.dataService.getSubspecialtiesForSelect(specialtyId).subscribe(res => {
+            this.subspecialtyOptions = res;
+            this.loaderService.hide();
+            $(".modal-nueva-subespecialidad").fadeIn();
+        });
+    }
+
+    subspecialtyChange(selection) {
+        this.subspecialtyId = selection.value;
     }
 
     addSubspecialty() {
         this.loaderService.show();
         let subspecialty = new Subspecialty();
+        subspecialty.id = parseInt(this.subspecialtyId);
         subspecialty.specialtyId = this.selectedSpecialty.id;
-        subspecialty.description = this.newSubspecialtyDescription;
         subspecialty.consultationLength = this.newSubspecialtyConsultationLength.hour * 60 + this.newSubspecialtyConsultationLength.minute;
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {

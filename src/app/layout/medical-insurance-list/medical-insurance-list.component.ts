@@ -8,6 +8,9 @@ import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../../service/data.service';
+import { SelectOption } from '../../model/select/select-option.class';
+import { IdFilter } from '../../model/id-filter.class';
 
 @Component({
     selector: 'app-medical-insurance-list',
@@ -20,12 +23,14 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
     public medicalInsurances = new Array<MedicalInsurance>();
     public selectedMedicalInsurance: MedicalInsurance;
     public selectedMedicalPlan: MedicalPlan;
+
+    public medicalInsuranceOptions = new Array<SelectOption>();
+    public medicalPlanOptions = new Array<SelectOption>();
+    public medicalInsuranceId: string;
+    public medicalPlanId: string;
    
     public letterFilter: string;
     public searchDescription: string;
-
-    public medicalInsuranceDescription: string
-    public medicalPlanDescription: string
 
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/obrasocial.js');
@@ -34,10 +39,13 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
     constructor(
         private medicalInsuranceService: MedicalInsuranceService,
         private medicalPlanService: MedicalPlanService,
+        private dataService: DataService,
         private loaderService: Ng4LoadingSpinnerService,
         private toastrService: ToastrService
     ) {
         super();
+        this.selectedMedicalInsurance = new MedicalInsurance();
+        this.selectedMedicalPlan = new MedicalPlan();
         $("a#medicos-panel").removeClass('active');
         $("a#especialidades-panel").removeClass('active');
         $("a#pacientes-panel").removeClass('active');
@@ -71,8 +79,17 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
 
     /* Agregar Obra social */
     showAddMedicalInsurance() {
-        this.medicalInsuranceDescription = '';
-        $(".modal-nueva-obra-social").fadeIn();
+        this.loaderService.show()
+        this.medicalInsuranceOptions = [];
+        this.dataService.getMedicalInsurancesForSelect(null).subscribe(res => {
+            this.medicalInsuranceOptions = res;
+            this.loaderService.hide();
+            $(".modal-nueva-obra-social").fadeIn();
+        });
+    }
+
+    medicalInsuranceChange(selection) {
+        this.medicalInsuranceId = selection.value;
     }
 
     closeAddMedicalInsurance() {
@@ -81,8 +98,8 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
 
     addMedicalInsurance() {
         this.loaderService.show();
-        let medicalInsurance = new MedicalInsurance();
-        medicalInsurance.description = this.medicalInsuranceDescription;
+        let medicalInsurance = new IdFilter();
+        medicalInsurance.id = parseInt(this.medicalInsuranceId);
 
         this.medicalInsuranceService.add(medicalInsurance).subscribe(ok => {
             $(".modal-nueva-obra-social").fadeOut();
@@ -91,34 +108,9 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
         });
     }
 
-    /* Editar Obra Social */
-    showEditMedicalInsurance(medicalInsuranceIndex: number) {
-        this.selectedMedicalInsurance = this.medicalInsurances[medicalInsuranceIndex];
-        this.medicalInsuranceDescription = this.selectedMedicalInsurance.description;
-        $(".modal-obra-social").fadeIn();
-    }
-
-    closeEditMedicalInsurance() {
-        $(".modal-obra-social").fadeOut();
-    }
-
-    editMedicalInsurance() {
-        this.loaderService.show();
-        let medicalInsurance = new MedicalInsurance();
-        medicalInsurance.id = this.selectedMedicalInsurance.id;
-        medicalInsurance.description = this.medicalInsuranceDescription;
-
-        this.medicalInsuranceService.edit(medicalInsurance).subscribe(ok => {
-            $(".modal-obra-social").fadeOut();
-            this.toastrService.success('Obra social modificada correctamente.');
-            this.getMedicalInsuranceByLetter(this.letterFilter);
-        });
-    }
-
     /*Borrar Obra Social*/
     showRemoveMedicalInsurance(medicalInsuranceIndex: number){
         this.selectedMedicalInsurance = this.medicalInsurances[medicalInsuranceIndex];
-        this.medicalInsuranceDescription = this.selectedMedicalInsurance.description;
         $(".borrar-obra-social").fadeIn();
     }
 
@@ -128,7 +120,9 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
 
     removeMedicalInsurance(){
         this.loaderService.show();
-        this.medicalInsuranceService.remove(this.selectedMedicalInsurance).subscribe(ok => {
+        const medicalInsuranceId = new IdFilter();
+        medicalInsuranceId.id = this.selectedMedicalInsurance.id;
+        this.medicalInsuranceService.remove(medicalInsuranceId).subscribe(ok => {
             $(".borrar-obra-social").fadeOut();
             this.toastrService.success('Obra social eliminada correctamente.');
             this.getMedicalInsuranceByLetter(this.letterFilter);
@@ -137,10 +131,20 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
 
     /* Agregar Plan */
     showAddMedicalPlan(medicalInsuranceIndex: number) {
+        this.loaderService.show()
         this.selectedMedicalInsurance = this.medicalInsurances[medicalInsuranceIndex];
-        this.medicalInsuranceDescription = this.selectedMedicalInsurance.description;
-        this.medicalPlanDescription = '';
-        $(".modal-nuevo-plan").fadeIn();
+        this.medicalPlanOptions = [];
+        const medicalInsuranceId = new IdFilter();
+        medicalInsuranceId.id = this.selectedMedicalInsurance.id;
+        this.dataService.getMedicalPlansForSelect(medicalInsuranceId).subscribe(res => {
+            this.medicalPlanOptions = res;
+            this.loaderService.hide();
+            $(".modal-nuevo-plan").fadeIn();
+        });
+    }
+
+    medicalPlanChange(selection) {
+        this.medicalPlanId = selection.value;
     }
 
     closeAddMedicalPlan() {
@@ -150,7 +154,7 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
     addMedicalPlan() {
         this.loaderService.show();
         let medicalPlan = new MedicalPlan();
-        medicalPlan.description = this.medicalPlanDescription;
+        medicalPlan.id = parseInt(this.medicalPlanId);
         medicalPlan.medicalInsuranceId = this.selectedMedicalInsurance.id;
 
         this.medicalPlanService.add(medicalPlan).subscribe(ok => {
@@ -161,11 +165,9 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
     }
 
     /* Eliminar Plan */
-    showRemoveMedicalPlan(medicalInsuranceIndex: number,medicalPlanIndex: number ) {
+    showRemoveMedicalPlan(medicalInsuranceIndex: number, medicalPlanIndex: number ) {
         this.selectedMedicalInsurance = this.medicalInsurances[medicalInsuranceIndex];
-        this.medicalInsuranceDescription = this.selectedMedicalInsurance.description;
-        this.selectedMedicalPlan = this.medicalInsurances[medicalInsuranceIndex].medicalPlans[medicalPlanIndex];
-        this.medicalPlanDescription = this.selectedMedicalPlan.description;
+        this.selectedMedicalPlan = this.selectedMedicalInsurance.medicalPlans[medicalPlanIndex];
         $(".borrar-plan").fadeIn();
     }
     

@@ -8,6 +8,7 @@ import { LetterFilter } from '../model/letter-filter.class';
 import { SpecialtyFilter } from '../model/specialty-filter.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { IdFilter } from '../model/id-filter.class';
 
 @Injectable()
 export class SpecialtyService extends BaseService {
@@ -22,16 +23,12 @@ export class SpecialtyService extends BaseService {
         super(httpClient, toastrService, loaderService);
     }
 
-    public add(specialty: Specialty): Observable<Object> {
-        return this.post(this.url + '/Add', null, specialty);
+    public add(specialtyId: IdFilter): Observable<Object> {
+        return this.post(this.url + '/Add', null, specialtyId);
     }
 
-    public remove(specialty: Specialty): Observable<Object> {
-        return this.post(this.url + '/Remove', null, specialty);
-    }
-
-    public edit(specialty: Specialty): Observable<Object> {
-        return this.post(this.url + '/Edit', null, specialty);
+    public remove(specialtyId: IdFilter): Observable<Object> {
+        return this.post(this.url + '/Remove', null, specialtyId);
     }
 
     public getAllSpecialties(): Observable<Specialty[]> {

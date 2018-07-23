@@ -4,10 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
 import { Subspecialty } from '../model/subspecialty.class';
 import { Specialty } from '../model/specialty.class';
-import { IdFilter } from '../model/id-filter.class';
 import { SelectOption } from '../model/select/select-option.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { IdFilter } from '../model/id-filter.class';
 
 @Injectable()
 export class SubspecialtyService extends BaseService {
@@ -28,10 +28,6 @@ export class SubspecialtyService extends BaseService {
 
     public remove(subspecialty: Subspecialty): Observable<Object> {
         return this.post(this.url + '/Remove', null, subspecialty);
-    }
-
-    public edit(subspecialty: Subspecialty): Observable<Object> {
-        return this.post(this.url + '/Edit', null, subspecialty);
     }
 
     public getAllSubspecialties(): Observable<Subspecialty[]> {

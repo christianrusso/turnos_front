@@ -17,6 +17,7 @@ import { SubspecialtyService } from '../service/subspecialty.service';
 import { MedicalPlanService } from '../service/medicalPlan.service';
 import { MedicalInsuranceService } from '../service/medicalInsurance.service';
 import { ClientService } from '../service/client.service';
+import { DataService } from '../service/data.service';
 
 // Pantallas y componentes
 import { LayoutComponent } from './layout.component';
@@ -64,7 +65,8 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         SubspecialtyService,
         MedicalInsuranceService,
         MedicalPlanService,
-        ClientService
+        ClientService,
+        DataService
     ]
 })
 export class LayoutModule {}

@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="col-xs-12 col-sm-1 actions-especialidades">
-                                <a class="edit-especialidades" (click)="showEditSpecialty(i)"><i class="fa fa-pencil"></i></a>
+                                <!-- <a class="edit-especialidades" (click)="showEditSpecialty(i)"><i class="fa fa-pencil"></i></a> -->
                                 <a class="delete-especialidades" (click)="showRemoveSpecialty(i)"><i class="fa fa-trash"></i></a>
                             </div>
                             
@@ -104,8 +104,16 @@
         </div>
 
         <form action="">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="addNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
+
+            <!-- Especialidad -->
+            <div>
+                <div class="col-xs-12 col-md-12">
+                    <label for="">Especialidad</label>
+                </div>
+                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                    <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
             </div>
 
             <div class="div-add-especialidad">
@@ -118,27 +126,6 @@
 </div>
 <!-- // modal nueva especialidad -->
 
-<!-- Modal Editar Especialidad -->
-<div class="col-xs-12 modal-editar-especialidad" (keyup.enter)="editSpecialty()">
-    <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
-        <div class="header-modal-nueva-especialidad col-xs-12">
-            <h2>Editar especialidad</h2>
-            <a class="close-modal-editar-especialidad">X</a>
-        </div>
-
-        <form action="">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Especialidad" name="editNewSpecialtyDescription" [(ngModel)]="newSpecialtyDescription">
-            </div>
-
-            <div class="div-add-especialidad">
-                <a id="editar-especialidad" (click)="editSpecialty()">Guardar</a>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- // modal editar especialidad -->
-
 <!-- Modal Nueva Sub especialidad -->
 <div class="col-xs-12 modal-nueva-subespecialidad" (keyup.enter)="addSubspecialty()">
     <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
@@ -148,8 +135,12 @@
         </div>
 
         <form action="">
+            <div class="col-xs-12 col-md-12">
+                <label for="">Subespecialidad</label>
+            </div>
+
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <input type="text" placeholder="Subespecialidad" name="newSubspecialtyDescription" [(ngModel)]="newSubspecialtyDescription">
+                <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
             </div>
 
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">

@@ -8,6 +8,7 @@ import { LetterFilter } from '../model/letter-filter.class';
 import { MedicalInsuranceFilter } from '../model/medicalInsurance-filter.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { IdFilter } from '../model/id-filter.class';
 
 @Injectable()
 export class MedicalInsuranceService extends BaseService
@@ -34,15 +35,11 @@ export class MedicalInsuranceService extends BaseService
         return this.post(this.url + "/GetByFilter", null, filter);
     }
 
-    public add(medicalInsurance: MedicalInsurance): Observable<Object> {
-        return this.post(this.url + '/Add', null, medicalInsurance);
+    public add(medicalInsuranceId: IdFilter): Observable<Object> {
+        return this.post(this.url + '/Add', null, medicalInsuranceId);
     }
 
-    public edit(medicalInsurance: MedicalInsurance): Observable<Object> {
-        return this.post(this.url + '/Edit', null, medicalInsurance);
-    }
-
-    public remove(medicalInsurance: MedicalInsurance): Observable<Object> {
-        return this.post(this.url + '/Remove', null, medicalInsurance);
+    public remove(medicalInsuranceId: IdFilter): Observable<Object> {
+        return this.post(this.url + '/Remove', null, medicalInsuranceId);
     }
 }
