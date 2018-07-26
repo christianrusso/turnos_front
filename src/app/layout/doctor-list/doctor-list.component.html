@@ -55,7 +55,7 @@
                                 <td>{{ doctor.firstName + ' ' + doctor.lastName | truncate }}</td>
                                 <td>{{ doctor.specialtyDescription | truncate }}</td>
                                 <td>{{ doctor.subspecialtyDescription | truncate }}</td>
-                                <td class="state active"><span></span>Activo</td>
+                                <td class="state" [ngClass]="doctor.state ? 'active' : 'inactive'"><span></span>{{ doctor.state ? 'Activo' : 'Inactivo' }}</td>
                                 <td align="center"><a class="link-modal-horarios" (click)="showDoctorWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
                                 <td class="actions">
                                     <a (click)="editDoctor(i)"><i class="fa fa-pencil"></i></a>

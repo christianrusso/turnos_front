@@ -438,4 +438,14 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     showNoClientTab() {
         $(".noexiste-cluster").show();
     }
+
+    completeAppointment(appointmentId: number) {
+        const appointment = new IdFilter();
+        appointment.id = appointmentId;
+        this.appointmentService.completeAppointmentByClinic(appointment).subscribe(res => this.reloadPage());
+    }
+
+    cancelAppointment() {
+        // this.appointmentService.
+    }
 }

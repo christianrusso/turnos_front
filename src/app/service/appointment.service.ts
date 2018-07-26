@@ -12,6 +12,8 @@ import { AppointmentWeekFilter } from '../model/appointment-week-filter.class';
 import { WeekDay } from '../model/week-day.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { IdFilter } from '../model/id-filter.class';
+import { CancelAppointment } from '../model/cancel-appointment.class';
 
 @Injectable()
 export class AppointmentService extends BaseService {
@@ -52,5 +54,13 @@ export class AppointmentService extends BaseService {
 
     public getRequestedAppointmentsByWeekFilter(appointmentWeekFilter: AppointmentWeekFilter): Observable<WeekDay[]> {
         return this.post(this.url + '/GetWeek', null, appointmentWeekFilter);
+    }
+
+    public completeAppointmentByClinic(appointment: IdFilter): Observable<Object> {
+        return this.post(this.url + '/CompleteAppointmentByClinic', null, appointment);
+    }
+
+    public cancelAppointmentByClinic(appointment: CancelAppointment): Observable<Object> {
+        return this.post(this.url + '/CancelAppointmentByClinic', null, appointment);
     }
 }

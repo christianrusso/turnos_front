@@ -12,4 +12,5 @@ export class Doctor {
     public subspecialtyDescription: string;
     public consultationLength: number;
     public workingHours: Array<WorkingHour>;
+    public active: boolean;
 }
