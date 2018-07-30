@@ -22,6 +22,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { MedicalPlanService } from '../../service/medicalPlan.service';
+import { CancelAppointment } from '../../model/cancel-appointment.class';
 
 @Component({
     selector: 'app-calendar',
@@ -60,6 +61,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public medicalPlan: string;
     public email: string;
     public password: string;
+
+    public appointmentToCancel = new CancelAppointment();
 
     public week = new Array<WeekDay>();
 
@@ -442,10 +445,25 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     completeAppointment(appointmentId: number) {
         const appointment = new IdFilter();
         appointment.id = appointmentId;
-        this.appointmentService.completeAppointmentByClinic(appointment).subscribe(res => this.reloadPage());
+        this.appointmentService.completeAppointmentByClinic(appointment).subscribe(res => {
+            this.toastrService.success('Turno completado exitosamente');
+            this.reloadPage();
+        });
+    }
+
+    showCancelAppointment(appointmentId: number) {
+        this.appointmentToCancel.id = appointmentId;
+        $(".modal-nueva-especialidad").show();
+    }
+
+    closeCancelAppointment() {
+        $(".modal-nueva-especialidad").hide();
     }
 
     cancelAppointment() {
-        // this.appointmentService.
+        this.appointmentService.cancelAppointmentByClinic(this.appointmentToCancel).subscribe(res => {
+            this.toastrService.success('Turno cancelado exitosamente');
+            this.reloadPage();
+        });
     }
 }

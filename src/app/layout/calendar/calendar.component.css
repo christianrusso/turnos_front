@@ -15,7 +15,6 @@
     padding: 0;
     background: transparent;
     transition: all 0.3s ease-in-out;
-
 }
 
 .single-paciente:hover .hover-paciente{
@@ -40,6 +39,32 @@
 .hover-paciente i:hover{
   transition: all 0.3s ease-in-out;
   opacity: .7;
+}
+
+
+.single-paciente .turno-paciente{
+  text-align: right;
+  margin-top: 0;
+  float: right;
+  padding: 0;
+  background: transparent;
+}
+
+.single-paciente:hover .turno-paciente{
+  display: inline-block;
+  text-align: right;
+  margin-top: 0;
+  float: right;
+  padding: 0;
+  background: transparent;
+}
+
+.turno-paciente i{
+margin-right: 6px;
+font-size: 12.5px;
+display: inline-block;
+vertical-align: middle;
+margin-top: 4px;
 }
 
 .horario-medico{

@@ -61,9 +61,15 @@
                                     <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments">
                                         <span>{{ getHour(appointment.hour) }}</span>
                                         <p> - {{ appointment.patient }}</p>
-                                        <div class="hover-paciente">
+                                        <div [hidden]="appointment.state != 3" [ngClass]="{'turno-paciente': appointment.state == 3 }">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                        <div [hidden]="appointment.state != 2" [ngClass]="{'turno-paciente': appointment.state == 2 }">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                        <div [hidden]="appointment.state != 1" [ngClass]="{'hover-paciente': appointment.state == 1 }" >
                                             <i class="fa fa-check" aria-hidden="true" (click)="completeAppointment(appointment.id)"></i>
-                                            <i class="fa fa-times" aria-hidden="true" (click)="cancelAppointment(appointment.id)"></i>
+                                            <i class="fa fa-times" aria-hidden="true" (click)="showCancelAppointment(appointment.id)"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -405,3 +411,34 @@
     </div>
 </div>
 <!-- // agregar turno -->
+
+
+<!-- Cancelar turno por clinica -->
+<div class="col-xs-12 modal-nueva-especialidad" (keyup.enter)="cancelAppointment()">
+    <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-nueva-especialidad col-xs-12">
+            <h2>Cancelar turno</h2>
+            <a class="close-modal-nueva-especialidad" (click)="closeCancelAppointment()">X</a>
+        </div>
+
+        <form action="">
+
+            <!-- Especialidad -->
+            <div>
+                <div class="col-xs-12 col-md-12">
+                    <label for="">Motivo de la cancelacion:</label>
+                </div>
+                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                    <input type="text" placeholder="Motivo" class="datos-personales" name="cancel" [(ngModel)]="appointmentToCancel.comment">
+                </div>
+            </div>
+
+            <div class="div-add-especialidad">
+                <a id="agregar-especialidad" (click)="cancelAppointment()">Cancelar</a>
+            </div>
+        </form>
+                
+    </div>
+            
+</div>
+<!-- // Cancelar turno por clinica -->
