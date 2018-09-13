@@ -136,7 +136,7 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
         this.medicalPlanOptions = [];
         const medicalInsuranceId = new IdFilter();
         medicalInsuranceId.id = this.selectedMedicalInsurance.id;
-        this.dataService.getMedicalPlansForSelect(medicalInsuranceId).subscribe(res => {
+        this.dataService.getMedicalPlansByClinicForSelect(medicalInsuranceId).subscribe(res => {
             this.medicalPlanOptions = res;
             this.loaderService.hide();
             $(".modal-nuevo-plan").fadeIn();

@@ -129,7 +129,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         specialtyId.id = this.selectedSpecialty.id;
         this.loaderService.show()
         this.subspecialtyOptions = [];
-        this.dataService.getSubspecialtiesForSelect(specialtyId).subscribe(res => {
+        this.dataService.getSubspecialtiesByClinicForSelect(specialtyId).subscribe(res => {
             this.subspecialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-subespecialidad").fadeIn();
