@@ -23,7 +23,7 @@ import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
-
+import * as jsPDF from 'jspdf';
 @Component({
     selector: 'app-calendar',
     templateUrl: './calendar.component.html',
@@ -465,5 +465,30 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             this.toastrService.success('Turno cancelado exitosamente');
             this.reloadPage();
         });
+    }
+    dowloadPdf(){
+        const doc= new jsPDF();
+        var x=15;
+        var y=20;
+        var xName=10;
+        var yName=10;
+        this.requestedAppointmentsPerDoctor.forEach(element => {
+            doc.setDrawColor(255, 0, 0);
+            doc.line(10, yName-8, 200, yName-8);            
+            doc.text("Doctor:",10,yName);
+            doc.text(element.doctorFirstName,30,yName);
+            element.requestedAppointmentsPerHour.forEach(perHour => {
+                perHour.appointments.forEach(appoint => {
+                    doc.text("Dia: ",10,y);
+                    doc.text(appoint.hour,25,y);
+                    doc.text("Paciente:",90,y);
+                    doc.text(appoint.patient,115,y);
+                    y=y+30;
+                });
+            });
+            yName=yName+y+40;
+
+        });
+        doc.save('test.pdf');
     }
 }
