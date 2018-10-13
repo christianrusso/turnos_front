@@ -11,7 +11,8 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 export class BaseService {
 
     private baseUrl = window.location.protocol + '//' + window.location.hostname + ':5000/Api';
-    //private baseUrl = 'http://www.orbitsa.xyz:5000/Api';
+
+//    private baseUrl = 'http://www.orbitsa.xyz:5000/Api';
     private token: string;
 
     constructor(
