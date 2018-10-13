@@ -12,6 +12,7 @@ import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SelectOption } from '../../model/select/select-option.class';
 import { IdFilter } from '../../model/id-filter.class';
 import { DataService } from '../../service/data.service';
+import { RubroFilter } from '../../model/rubro-filter.class';
 
 @Component({
     selector: 'app-specialty-list',
@@ -74,6 +75,8 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     showAddSpecialty() {
         this.loaderService.show()
         this.specialtyOptions = [];
+        let filter = new IdFilter();
+        filter.id = 1; // 1 = clinica
         this.dataService.getSpecialtiesForSelect(null).subscribe(res => {
             this.specialtyOptions = res;
             this.loaderService.hide();
@@ -125,11 +128,12 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         this.newSubspecialtyConsultationLength = { hour: 0, minute: 0, second: 0 };
         this.selectedSpecialty = this.specialties[specialtyIndex];
 
-        const specialtyId = new IdFilter();
-        specialtyId.id = this.selectedSpecialty.id;
+        const filter = new RubroFilter();
+        filter.id = this.selectedSpecialty.id;
+        filter.rubro = 1; // 1 = clinica
         this.loaderService.show()
         this.subspecialtyOptions = [];
-        this.dataService.getSubspecialtiesByClinicForSelect(specialtyId).subscribe(res => {
+        this.dataService.getSubspecialtiesByClinicForSelect(filter).subscribe(res => {
             this.subspecialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-subespecialidad").fadeIn();
