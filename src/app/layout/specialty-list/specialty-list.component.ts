@@ -77,7 +77,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         this.specialtyOptions = [];
         let filter = new IdFilter();
         filter.id = 1; // 1 = clinica
-        this.dataService.getSpecialtiesForSelect(null).subscribe(res => {
+        this.dataService.getSpecialtiesForSelect(filter).subscribe(res => {
             this.specialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-especialidad").fadeIn();
