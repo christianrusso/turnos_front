@@ -11,12 +11,14 @@ import { AccountService } from '../service/account.service';
 export class LayoutComponent {
 
     public logo: string;
+    public rubro: string;
 
     constructor (
         private accountService: AccountService,
         private router: Router
     ) {
         this.logo = sessionStorage.getItem("logo");
+        this.rubro = sessionStorage.getItem("rubro");
     }
 
     logout() {

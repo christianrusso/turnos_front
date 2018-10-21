@@ -19,6 +19,12 @@ import { MedicalInsuranceService } from '../service/medicalInsurance.service';
 import { ClientService } from '../service/client.service';
 import { DataService } from '../service/data.service';
 
+//Servicios - Hairdressing
+import { HairdressingProfessionalService } from '../service/hairdressing.professional.service';
+import { HairdressingSpecialtyService } from '../service/hairdressing.specialty.service';
+import { HairdressingSubspecialtyService } from '../service/hairdressing.subspecialty.service';
+import { HairdressingPatientService } from '../service/hairdressing-patient.service';
+
 // Pantallas y componentes
 import { LayoutComponent } from './layout.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +35,10 @@ import { AppointmentConfirmationComponent } from './appointment-confirmation/app
 import { CalendarComponent } from './calendar/calendar.component';
 import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insurance-list.component';
 
+//hairdressing
+import { HairdressingProfessionalListComponent } from './hairdressing-professional-list/professional-list.component';
+import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-list/hairdressing-specialty-list.component';
+import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component';
 // Pipes
 import { TruncatePipe } from '../pipe/truncate.pipe';
 import { SafeHtml } from '../pipe/safe-html.pipe';
@@ -53,7 +63,11 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         CalendarComponent,
         MedicalInsuranceComponent,
         TruncatePipe,
-        SafeHtml
+        SafeHtml,
+
+        HairdressingProfessionalListComponent,
+        HairdressingSpecialtyListComponent,
+        HairdressingPatientListComponent
     ],
     // Servicios
     providers: [
@@ -66,7 +80,12 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         MedicalInsuranceService,
         MedicalPlanService,
         ClientService,
-        DataService
+        DataService,
+
+        HairdressingProfessionalService,
+        HairdressingSpecialtyService,
+        HairdressingSubspecialtyService,
+        HairdressingPatientService
     ]
 })
 export class LayoutModule {}

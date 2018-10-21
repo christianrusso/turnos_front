@@ -11,19 +11,29 @@ import { AppointmentConfirmationComponent } from './appointment-confirmation/app
 import { CalendarComponent } from './calendar/calendar.component';
 import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insurance-list.component';
 
+//hairdressing
+import { HairdressingProfessionalListComponent } from './hairdressing-professional-list/professional-list.component';
+import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-list/hairdressing-specialty-list.component';
+import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component'
+
 const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: 'DoctorList' },
+            { path: '', redirectTo: (sessionStorage.getItem('rubro') == "1" ? 'DoctorList' : 'HairdressingProfessionalList') },
+
             { path: 'Home', component: HomeComponent },
             { path: 'SpecialtyList', component: SpecialtyListComponent },
             { path: 'PatientList', component: PatientListComponent },
             { path: 'DoctorList', component: DoctorListComponent },
             { path: 'AppointmentConfirmation', component: AppointmentConfirmationComponent },
             { path: 'Calendar', component: CalendarComponent },
-            { path: 'MedicalInsuranceList', component: MedicalInsuranceComponent }
+            { path: 'MedicalInsuranceList', component: MedicalInsuranceComponent },
+
+            { path: 'HairdressingProfessionalList', component:HairdressingProfessionalListComponent},
+            { path: 'HairdressingSpecialtyList', component: HairdressingSpecialtyListComponent },
+            { path: 'HairdressingPatientList', component: HairdressingPatientListComponent },
         ]
     }
 ];
