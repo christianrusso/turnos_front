@@ -1,0 +1,425 @@
+<section class="calendario-section col-xs-12">
+
+    <!-- Menú -->
+    <div class="col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
+        <h1 class="col-xxs-12 col-xs-12 col-sm-2">Calendario</h1>
+
+        <div class="menu-calendario col-xs-12 col-sm-3">
+            <a (click)="showCalendarWeek()" id="semana-menu">Semana</a>
+            <a (click)="showCalendarDay()" id="dia-menu">Día</a>
+        </div>
+
+        <div class="menu-calendario col-xs-12 col-sm-5">
+            <!-- Especialidad -->
+            <div class="form-group">
+                <label for="">Especialidad</label>
+                <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-calendario-dias" lang="es">
+                </ng-select2>
+            </div>
+
+            <!-- Sub-especialidad -->
+            <div class="form-group">
+                <label for="">Sub especialidad</label>
+                <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-calendario-dias" lang="es"></ng-select2>
+            </div>
+        </div>
+
+        <div class="menu-acciones desk col-xs-12 col-sm-2">
+            <a (click)="dowloadPdf()"><i class="fa fa-print"></i></a>
+            <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
+        </div>
+    </div>
+
+    <!-- Días -->
+    <section id="calendario-diario" class="dia-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
+
+        <!-- Horarios -->
+        <div class="col-xs-12 col-sm-12 horarios">
+
+            <!-- Prev y Next -->
+            <div class="prev-next">
+                <a id="prev-btn" (click)="previousDay()"><i class="fa fa-caret-left"></i></a>
+                <a id="next-btn" (click)="nextDay()"><i class="fa fa-caret-right"></i></a>
+            </div>
+
+            <!-- Días-->
+            <div class="dias col-xs-12">
+
+                <!-- Día puntual -->
+                <div class="col-xs-12 div-puntual">
+                    <div class="col-xs-12 div-fecha"><span>{{ getDayOfWeek() }}</span>, {{ getDate() }}</div>
+
+                    <div class="col-xs-12 div-contenido-fecha-scrolleable">
+
+                        <div class="col-xs-12 col-sm-3 col-3" *ngFor="let data of requestedAppointmentsPerProfessional">
+
+                            <h3>{{ data.professionalFirstName + ' ' + data.professionalLastName | truncate }}</h3>
+
+                            <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
+
+                                <div class="pacientes-medico col-xs-10">
+                                    <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments">
+                                        <span>{{ getHour(appointment.hour) }}</span>
+                                        <p> - {{ appointment.patient }}</p>
+                                        <div [hidden]="appointment.state != 3" [ngClass]="{'turno-paciente': appointment.state == 3 }">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                        <div [hidden]="appointment.state != 2" [ngClass]="{'turno-paciente': appointment.state == 2 }">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                        <div [hidden]="appointment.state != 1" [ngClass]="{'hover-paciente': appointment.state == 1 }" >
+                                            <i class="fa fa-check" aria-hidden="true" (click)="completeAppointment(appointment.id)"></i>
+                                            <i class="fa fa-times" aria-hidden="true" (click)="showCancelAppointment(appointment.id)"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2 horario-medico">
+                                    {{ appointmentData.hour }}:00
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- // dia puntual -->
+
+            </div>
+            <!-- //dias -->
+
+        </div>
+        <!-- // horarios -->
+
+    </section>
+    <!-- //días -->
+
+    <!-- Semanas -->
+    <section id="calendario-semanal" class="semana-calendario col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
+
+        <!-- Horarios -->
+        <div class="col-xs-12 col-sm-12 horarios">
+
+            <!-- Prev y Next -->
+            <div class="prev-next">
+                <a (click)="previousWeek()" id="prev-btn"><i class="fa fa-caret-left"></i></a>
+                <a (click)="nextWeek()" id="next-btn"><i class="fa fa-caret-right"></i></a>
+            </div>
+
+            <!-- Semanas-->
+            <div class="semanas col-xs-12">
+
+                <!-- Semana -->
+                <div class="col-xs-12 div-puntual2">
+                    <div class="col-xs-12 div-fecha"><span>Lunes</span>, {{ getMondayDate() }} - <span>Domingo</span>, {{ getSundayDate() }}</div>
+
+                        <!-- Días semana -->
+                        <div class="col-xs-12 div-contenido-fecha">
+
+                            <div class="col-xs-6 col-sm-2" *ngFor="let weekDay of week;">
+                                <h3><span>{{ getDayOfWeekDescription(weekDay.day) }}</span><p>{{ getDateDescription(weekDay.day) }}</p></h3>
+
+                                <div class="pacientes-horario col-xs-12" *ngFor="let weekHour of weekDay.hours;">
+                                    <div class="pacientes-turno col-xs-8">
+                                        <div [hidden]="weekHour.totalAppointments == 0">{{ weekHour.totalAppointments }} turnos</div>
+                                    </div>
+
+                                    <div class="col-xs-4 horario-medico">{{ getHourDescription(weekHour.hour) }}</div>
+
+                                    <div class="modal-turnos" >
+
+                                        <h4 [hidden]="weekHour.totalAppointments != 0">No hay reservaciones</h4>
+
+                                        <h4 [hidden]="weekHour.totalAppointments == 0">Reservaciones</h4>
+
+                                        <ul [hidden]="weekHour.totalAppointments == 0">
+                                            <li *ngFor="let specialty of weekHour.appointmentsPerSpecialty;">
+                                                {{ specialty.specialtyDescription }} <span>({{ specialty.appointments }})</span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- // dias semana -->
+                </div>
+                <!-- // semana -->
+
+            </div>
+            <!-- //semanas -->
+
+        </div>
+        <!-- // horarios -->
+
+    </section>
+    <!-- //semanas -->
+
+</section>
+<!-- // calendario -->
+
+
+<!-- Agregar turno -->
+<div class="col-xs-12 modal-agregar-turno">
+    <div class="inside-modal-agregar-turno col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-agregar-turno col-xs-12">
+            <h2>Nuevo turno</h2>
+            <a (click)="hideRequestAppointment()" class="close-modal-agregar-turno">X</a>
+        </div>
+
+        <div class="col-xs-12 buttons-turno">
+            <a (click)="showPatientTab()" id="paciente-turno">Paciente</a>
+            <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
+            <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
+        </div>
+
+        <!-- Pacientes -->
+        <div class="col-xs-12 paciente-cluster">
+            <div class="col-xs-12 p-c-2 turno-picker">
+                <div class="col-xs-12 col-sm-4">
+                    <label>Fecha</label><br>
+                    <label class="picker-fecha">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
+                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
+                    </label>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Profesional</label><br>
+                    <ng-select2 [data]="professionalOptions" (valueChanged)="professionalChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Hora</label><br>
+                    <label class="text-lowercase" [hidden]="appointments.length !== 0">El profesional no tiene turnos disponibles para la fecha elegida.</label>
+                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 tabla-popup-cliente">
+                <h3>Seleccionar Paciente</h3>
+                <div class="col-xs-12 container-de-tabla">
+                    <table id="table-agregar-turno" class="table table-sortable">
+                        <thead>
+                            <tr>
+                                <th>Nombre y Apellido</th>
+                                <th>Email</th>
+                                <th class="center">Turnos Realizados</th>
+                                <th class="center">Seleccionar</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let patient of patients; let i = index">
+                                <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
+                                <td>{{ patient.email | truncate }}</td>
+                                <td class="center">{{ patient.reservedAppointments }}</td>
+                                <td class="center"><input type="radio" name="patientRadioGroup" value="i" (change)="selectedPatientChange(patient)"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 center">
+                <a (click)="requestAppointmentForPatient()" id="add-paciente">Agregar</a>
+            </div>
+
+        </div>
+
+        <!-- Clientes -->
+         <div class="col-xs-12 cliente-cluster">
+
+            <div class="col-xs-12 p-c-2 turno-picker">
+                <div class="col-xs-12 col-sm-4">
+                    <label>Fecha</label><br>
+                    <label class="picker-fecha">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
+                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
+                    </label>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Profesinoal</label><br>
+                    <ng-select2 [data]="professionalOptions" (valueChanged)="professionalChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Hora</label><br>
+                    <label class="text-lowercase" [hidden]="appointments.length !== 0">El profesional no tiene turnos disponibles para la fecha elegida.</label>
+                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-xs-12">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="firstName">Nombre: </label><br>
+                    <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName">
+                </div>
+                    
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="lastName">Apellido: </label><br>
+                    <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName">
+                </div>
+    
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="dni">Dni: </label><br>
+                    <input type="text" id="dni" name="dni" [(ngModel)]="dni">
+                </div>
+    
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="phoneNumber">Telefono: </label><br>
+                    <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber">
+                </div>
+
+                <div class="col-xs12 col-sm-12">&nbsp;</div>
+    
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="address">Direccion: </label><br>
+                    <input type="text" id="address" name="address" [(ngModel)]="address">
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 tabla-popup-cliente">
+                <h3>Seleccionar Cliente</h3>
+                <div class="col-xs-12 container-de-tabla">
+                    <table id="table-agregar-turno" class="table table-sortable">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th class="center">Seleccionar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let client of clients; let i = index">
+                                <td>{{ client.email | truncate  }}</td>
+                                <td class="center"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-xs-12 center">
+                <a (click)="requestAppointmentForClient()" id="add-cliente">Agregar</a>
+            </div>
+        </div>
+
+        <!-- No existente -->
+         <div class="col-xs-12 noexiste-cluster">
+
+            <div class="col-xs-12 p-c-2 turno-picker">
+                <div class="col-xs-12 col-sm-4">
+                    <label>Fecha</label><br>
+                    <label class="picker-fecha">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
+                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
+                    </label>
+                </div>
+                
+                <div class="col-xs-12 col-sm-4">
+                    <label>Profesional</label><br>
+                    <ng-select2 [data]="professionalOptions" (valueChanged)="professionalChange($event)" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label>Hora</label><br>
+                    <label class="text-lowercase" [hidden]="appointments.length !== 0">El profesional no tiene turnos disponibles para la fecha elegida.</label>
+                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 center">
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="firstName">Nombre: </label><br>
+                    <input class="w100" type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="lastName">Apellido: </label><br>
+                    <input class="w100" type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="address">Direccion: </label><br>
+                    <input class="w100" type="text" id="address2" name="address" [(ngModel)]="address" >
+                </div>
+
+                <div class="col-xs12 col-sm-12">&nbsp;</div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="phoneNumber">Telefono: </label><br>
+                    <input class="w100" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="dni">Dni: </label><br>
+                    <input class="w100" type="text" id="dni2" name="dni" [(ngModel)]="dni" >
+                </div>
+
+                
+
+                <div class="col-xs12 col-sm-12">&nbsp;</div>
+
+                
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="email">Email: </label><br>
+                    <input class="w100" type="text" id="email2" name="email" [(ngModel)]="email" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div">
+                    <label for="password">Contraseña: </label><br>
+                    <input class="w100" type="password" id="password2" name="password" [(ngModel)]="password" >
+                </div>
+            </div>
+
+            <div class="col-xs-12 center ptop">
+                <a (click)="requestAppointmentForNonClient()" id="add-nuevo-paciente">Agregar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- // agregar turno -->
+
+
+<!-- Cancelar turno por clinica -->
+<div class="col-xs-12 modal-nueva-especialidad" (keyup.enter)="cancelAppointment()">
+    <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-nueva-especialidad col-xs-12">
+            <h2>Cancelar turno</h2>
+            <a class="close-modal-nueva-especialidad" (click)="closeCancelAppointment()">X</a>
+        </div>
+
+        <form action="">
+
+            <!-- Especialidad -->
+            <div>
+                <div class="col-xs-12 col-md-12">
+                    <label for="">Motivo de la cancelacion:</label>
+                </div>
+                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                    <input type="text" placeholder="Motivo" class="datos-personales" name="cancel" [(ngModel)]="appointmentToCancel.comment">
+                </div>
+            </div>
+
+            <div class="div-add-especialidad">
+                <a id="agregar-especialidad" (click)="cancelAppointment()">Cancelar</a>
+            </div>
+        </form>
+                
+    </div>
+            
+</div>
+<!-- // Cancelar turno por clinica -->

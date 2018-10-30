@@ -129,7 +129,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         specialtyId.id = this.selectedSpecialty.id;
         this.loaderService.show()
         this.subspecialtyOptions = [];
-        this.dataService.getSubspecialtiesByClinicForSelect(specialtyId).subscribe(res => {
+        this.dataService.getSubspecialtiesByHairdressingForSelect(specialtyId).subscribe(res => {
             this.subspecialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-subespecialidad").fadeIn();

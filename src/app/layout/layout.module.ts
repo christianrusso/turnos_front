@@ -24,6 +24,7 @@ import { HairdressingProfessionalService } from '../service/hairdressing.profess
 import { HairdressingSpecialtyService } from '../service/hairdressing.specialty.service';
 import { HairdressingSubspecialtyService } from '../service/hairdressing.subspecialty.service';
 import { HairdressingPatientService } from '../service/hairdressing-patient.service';
+import { HairdressingAppointmentService } from '../service/hairdressing-appointment.service';
 
 // Pantallas y componentes
 import { LayoutComponent } from './layout.component';
@@ -39,6 +40,7 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
 import { HairdressingProfessionalListComponent } from './hairdressing-professional-list/professional-list.component';
 import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-list/hairdressing-specialty-list.component';
 import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component';
+import { HairdressingCalendarComponent } from './hairdressing-calendar/hairdressing-calendar.component';
 // Pipes
 import { TruncatePipe } from '../pipe/truncate.pipe';
 import { SafeHtml } from '../pipe/safe-html.pipe';
@@ -67,7 +69,8 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
 
         HairdressingProfessionalListComponent,
         HairdressingSpecialtyListComponent,
-        HairdressingPatientListComponent
+        HairdressingPatientListComponent,
+        HairdressingCalendarComponent
     ],
     // Servicios
     providers: [
@@ -85,7 +88,8 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         HairdressingProfessionalService,
         HairdressingSpecialtyService,
         HairdressingSubspecialtyService,
-        HairdressingPatientService
+        HairdressingPatientService,
+        HairdressingAppointmentService
     ]
 })
 export class LayoutModule {}

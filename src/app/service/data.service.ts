@@ -31,6 +31,10 @@ export class DataService extends BaseService
         return this.post(this.url + "/GetSubspecialtiesByClinicForSelect", null, filter);
     }
 
+    public getSubspecialtiesByHairdressingForSelect(filter): Observable<SelectOption[]> {
+        return this.post(this.url + "/GetSubspecialtiesByHairdressingForSelect", null, filter);
+    }
+
     public getMedicalInsurancesForSelect(filter): Observable<SelectOption[]> {
         return this.post(this.url + "/GetMedicalInsurancesForSelect", null, filter);
     }

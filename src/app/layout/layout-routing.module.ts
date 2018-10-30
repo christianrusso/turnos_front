@@ -15,14 +15,15 @@ import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insu
 import { HairdressingProfessionalListComponent } from './hairdressing-professional-list/professional-list.component';
 import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-list/hairdressing-specialty-list.component';
 import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component'
+import { HairdressingCalendarComponent } from './hairdressing-calendar/hairdressing-calendar.component';
 
 const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
         children: [
-            { path: '', redirectTo: (sessionStorage.getItem('rubro') == "1" ? 'DoctorList' : 'HairdressingProfessionalList') },
-
+            //{ path: '', redirectTo: (sessionStorage.getItem('rubro') == "1" ? 'DoctorList' : 'HairdressingProfessionalList') },
+            { path: '', redirectTo: 'Home'},
             { path: 'Home', component: HomeComponent },
             { path: 'SpecialtyList', component: SpecialtyListComponent },
             { path: 'PatientList', component: PatientListComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
             { path: 'HairdressingProfessionalList', component:HairdressingProfessionalListComponent},
             { path: 'HairdressingSpecialtyList', component: HairdressingSpecialtyListComponent },
             { path: 'HairdressingPatientList', component: HairdressingPatientListComponent },
+            { path: 'HairdressingCalendar', component: HairdressingCalendarComponent },
         ]
     }
 ];

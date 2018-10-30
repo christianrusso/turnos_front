@@ -1,0 +1,82 @@
+/* DIA CALENDARIO ICONOS*/
+.single-paciente{
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.single-paciente:hover{
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.single-paciente .hover-paciente{
+    display: none;
+    text-align: right;
+    margin-top: 0;
+    float: right;
+    padding: 0;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.single-paciente:hover .hover-paciente{
+    display: inline-block;
+    text-align: right;
+    margin-top: 0;
+    float: right;
+    padding: 0;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.hover-paciente i{
+  transition: all 0.3s ease-in-out;
+  margin-right: 6px;
+  font-size: 12.5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 4px;
+}
+
+.hover-paciente i:hover{
+  transition: all 0.3s ease-in-out;
+  opacity: .7;
+}
+
+
+.single-paciente .turno-paciente{
+  text-align: right;
+  margin-top: 0;
+  float: right;
+  padding: 0;
+  background: transparent;
+}
+
+.single-paciente:hover .turno-paciente{
+  display: inline-block;
+  text-align: right;
+  margin-top: 0;
+  float: right;
+  padding: 0;
+  background: transparent;
+}
+
+.turno-paciente i{
+margin-right: 6px;
+font-size: 12.5px;
+display: inline-block;
+vertical-align: middle;
+margin-top: 4px;
+}
+
+.horario-medico{
+  transform: translateX(-10px);
+}
+
+.picker-fecha {
+  width: 100%;
+  text-align: center;
+  height: 28px;
+}
+
+.w100 {
+  width: 100%;
+}

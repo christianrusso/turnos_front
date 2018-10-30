@@ -74,7 +74,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     showAddSpecialty() {
         this.loaderService.show()
         this.specialtyOptions = [];
-        this.dataService.getSpecialtiesForSelect(null).subscribe(res => {
+        this.dataService.getSpecialtiesForSelect({id:1}).subscribe(res => {
             this.specialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-especialidad").fadeIn();
