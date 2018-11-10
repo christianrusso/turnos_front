@@ -40,7 +40,7 @@ export class LoginComponent extends BaseComponent {
         let loginData = new Login();
         loginData.email = this.email;
         loginData.password = this.password;
-        //loginData.rubro = +this.rubro;
+        loginData.businessType = this.mapRubro(this.rubro);
         this.accountService.login(loginData).subscribe(
             res => {
                 sessionStorage.setItem("token", res.token);
@@ -50,5 +50,12 @@ export class LoginComponent extends BaseComponent {
                 this.router.navigate(['Layout']);
             }
         );
+    }
+
+    private mapRubro(rubro) : string{
+         if(rubro == "1") return "Clinic";
+         if(rubro == "2") return "Hairdressing";
+
+         return "";
     }
 }

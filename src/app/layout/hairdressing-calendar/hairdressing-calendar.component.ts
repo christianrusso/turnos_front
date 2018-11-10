@@ -286,6 +286,12 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     selectedClientChange(selectedClient) {
         this.selectedClient = selectedClient;
+
+        this.firstName = this.selectedClient.firstName;
+        this.lastName = this.selectedClient.lastName;
+        this.address = this.selectedClient.address;
+        this.phoneNumber = this.selectedClient.phoneNumber;
+        this.dni = this.selectedClient.dni;
     }
 
     requestAppointmentForPatient() {

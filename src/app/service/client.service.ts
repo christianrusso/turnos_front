@@ -22,4 +22,8 @@ export class ClientService extends BaseService {
     public getAllClientsNonPatients(): Observable<Client[]> {
         return this.post(this.url + "/GetAllNonPatients", null, null);
     }
+
+    public getAllClientsNonHairdressingPatients(): Observable<Client[]> {
+        return this.post(this.url + "/GetAllNonHairdressingPatients", null, null);
+    }
 }

@@ -60,7 +60,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     }
 
     getAllClientsNonPatients() {
-        this.clientService.getAllClientsNonPatients().subscribe(res => {
+        this.clientService.getAllClientsNonHairdressingPatients().subscribe(res => {
             this.clients = res;
         });
     }
@@ -183,6 +183,12 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     selectedClientChange(selectedClient) {
         this.selectedClient = selectedClient;
+
+        this.firstName = this.selectedClient.firstName;
+        this.lastName = this.selectedClient.lastName;
+        this.address = this.selectedClient.address;
+        this.phoneNumber = this.selectedClient.phoneNumber;
+        this.dni = this.selectedClient.dni;
     }
 
     // Edit Patient
