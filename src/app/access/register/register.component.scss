@@ -1,0 +1,50 @@
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+
+  :disabled{
+    cursor: not-allowed;
+  }
+
+  agm-map {
+    height: 300px;
+  }
+
+ .loginAdmin input[type="email"],.loginAdmin input[type="password"]{
+  display: block;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  height: 35px;
+  text-align: left;
+  padding: 5px 5px;
+  width: 100%;
+  font-size: 13px;
+  color: gray;
+  letter-spacing:0.5px;
+} 
+
+
+
+.login {
+  border: none;
+  color: #fff;
+  font-family: sf_ui_displayregular;
+  height: 40px;
+  letter-spacing: 1px;
+  font-size: 14px;
+  border-radius: 3px;
+  font-weight: 700;
+  background: #2060fe;
+  text-transform: uppercase;
+  margin:auto;
+  width: auto;
+  transition: all 0.3s ease-in-out;
+  margin-top: 22px;
+  padding: 12px  20px;
+}

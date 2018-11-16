@@ -95,7 +95,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../assets/medicos.js');
+        await this.loadScript('../panel/assets/medicos.js');
     }
 
     getAllDoctorsByFilter() {

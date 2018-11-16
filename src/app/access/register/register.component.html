@@ -1,0 +1,101 @@
+<section class="loginAdmin">
+  <div style="height:900px">
+    <h1>Todo Reserva</h1>
+    <h2>Bienvenido a su sistema de turnos</h2>
+    <div class="bg-white">
+        <div class="col-md-12" [style.display]="cropperReady ? null : 'none'">
+            <p class="text-center">Recortar Imagen</p>
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+              [resizeToWidth]="128" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
+              (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" style="max-height: 33vh" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+          </div>
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email" id="email" required [(ngModel)]="register.email"
+              name="email" #email="ngModel">
+          </div>
+          <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+            email requerido
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" class="form-control" placeholder="Password" id="password" required [(ngModel)]="register.password"
+              name="password" #password="ngModel">
+          </div>
+          <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            contraseña requerido
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre" id="name" required [(ngModel)]="register.name"
+              name="name" #name="ngModel">
+          </div>
+          <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+            nombre requerido
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Descripcion</label>
+            <textarea rows="4" class="form-control form-control-alternative" placeholder="Descripcion" id="description"
+              [(ngModel)]="register.description" name="description" #description="ngModel"></textarea>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Ciduad</label>
+            <ng-select2 [data]="citys" [value]="-1" name="city" lang="es" [(ngModel)]="register.city" name="city" #city="ngModel"></ng-select2>
+
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Direccion</label>
+            <input type="text" class="form-control" placeholder="Direccion" id="Direccion" required [(ngModel)]="register.address"
+              name="address" #address="ngModel" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+          </div>
+          <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+            direccion requerida
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Logo</label>
+            <input type="file" class="form-control" (change)="fileChangeEvent($event)" required [(ngModel)]="register.logo"
+              name="logo" #logo="ngModel" />
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <label>Rubro</label>
+          <select [(ngModel)]="register.businessType" class="form-control" name="businessType" #businessType="ngModel"
+            id="businessType" required class="form-control">
+            <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
+          </select>
+        </div>
+
+
+        <input type="submit" value="Registrar" [disabled]="!registerForm.form.valid">
+
+      </form>
+      <div class="text-center">
+        <br><br>
+          <a  [routerLink]="['/Login']" >Login</a>
+
+      </div>
+      <!-- <img [src]="croppedImage" /> -->
+    </div>
+    <p>Hecho por <a href="http://orbit.com.ar" target="_blank"><img src="assets/img/logo-footer-orbit.png" alt="Orbit"></a></p>
+  </div>
+</section>
