@@ -29,6 +29,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     public specialtyId: string;
     public subspecialtyId: string;
     public newSubspecialtyConsultationLength: NgbTimeStruct;
+    public newSubspecialtyPrice: number;
 
     public letterFilter: string;
     public searchDescription: string;
@@ -123,6 +124,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     /* Agregar subespecialidad */
     showAddSubspecialty(specialtyIndex: number) {
         this.newSubspecialtyConsultationLength = { hour: 0, minute: 0, second: 0 };
+        this.newSubspecialtyPrice = 0;
         this.selectedSpecialty = this.specialties[specialtyIndex];
 
         const specialtyId = new IdFilter();
@@ -146,6 +148,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         subspecialty.id = parseInt(this.subspecialtyId);
         subspecialty.specialtyId = this.selectedSpecialty.id;
         subspecialty.consultationLength = this.newSubspecialtyConsultationLength.hour * 60 + this.newSubspecialtyConsultationLength.minute;
+        subspecialty.price = this.newSubspecialtyPrice;
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {
             $(".modal-nueva-subespecialidad").fadeOut();

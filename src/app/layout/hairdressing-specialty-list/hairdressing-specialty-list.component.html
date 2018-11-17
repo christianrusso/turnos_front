@@ -73,7 +73,7 @@
                                 <a class="agregar-subespecialidad" (click)="showAddSubspecialty(i)">Agregar subespecialidad</a>
                                 <div>
                                     <p *ngFor="let subspecialty of specialty.subspecialties; let j = index">
-                                        {{ subspecialty.description }} <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
+                                        {{ subspecialty.description + ' ($' + subspecialty.price + ')' }} <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
                                     </p>
                                 </div>
                             </div>
@@ -142,10 +142,15 @@
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
             </div>
-
+            
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <span><strong>Duración de consulta</strong></span>
                 <ngb-timepicker [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength"></ngb-timepicker>
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <span><strong>Precio de la consulta</strong></span><br/>
+                <input class="priceInput" type="number" [(ngModel)]="newSubspecialtyPrice" name="newSubspecialtyPrice" />
             </div>
 
             <div class="div-add-especialidad">

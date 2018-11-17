@@ -4,4 +4,5 @@ export class Subspecialty {
     public consultationLength: number;
     public specialtyId: number;
     public specialtyDescription: string;
+    public price: number;
 }
