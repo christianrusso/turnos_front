@@ -66,7 +66,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../assets/pacientes.js');
+        await this.loadScript('../panel/assets/pacientes.js');
     }
 
     getAllPatients() {
