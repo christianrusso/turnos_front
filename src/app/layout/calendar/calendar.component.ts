@@ -24,6 +24,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
 import * as jsPDF from 'jspdf';
+import { Logo } from '../../model/logoForPdf';
+declare var jsPDF: any; // Important
+
 @Component({
     selector: 'app-calendar',
     templateUrl: './calendar.component.html',
@@ -65,6 +68,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public appointmentToCancel = new CancelAppointment();
 
     public week = new Array<WeekDay>();
+    public logoForPdf=Logo;
 
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../panel/assets/calendario.js');
@@ -472,29 +476,47 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             this.reloadPage();
         });
     }
-    dowloadPdf(){
-        const doc= new jsPDF();
-        var x=15;
-        var y=20;
-        var xName=10;
-        var yName=10;
+    dowloadPdf() {
+        var doc = new jsPDF('p', 'mm', 'a4');
+        var myImage =this.logoForPdf.logo;
+        doc.setFillColor("#454EDB");
+        doc.rect(0, 0, 320, 39, "F");
+        doc.addImage(myImage, 'JPEG', 80, 10, 40, 14);
+        var columns = ["PACIENTE", "FECHA", "HORA"];
+        var rows = [];
+        var block = 0;
         this.requestedAppointmentsPerDoctor.forEach(element => {
-            doc.setDrawColor(255, 0, 0);
-            doc.line(10, yName-8, 200, yName-8);            
-            doc.text("Doctor:",10,yName);
-            doc.text(element.doctorFirstName,30,yName);
-            element.requestedAppointmentsPerHour.forEach(perHour => {
-                perHour.appointments.forEach(appoint => {
-                    doc.text("Dia: ",10,y);
-                    doc.text(appoint.hour,25,y);
-                    doc.text("Paciente:",90,y);
-                    doc.text(appoint.patient,115,y);
-                    y=y+30;
+           rows = [];
+            if(element.requestedAppointmentsPerHour.length>0){
+                element.requestedAppointmentsPerHour.forEach(paciente => {
+                    paciente.appointments.forEach(hour => {
+                        var fecha = new Date(hour.hour);
+                       rows.push([hour.patient,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
+                    });                                
                 });
-            });
-            yName=yName+y+40;
-
+               // rows.push(row2);   
+                if (block > 44) {
+                    doc.addPage();
+                    doc.setFillColor("#454EDB");
+                    doc.rect(0, 0, 320, 39, "F");
+                    doc.addImage(myImage, 'JPEG', 80, 10, 40, 14);
+                }
+                //medico
+                var columns2 = [element.doctorFirstName + " " + element.doctorLastName];
+                doc.autoTable(columns2, [], {styles: {valign: 'middle',halign: 'center',lineColor: "black",lineWidth: 0.2,fillColor: "#EAECF2",fontSize: 13,},
+                    theme: 'plain', 
+                    margin: { top: 34},
+                });
+                //listado
+                doc.autoTable(columns, rows, {styles: {valign: 'middle',halign: 'center', lineColor: "black",lineWidth: 0.2,fontSize: 12,}, 
+                    theme: 'plain', 
+                    margin: { top: 42.6 },
+                });
+                block =100;
+            }                 
         });
-        doc.save('test.pdf');
+        var blob = doc.output("blob");
+        window.open(URL.createObjectURL(blob));
+        //doc.save('test.pdf');
     }
 }
