@@ -24,8 +24,7 @@ import { NgSelect2Module } from 'ng-select2';
             apiKey: "AIzaSyCeS0Tku62WXG03D8NKXgMxA6RNuBKbrSI",
             libraries: ["places"]
           }),
-          NgSelect2Module
-        
+          NgSelect2Module,
     ],
     declarations: [
         // Paginas principales del layout

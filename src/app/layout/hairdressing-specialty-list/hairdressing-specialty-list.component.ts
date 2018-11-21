@@ -38,7 +38,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     public selectedSubspecialty: Subspecialty;
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../assets/especialidades.js');
+        await this.loadScript('../panel/assets/especialidades.js');
     }
 
     constructor(
