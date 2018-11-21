@@ -25,7 +25,7 @@
                         </div>
                     </form>
                     <div class="menu-acciones desk col-xs-12 col-sm-4">
-                        <a id="agregar-medico" (click)="showAddDoctor()">Agregar médico</a>
+                        <a id="agregar-medico" [ngClass]="{'btn-disabled' : !addDoctorEnable}" (click)="addDoctorEnable && showAddDoctor()">Agregar médico</a>
                     </div>
                 </div>
 

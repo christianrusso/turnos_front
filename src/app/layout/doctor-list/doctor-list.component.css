@@ -108,3 +108,8 @@
   #agregar-medico-btn {
     margin-bottom: 0px;
   }
+
+  .btn-disabled {
+    background-color: #aeaeae !important;
+    cursor: not-allowed;
+  }

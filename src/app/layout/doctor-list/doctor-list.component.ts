@@ -76,6 +76,8 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public doctorSundayWhStart: string;
     public doctorSundayWhEnd: string;
 
+    public addDoctorEnable = false;
+
     constructor(
         private doctorService: DoctorService,
         private specialtyService: SpecialtyService,
@@ -112,13 +114,14 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     getAllSpecialties() {
         this.loaderService.show();
         this.specialtyService.getAllSpecialtiesForSelect().subscribe(res => {
+            this.addDoctorEnable = res.length > 1;
             this.specialtyOptions = res;
             this.specialtyFilter = "-1";
             this.specialtyOptionsDoctor = res.map(x => Object.assign({}, x));;
             this.specialtyOptionsDoctor.shift();
             this.doctorSpecialty = "-1";
             this.loaderService.hide();
-        });;
+        });
     }
 
     getAllSubspecialties() {

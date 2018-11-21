@@ -2,11 +2,9 @@ import { Component, AfterViewInit } from '@angular/core';
 import { HairdressingProfessional } from '../../model/hairdressing-professional.class';
 import { HairdressingProfessionalService } from '../../service/hairdressing.professional.service';
 import { WorkingHour } from '../../model/working-hour.class';
-import { Specialty } from '../../model/specialty.class';
 import { HairdressingSpecialtyService } from '../../service/hairdressing.specialty.service';
 import { HairdressingProfessionalFilter } from '../../model/hairdressing-professional-filter.class';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
-import { Observable } from 'rxjs/Observable';
 import { HairdressingSubspecialtyService } from '../../service/hairdressing.subspecialty.service';
 import { IdFilter } from '../../model/id-filter.class';
 import { Subspecialty } from '../../model/subspecialty.class';
@@ -76,6 +74,8 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     public professionalSundayWhStart: string;
     public professionalSundayWhEnd: string;
 
+    public addProfessionalEnable = false;
+
     constructor(
         private hairdressingProfessionalService: HairdressingProfessionalService,
         private specialtyService: HairdressingSpecialtyService,
@@ -112,6 +112,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     getAllSpecialties() {
         this.loaderService.show();
         this.specialtyService.getAllSpecialtiesForSelect().subscribe(res => {
+            this.addProfessionalEnable = res.length > 1;
             this.specialtyOptions = res;
             this.specialtyFilter = "-1";
             this.specialtyOptionsProfessional = res.map(x => Object.assign({}, x));;
