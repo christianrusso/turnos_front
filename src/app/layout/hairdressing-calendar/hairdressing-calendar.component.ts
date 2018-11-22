@@ -63,7 +63,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public week = new Array<WeekDay>();
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/calendario.js');
+        await this.loadScript('../assets/calendario.js');
     }
 
     public days: Array<string>;
@@ -431,7 +431,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     }
 
     cancelAppointment() {
-        this.appointmentService.cancelAppointmentByClinic(this.appointmentToCancel).subscribe(res => {
+        this.appointmentService.cancelAppointmentByHairdressing(this.appointmentToCancel).subscribe(res => {
             this.toastrService.success('Turno cancelado exitosamente');
             this.reloadPage();
         });
