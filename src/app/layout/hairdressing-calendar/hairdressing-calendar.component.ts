@@ -22,6 +22,7 @@ import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
 import * as jsPDF from 'jspdf';
+import { TouchSequence } from 'selenium-webdriver';
 @Component({
     selector: 'app-hairdressing-calendar',
     templateUrl: './hairdressing-calendar.component.html',
@@ -47,6 +48,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public selectedClient: Client;
     public professionalOptions: Array<Select2OptionData>;
     public appointments = new Array<string>();
+    public professionalOption: string;
 
     public firstName: string;
     public lastName: string;
@@ -257,6 +259,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     // Pop up
     showRequestAppointment() {
         $(".modal-agregar-turno").fadeIn();
+        this.professionalOption = ''
+        this.selectedHour = null;
         this.selectedDate = new Date(this.currentDate);
         this.appointments = [];
     }

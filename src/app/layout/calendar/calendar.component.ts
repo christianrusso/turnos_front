@@ -52,6 +52,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public selectedClient: Client;
     public doctorOptions: Array<Select2OptionData>;
     public appointments = new Array<string>();
+    public doctorOption: string;
 
     public firstName: string;
     public lastName: string;
@@ -299,6 +300,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     // Pop up
     showRequestAppointment() {
         $(".modal-agregar-turno").fadeIn();
+        this.doctorOption = '';
+        this.selectedHour = null;
         this.selectedDate = new Date(this.currentDate);
         this.appointments = [];
     }
