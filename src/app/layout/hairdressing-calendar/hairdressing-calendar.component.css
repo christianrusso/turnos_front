@@ -80,3 +80,8 @@ margin-top: 4px;
 .w100 {
   width: 100%;
 }
+
+.turno-cancelado {
+  background-color: #aeaeae !important;
+  cursor: default !important;
+}
