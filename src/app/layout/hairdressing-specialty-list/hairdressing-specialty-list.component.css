@@ -89,3 +89,7 @@ text-align: center;
 .priceInput {
     text-align: center;
 }
+
+.time-input {
+    line-height: 20px;
+}

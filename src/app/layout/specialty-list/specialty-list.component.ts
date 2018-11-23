@@ -8,7 +8,6 @@ import { SpecialtyFilter } from '../../model/specialty-filter.class';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SelectOption } from '../../model/select/select-option.class';
 import { IdFilter } from '../../model/id-filter.class';
 import { DataService } from '../../service/data.service';
@@ -28,7 +27,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
 
     public specialtyId: string;
     public subspecialtyId: string;
-    public newSubspecialtyConsultationLength: NgbTimeStruct;
+    public newSubspecialtyConsultationLength: string;
 
     public letterFilter: string;
     public searchDescription: string;
@@ -122,7 +121,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
 
     /* Agregar subespecialidad */
     showAddSubspecialty(specialtyIndex: number) {
-        this.newSubspecialtyConsultationLength = { hour: 0, minute: 0, second: 0 };
+        this.newSubspecialtyConsultationLength = '';
         this.selectedSpecialty = this.specialties[specialtyIndex];
 
         const specialtyId = new IdFilter();
@@ -145,7 +144,8 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         let subspecialty = new Subspecialty();
         subspecialty.id = parseInt(this.subspecialtyId);
         subspecialty.specialtyId = this.selectedSpecialty.id;
-        subspecialty.consultationLength = this.newSubspecialtyConsultationLength.hour * 60 + this.newSubspecialtyConsultationLength.minute;
+        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
+        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {
             $(".modal-nueva-subespecialidad").fadeOut();
