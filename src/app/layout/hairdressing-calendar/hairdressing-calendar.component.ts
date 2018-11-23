@@ -284,6 +284,12 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         });
     }
 
+    dayChange(selection) {
+        this.professionalOption = '';
+        this.selectedHour = null;
+        this.appointments = [];
+    }
+
     selectedPatientChange(selectedPatient) {
         this.selectedPatient = selectedPatient;
     }

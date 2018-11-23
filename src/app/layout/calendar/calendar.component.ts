@@ -325,13 +325,18 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         });
     }
 
+    dayChange(selection) {
+        this.doctorOption = '';
+        this.selectedHour = null;
+        this.appointments = [];
+    }
+
     selectedPatientChange(selectedPatient) {
         this.selectedPatient = selectedPatient;
     }
 
     selectedClientChange(selectedClient) {
         this.selectedClient = selectedClient;
-
         this.firstName = this.selectedClient.firstName;
         this.lastName = this.selectedClient.lastName;
         this.address = this.selectedClient.address;
@@ -479,6 +484,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             this.reloadPage();
         });
     }
+
     dowloadPdf() {
         var doc = new jsPDF('p', 'mm', 'a4');
         var myImage =this.logoForPdf.logo;
