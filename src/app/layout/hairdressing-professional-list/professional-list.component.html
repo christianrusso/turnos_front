@@ -52,7 +52,7 @@
                         
                         <tbody>
                             <tr *ngFor="let professional of professionals; let i = index">
-                                <td>{{ professional.firstName + ' ' + professional.lastName | truncate }}</td>
+                                <td>{{ professional.lastName + ' ' + professional.firstName | truncate }}</td>
                                 <td>{{ professional.specialtyDescription | truncate }}</td>
                                 <td>{{ professional.subspecialtyDescription | truncate }}</td>
                                 <td class="state" [ngClass]="professional.state ? 'active' : 'inactive'"><span></span>{{ professional.state ? 'Activo' : 'Inactivo' }}</td>

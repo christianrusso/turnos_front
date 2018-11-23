@@ -52,6 +52,9 @@ export class RegisterComponent implements OnInit {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ["address"]
       });
+
+      autocomplete.setComponentRestrictions(
+            {'country': ['ar']});
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result

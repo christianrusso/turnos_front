@@ -60,7 +60,7 @@ export class HairdressingAppointmentService extends BaseService {
         return this.post(this.url + '/CompleteAppointmentByClinic', null, appointment);
     }
 
-    public cancelAppointmentByClinic(appointment: CancelAppointment): Observable<Object> {
-        return this.post(this.url + '/CancelAppointmentByClinic', null, appointment);
+    public cancelAppointmentByHairdressing(appointment: CancelAppointment): Observable<Object> {
+        return this.post(this.url + '/CancelAppointmentByHairdressing', null, appointment);
     }
 }

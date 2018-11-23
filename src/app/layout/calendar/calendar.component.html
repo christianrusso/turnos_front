@@ -53,7 +53,7 @@
 
                         <div class="col-xs-12 col-sm-3 col-3" *ngFor="let data of requestedAppointmentsPerDoctor">
 
-                            <h3>{{ data.doctorFirstName + ' ' + data.doctorLastName | truncate }}</h3>
+                            <h3>{{ data.doctorLastName + ' ' + data.doctorFirstName | truncate }}</h3>
 
                             <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
 

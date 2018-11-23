@@ -63,4 +63,5 @@ export class AppointmentService extends BaseService {
     public cancelAppointmentByClinic(appointment: CancelAppointment): Observable<Object> {
         return this.post(this.url + '/CancelAppointmentByClinic', null, appointment);
     }
+
 }
