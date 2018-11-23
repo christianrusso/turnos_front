@@ -180,7 +180,7 @@
                 <div class="col-xs-12 col-sm-4">
                     <label>Fecha</label><br>
                     <label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
                     </label>
                 </div>
@@ -237,7 +237,7 @@
                 <div class="col-xs-12 col-sm-4">
                     <label>Fecha</label><br>
                     <label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
                     </label>
                 </div>
@@ -319,7 +319,7 @@
                 <div class="col-xs-12 col-sm-4">
                     <label>Fecha</label><br>
                     <label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
+                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
                     </label>
                 </div>
