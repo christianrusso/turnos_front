@@ -168,11 +168,12 @@
             <a (click)="hideRequestAppointment()" class="close-modal-agregar-turno">X</a>
         </div>
 
-        <div class="col-xs-12 buttons-turno">
-            <a (click)="showPatientTab()" id="paciente-turno">Paciente</a>
-            <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
-            <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
-        </div>
+        <div class="col-xs-12 buttons-turno table-cluster2">
+                <h3>Seleccione el tipo de Usuario</h3>
+                <a (click)="showPatientTab()" id="paciente-turno">Ya es Paciente</a>
+                <a (click)="showClientTab()" id="cliente-turno">Usuario de Tu Turno</a>
+                <a (click)="showNoClientTab()" id="noexiste-turno">Nuevo Usuario</a>
+            </div>
 
         <!-- Pacientes -->
         <div class="col-xs-12 paciente-cluster">

@@ -102,10 +102,10 @@
             <h2>Nuevo Paciente</h2>
             <a (click)="hideAddPatient()" class="close-modal-agregar-paciente">X</a>
         </div>
-
-        <div class="col-xs-12 buttons-turno" style="margin-bottom: 25px;">
-            <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
-            <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
+        <div class="col-xs-12 buttons-turno table-cluster2" style="margin-bottom: 25px;">
+            <h3>Seleccione el tipo de Usuario</h3>
+            <a (click)="showClientTab()" id="cliente-turno">Usuario registrado en Tu Turno</a>
+            <a (click)="showNoClientTab()" id="noexiste-turno">Nuevo Usuario</a>
         </div>
         
         <!-- Clientes -->
@@ -144,6 +144,7 @@
                     </ng-select2>
                 </div>
             </div>
+            
             <div class="col-xs-12 table-cluster">
                 <h3>Seleccionar Cliente</h3>
                 <div class="col-xs-12 container-de-tabla">

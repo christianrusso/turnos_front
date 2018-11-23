@@ -1026,7 +1026,7 @@ svg:not(:root){
 }
 
 .buttons-turno a{
-  width: 120px;
+  /*width: 120px;*/
   display: inline-block;
   background: #95989a;
   padding: 5px;
@@ -1076,6 +1076,17 @@ svg:not(:root){
 }
 
 .table-cluster h3{
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 0.5px;
+  padding-bottom: 15px;
+}
+
+.table-cluster2 h3{
   text-align: center;
   text-transform: uppercase;
   font-size: 14px;

@@ -94,10 +94,11 @@
             <a (click)="hideAddPatient()" class="close-modal-agregar-paciente">X</a>
         </div>
 
-        <div class="col-xs-12 buttons-turno" style="margin-bottom: 25px;">
-            <a (click)="showClientTab()" id="cliente-turno">Cliente</a>
-            <a (click)="showNoClientTab()" id="noexiste-turno">No existe</a>
-        </div>
+        <div class="col-xs-12 buttons-turno table-cluster2" style="margin-bottom: 25px;">
+                <h3>Seleccione el tipo de Usuario</h3>
+                <a (click)="showClientTab()" id="cliente-turno">Usuario registrado en Tu Turno</a>
+                <a (click)="showNoClientTab()" id="noexiste-turno">Nuevo Usuario</a>
+            </div>
         
         <!-- Clientes -->
         <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
