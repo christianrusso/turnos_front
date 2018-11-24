@@ -87,7 +87,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/pacientes.js');
+        await this.loadScript('../assets/pacientes.js');
     }
     
     medicalInsuranceFilterChange(selection){
@@ -117,7 +117,15 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res
             this.loaderService.hide();
+
+            if (isNaN(filter.medicalInsuranceId) && this.patients.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
+    }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
     }
 
     getAllMedicalInsurance(): any {

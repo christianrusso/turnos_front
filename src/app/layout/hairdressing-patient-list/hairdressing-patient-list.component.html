@@ -237,4 +237,23 @@
             </div>
     </div>
 </div>
-<!-- // editar paciente --> 
+<!-- // editar paciente -->
+
+<!-- Modal Informacion -->
+<div class="col-xs-12 modal-informacion" (keyup.enter)="closeInformation()">
+    <div class="inside-modal-informacion col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-informacion col-xs-12">
+            <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+            <a class="close-modal-informacion" (click)="closeInformation()">X</a>
+        </div>
+
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id ante a justo vestibulum ullamcorper ac in arcu. Maecenas vulputate.
+        </div>
+
+        <div class="div-add-medico">
+            <a id="guardar-plan" (click)="closeInformation()">Aceptar</a>
+        </div>
+    </div>
+</div>
+<!-- // Modal Informacion -->

@@ -33,7 +33,7 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
     public searchDescription: string;
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/obrasocial.js');
+        await this.loadScript('../assets/obrasocial.js');
     }
 
     constructor(
@@ -64,7 +64,15 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
         this.medicalInsuranceService.getMedicalInsuranceByLetter(filter).subscribe(res => {
             this.medicalInsurances = res;
             this.loaderService.hide();
+
+            if (filter.letter == '*' && this.medicalInsurances.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
+    }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
     }
 
     searchMedicalInsurance() {

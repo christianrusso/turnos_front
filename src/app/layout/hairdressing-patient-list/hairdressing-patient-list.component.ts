@@ -2,17 +2,12 @@ import { Component, AfterViewInit } from '@angular/core';
 import { HairdressingPatient } from '../../model/hairdressing-patient.class';
 import { HairdressingPatientService } from '../../service/hairdressing-patient.service';
 import { Router } from '@angular/router';
-import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { HairdressingPatientFilter } from '../../model/hairdressing-patient-filter.class';
-import { MedicalInsuranceService } from '../../service/medicalInsurance.service';
 import { Client } from '../../model/client.class';
 import { ClientService } from '../../service/client.service';
-import { RequestAppointmentClient } from '../../model/request-appointment-client.class';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
-import { IdFilter } from '../../model/id-filter.class';
-import { MedicalPlanService } from '../../service/medicalPlan.service';
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -83,9 +78,16 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res
             this.loaderService.hide();
+
+            if (this.patients.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
     }
 
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
+    }
 
     setSelectedPatient(index: number) {
         this.selectedPatient = this.patients[index];

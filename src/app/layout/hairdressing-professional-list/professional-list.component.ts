@@ -106,6 +106,10 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.hairdressingProfessionalService.getAllProfessionalsByFilter(filter).subscribe(res => {
             this.professionals = res;
             this.loaderService.hide();
+
+            if (isNaN(filter.specialtyId) && isNaN(filter.subSpecialtyId) && this.professionals.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
     }
     
