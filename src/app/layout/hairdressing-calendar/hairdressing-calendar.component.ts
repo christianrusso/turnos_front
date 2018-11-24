@@ -21,7 +21,9 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
-import * as jsPDF from 'jspdf';
+import { Logo } from '../../model/logoForPdf';
+declare var jsPDF: any; // Important
+
 import { TouchSequence } from 'selenium-webdriver';
 @Component({
     selector: 'app-hairdressing-calendar',
@@ -61,6 +63,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public appointmentToCancel = new CancelAppointment();
 
     public week = new Array<WeekDay>();
+    public logoForPdf=Logo;
 
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/calendario.js');
@@ -442,29 +445,47 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
             this.reloadPage();
         });
     }
-    dowloadPdf(){
-        const doc= new jsPDF();
-        var x=15;
-        var y=20;
-        var xName=10;
-        var yName=10;
+    dowloadPdf() {
+        var doc = new jsPDF('p', 'mm', 'a4');
+        var myImage =this.logoForPdf.logo;
+        doc.setFillColor("#454EDB");
+        doc.rect(0, 0, 320, 39, "F");
+        doc.addImage(myImage, 'JPEG', 80, 10, 40, 14);
+        var columns = ["PACIENTE", "FECHA", "HORA"];
+        var rows = [];
+        var block = 0;
         this.requestedAppointmentsPerProfessional.forEach(element => {
-            doc.setDrawColor(255, 0, 0);
-            doc.line(10, yName-8, 200, yName-8);            
-            doc.text("Professional:",10,yName);
-            doc.text(element.professionalFirstName,30,yName);
-            element.requestedAppointmentsPerHour.forEach(perHour => {
-                perHour.appointments.forEach(appoint => {
-                    doc.text("Dia: ",10,y);
-                    doc.text(appoint.hour,25,y);
-                    doc.text("Paciente:",90,y);
-                    doc.text(appoint.patient,115,y);
-                    y=y+30;
+           rows = [];
+            if(element.requestedAppointmentsPerHour.length>0){
+                element.requestedAppointmentsPerHour.forEach(paciente => {
+                    paciente.appointments.forEach(hour => {
+                        var fecha = new Date(hour.hour);
+                       rows.push([hour.patient,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
+                    });                                
                 });
-            });
-            yName=yName+y+40;
-
+               // rows.push(row2);   
+                if (block > 44) {
+                    doc.addPage();
+                    doc.setFillColor("#454EDB");
+                    doc.rect(0, 0, 320, 39, "F");
+                    doc.addImage(myImage, 'JPEG', 80, 10, 40, 14);
+                }
+                //medico
+                var columns2 = [element.professionalFirstName + " " + element.professionalLastName];
+                doc.autoTable(columns2, [], {styles: {valign: 'middle',halign: 'center',lineColor: "black",lineWidth: 0.2,fillColor: "#EAECF2",fontSize: 13,},
+                    theme: 'plain', 
+                    margin: { top: 34},
+                });
+                //listado
+                doc.autoTable(columns, rows, {styles: {valign: 'middle',halign: 'center', lineColor: "black",lineWidth: 0.2,fontSize: 12,}, 
+                    theme: 'plain', 
+                    margin: { top: 42.6 },
+                });
+                block =100;
+            }                 
         });
-        doc.save('test.pdf');
+        var blob = doc.output("blob");
+        window.open(URL.createObjectURL(blob));
+        //doc.save('test.pdf');
     }
 }
