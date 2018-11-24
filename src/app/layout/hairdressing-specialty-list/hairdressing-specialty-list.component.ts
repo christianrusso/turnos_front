@@ -67,7 +67,15 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         this.specialtyService.getSpecialtiesByLetter(filter).subscribe(res => {
             this.specialties = res;
             this.loaderService.hide();
+
+            if (filter.letter == '*' && this.specialties.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
+    }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
     }
 
     /* Agregar especialidad */

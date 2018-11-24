@@ -36,7 +36,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     public selectedSubspecialty: Subspecialty;
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/especialidades.js');
+        await this.loadScript('../assets/especialidades.js');
     }
 
     constructor(
@@ -66,7 +66,15 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         this.specialtyService.getSpecialtiesByLetter(filter).subscribe(res => {
             this.specialties = res;
             this.loaderService.hide();
+
+            if (filter.letter == '*' && this.specialties.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
+    }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
     }
 
     /* Agregar especialidad */

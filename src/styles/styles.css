@@ -1638,7 +1638,7 @@ ul {
 .medicos-section .col-md-offset-1{
 }
 
-.modal-horarios, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
+.modal-horarios, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .modal-informacion, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
   position: absolute;
   z-index: 10;
   background: rgba(203, 208, 221, 0.7);
@@ -1648,7 +1648,7 @@ ul {
   display: none;
 }
 
-.inside-modal-horarios, .inside-borrar-medico,.inside-borrar-paciente, .inside-modal-obra-social, .inside-borrar-obra-social, .inside-modal-nueva-especialidad, .inside-modal-borrar-especialidad, .inside-modal-borrar-subespecialidad, .inside-modal-nuevo-plan{
+.inside-modal-horarios, .inside-borrar-medico,.inside-borrar-paciente, .inside-modal-obra-social, .inside-borrar-obra-social, .inside-modal-nueva-especialidad, .inside-modal-borrar-especialidad, .inside-modal-borrar-subespecialidad, .inside-modal-nuevo-plan, .inside-modal-informacion{
   width: 100%;
   position: absolute;
   left: 0;
@@ -1687,7 +1687,7 @@ ul {
   max-height: 400px;
 }
 
-.header-modal-horarios, .header-modal-agregar-turno, .header-borrar-medico,.header-borrar-paciente, .header-modal-nueva-subespecialidad, .header-modal-agregar-medico, .header-modal-obra-social, .header-borrar-obra-social, .header-modal-nueva-especialidad, .header-modal-borrar-especialidad, .header-modal-borrar-subespecialidad, .header-modal-nuevo-plan, .header-modal-agregar-paciente, .header-modal-editar-paciente{
+.header-modal-horarios, .header-modal-agregar-turno, .header-borrar-medico,.header-borrar-paciente, .header-modal-nueva-subespecialidad, .header-modal-agregar-medico, .header-modal-obra-social, .header-borrar-obra-social, .header-modal-nueva-especialidad, .header-modal-borrar-especialidad, .header-modal-borrar-subespecialidad, .header-modal-nuevo-plan, .header-modal-informacion, .header-modal-agregar-paciente, .header-modal-editar-paciente{
   background: #fff;
   border-bottom: 1px solid #ccc;
   padding: 10px;
@@ -1696,7 +1696,7 @@ ul {
   text-align: center;
 }
 
-.header-modal-horarios h2, .header-modal-agregar-turno h2, .header-modal-nueva-subespecialidad h2, .header-modal-agregar-medico h2, .header-modal-obra-social h2, .header-modal-nueva-especialidad h2, .header-modal-nuevo-plan h2, .header-modal-agregar-paciente h2, .header-modal-editar-paciente h2{
+.header-modal-horarios h2, .header-modal-agregar-turno h2, .header-modal-nueva-subespecialidad h2, .header-modal-agregar-medico h2, .header-modal-obra-social h2, .header-modal-nueva-especialidad h2, .header-modal-nuevo-plan h2, .header-modal-informacion h2, .header-modal-agregar-paciente h2, .header-modal-editar-paciente h2{
   margin: 0;
   text-align: center;
   font-size: 16px;
@@ -1853,7 +1853,7 @@ ul {
   left: 0;
 }
 
-.header-modal-nuevo-plan h2:after{
+.header-modal-nuevo-plan h2:after, .header-modal-informacion h2:after{
   content: '';
   position: absolute;
   height: 3px;
@@ -1866,7 +1866,7 @@ ul {
   left: 0;
 }
 
-.inside-modal-agregar-medico input[type="text"].datos-personales, .inside-modal-obra-social input[type="text"],  .inside-modal-nueva-especialidad input[type="text"], .inside-modal-nuevo-plan input[type="text"]{
+.inside-modal-agregar-medico input[type="text"].datos-personales, .inside-modal-obra-social input[type="text"],  .inside-modal-nueva-especialidad input[type="text"], .inside-modal-nuevo-plan input[type="text"], .inside-modal-informacion input[type="text"]{
   display: block;
   margin-bottom: 15px;
   border-radius: 4px;
@@ -1880,7 +1880,7 @@ ul {
   letter-spacing:0.5px;
 }
 
-.inside-modal-horarios h3, .inside-modal-agregar-medico h3, .inside-modal-obra-social h3, .inside-modal-nuevo-plan h3  {
+.inside-modal-horarios h3, .inside-modal-agregar-medico h3, .inside-modal-obra-social h3, .inside-modal-nuevo-plan h3, .inside-modal-informacion h3  {
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1892,7 +1892,7 @@ ul {
   font-size: 13.5px;
 }
 
-.close-modal-horarios,.close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-agregar-paciente, .close-modal-editar-paciente{
+.close-modal-horarios,.close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-informacion, .close-modal-agregar-paciente, .close-modal-editar-paciente{
   position: absolute;
   top: 8px;
   right: 20px;
@@ -1901,28 +1901,28 @@ ul {
 }
 
 
-.inside-modal-agregar-medico ::-webkit-input-placeholder, .inside-modal-obra-social ::-webkit-input-placeholder, .inside-modal-nueva-especialidad ::-webkit-input-placeholder, .inside-modal-nuevo-plan ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.inside-modal-agregar-medico ::-webkit-input-placeholder, .inside-modal-obra-social ::-webkit-input-placeholder, .inside-modal-nueva-especialidad ::-webkit-input-placeholder, .inside-modal-nuevo-plan ::-webkit-input-placeholder, .inside-modal-informacion ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #999;
   font-family: sf_ui_displayregular;
   text-align: left;
   font-size: 13px;
   letter-spacing: 0.5px;
 }
-.inside-modal-agregar-medico ::-moz-placeholder, .inside-modal-obra-social ::-moz-placeholder, .inside-modal-nueva-especialidad ::-moz-placeholder, .inside-modal-nuevo-plan  ::-moz-placeholder{ /* Firefox 19+ */
+.inside-modal-agregar-medico ::-moz-placeholder, .inside-modal-obra-social ::-moz-placeholder, .inside-modal-nueva-especialidad ::-moz-placeholder, .inside-modal-nuevo-plan  ::-moz-placeholder, .inside-modal-informacion  ::-moz-placeholder{ /* Firefox 19+ */
   color: #999;
   font-family: sf_ui_displayregular;
   text-align: left;
   font-size: 13px;
   letter-spacing: 0.5px;
 }
-.inside-modal-agregar-medico :-ms-input-placeholder, .inside-modal-obra-social :-ms-input-placeholder, .inside-modal-nueva-especialidad :-ms-input-placeholder, .inside-modal-nuevo-plan ::-ms-input-placeholder{ /* IE 10+ */
+.inside-modal-agregar-medico :-ms-input-placeholder, .inside-modal-obra-social :-ms-input-placeholder, .inside-modal-nueva-especialidad :-ms-input-placeholder, .inside-modal-nuevo-plan ::-ms-input-placeholder, .inside-modal-informacion ::-ms-input-placeholder{ /* IE 10+ */
   color: #999;
   font-family: sf_ui_displayregular;
   letter-spacing: 0.5px;
   text-align: left;
   font-size: 13px;
 }
-.inside-modal-agregar-medico :-moz-placeholder, .inside-modal-obra-social :-moz-placeholder, .inside-modal-nueva-especialidad :-moz-placeholder, .inside-modal-nuevo-plan ::-moz-placeholder{ /* Firefox 18- */
+.inside-modal-agregar-medico :-moz-placeholder, .inside-modal-obra-social :-moz-placeholder, .inside-modal-nueva-especialidad :-moz-placeholder, .inside-modal-nuevo-plan ::-moz-placeholder, .inside-modal-informacion ::-moz-placeholder{ /* Firefox 18- */
   color: #999;
   font-family: sf_ui_displayregular;
   text-align: left;
@@ -2604,12 +2604,12 @@ svg:not(:root){
   border-radius:20px
 }
 
-.inside-modal-nuevo-plan p{
+.inside-modal-nuevo-plan p, .inside-modal-informacion p{
   background: #e2e2e2;
   padding: 5px 10px;
 }
 
-.inside-modal-nuevo-plan p a{
+.inside-modal-nuevo-plan p a, .inside-modal-informacion p a{
   display: inline-block;
   float: right;
   color: #777;
@@ -3277,7 +3277,7 @@ a#add-cluster-plan {
   /* text-align: right; */
 }
 
-.inside-modal-nuevo-plan h3{
+.inside-modal-nuevo-plan h3, .inside-modal-informacion h3{
   text-align: right;
 }
 

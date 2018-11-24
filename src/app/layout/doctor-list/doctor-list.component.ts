@@ -108,7 +108,15 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorService.getAllDoctorsByFilter(filter).subscribe(res => {
             this.doctors = res;
             this.loaderService.hide();
+
+            if (isNaN(filter.specialtyId) && isNaN(filter.subSpecialtyId) && this.doctors.length == 0) {
+                $(".modal-informacion").fadeIn();
+            }
         });
+    }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
     }
     
     getAllSpecialties() {
