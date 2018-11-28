@@ -5,6 +5,7 @@ import { BaseService } from './base.service';
 import { Client } from '../model/client.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { ClientFilter } from '../model/client-filter.class';
 
 @Injectable()
 export class ClientService extends BaseService {
@@ -25,5 +26,13 @@ export class ClientService extends BaseService {
 
     public getAllClientsNonHairdressingPatients(): Observable<Client[]> {
         return this.post(this.url + "/GetAllNonHairdressingPatients", null, null);
+    }
+
+    public getAllClientsNonPatientsByFilter(filter: ClientFilter): Observable<Client[]> {
+        return this.post(this.url + "/GetAllNonPatientsByFilter", null, filter);
+    }
+
+    public getAllClientsNonHairdressingPatientsByFilter(filter: ClientFilter): Observable<Client[]> {
+        return this.post(this.url + "/GetAllNonHairdressingPatientsByFilter", null, filter);
     }
 }

@@ -8,6 +8,7 @@ import { ClientService } from '../../service/client.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { ClientFilter } from '../../model/client-filter.class';
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -33,6 +34,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public email: string;
     public password: string;
 
+    public searchClientFilter = new ClientFilter();
+
     constructor(
         private patientService: HairdressingPatientService,
         private clientService: ClientService,
@@ -55,7 +58,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     }
 
     getAllClientsNonPatients() {
-        this.clientService.getAllClientsNonHairdressingPatients().subscribe(res => {
+        this.clientService.getAllClientsNonHairdressingPatientsByFilter(this.searchClientFilter).subscribe(res => {
             this.clients = res;
         });
     }
@@ -111,7 +114,6 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         });
     }
 
-    // ADD Patient
     cleanPatient() {
         this.firstName = "";
         this.lastName = "";
@@ -120,6 +122,9 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.dni = "";
         this.email = "";
         this.password = "";
+        this.searchClientFilter.email = "";
+        this.searchClientFilter.dni = "";
+        this.getAllClientsNonPatients();
     }
 
     showAddPatient(){

@@ -13,6 +13,7 @@ import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { IdFilter } from '../../model/id-filter.class';
 import { MedicalPlanService } from '../../service/medicalPlan.service';
+import { ClientFilter } from '../../model/client-filter.class';
 
 @Component({
     selector: 'app-patient-list',
@@ -44,6 +45,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public medicalPlan: string;
     public email: string;
     public password: string;
+
+    public searchClientFilter = new ClientFilter();
 
     constructor(
         private patientService: PatientService,
@@ -81,7 +84,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     getAllClientsNonPatients() {
-        this.clientService.getAllClientsNonPatients().subscribe(res => {
+        this.clientService.getAllClientsNonPatientsByFilter(this.searchClientFilter).subscribe(res => {
             this.clients = res;
         });
     }
@@ -162,7 +165,6 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         });
     }
 
-    // ADD Patient
     cleanPatient() {
         this.firstName = "";
         this.lastName = "";
@@ -173,6 +175,9 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.medicalPlan = "-1";
         this.email = "";
         this.password = "";
+        this.searchClientFilter.email = "";
+        this.searchClientFilter.dni = "";
+        this.getAllClientsNonPatients();
     }
 
     showAddPatient(){

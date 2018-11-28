@@ -112,6 +112,10 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
             }
         });
     }
+
+    closeInformation() {
+        $(".modal-informacion").fadeOut();
+    }
     
     getAllSpecialties() {
         this.loaderService.show();
