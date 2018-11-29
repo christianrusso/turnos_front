@@ -81,7 +81,6 @@
     text-align: center;
   }
   
-  
   .pacientes table tr td.acciones{
     text-align: center;
   }
@@ -93,7 +92,6 @@
   .fa-question-circle-o {
     font-size: 13px;
   }
-
   
 .w100 {
   width: 100%;
@@ -101,4 +99,9 @@
 
 input {
   height: 28px;
+}
+
+.btn-disabled {
+  background-color: #aeaeae !important;
+  cursor: not-allowed;
 }

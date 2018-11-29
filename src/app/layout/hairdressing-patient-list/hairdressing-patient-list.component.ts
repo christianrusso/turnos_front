@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { HairdressingPatient } from '../../model/hairdressing-patient.class';
 import { HairdressingPatientService } from '../../service/hairdressing-patient.service';
-import { Router } from '@angular/router';
 import { HairdressingPatientFilter } from '../../model/hairdressing-patient-filter.class';
 import { Client } from '../../model/client.class';
 import { ClientService } from '../../service/client.service';
@@ -39,7 +38,6 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     constructor(
         private patientService: HairdressingPatientService,
         private clientService: ClientService,
-        private router: Router,
         private loaderService: Ng4LoadingSpinnerService,
         private toastrService: ToastrService
     ) {
