@@ -1,13 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Patient } from '../../model/patient.class';
 import { PatientService } from '../../service/patient.service';
-import { Router } from '@angular/router';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { PatientFilter } from '../../model/patient-filter.class';
 import { MedicalInsuranceService } from '../../service/medicalInsurance.service';
 import { Client } from '../../model/client.class';
 import { ClientService } from '../../service/client.service';
-import { RequestAppointmentClient } from '../../model/request-appointment-client.class';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
@@ -48,12 +46,13 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     public searchClientFilter = new ClientFilter();
 
+    public addPatientEnable = false;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,
         private medicalInsuranceService: MedicalInsuranceService,
         private medicalPlanService: MedicalPlanService,
-        private router: Router,
         private loaderService: Ng4LoadingSpinnerService,
         private toastrService: ToastrService
     ) {
@@ -134,6 +133,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     getAllMedicalInsurance(): any {
         this.loaderService.show();
         this.medicalInsuranceService.getAllMedicalInsurancesForSelect().subscribe(res => {
+            this.addPatientEnable = res.length > 1;
             this.medicalInsuranceFilterOptions = res;
             this.medicalInsuranceOptions = res.slice(0);
             this.medicalInsuranceOptions.shift();

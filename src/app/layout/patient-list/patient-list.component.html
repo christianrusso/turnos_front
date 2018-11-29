@@ -19,7 +19,7 @@
                     </form>
 
                     <div class="menu-acciones desk col-xs-12 col-md-4">
-                        <a id="agregar-medico" (click)="showAddPatient()">Agregar nuevo</a>
+                        <a id="agregar-medico" [ngClass]="{'btn-disabled' : !addPatientEnable}" (click)="addPatientEnable && showAddPatient()">Agregar nuevo</a>
                     </div>
 
                 </div>
