@@ -1,128 +1,139 @@
 <section class="Rectangle-1 ">
   <div class="Rectangle-28">
     <div class="NUESTRO-LOGO">
-    <p><a href="http://orbit.com.ar" target="_blank"><img src="assets/img/logo-footer-orbit.png" alt="Orbit"></a></p>
-  </div>
+      <p><a target="_blank"><img src="http://www.orbitsa.xyz/assets/img/logo-white.png" alt="Orbit"></a></p>
+    </div>
   </div>
   <div class="Rectangle-2">
     <div class="Crear-cuenta ">
-      <p>Crear cuenta</p> 
-        <hr class="Line-27 " size="10" />
+      <p>Crear cuenta</p>
+      <hr class="Line-27 " size="10" />
 
-    </div>      
-      <hr class="hrTotal" style="color: #0056b2;" />
+    </div>
+    <hr class="hrTotal" style="color: #0056b2;" />
 
 
     <div class="ContainerForm">
+  
+
       <div class="row">
         <div class="col-md-1">
           <div class="Rectangle-18">
-            <img src="assets/img/Rectangle 18.png" srcset="img/rectangle-18@2x.png 2x,
+
+
+            <img *ngIf="register.logo  == null" src="assets/img/Rectangle 18.png" srcset="img/rectangle-18@2x.png 2x,
                                   img/rectangle-18@3x.png 3x"
               class="Rectangle-18">
+
+              <image-cropper  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+              [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
+              (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()"  [style.display]="cropperReady ? null : 'none'"></image-cropper>
+              
             <div class="Logo-empresa">
-              <p class="pLogo">Logo empresa</p> 
+              <p class="pLogo">Logo empresa</p>
+            </div>
+
+            <div class="fileStyle">
+              <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="register.logo" name="logo"
+                #logo="ngModel" />
             </div>
           </div>
         </div>
-        <div class="col-md-10">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Nombre</label>
-                <input type="text" class="form-control"  id="name" required [(ngModel)]="register.name"
-                  name="name" #name="ngModel">
-              </div>
-              <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                nombre requerido
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Apellido</label>
-                <input type="text" class="form-control"  id="email" required [(ngModel)]="register.email"
-                  name="email" #email="ngModel">
-              </div>
-              <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                email requerido
-              </div>
-            </div>
-          </div>
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control"  id="email" required [(ngModel)]="register.email"
-                  name="email" #email="ngModel">
-              </div>
-              <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                email requerido
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Nombre</label>
+                  <input type="text" class="form-control" id="name" required [(ngModel)]="register.name" name="name"
+                    #name="ngModel">
+                </div>
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                  nombre requerido
+                </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <label>Rubro</label>
-              <select [(ngModel)]="register.businessType" class="form-control" name="businessType" #businessType="ngModel"
-                id="businessType" required class="form-control">
-                <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
-              </select>
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Direccion</label>
-                <input type="text" class="form-control"  id="Direccion" required [(ngModel)]="register.address"
-                  name="address" #address="ngModel" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="text" class="form-control" id="email" required [(ngModel)]="register.email" name="email"
+                    #email="ngModel">
+                </div>
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                  email requerido
+                </div>
               </div>
-              <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
-                direccion requerida
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Ciduad</label>
-                <ng-select2 class="custom" [data]="citys" [value]="-1" name="city" lang="es" [(ngModel)]="register.city" name="city"
-                  #city="ngModel"></ng-select2>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" class="form-control" id="password" required [(ngModel)]="register.password"
-                  name="password" #password="ngModel">
-                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
-              </div>
-              <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-                contraseña requerido
+              <div class="col-md-4">
+                <label>Rubro</label>
+                <select [(ngModel)]="register.businessType" class="form-control" name="businessType" #businessType="ngModel"
+                  id="businessType" required class="form-control">
+                  <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Direccion</label>
+                  <input type="text" class="form-control" id="Direccion" required [(ngModel)]="register.address" name="address"
+                    #address="ngModel" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+                </div>
+                <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
+                  direccion requerida
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Ciduad</label>
+                  <ng-select2 class="custom" [data]="citys" [value]="-1" name="city" lang="es" [(ngModel)]="register.city"
+                    name="city" #city="ngModel"></ng-select2>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label>Contraseña</label>
-                  <input type="password" class="form-control" id="password" required [(ngModel)]="register.password"
-                    name="password" #password="ngModel">
-                    <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
-                </div>
-                <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
-                  contraseña requerido
+                  <input minlength="6" type="password" class="form-control" id="password" required [(ngModel)]="register.password"
+                    name="password" #password="ngModel" >
+                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>  
+                         
                 </div>
               </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Repetir Contraseña</label>
+                    <input minlength="6" type="password" class="form-control" id="scondPassword" required [(ngModel)]="register.scondPassword"
+                      name="scondPassword" #scondPassword="ngModel" >
+                    <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span> 
+                 
+                    <div *ngIf="register.password != register.scondPassword" class="alert alert-danger">
+                        Las contraseñas no coinciden
+                    </div> 
+                         
+                  </div>
+                </div>
+            </div>
+
           </div>
-        </div>
+        </form>
+
       </div>
     </div>
-    <div class="Rectangle-26 " >
-        <button class="REGISTRARME" >REGISTRARME</button> 
+    <div class="Rectangle-26 ">
+      <button class="REGISTRARME" type="submit" (click)="onSubmit()" [disabled]="!registerForm.form.valid">REGISTRARME</button>
     </div>
     <hr style="color:#707070;font-size: 0.5px">
 
     <div class="login-register">
-      <p class="accountGrey">¿Ya tenés cuenta? <span class="accountBlue">INICIAR SESIÓN</span> </p>
+      <p class="accountGrey">¿Ya tenés cuenta? <span class="accountBlue"> <a [routerLink]="['/Login']">INICIAR SESIÓN</a> </span> </p>
     </div>
+   
+
     <!-- 
     <div>
       <div class="col-md-12" [style.display]="cropperReady ? null : 'none'">

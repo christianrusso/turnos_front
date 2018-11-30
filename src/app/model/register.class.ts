@@ -2,6 +2,7 @@ export class Register {
     public id: number;
     public email: string;
     public password: string;
+    public scondPassword: string;
     public name: string;
     public description: string;
     public city: number;
