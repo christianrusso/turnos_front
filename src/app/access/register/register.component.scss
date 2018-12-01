@@ -6,9 +6,9 @@
 
 .Rectangle-2 {
   margin-top: 39px;
-  margin-left: 454px;
-  width: 1013px;
-  height: 726px;
+  margin-left: 25.6%;
+  width: 52.8%;
+  height: 67.2%;
   border-radius: 6px;
   box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: #ffffff;
@@ -19,7 +19,7 @@
   height: 62px;
  // background-color: #ffffff;
   margin-top: 100px;
-  margin-left: 804px;
+  margin-left: 42.3%;
   margin-bottom: 39px;
 
 }
@@ -165,10 +165,13 @@
 .hrTotal{
   margin-top: 36px;
   margin-bottom: 20px;
-  border: 0;
   border-top: 0.5px  solid #707070;
+  
 }
 
+.hrfinal{
+  border-top: 0.5px  solid #707070;
+}
 hr{
   border-top: 0.5px solid #707070;
 
@@ -182,7 +185,6 @@ hr{
 
 .form-control {
   display: block;
-  width: 283.6px;
   height: 38px;
   padding: 6px 12px;
   font-size: 14px;
@@ -249,4 +251,11 @@ input[type='file'] {
 
 :disabled{
   cursor: not-allowed;
+}
+
+.col-md-3 {
+  width: 34%;
+  height: 5.2%;
+  margin-right: -1.2%;
+  margin-left: 5.2% !important;
 }

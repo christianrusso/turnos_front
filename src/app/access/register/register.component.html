@@ -8,27 +8,20 @@
     <div class="Crear-cuenta ">
       <p>Crear cuenta</p>
       <hr class="Line-27 " size="10" />
-
     </div>
     <hr class="hrTotal" style="color: #0056b2;" />
-
-
     <div class="ContainerForm">
-  
-
       <div class="row">
         <div class="col-md-1">
           <div class="Rectangle-18">
-
-
             <img *ngIf="register.logo  == null" src="assets/img/Rectangle 18.png" srcset="img/rectangle-18@2x.png 2x,
                                   img/rectangle-18@3x.png 3x"
               class="Rectangle-18">
 
-              <image-cropper  [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
               [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
-              (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()"  [style.display]="cropperReady ? null : 'none'"></image-cropper>
-              
+              (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
             <div class="Logo-empresa">
               <p class="pLogo">Logo empresa</p>
             </div>
@@ -43,7 +36,7 @@
 
           <div class="col-md-10">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Nombre</label>
                   <input type="text" class="form-control" id="name" required [(ngModel)]="register.name" name="name"
@@ -56,7 +49,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Email</label>
                   <input type="text" class="form-control" id="email" required [(ngModel)]="register.email" name="email"
@@ -66,7 +59,7 @@
                   email requerido
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label>Rubro</label>
                 <select [(ngModel)]="register.businessType" class="form-control" name="businessType" #businessType="ngModel"
                   id="businessType" required class="form-control">
@@ -76,7 +69,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Direccion</label>
                   <input type="text" class="form-control" id="Direccion" required [(ngModel)]="register.address" name="address"
@@ -86,7 +79,7 @@
                   direccion requerida
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Ciduad</label>
                   <ng-select2 class="custom" [data]="citys" [value]="-1" name="city" lang="es" [(ngModel)]="register.city"
@@ -95,28 +88,28 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <div class="form-group">
                   <label>Contraseña</label>
                   <input minlength="6" type="password" class="form-control" id="password" required [(ngModel)]="register.password"
-                    name="password" #password="ngModel" >
-                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>  
-                         
+                    name="password" #password="ngModel">
+                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
+
                 </div>
               </div>
-              <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Repetir Contraseña</label>
-                    <input minlength="6" type="password" class="form-control" id="scondPassword" required [(ngModel)]="register.scondPassword"
-                      name="scondPassword" #scondPassword="ngModel" >
-                    <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span> 
-                 
-                    <div *ngIf="register.password != register.scondPassword" class="alert alert-danger">
-                        Las contraseñas no coinciden
-                    </div> 
-                         
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Repetir Contraseña</label>
+                  <input minlength="6" type="password" class="form-control" id="scondPassword" required [(ngModel)]="register.scondPassword"
+                    name="scondPassword" #scondPassword="ngModel">
+                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
+
+                  <div *ngIf="register.password != register.scondPassword" class="alert alert-danger">
+                    Las contraseñas no coinciden
                   </div>
+
                 </div>
+              </div>
             </div>
 
           </div>
@@ -127,12 +120,13 @@
     <div class="Rectangle-26 ">
       <button class="REGISTRARME" type="submit" (click)="onSubmit()" [disabled]="!registerForm.form.valid">REGISTRARME</button>
     </div>
-    <hr style="color:#707070;font-size: 0.5px">
+    <hr class="hrfinal">
 
     <div class="login-register">
-      <p class="accountGrey">¿Ya tenés cuenta? <span class="accountBlue"> <a [routerLink]="['/Login']">INICIAR SESIÓN</a> </span> </p>
+      <p class="accountGrey">¿Ya tenés cuenta? <span class="accountBlue"> <a [routerLink]="['/Login']">INICIAR SESIÓN</a>
+        </span> </p>
     </div>
-   
+
 
     <!-- 
     <div>
