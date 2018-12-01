@@ -73,7 +73,7 @@
                                 <a class="agregar-subespecialidad" (click)="showAddSubspecialty(i)">Agregar subespecialidad</a>
                                 <div>
                                     <p *ngFor="let subspecialty of specialty.subspecialties; let j = index">
-                                        {{ subspecialty.description + ' ($' + subspecialty.price + ')' }} <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
+                                        {{ subspecialty.description + ' (' + (subspecialty.price != null ? '$' + subspecialty.price : 'Gratis') + ')' }} <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
                                     </p>
                                 </div>
                             </div>

@@ -131,7 +131,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     /* Agregar subespecialidad */
     showAddSubspecialty(specialtyIndex: number) {
         this.newSubspecialtyConsultationLength = '';
-        this.newSubspecialtyPrice = 0;
+        this.newSubspecialtyPrice = null;
         this.selectedSpecialty = this.specialties[specialtyIndex];
 
         const specialtyId = new IdFilter();
