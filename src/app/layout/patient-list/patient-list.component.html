@@ -146,18 +146,18 @@
                     <table id="table-agregar-turno" class="table table-sortable">
                         <thead>
                         <tr>
+                            <th class="resultsLabels">Seleccionar</th>
                             <th class="resultsLabels">Email</th>
                             <th class="resultsLabels">Nombre y apellido</th>
                             <th class="resultsLabels">DNI</th>
-                            <th class="resultsLabels">Seleccionar</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let client of clients; let i = index">
+                            <td style="width: 150px; text-align: left;"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
                             <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.email }}</td>
                             <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.firstName + ' ' + client.lastName }}</td>
                             <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.dni }}</td>
-                            <td style="width: 150px; text-align: left;"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
                         </tr>
                         </tbody>
 
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div style="margin-top: 420px;" *ngIf="step == 1">
+            <div style="" *ngIf="step == 1">
                 <p style="font-family: sf_ui_displaysemibold; font-size: 14px; padding-left: 15px;">DATOS DEL CLIENTE</p>
             </div>
             <div class="col-xs-12" style="padding-left: 0px; margin-top: 20px;" *ngIf="step == 1">
