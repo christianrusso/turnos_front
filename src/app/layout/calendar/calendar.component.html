@@ -169,64 +169,78 @@
         </div>
 
         <div class="col-xs-12 buttons-turno table-cluster2">
-            <h3>Seleccione el tipo de Usuario</h3>
-            <a (click)="showPatientTab()" id="paciente-turno">Ya es Paciente</a>
-            <a (click)="showClientTab()" id="cliente-turno">Usuario de Tu Turno</a>
-            <a (click)="showNoClientTab()" id="noexiste-turno">Nuevo Usuario</a>
+            <h3 style="font-family: sf_ui_displaysemibold; font-size: 14px;">Seleccione el tipo de Usuario</h3>
+            <a (click)="showPatientTab()" id="paciente-turno" class="buttonsLabels">Ya es Paciente</a>
+            <a (click)="showClientTab()" id="cliente-turno" class="buttonsLabels">Usuario de Tu Turno</a>
+            <a (click)="showNoClientTab()" id="noexiste-turno" class="buttonsLabels">Nuevo Usuario</a>
         </div>
 
         <!-- Pacientes -->
         <div class="col-xs-12 paciente-cluster">
-            <div class="col-xs-12 p-c-2 turno-picker">
+            <div style="display: flex; border-bottom: 1px solid; margin-top: 35px;">
+                <div style="display: flex; margin: 0 auto; cursor: pointer;" id="firstStepParent" class="borderSelected" (click)="isPatientNextStep();">
+                    <div class="circleFirst" id="firstStep" style="margin-bottom: 10px;"><span>1</span></div>
+                    <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Seleccionar Cliente</span></div>
+                </div>
+                <div style="display: flex; margin: 0 auto;" id="secondStepParent" class="borderUnselected">
+                    <div class="circleSecond" id="secondStep" style="margin-bottom: 10px;"><span>2</span></div>
+                    <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Completar día y horario</span></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2">
                 <div class="col-xs-12 col-sm-4">
-                    <label>Fecha</label><br>
+                    <label class="inputLabel">Fecha</label><br>
                     <label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
+                        <input class="picker-fecha" style="font-family: sf_ui_displaymedium; color: #ccc!important; font-size: 12px;" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
                     </label>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
-                    <label>Médico</label><br>
-                    <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" [(ngModel)]="doctorOption" name="agregar-turnos" lang="es"></ng-select2>
+                    <label class="inputLabel">Médico</label><br>
+                    <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" [(ngModel)]="doctorOption" name="agregar-turnos" lang="es" style="text-align: center;"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
-                    <label>Hora</label><br>
+                    <label class="inputLabel">Hora</label><br>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
-                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                    <ng-select2 name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0" style="text-align: center;">
                         <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
-                    </select>
+                    </ng-select2>
                 </div>
 
             </div>
+            <div class="col-xs-12 center" *ngIf="isPatientStep == 2">
+                <a (click)="requestAppointmentForPatient()" id="add-paciente" class="buttonTitle">AGREGAR</a>
+            </div>
 
-            <div class="col-xs-12 tabla-popup-cliente">
+            <div class="col-xs-12 tabla-popup-cliente" *ngIf="isPatientStep == 1">
                 <h3>Seleccionar Paciente</h3>
                 <div class="col-xs-12 container-de-tabla">
                     <table id="table-agregar-turno" class="table table-sortable">
                         <thead>
                             <tr>
-                                <th>Nombre y Apellido</th>
-                                <th>Email</th>
-                                <th class="center">Turnos Realizados</th>
-                                <th class="center">Seleccionar</th>
+                                <th class="center tableHeader">Seleccionar</th>
+                                <th class="tableHeader">Nombre y Apellido</th>
+                                <th class="tableHeader">Email</th>
+                                <th class="center tableHeader">Turnos Realizados</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr *ngFor="let patient of patients; let i = index">
-                                <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
-                                <td>{{ patient.email | truncate }}</td>
-                                <td class="center">{{ patient.reservedAppointments }}</td>
-                                <td class="center"><input type="radio" name="patientRadioGroup" value="i" (change)="selectedPatientChange(patient)"></td>
+                                <td class="center tableResult"><input type="radio" name="patientRadioGroup" value="i" (change)="selectedPatientChange(patient)"></td>
+                                <td class="tableResult">{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
+                                <td class="tableResult">{{ patient.email | truncate }}</td>
+                                <td class="center tableResult">{{ patient.reservedAppointments }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-xs-12 center">
-                <a (click)="requestAppointmentForPatient()" id="add-paciente">Agregar</a>
+            <div class="col-xs-12 center" *ngIf="isPatientStep == 1">
+                <a (click)="isPatientNextStep()" id="add-paciente" class="buttonTitle">SIGUIENTE</a>
             </div>
 
         </div>
@@ -327,9 +341,20 @@
         <!-- No existente -->
          <div class="col-xs-12 noexiste-cluster">
 
-            <div class="col-xs-12 p-c-2 turno-picker">
+             <div style="display: flex; border-bottom: 1px solid; margin-top: 35px;">
+                 <div style="display: flex; margin: 0 auto; cursor: pointer;" id="firstStepNuevoParent" class="borderSelected" (click)="isPatientNuevoNextStep();">
+                     <div class="circleFirst" id="firstStepNuevo" style="margin-bottom: 10px;"><span>1</span></div>
+                     <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Seleccionar Cliente</span></div>
+                 </div>
+                 <div style="display: flex; margin: 0 auto;" id="secondStepNuevoParent" class="borderUnselected">
+                     <div class="circleSecond" id="secondStepNuevo" style="margin-bottom: 10px;"><span>2</span></div>
+                     <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Completar día y horario</span></div>
+                 </div>
+             </div>
+
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2">
                 <div class="col-xs-12 col-sm-4">
-                    <label>Fecha</label><br>
+                    <label class="inputLabel">Fecha</label><br>
                     <label class="picker-fecha">
                         <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
@@ -337,76 +362,80 @@
                 </div>
                 
                 <div class="col-xs-12 col-sm-4">
-                    <label>Médico</label><br>
+                    <label class="inputLabel">Médico</label><br>
                     <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" [(ngModel)]="doctorOption" name="agregar-turnos" lang="es"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
-                    <label>Hora</label><br>
+                    <label class="inputLabel">Hora</label><br>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
-                    <select name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                    <ng-select2 name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0" style="text-align: center;">
                         <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
-                    </select>
+                    </ng-select2>
                 </div>
 
             </div>
 
-            <div class="col-xs-12 center">
+             <div class="col-xs-12 center ptop" *ngIf="isPatientNuevoStep == 2">
+                 <a (click)="requestAppointmentForNonClient()" id="add-nuevo-paciente" class="buttonTitle">AGREGAR</a>
+             </div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="firstName">Nombre: </label><br>
-                    <input class="w100" type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
+            <div class="col-xs-12 center" style="margin-top: 50px;" *ngIf="isPatientNuevoStep == 1">
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="firstName" class="inputLabel upperCase">Nombre: </label><br>
+                    <input class="w100 inputHeight" type="text" id="firstName2" name="firstName" [(ngModel)]="firstName" >
                 </div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="lastName">Apellido: </label><br>
-                    <input class="w100" type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="lastName" class="inputLabel upperCase">Apellido: </label><br>
+                    <input class="w100 inputHeight" type="text" id="lastName2" name="lastName" [(ngModel)]="lastName" >
                 </div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="address">Direccion: </label><br>
-                    <input class="w100" type="text" id="address2" name="address" [(ngModel)]="address" >
-                </div>
-
-                <div class="col-xs12 col-sm-12">&nbsp;</div>
-
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
-                </div>
-
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input class="w100" type="text" id="dni2" name="dni" [(ngModel)]="dni" >
-                </div>
-
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="">Obra social</label><br>
-                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
-                    </ng-select2>
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="address" class="inputLabel upperCase">Direccion: </label><br>
+                    <input class="w100 inputHeight" type="text" id="address2" name="address" [(ngModel)]="address" >
                 </div>
 
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="">Plan medico</label><br>
-                    <ng-select2 [data]="medicalPlanOptions" [value]="medicalPlan" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="phoneNumber" class="inputLabel upperCase">Telefono: </label><br>
+                    <input class="w100 inputHeight" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="dni" class="inputLabel upperCase">Dni: </label><br>
+                    <input class="w100 inputHeight" type="text" id="dni2" name="dni" [(ngModel)]="dni" >
+                </div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="email" class="inputLabel upperCase">Email: </label><br>
+                    <input class="w100 inputHeight" type="text" id="email2" name="email" [(ngModel)]="email" >
+                </div>
+
+                <div class="col-xs12 col-sm-12">&nbsp;</div>
+
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="" class="inputLabel upperCase">Obra social</label><br>
+                    <ng-select2 style="text-align: center;" [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
                 </div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="email">Email: </label><br>
-                    <input class="w100" type="text" id="email2" name="email" [(ngModel)]="email" >
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="" class="inputLabel upperCase">Plan medico</label><br>
+                    <ng-select2 style="text-align: center;" [data]="medicalPlanOptions" [value]="medicalPlan" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
                 </div>
 
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="password">Contraseña: </label><br>
-                    <input class="w100" type="password" id="password2" name="password" [(ngModel)]="password" >
+                <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
+                    <label for="password" class="inputLabel upperCase">Contraseña: </label><br>
+                    <input class="w100 inputHeight" type="password" id="password2" name="password" [(ngModel)]="password" >
                 </div>
             </div>
 
-            <div class="col-xs-12 center ptop">
-                <a (click)="requestAppointmentForNonClient()" id="add-nuevo-paciente">Agregar</a>
+            <div class="col-xs-12 center ptop" *ngIf="isPatientNuevoStep == 1">
+                <a (click)="isPatientNuevoNextStep()" id="add-nuevo-paciente" class="buttonTitle">SIGUIENTE</a>
             </div>
         </div>
     </div>
