@@ -1691,6 +1691,7 @@ ul {
   font-family: sf_ui_displayregular;
   padding-bottom: 30px;
   height: 100%;
+  bottom: 3%;
 }
 
 .inside-modal-editar-paciente {
