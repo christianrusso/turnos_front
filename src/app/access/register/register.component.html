@@ -1,7 +1,7 @@
 <section class="Rectangle-1 ">
   <div class="Rectangle-28">
     <div class="NUESTRO-LOGO">
-      <p><a target="_blank"><img src="http://www.orbitsa.xyz/assets/img/logo-white.png" alt="Orbit"></a></p>
+      <p><a target="_blank"><img src="assets/img/logo.png" alt="Orbit"></a></p>
     </div>
   </div>
   <div class="Rectangle-2">
@@ -14,9 +14,7 @@
       <div class="row">
         <div class="col-md-1">
           <div class="Rectangle-18">
-            <img *ngIf="register.logo  == null" src="assets/img/Rectangle 18.png" srcset="img/rectangle-18@2x.png 2x,
-                                  img/rectangle-18@3x.png 3x"
-              class="Rectangle-18">
+            <img *ngIf="register.logo  == null" src="assets/img/Rectangle 18.png" class="Rectangle-18">
 
             <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
               [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
@@ -38,12 +36,22 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Nombre</label>
-                  <input type="text" class="form-control" id="name" required [(ngModel)]="register.name" name="name"
+                  <label class="labelStyle">Nombre</label>
+                  <input type="text" class="form-control inputStyle" id="name" required [(ngModel)]="register.name" name="name"
                     #name="ngModel">
                 </div>
                 <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
                   nombre requerido
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label class="labelStyle">Apellido</label>
+                  <input type="text" class="form-control inputStyle" id="surname" required [(ngModel)]="register.surname" name="surname"
+                         #surname="ngModel">
+                </div>
+                <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">
+                  apellido requerido
                 </div>
               </div>
             </div>
@@ -51,8 +59,8 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Email</label>
-                  <input type="text" class="form-control" id="email" required [(ngModel)]="register.email" name="email"
+                  <label class="labelStyle">Email</label>
+                  <input type="text" class="form-control inputStyle" id="email" required [(ngModel)]="register.email" name="email"
                     #email="ngModel">
                 </div>
                 <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
@@ -60,9 +68,9 @@
                 </div>
               </div>
               <div class="col-md-3">
-                <label>Rubro</label>
+                <label class="labelStyle">Rubro</label>
                 <select [(ngModel)]="register.businessType" class="form-control" name="businessType" #businessType="ngModel"
-                  id="businessType" required class="form-control">
+                  id="businessType" required class="form-control inputStyle">
                   <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
                 </select>
               </div>
@@ -71,9 +79,9 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Direccion</label>
-                  <input type="text" class="form-control" id="Direccion" required [(ngModel)]="register.address" name="address"
-                    #address="ngModel" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+                  <label class="labelStyle">Direccion</label>
+                  <input type="text" class="form-control inputStyle" id="Direccion" required [(ngModel)]="register.address" name="address"
+                    #address="ngModel" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #search>
                 </div>
                 <div [hidden]="address.valid || address.pristine" class="alert alert-danger">
                   direccion requerida
@@ -81,28 +89,30 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Ciduad</label>
-                  <ng-select2 class="custom" [data]="citys" [value]="-1" name="city" lang="es" [(ngModel)]="register.city"
-                    name="city" #city="ngModel"></ng-select2>
+                  <label class="labelStyle">Ciudad</label>
+                  <select class="form-control inputStyle" [value]="-1" name="city" lang="es" [(ngModel)]="register.city"
+                    name="city" #city="ngModel">
+                    <option *ngFor="let c of citys" [value]="c.id">{{c.text}}</option>
+                  </select>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Contraseña</label>
-                  <input minlength="6" type="password" class="form-control" id="password" required [(ngModel)]="register.password"
+                  <label class="labelStyle">Contraseña</label>
+                  <input minlength="6" type="password" class="form-control inputStyle" id="password" required [(ngModel)]="register.password"
                     name="password" #password="ngModel">
-                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
+                  <span class="spanPassword explanationStyle">Tiene que contener 8 caracteres como mínimo</span>
 
                 </div>
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label>Repetir Contraseña</label>
-                  <input minlength="6" type="password" class="form-control" id="scondPassword" required [(ngModel)]="register.scondPassword"
+                  <label class="labelStyle">Repetir Contraseña</label>
+                  <input minlength="6" type="password" class="form-control inputStyle" id="scondPassword" required [(ngModel)]="register.scondPassword"
                     name="scondPassword" #scondPassword="ngModel">
-                  <span class="spanPassword">Tiene que contener 8 caracteres como mínimo</span>
+                  <span class="spanPassword explanationStyle">Tiene que contener 8 caracteres como mínimo</span>
 
                   <div *ngIf="register.password != register.scondPassword" class="alert alert-danger">
                     Las contraseñas no coinciden
@@ -123,7 +133,7 @@
     <hr class="hrfinal">
 
     <div class="login-register">
-      <p class="accountGrey">¿Ya tenés cuenta? <span class="accountBlue"> <a [routerLink]="['/Login']">INICIAR SESIÓN</a>
+      <p class="accountGrey alreadyAccount">¿Ya tenés cuenta? <span class="accountBlue initSession"> <a [routerLink]="['/Login']">INICIAR SESIÓN</a>
         </span> </p>
     </div>
 

@@ -4,6 +4,7 @@ export class Register {
     public password: string;
     public scondPassword: string;
     public name: string;
+    public surname: string;
     public description: string;
     public city: number;
     public address: string;
