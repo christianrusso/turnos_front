@@ -97,100 +97,134 @@
 
 <!-- Agregar Paciente -->
 <div class="col-xs-12 modal-agregar-paciente">
-    <div class="inside-modal-agregar-paciente col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="inside-modal-agregar-paciente col-xs-12 col-sm-8 col-sm-offset-3">
         <div class="header-modal-agregar-paciente col-xs-12">
             <h2>Nuevo Paciente</h2>
             <a (click)="hideAddPatient()" class="close-modal-agregar-paciente">X</a>
         </div>
         <div class="col-xs-12 buttons-turno table-cluster2" style="margin-bottom: 25px;">
-            <h3>Seleccione el tipo de Usuario</h3>
-            <a (click)="showClientTab()" id="cliente-turno">Usuario registrado en Tu Turno</a>
-            <a (click)="showNoClientTab()" id="noexiste-turno">Nuevo Usuario</a>
+            <h3 style="font-family: sf_ui_displaysemibold; font-size: 14px;">Seleccione el tipo de Usuario</h3>
+            <a (click)="showClientTab()" id="cliente-turno" style="font-family: sf_ui_displaybold; font-size: 13px;">Usuario registrado en Tu Turno</a>
+            <a (click)="showNoClientTab()" id="noexiste-turno" style="font-family: sf_ui_displaybold; font-size: 13px;">Nuevo Usuario</a>
         </div>
         
         <!-- Clientes -->
         <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
-           
-            <div class="col-xs-12">
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="firstName">Nombre: </label>
-                    <input type="text" id="firstName" readonly name="firstName" [(ngModel)]="firstName" >
+
+            <div style="display: flex; border-bottom: 1px solid;">
+                <div style="display: flex; margin: 0 auto; cursor: pointer;" id="firstStepParent" class="borderSelected" (click)="nextStep();">
+                    <div class="circleFirst" id="firstStep" style="margin-bottom: 10px;"><span>1</span></div>
+                    <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Seleccionar Cliente</span></div>
                 </div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="lastName">Apellido: </label>
-                    <input type="text" id="lastName" readonly name="lastName" [(ngModel)]="lastName" >
-                </div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="address">Direccion: </label>
-                    <input type="text" id="address" readonly name="address" [(ngModel)]="address" >
-                </div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="phoneNumber">Telefono: </label>
-                    <input type="text" id="phoneNumber" readonly name="phoneNumber" [(ngModel)]="phoneNumber" >
-                </div>
-                <div class="col-xs12 col-sm-12">&nbsp;</div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input type="text" id="dni" readonly name="dni" [(ngModel)]="dni" >
-                </div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="">Obra social</label>
-                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
-                    </ng-select2>
-                </div>
-                <div class="col-xs-12 col-sm-3 turno-picker-div">
-                    <label for="">Plan medico</label>
-                    <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
-                    </ng-select2>
+                <div style="display: flex; margin: 0 auto;" id="secondStepParent" class="borderUnselected">
+                    <div class="circleSecond" id="secondStep" style="margin-bottom: 10px;"><span>2</span></div>
+                    <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Completar Obra social / Plan</span></div>
                 </div>
             </div>
-            
-            <div class="col-xs-12 table-cluster">
-                <h3>Seleccionar Cliente</h3>
-                <div class="col-xs-12">
-                    <div class="col-xs-2" style="margin-top: 5px;">
+
+            <div class="col-xs-12 table-cluster" *ngIf="step == 1">
+                <!--<h3 style="font-family: sf_ui_displaysemibold; font-size: 13px;">Seleccionar Cliente</h3>-->
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5">
+                    <div class="col-xs-3 selectClienteLabelEmail">
                         <b>Buscar por email:</b>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <input type="text" id="search-client-email" name="search-client-email" [(ngModel)]="searchClientFilter.email">
                     </div>
-                    <div class="col-xs-2" style="margin-top: 5px;" >
+                    <div class="col-xs-3 selectClienteLabelDni">
                         <b>Buscar por DNI:</b>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         <input type="text" id="search-client-dni" name="search-client-dni" [(ngModel)]="searchClientFilter.dni">
                     </div>
-                    <div class="col-xs-2" style="margin-top: 5px;">
-                        <a (click)="getAllClientsNonPatients()" id="search-cliente"><b>Buscar</b></a>
+                    <div class="col-xs-2 selectClienteLabelBuscar" style="">
+                        <a (click)="getAllClientsNonPatients()" id="search-cliente"><b style="color: #00ae00;">BUSCAR</b></a>
                     </div>
                 </div>
                 <div>&nbsp;</div>
                 <div class="col-xs-12 container-de-tabla">
                     <table id="table-agregar-turno" class="table table-sortable">
                         <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Nombre y apellido</th>
-                                <th>DNI</th>
-                                <th class="center">Seleccionar</th>
-                            </tr>
+                        <tr>
+                            <th class="resultsLabels">Email</th>
+                            <th class="resultsLabels">Nombre y apellido</th>
+                            <th class="resultsLabels">DNI</th>
+                            <th class="resultsLabels">Seleccionar</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let client of clients; let i = index">
-                                <td>{{ client.email }}</td>
-                                <td>{{ client.firstName + ' ' + client.lastName }}</td>
-                                <td>{{ client.dni }}</td>
-                                <td class="center"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
-                            </tr>
+                        <tr *ngFor="let client of clients; let i = index">
+                            <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.email }}</td>
+                            <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.firstName + ' ' + client.lastName }}</td>
+                            <td style="width: 150px; font-family: sf_ui_displaylight; font-size: 14px;">{{ client.dni }}</td>
+                            <td style="width: 150px; text-align: left;"><input type="radio" name="clientRadioGroup" value="i" (change)="selectedClientChange(client)"></td>
+                        </tr>
                         </tbody>
-                            
+
                     </table>
                 </div>
             </div>
-            
-            <div class="col-xs-12 center">
-                <a (click)="addPatientForClient()" id="add-cliente">Agregar</a>
+
+            <div style="margin-top: 420px;" *ngIf="step == 1">
+                <p style="font-family: sf_ui_displaysemibold; font-size: 14px; padding-left: 15px;">DATOS DEL CLIENTE</p>
             </div>
+            <div class="col-xs-12" style="padding-left: 0px; margin-top: 20px;" *ngIf="step == 1">
+                <div style="display: flex;">
+                    <div class="col-xs-12 col-sm-3 turno-picker-div">
+                        <label for="firstName" class="labelForm">Nombre: </label>
+                        <input type="text" id="firstName" readonly name="firstName" [(ngModel)]="firstName" >
+                    </div>
+                    <div class="col-xs-12 col-sm-3 turno-picker-div">
+                        <label for="lastName" class="labelForm">Apellido: </label>
+                        <input type="text" id="lastName" readonly name="lastName" [(ngModel)]="lastName" >
+                    </div>
+                </div>
+                <div style="display: flex; margin-top: 20px;">
+                    <div class="col-xs-12 col-sm-3 turno-picker-div">
+                        <label for="dni" class="labelForm">Dni: </label><br>
+                        <input type="text" id="dni" readonly name="dni" [(ngModel)]="dni" >
+                    </div>
+                    <div class="col-xs-12 col-sm-3 turno-picker-div">
+                        <label for="address" class="labelForm">Direccion: </label>
+                        <input type="text" id="address" readonly name="address" [(ngModel)]="address" >
+                    </div>
+                    <div class="col-xs-12 col-sm-3 turno-picker-div">
+                        <label for="phoneNumber" class="labelForm">Telefono: </label>
+                        <input type="text" id="phoneNumber" readonly name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    </div>
+                </div>
+                <!--<div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="" class="labelForm">Obra social</label>
+                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="" class="labelForm">Plan medico</label>
+                    <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>-->
+            </div>
+            
+            <div class="col-xs-12 center" style="margin-top: 30px;" *ngIf="step == 1">
+                <a (click)="nextStep()" id="add-cliente">SIGUIENTE</a>
+            </div>
+
+            <div class="col-xs-12" style="padding-left: 0px; margin-top: 20px;" *ngIf="step == 2">
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="" class="labelForm">Obra social</label>
+                    <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+                <div class="col-xs-12 col-sm-3 turno-picker-div">
+                    <label for="" class="labelForm">Plan medico</label>
+                    <ng-select2 [data]="medicalPlanOptions" [value]="-1" (valueChanged)="medicalPlanChange($event)" name="especialidad-medico-seccion" lang="es">
+                    </ng-select2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 center" style="margin-top: 30px;" *ngIf="step == 2">
+            <a (click)="addPatientForClient()" id="add-cliente">AGREGAR</a>
         </div>
 
         <!-- No Existe -->

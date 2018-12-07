@@ -48,6 +48,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     public addPatientEnable = false;
 
+    public step = 1;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,
@@ -182,6 +184,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     showAddPatient(){
         this.cleanPatient();
+        this.step = 1;
+        this.firstStepStyles();
         $(".modal-agregar-paciente").fadeIn();
         $(".cliente-cluster").fadeIn();
         $("#cliente-turno").addClass('activeTurno');
@@ -291,5 +295,39 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
             this.toastrService.success('Paciente editado correctamente.');
             this.reloadPage();
         });
+    }
+
+    nextStep() {
+        if (this.step == 1) {
+            if (this.dni != "") {
+                this.step = 2;
+                this.secondStepStyles();
+            }
+        } else if (this.step == 2) {
+            this.step = 1;
+            this.firstStepStyles();
+        }
+    }
+
+    secondStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
     }
 }
