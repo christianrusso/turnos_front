@@ -66,6 +66,10 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public email: string;
     public password: string;
 
+    public isPatientStep = 1;
+    public isPatientNuevoStep = 1;
+    public isPatientUserStep = 1;
+
     public appointmentToCancel = new CancelAppointment();
 
     public week = new Array<WeekDay>();
@@ -527,5 +531,147 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         var blob = doc.output("blob");
         window.open(URL.createObjectURL(blob));
         //doc.save('test.pdf');
+    }
+
+    isPatientNextStep() {
+        if (this.isPatientStep == 1) {
+            if (this.selectedPatient.dni != "") {
+                this.isPatientStep = 2;
+                this.secondStepStyles();
+            }
+        } else if (this.isPatientStep == 2) {
+            this.isPatientStep = 1;
+            this.firstStepStyles();
+        }
+    }
+
+    isPatientNuevoNextStep() {
+        if (this.isPatientNuevoStep == 1) {
+            if (this.firstName != "" && this.firstName != null) {
+                this.isPatientNuevoStep = 2;
+                this.secondStepNuevoStyles();
+            }
+        } else if (this.isPatientNuevoStep == 2) {
+            this.isPatientNuevoStep = 1;
+            this.firstStepNuevoStyles();
+        }
+    }
+
+    isPatientUserNextStep() {
+        if (this.isPatientUserStep == 1) {
+            if (this.firstName != "" && this.firstName != null) {
+                this.isPatientUserStep = 2;
+                this.secondStepUserStyles();
+            }
+        } else if (this.isPatientUserStep == 2) {
+            if (this.medicalPlan != "" && this.medicalPlan != null) {
+                this.isPatientUserStep = 3;
+                this.thirdStepUserStyles();
+            }
+        }
+    }
+
+    isPatientUserFirstStep() {
+        this.isPatientUserStep = 1;
+        this.firstStepUserStyles();
+    }
+
+    isPatientUserSecondStep() {
+        if (this.firstName != "" && this.firstName != null) {
+            this.isPatientUserStep = 2;
+            this.secondStepUserStyles();
+        }
+    }
+
+    secondStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+
+
+    secondStepNuevoStyles() {
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepNuevoStyles() {
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+
+    secondStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
+    }
+
+    thirdStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
     }
 }
