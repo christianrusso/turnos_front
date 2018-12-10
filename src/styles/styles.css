@@ -281,7 +281,7 @@ textarea:focus{
   padding: 56px 0px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-  width: 90%;
+  width: 100%;
   margin: auto;
   margin-top: 10px;
 }
@@ -1312,7 +1312,7 @@ input#fecha, input#fecha2{
 }
 
 .menu-medicos .form-group .select2-container--default .select2-selection--single {
-  background-color: #1558fd;
+  background-color: #454edb;
 }
 
 .menu-medicos .form-group .select2-container--default .select2-selection--single {
@@ -3107,7 +3107,7 @@ section.pacientes-section.col-xs-12 {}
 }
 
 .menu-pacientes .form-group .select2-container--default .select2-selection--single {
-  background-color: #1558fd;
+  background-color: #454edb;
 }
 
 .menu-pacientes .form-group .select2-container--default .select2-selection--single {
@@ -3390,7 +3390,7 @@ div..header-modal-horarios{
 }
 
 .menu-calendario .form-group .select2-container--default .select2-selection--single {
-  background-color: #1558fd;
+  background-color: #454edb;
 }
 
 .menu-calendario .form-group .select2-container--default .select2-selection--single {
