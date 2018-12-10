@@ -304,6 +304,23 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     // Pop up
     showRequestAppointment() {
         $(".modal-agregar-turno").fadeIn();
+        this.isPatientStep = 1;
+        this.firstStepStyles();
+
+        this.isPatientNuevoStep = 1;
+        this.firstStepNuevoStyles();
+
+        this.isPatientUserStep = 1;
+        this.firstStepUserStyles();
+
+        this.selectedClient = null;
+        this.selectedPatient = null;
+        this.address = null;
+        this.firstName = null;
+        this.lastName = null;
+        this.phoneNumber = null;
+        this.dni = null;
+
         this.doctorOption = '';
         this.selectedHour = null;
         this.selectedDate = new Date(this.currentDate);

@@ -206,6 +206,7 @@
                     <label class="inputLabel">Hora</label><br>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
                     <ng-select2 name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0" style="text-align: center;">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
                     </ng-select2>
                 </div>
@@ -281,6 +282,7 @@
                     <label class="inputLabel">Hora</label><br>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
                     <ng-select2 style="text-align: center;" name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
                     </ng-select2>
                 </div>
@@ -390,6 +392,7 @@
                     <label class="inputLabel">Hora</label><br>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El doctor no tiene turnos disponibles para la fecha elegida.</label>
                     <ng-select2 name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0" style="text-align: center;">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let appointment of appointments" [ngValue]="appointment">{{appointment}}</option>
                     </ng-select2>
                 </div>
