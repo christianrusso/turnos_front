@@ -46,6 +46,8 @@
 
       <!-- Menú links -->
       <div class="menu-words col-xs-12">
+          <a [routerLink]="['Home']" id="home-panel">Inicio</a>
+
           <a *ngIf="rubro =='1'" [routerLink]="['DoctorList']" id="medicos-panel">Médicos</a>
           <a *ngIf="rubro =='2'" [routerLink]="['HairdressingProfessionalList']" id="medicos-panel">Profesionales</a>
 

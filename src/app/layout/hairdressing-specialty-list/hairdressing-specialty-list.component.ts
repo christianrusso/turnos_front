@@ -48,6 +48,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         private toastrService: ToastrService,
     ) {
         super();
+        $("a#home-panel").removeClass('active');
         $("a#medicos-panel").removeClass('active');
         $("a#especialidades-panel").addClass('active');
         $("a#pacientes-panel").removeClass('active');

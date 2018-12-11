@@ -17,6 +17,7 @@ import { SubspecialtyService } from '../service/subspecialty.service';
 import { MedicalPlanService } from '../service/medicalPlan.service';
 import { MedicalInsuranceService } from '../service/medicalInsurance.service';
 import { ClientService } from '../service/client.service';
+import { StatisticsService } from '../service/statistics.service';
 import { DataService } from '../service/data.service';
 
 //Servicios - Hairdressing
@@ -84,6 +85,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         MedicalPlanService,
         ClientService,
         DataService,
+        StatisticsService,
 
         HairdressingProfessionalService,
         HairdressingSpecialtyService,
