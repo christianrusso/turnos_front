@@ -23,7 +23,7 @@ export class HomeComponent extends BaseComponent {
 
         this.day = moment().locale("es").format('dddd');
         this.nrDay = moment().locale("es").date();
-        this.month = moment().locale("es").format('MMMM');
+        this.month = moment().locale("es").format("MMMM");
 
         this.rubro = sessionStorage.getItem("rubro");
 

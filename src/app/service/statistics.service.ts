@@ -23,11 +23,11 @@ export class StatisticsService extends BaseService {
         super(httpClient, toastrService, loaderService);
     }
 
-    public getAllStatistics(): Observable {
-        return this.getAll<Specialty>(this.url + "/GetForClinic", null);
+    public getAllStatistics() {
+        return this.getAll(this.url + "/GetForClinic", null);
     }
 
-    public getAllStatisticsHairdress(): Observable {
-        return this.getAll<Specialty>(this.url + "/GetForHairdressing", null);
+    public getAllStatisticsHairdress() {
+        return this.getAll(this.url + "/GetForHairdressing", null);
     }
 }
