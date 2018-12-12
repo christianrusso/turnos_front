@@ -16,6 +16,7 @@ import { HairdressingProfessionalListComponent } from './hairdressing-profession
 import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-list/hairdressing-specialty-list.component';
 import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component'
 import { HairdressingCalendarComponent } from './hairdressing-calendar/hairdressing-calendar.component';
+import {EditarComponent} from "./editar/editar.component";
 
 const routes: Routes = [
     {
@@ -25,6 +26,7 @@ const routes: Routes = [
             //{ path: '', redirectTo: (sessionStorage.getItem('rubro') == "1" ? 'DoctorList' : 'HairdressingProfessionalList') },
             { path: '', redirectTo: 'Home'},
             { path: 'Home', component: HomeComponent },
+            { path: 'Editar', component: EditarComponent },
             { path: 'SpecialtyList', component: SpecialtyListComponent },
             { path: 'PatientList', component: PatientListComponent },
             { path: 'DoctorList', component: DoctorListComponent },

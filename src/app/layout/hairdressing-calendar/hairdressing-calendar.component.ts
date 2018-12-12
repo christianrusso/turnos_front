@@ -86,6 +86,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         private toastrService: ToastrService
     ) {
         super();
+        $("a#home-panel").removeClass('active');
         $("a#medicos-panel").removeClass('active');
         $("a#especialidades-panel").removeClass('active');
         $("a#pacientes-panel").removeClass('active');

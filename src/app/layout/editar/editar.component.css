@@ -1,0 +1,69 @@
+.selectedOption {
+    font-family: sf_ui_displaybold;
+    font-size: 13px;
+    color: #0059fe;
+    border-bottom: 2px solid #0059fe;
+}
+.unselectedOption {
+    font-family: sf_ui_displaylight;
+    font-size: 13px;
+}
+.labelName {
+    font-family: sf_ui_displaymedium;
+    font-size: 13px;
+}
+.spaceBetweenBlocks {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.inputStyle {
+    border: 1px solid #ebecf1;
+    border-radius: 4px;
+    height: 32px;
+    font-family: sf_ui_displaylight;
+    font-size: 13px;
+    width: 100%;
+}
+.topSpaceFields {
+    margin-top: 18px;
+}
+.smallTextPassword {
+    font-family: sf_ui_displaylight;
+    font-size: 8px;
+    margin-top: 5px;
+}
+.modifyButton {
+    color: #0059fe;
+    background-color: transparent;
+    border: 1px solid #0059fe;
+}
+.acceptButton {
+    color: white;
+    background-color: #00ae00;
+    border: 1px solid #00ae00;
+}
+.modifySize {
+    padding: 8px;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+.acceptSize {
+    padding: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.fileStyle{
+    height: 27px;
+}
+.Logo-empresa {
+    height: 18px;
+    font-size: 15px;
+    text-align: left;
+    color: #000000;
+    margin-top: 1.8%;
+}
+.pLogo{
+    margin-top: 13px;
+    font-family: sf_ui_displaysemibold;
+    font-size: 12px;
+}

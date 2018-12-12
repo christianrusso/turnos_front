@@ -46,6 +46,7 @@ export class MedicalInsuranceComponent extends BaseComponent implements AfterVie
         super();
         this.selectedMedicalInsurance = new MedicalInsurance();
         this.selectedMedicalPlan = new MedicalPlan();
+        $("a#home-panel").removeClass('active');
         $("a#medicos-panel").removeClass('active');
         $("a#especialidades-panel").removeClass('active');
         $("a#pacientes-panel").removeClass('active');
