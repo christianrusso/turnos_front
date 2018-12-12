@@ -1,0 +1,81 @@
+<div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div style="display: flex; text-align: center; border-bottom: 1px solid black; height: 35px;" class="col-sm-12 spaceBetweenBlocks">
+        <div class="selectedOption col-sm-4">Datos de registro</div>
+        <div class="unselectedOption col-sm-4">Datos de la clínica</div>
+        <div class="unselectedOption col-sm-4">Configuración de pagos</div>
+    </div>
+</div>
+<div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div style="display: flex; flex-wrap: wrap; clear: both; margin-top: 50px;">
+        <div class="col-sm-4">
+            <img *ngIf="logo  == null" src="assets/img/Rectangle 18.png">
+
+            <!--<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                           [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
+                           (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>-->
+
+            <div class="Logo-empresa">
+                <p class="pLogo">Logo empresa</p>
+            </div>
+
+            <div class="fileStyle">
+                <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="logo" name="logoEntity"
+                       #logoEntity="ngModel" />
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div style="display: flex;">
+                <div class="col-sm-4">
+                    <p class="labelName">Nombre</p>
+                    <input type="text" name="name" class="inputStyle" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="labelName">Apellido</p>
+                    <input type="text" name="surname" class="inputStyle" />
+                </div>
+            </div>
+            <div style="display: flex;" class="topSpaceFields">
+                <div class="col-sm-4">
+                    <p class="labelName">Email</p>
+                    <input type="text" name="mail" class="inputStyle" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="labelName">Rubro</p>
+                    <input type="text" name="rubro" class="inputStyle" />
+                </div>
+            </div>
+            <div style="display: flex;" class="topSpaceFields">
+                <div class="col-sm-4">
+                    <p class="labelName">Dirección</p>
+                    <input type="text" name="address" class="inputStyle" />
+                </div>
+                <div class="col-sm-4">
+                    <p class="labelName">Ciudad</p>
+                    <input type="text" name="city" class="inputStyle" />
+                </div>
+            </div>
+            <div style="display: flex;" class="topSpaceFields">
+                <div class="col-sm-4">
+                    <p class="labelName">Contraseña</p>
+                    <input type="password" name="password" class="inputStyle" />
+                    <p class="smallTextPassword">Tiene que contener 8 caracteres como mínimo</p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="labelName">Confirmar Contraseña</p>
+                    <input type="password" name="repassword" class="inputStyle" />
+                    <p class="smallTextPassword">Tiene que contener 8 caracteres como mínimo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
+        <div class="col-sm-6" style="text-align: right;">
+            <button class="modifyButton modifySize">MODIFICAR</button>
+        </div>
+        <div class="col-sm-6" style="text-align: left;">
+            <button class="acceptButton acceptSize">ACEPTAR</button>
+        </div>
+    </div>
+</div>

@@ -30,6 +30,7 @@ import { HairdressingAppointmentService } from '../service/hairdressing-appointm
 // Pantallas y componentes
 import { LayoutComponent } from './layout.component';
 import { HomeComponent } from './home/home.component';
+import { EditarComponent } from './editar/editar.component';
 import { SpecialtyListComponent } from './specialty-list/specialty-list.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
@@ -59,6 +60,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
     declarations: [
         LayoutComponent,
         HomeComponent,
+        EditarComponent,
         SpecialtyListComponent,
         PatientListComponent,
         DoctorListComponent,
