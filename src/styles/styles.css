@@ -644,6 +644,8 @@ svg:not(:root){
   position: relative;
   z-index: 3;
   box-shadow: 0px 3px 9px rgba(0, 0, 0, 0.2);
+  background-color: #454edb;
+  color: white;
 }
 
 .div-fecha span{
@@ -1377,7 +1379,7 @@ input#fecha, input#fecha2{
   padding-top: 0;
   height: 500px;
   /* padding: 10px; */
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .table#table-medicos>tbody>tr>th.active{
   background-color: #fff;

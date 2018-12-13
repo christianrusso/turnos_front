@@ -67,3 +67,11 @@
     font-family: sf_ui_displaysemibold;
     font-size: 12px;
 }
+.labelStyle {
+    font-family: sf_ui_displaymedium;
+    font-size: 13px;
+}
+.descriptionStyle {
+    font-family: sf_ui_displaylight;
+    font-size: 13px;
+}
