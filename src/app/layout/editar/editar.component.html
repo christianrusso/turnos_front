@@ -1,4 +1,4 @@
-<div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+<div class="col-sm-12" style="background-color: white; border-top-left-radius: 10px; border-top-right-radius: 10px; height: 100%;">
     <div style="display: flex; text-align: center; border-bottom: 1px solid black; height: 35px;" class="col-sm-12 spaceBetweenBlocks">
         <div class="selectedOption col-sm-4" id="firstStep" style="cursor: pointer;" (click)="changeStep(1, 'firstStep');">Datos de registro</div>
         <div class="unselectedOption col-sm-4" id="secondStep" style="cursor: pointer;" (click)="changeStep(2, 'secondStep');">Datos de la clínica</div>
@@ -6,7 +6,7 @@
     </div>
 </div>
 <div *ngIf="step == 1">
-    <div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
         <div style="display: flex; flex-wrap: wrap; clear: both; margin-top: 50px;">
             <div class="col-sm-4">
                 <img *ngIf="logo  == null" src="assets/img/Rectangle 18.png">
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="fileStyle">
-                    <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="logo" name="logoEntity"
+                    <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="logo" name="logoEntity"
                            #logoEntity="ngModel" />
                 </div>
             </div>
@@ -83,14 +83,163 @@
 </div>
 
 <div *ngIf="step == 2">
-    <div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">AGREGAR DESCRIPCIÓN</p>
             <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description"></textarea>
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">HORARIOS DE ATENCIÓN</p>
-            
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Lunes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Martes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Miércoles</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Jueves</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Viernes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Sábado</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Domingo</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+        </div>
+        <div style="clear: both; margin-top: 50px;" class="col-sm-10">
+            <p class="labelStyle">AGREGAR FOTOS</p>
+            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-10">
+                <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
+                    <img *ngIf="imageBig  == null" src="assets/img/Rectangle 18.png" class="bigImage">
+
+                    <div class="fileStyle">
+                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
+                               #imageBigEntity="ngModel" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image1  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image1" name="image1Entity"
+                                   #image1Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image2  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image2Entity"
+                                   #image2Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image3  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image3" name="image3Entity"
+                                   #image3Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image4  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image4Entity"
+                                   #image4Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image5  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image5" name="image5Entity"
+                                   #image5Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image6  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="image6" name="image6Entity"
+                                   #image6Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image7  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image7" name="image7Entity"
+                                   #image7Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image8  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image8" name="image8Entity"
+                                   #image8Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+        <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
+            <div class="col-sm-6" style="text-align: right;">
+                <button class="acceptButton acceptSize">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="step == 3" style="height: 100%;">
+    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
+        <div style="clear: both; margin-top: 50px;" class="col-sm-10">
+            <p class="labelStyle">SELECCIONE UNA OPCIÓN</p>
+            <div style="clear: both; display: flex; flex-wrap: wrap; margin-left: 6px; margin-top: 25px;">
+                <input type="checkbox" [(ngModel)]="mandatoryPayment"> <span class="descriptionStyle checkboxLabelStyle">Activar pago obligatorio para clientes</span>
+            </div>
+            <div style="clear: both; margin-bottom: 20px; margin-left: 6px;" *ngIf="mandatoryPayment">
+                <div>
+                    <input type="text" class="inputStyleMandatoryPayment">
+                </div>
+                <div>
+                    <input type="text" class="inputStyleMandatoryPayment">
+                </div>
+            </div>
+            <div style="clear: both; display: flex; flex-wrap: wrap; margin-left: 6px;">
+                <input type="checkbox"> <span class="descriptionStyle checkboxLabelStyle">Sólo quiero que mis clientes reserven</span>
+            </div>
         </div>
     </div>
 </div>
