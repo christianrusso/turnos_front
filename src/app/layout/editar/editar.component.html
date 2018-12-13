@@ -1,4 +1,4 @@
-<div class="col-sm-12" style="background-color: white; border-top-left-radius: 10px; border-top-right-radius: 10px; height: 100%;">
+<div class="col-sm-10" style="background-color: white; border-top-left-radius: 10px; border-top-right-radius: 10px; height: 100%; margin-left: 8%;">
     <div style="display: flex; text-align: center; border-bottom: 1px solid black; height: 35px;" class="col-sm-12 spaceBetweenBlocks">
         <div class="selectedOption col-sm-4" id="firstStep" style="cursor: pointer;" (click)="changeStep(1, 'firstStep');">Datos de registro</div>
         <div class="unselectedOption col-sm-4" id="secondStep" style="cursor: pointer;" (click)="changeStep(2, 'secondStep');">Datos de la clínica</div>
@@ -6,7 +6,7 @@
     </div>
 </div>
 <div *ngIf="step == 1">
-    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
+    <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="display: flex; flex-wrap: wrap; clear: both; margin-top: 50px;">
             <div class="col-sm-4">
                 <img *ngIf="logo  == null" src="assets/img/Rectangle 18.png">
@@ -70,12 +70,12 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
             <div class="col-sm-6" style="text-align: right;">
                 <button class="modifyButton modifySize">MODIFICAR</button>
             </div>
-            <div class="col-sm-6" style="text-align: left;">
+            <div class="col-sm-5" style="text-align: left;">
                 <button class="acceptButton acceptSize">ACEPTAR</button>
             </div>
         </div>
@@ -83,7 +83,7 @@
 </div>
 
 <div *ngIf="step == 2">
-    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
+    <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">AGREGAR DESCRIPCIÓN</p>
             <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description"></textarea>
@@ -186,7 +186,7 @@
                         <img *ngIf="image6  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
                         <div class="fileStyle">
-                            <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="image6" name="image6Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image6" name="image6Entity"
                                    #image6Entity="ngModel" />
                         </div>
                     </div>
@@ -212,9 +212,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12" style="background-color: white; border-radius: 10px; height: 100%;">
+    <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
-            <div class="col-sm-6" style="text-align: right;">
+            <div class="col-sm-7" style="text-align: right;">
                 <button class="acceptButton acceptSize">ACEPTAR</button>
             </div>
         </div>
@@ -223,7 +223,7 @@
 </div>
 
 <div *ngIf="step == 3" style="height: 100%;">
-    <div class="col-sm-12" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%;">
+    <div class="col-sm-10" style="background-color: white; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">SELECCIONE UNA OPCIÓN</p>
             <div style="clear: both; display: flex; flex-wrap: wrap; margin-left: 6px; margin-top: 25px;">
