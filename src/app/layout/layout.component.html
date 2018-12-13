@@ -48,19 +48,19 @@
       <div class="menu-words col-xs-12">
           <a [routerLink]="['Home']" id="home-panel">Inicio</a>
 
+          <a *ngIf="rubro =='1'" [routerLink]="['SpecialtyList']" id="especialidades-panel">Especialidades</a>
+          <a *ngIf="rubro =='2'" [routerLink]="['HairdressingSpecialtyList']" id="especialidades-panel">Especialidades</a>
+
           <a *ngIf="rubro =='1'" [routerLink]="['DoctorList']" id="medicos-panel">Médicos</a>
           <a *ngIf="rubro =='2'" [routerLink]="['HairdressingProfessionalList']" id="medicos-panel">Profesionales</a>
 
-          <a *ngIf="rubro =='1'" [routerLink]="['SpecialtyList']" id="especialidades-panel">Especialidades</a>
-          <a *ngIf="rubro =='2'" [routerLink]="['HairdressingSpecialtyList']" id="especialidades-panel">Especialidades</a>
-          
-          <a *ngIf="rubro =='1'" [routerLink]="['PatientList']" id="pacientes-panel">Pacientes</a>
+          <a *ngIf="rubro =='1'" [routerLink]="['MedicalInsuranceList']" id="obrassocial-panel">Obras sociales</a>
           <a *ngIf="rubro =='2'" [routerLink]="['HairdressingPatientList']" id="pacientes-panel">Pacientes</a>
+
+          <a *ngIf="rubro =='1'" [routerLink]="['PatientList']" id="pacientes-panel">Pacientes</a>
           
           <a *ngIf="rubro =='1'" [routerLink]="['Calendar']" id="calendario-panel">Calendario</a>
           <a *ngIf="rubro =='2'" [routerLink]="['HairdressingCalendar']" id="calendario-panel">Calendario</a>
-          
-          <a *ngIf="rubro =='1'" [routerLink]="['MedicalInsuranceList']" id="obrassocial-panel">Obras sociales</a>
       </div>
       <!-- // menu links -->
 
