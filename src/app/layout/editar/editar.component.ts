@@ -24,6 +24,7 @@ export class EditarComponent extends BaseComponent {
     image6;
     image7;
     image8;
+    mandatoryPayment = false;
 
     constructor(
     ){
