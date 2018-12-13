@@ -14,6 +14,7 @@ export class EditarComponent extends BaseComponent {
     imageChangedEvent: any = '';
     croppedImage: any = '';
     cropperReady = false;
+    step = 1;
 
     constructor(
     ){
@@ -39,5 +40,19 @@ export class EditarComponent extends BaseComponent {
     }
     loadImageFailed() {
         console.log('Load failed');
+    }
+
+    changeStep(step, stepName) {
+        this.step = step;
+
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('selectedOption');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('selectedOption');
+        (document.querySelector('#thirdStep') as HTMLElement).classList.remove('selectedOption');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('unselectedOption');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('unselectedOption');
+        (document.querySelector('#thirdStep') as HTMLElement).classList.add('unselectedOption');
+
+        (document.querySelector('#' + stepName) as HTMLElement).classList.remove('unselectedOption');
+        (document.querySelector('#' + stepName) as HTMLElement).classList.add('selectedOption');
     }
 }
