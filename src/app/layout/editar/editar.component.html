@@ -90,7 +90,127 @@
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">HORARIOS DE ATENCIÓN</p>
-            
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Lunes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Martes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Miércoles</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Jueves</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Viernes</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Sábado</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+            <div class="dayDiv col-sm-5">
+                <p class="dayStyle">Domingo</p>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+            </div>
+        </div>
+        <div style="clear: both; margin-top: 50px;" class="col-sm-10">
+            <p class="labelStyle">AGREGAR FOTOS</p>
+            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-10">
+                <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
+                    <img *ngIf="imageBig  == null" src="assets/img/Rectangle 18.png" class="bigImage">
+
+                    <div class="fileStyle">
+                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
+                               #imageBigEntity="ngModel" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image1  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image1" name="image1Entity"
+                                   #image1Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image2  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image2Entity"
+                                   #image2Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image3  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image3" name="image3Entity"
+                                   #image3Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image4  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image4Entity"
+                                   #image4Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image5  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image5" name="image5Entity"
+                                   #image5Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image6  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="" (change)="fileChangeEvent($event)" required [(ngModel)]="image6" name="image6Entity"
+                                   #image6Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div style="clear: both;">
+                        <img *ngIf="image7  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image7" name="image7Entity"
+                                   #image7Entity="ngModel" />
+                        </div>
+                    </div>
+                    <div style="clear: both;">
+                        <img *ngIf="image8  == null" src="assets/img/Rectangle 18.png" class="smallImage">
+
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image8" name="image8Entity"
+                                   #image8Entity="ngModel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>

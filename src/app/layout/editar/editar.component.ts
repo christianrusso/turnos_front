@@ -15,6 +15,15 @@ export class EditarComponent extends BaseComponent {
     croppedImage: any = '';
     cropperReady = false;
     step = 1;
+    imageBig;
+    image1;
+    image2;
+    image3;
+    image4;
+    image5;
+    image6;
+    image7;
+    image8;
 
     constructor(
     ){

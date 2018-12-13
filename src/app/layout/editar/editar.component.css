@@ -75,3 +75,39 @@
     font-family: sf_ui_displaylight;
     font-size: 13px;
 }
+.dayDiv {
+    display: flex;
+    flex-wrap: wrap;
+    clear: both;
+    margin-top: 50px;
+    padding: 0px;
+    margin-bottom: -25px;
+}
+.dayStyle {
+    font-family: sf_ui_displaysemibold;
+    font-size: 11px;
+    width: 77px;
+}
+.desdeStyle {
+    font-family: sf_ui_displaylight;
+    font-size: 11px;
+    margin-left: 84px;
+}
+.hastaStyle {
+    font-family: sf_ui_displaylight;
+    font-size: 11px;
+    margin-left: 47px;
+}
+.timeInputStyle {
+    line-height: 15px;
+    border: none;
+}
+.bigImage {
+    width: 85%;
+}
+.smallImage {
+    width: 87%;
+}
+.inputFileStyle {
+    font-size: 0px;
+}
