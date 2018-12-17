@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Patient } from '../../model/patient.class';
 import { PatientService } from '../../service/patient.service';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
@@ -12,11 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 import { IdFilter } from '../../model/id-filter.class';
 import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { ClientFilter } from '../../model/client-filter.class';
+import { } from 'googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'app-patient-list',
     templateUrl: './patient-list.component.html',
-    styleUrls: ['./patient-list.component.css']
+    styleUrls: ['./patient-list.component.css'],
 })
 
 export class PatientListComponent extends BaseComponent implements AfterViewInit {
@@ -36,6 +38,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public lastName: string;
     public address: string;
     public phoneNumber: string;
+    public invalidPhone: boolean = false;
     public dni: string;
     public medicalInsuranceOptions: Array<Select2OptionData>;
     public medicalInsurance: string;
@@ -50,13 +53,21 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     public step = 1;
 
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,
         private medicalInsuranceService: MedicalInsuranceService,
         private medicalPlanService: MedicalPlanService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ) {
         super();
         $("a#home-panel").removeClass('active');
@@ -68,6 +79,39 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.getAllPatientsByFilter();
         this.getAllMedicalInsurance();
         this.getAllClientsNonPatients();
+    }
+
+    ngOnInit() {
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
     }
 
     private reloadPage(){
@@ -211,7 +255,23 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $("#noexiste-turno").addClass('activeTurno');
     }
 
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
+    }
+
     addPatientForNonClient() {
+        if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+            this.invalidPhone = true;
+            return;
+        } else {
+            this.invalidPhone = false;
+        }
         this.loaderService.show();
         let patient = new Patient();
         patient.firstName = this.firstName;

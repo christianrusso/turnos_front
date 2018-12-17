@@ -19,6 +19,7 @@ import { MedicalInsuranceService } from '../service/medicalInsurance.service';
 import { ClientService } from '../service/client.service';
 import { StatisticsService } from '../service/statistics.service';
 import { DataService } from '../service/data.service';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 //Servicios - Hairdressing
 import { HairdressingProfessionalService } from '../service/hairdressing.professional.service';
@@ -56,6 +57,10 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         NgSelect2Module,
         OwlDateTimeModule, 
         OwlNativeDateTimeModule,
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyCeS0Tku62WXG03D8NKXgMxA6RNuBKbrSI",
+            libraries: ["places"]
+        }),
     ],
     declarations: [
         LayoutComponent,

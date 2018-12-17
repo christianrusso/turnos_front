@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AppointmentService } from '../../service/appointment.service';
 import { AppointmentFilter } from '../../model/appointment-filter.class';
 import { RequestedAppointments } from '../../model/requested-appointments.class';
@@ -25,6 +25,8 @@ import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
 import * as jsPDF from 'jspdf';
 import { Logo } from '../../model/logoForPdf';
+import { } from 'googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 declare var jsPDF: any; // Important
 
 @Component({
@@ -75,6 +77,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public week = new Array<WeekDay>();
     public logoForPdf=Logo;
 
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
+    public invalidPhone: boolean = false;
+
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/calendario.js');
     }
@@ -95,7 +104,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         private medicalInsuranceService: MedicalInsuranceService,
         private medicalPlanService: MedicalPlanService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ) {
         super();
         $("a#home-panel").removeClass('active');
@@ -118,6 +129,49 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.getAllDoctors();
         this.getAllPatients();
         this.getAllClientsNonPatients();
+    }
+
+    ngOnInit() {
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
+    }
+
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
     getAllSpecialties() {
@@ -565,6 +619,12 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     isPatientNuevoNextStep() {
         if (this.isPatientNuevoStep == 1) {
+            if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+                this.invalidPhone = true;
+                return;
+            } else {
+                this.invalidPhone = false;
+            }
             if (this.firstName != "" && this.firstName != null) {
                 this.isPatientNuevoStep = 2;
                 this.secondStepNuevoStyles();
