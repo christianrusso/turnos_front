@@ -111,7 +111,7 @@
         <!-- Clientes -->
         <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
 
-            <div style="display: flex; border-bottom: 1px solid;">
+            <div style="display: flex; border-bottom: 1px solid;" [style.display]="step == 0 ? 'none' : 'flex'">
                 <div style="display: flex; margin: 0 auto; cursor: pointer;" id="firstStepParent" class="borderSelected" (click)="nextStep();">
                     <div class="circleFirst" id="firstStep" style="margin-bottom: 10px;"><span>1</span></div>
                     <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Seleccionar Cliente</span></div>

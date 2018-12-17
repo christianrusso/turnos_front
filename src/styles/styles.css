@@ -97,7 +97,7 @@ textarea:focus{
 }
 
 .navbar>.container-fluid .navbar-brand{
-  margin-top: 18px
+  margin-top: 6px
 }
 
 .notif-menu{
@@ -2373,7 +2373,7 @@ svg:not(:root){
   font-size: 12px;
   display: inline-block;
   margin-bottom: 10px;
-  width: 100px;
+  width: 182px;
   text-align: center;
   font-size: 15px;
   margin-top: 20px;

@@ -443,6 +443,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     cancelAppointment() {
         this.appointmentService.cancelAppointmentByHairdressing(this.appointmentToCancel).subscribe(res => {
             this.toastrService.success('Turno cancelado exitosamente');
+            this.appointmentToCancel.comment = "";
+            this.closeCancelAppointment();
             this.reloadPage();
         });
     }

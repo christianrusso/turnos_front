@@ -51,7 +51,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     public addPatientEnable = false;
 
-    public step = 1;
+    public step = 0;
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -229,12 +229,12 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     showAddPatient(){
         this.cleanPatient();
-        this.step = 1;
         this.firstStepStyles();
         $(".modal-agregar-paciente").fadeIn();
         $(".cliente-cluster").fadeIn();
-        $("#cliente-turno").addClass('activeTurno');
+        $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").removeClass('activeTurno');
+        this.step = 0;
     }
 
     hideAddPatient(){
@@ -246,9 +246,11 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $(".cliente-cluster").fadeIn();
         $("#cliente-turno").addClass('activeTurno'); 
         $("#noexiste-turno").removeClass('activeTurno');
+        this.step = 1;
     }
 
     showNoClientTab() {
+        this.step == 0;
         $(".cliente-cluster").fadeOut(); 
         $(".noexiste-cluster").fadeIn();
         $("#cliente-turno").removeClass('activeTurno');
@@ -364,7 +366,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
                 this.step = 2;
                 this.secondStepStyles();
             }
-        } else if (this.step == 2) {
+        } else if (this.step == 2 || this.step == 0) {
             this.step = 1;
             this.firstStepStyles();
         }

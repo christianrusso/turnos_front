@@ -292,7 +292,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         return new Date(
             date.getFullYear(),
             date.getMonth(),
-            date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1)
+            date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1),
+            -3,
+            0
         );
     }
 
@@ -300,7 +302,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         return new Date(
             date.getFullYear(),
             date.getMonth(),
-            date.getDate() - date.getDay() + (date.getDay() == 0 ? 0 : 7)
+            date.getDate() - date.getDay() + (date.getDay() == 0 ? 0 : 7),
+            20,
+            59
         );
     }
 
@@ -557,6 +561,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     cancelAppointment() {
         this.appointmentService.cancelAppointmentByClinic(this.appointmentToCancel).subscribe(res => {
             this.toastrService.success('Turno cancelado exitosamente');
+            this.appointmentToCancel.comment = "";
+            this.closeCancelAppointment();
             this.reloadPage();
         });
     }
