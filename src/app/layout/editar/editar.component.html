@@ -27,12 +27,8 @@
             <div class="col-sm-8">
                 <div style="display: flex;">
                     <div class="col-sm-4">
-                        <p class="labelName">Nombre</p>
+                        <p class="labelName">Razón Social</p>
                         <input type="text" name="name" class="inputStyle" />
-                    </div>
-                    <div class="col-sm-4">
-                        <p class="labelName">Apellido</p>
-                        <input type="text" name="surname" class="inputStyle" />
                     </div>
                 </div>
                 <div style="display: flex;" class="topSpaceFields">
@@ -42,7 +38,10 @@
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Rubro</p>
-                        <input type="text" name="rubro" class="inputStyle" />
+                        <select class="form-control" name="businessType"
+                                id="businessType" required class="form-control inputStyle">
+                            <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
+                        </select>
                     </div>
                 </div>
                 <div style="display: flex;" class="topSpaceFields">
@@ -52,7 +51,10 @@
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Ciudad</p>
-                        <input type="text" name="city" class="inputStyle" />
+                        <select class="form-control inputStyle" [value]="-1" name="city" lang="es"
+                                name="city">
+                            <option *ngFor="let c of citys" [value]="c.id">{{c.text}}</option>
+                        </select>
                     </div>
                 </div>
                 <div style="display: flex;" class="topSpaceFields">

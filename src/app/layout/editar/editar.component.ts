@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '../../core/base.component';
 import { ImageCroppedEvent } from '../../image-cropper/image-cropper.component';
+import { SelectOption } from '../../model/select/select-option.class';
+import { RegisterService } from '../../service/register.service';
 import * as moment from 'moment';
 
 @Component({
     selector: 'app-editar',
     templateUrl: './editar.component.html',
-    styleUrls: ['./editar.component.css']
+    styleUrls: ['./editar.component.css'],
+    providers: [RegisterService]
 })
 export class EditarComponent extends BaseComponent {
 
@@ -25,9 +28,14 @@ export class EditarComponent extends BaseComponent {
     image7;
     image8;
     mandatoryPayment = false;
+    citys = [];
+    public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }];
 
     constructor(
+        private registerService: RegisterService
     ){
+        this.getCityForSelect();
+
         super();
 
         $("a#home-panel").removeClass('active');
@@ -36,6 +44,13 @@ export class EditarComponent extends BaseComponent {
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+    }
+
+    getCityForSelect() {
+        this.citys=[];
+        this.registerService.getCitycSelect().subscribe(res => {
+            this.citys=res;
+        });
     }
 
     fileChangeEvent(event: any): void {
