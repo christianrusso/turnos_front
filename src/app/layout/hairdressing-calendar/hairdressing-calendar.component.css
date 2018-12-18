@@ -85,3 +85,76 @@ margin-top: 4px;
   background-color: #aeaeae !important;
   cursor: default !important;
 }
+
+.buttonsLabels {
+    font-family: sf_ui_displaybold;
+    font-size: 13px;
+}
+
+.inputLabel {
+    font-family: sf_ui_displaymedium;
+    font-size: 12px;
+}
+
+.tableHeader {
+    font-family: sf_ui_displaymedium;
+    font-size: 11px;
+}
+
+.tableResult {
+    font-family: sf_ui_displaylight;
+    font-size: 14px;
+}
+
+.buttonTitle {
+    font-family: sf_ui_displaybold;
+    font-size: 13px;
+}
+
+.circleFirst {
+    border: 0.1em solid #0059fe;
+    border-radius: 100%;
+    height: 2.3em;
+    width: 2.3em;
+    text-align: center;
+    background-color: #0059fe;
+    color: white;
+    padding-top: 3px;
+}
+.circleFirst span {
+    margin-top: 1.10em;
+    font-size: 13pt;
+    font-family: sf_ui_displaybold;
+}
+
+.circleSecond {
+    border: 0.1em solid grey;
+    border-radius: 100%;
+    height: 2.3em;
+    width: 2.3em;
+    text-align: center;
+    background-color: white;
+    color: grey;
+    padding-top: 3px;
+}
+.circleSecond span {
+    margin-top: 1.10em;
+    font-size: 13pt;
+    font-family: sf_ui_displaylight;
+}
+
+.borderSelected {
+    border-bottom: 2px solid #0059fe;
+}
+
+.borderUnselected {
+    border-bottom: none;
+}
+
+.upperCase {
+    text-transform: uppercase;
+}
+
+.inputHeight {
+    height: 39px;
+}

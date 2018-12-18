@@ -566,6 +566,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     showCancelAppointment(appointmentId: number) {
         this.appointmentToCancel.id = appointmentId;
+        this.appointmentToCancel.comment = "";
         $(".modal-nueva-especialidad").show();
     }
 

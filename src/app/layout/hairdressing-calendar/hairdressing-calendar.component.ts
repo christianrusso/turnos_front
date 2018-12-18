@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HairdressingAppointmentService } from '../../service/hairdressing-appointment.service';
 import { AppointmentFilter } from '../../model/appointment-filter.class';
 import { RequestedHairdressingAppointments } from '../../model/requested-hairdressing-appointments.class';
@@ -22,6 +22,10 @@ import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
 import { Logo } from '../../model/logoForPdf';
+import { } from 'googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as esLocale from 'date-fns/locale/es';
 declare var jsPDF: any; // Important
 
 import { TouchSequence } from 'selenium-webdriver';
@@ -60,10 +64,21 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public email: string;
     public password: string;
 
+    public isPatientStep = 1;
+    public isPatientNuevoStep = 1;
+    public isPatientUserStep = 1;
+
     public appointmentToCancel = new CancelAppointment();
 
     public week = new Array<WeekDay>();
     public logoForPdf=Logo;
+
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
+    public invalidPhone: boolean = false;
 
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/calendario.js');
@@ -75,6 +90,11 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public currentMonday: Date;
     public currentSunday: Date;
 
+    options: DatepickerOptions = {
+        displayFormat: 'DD/MM/YYYY',
+        locale: esLocale,
+    }
+
     constructor (
         private appointmentService: HairdressingAppointmentService,
         private specialtyService: HairdressingSpecialtyService,
@@ -83,7 +103,9 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         private patientService: HairdressingPatientService,
         private clientService: ClientService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ) {
         super();
         $("a#home-panel").removeClass('active');
@@ -105,6 +127,49 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         this.getAllProfessionals();
         this.getAllPatients();
         this.getAllClientsNonPatients();
+    }
+
+    ngOnInit() {
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
+    }
+
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
     getAllSpecialties() {
@@ -433,6 +498,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     showCancelAppointment(appointmentId: number) {
         this.appointmentToCancel.id = appointmentId;
+        this.appointmentToCancel.comment = "";
         $(".modal-nueva-especialidad").show();
     }
 
@@ -490,5 +556,150 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         var blob = doc.output("blob");
         window.open(URL.createObjectURL(blob));
         //doc.save('test.pdf');
+    }
+
+    isPatientNextStep() {
+        if (this.isPatientStep == 1) {
+            if (this.selectedPatient.dni != "") {
+                this.isPatientStep = 2;
+                this.secondStepStyles();
+            }
+        } else if (this.isPatientStep == 2) {
+            this.isPatientStep = 1;
+            this.firstStepStyles();
+        }
+    }
+
+    isPatientNuevoNextStep() {
+        if (this.isPatientNuevoStep == 1) {
+            if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+                this.invalidPhone = true;
+                return;
+            } else {
+                this.invalidPhone = false;
+            }
+            if (this.firstName != "" && this.firstName != null) {
+                this.isPatientNuevoStep = 2;
+                this.secondStepNuevoStyles();
+            }
+        } else if (this.isPatientNuevoStep == 2) {
+            this.isPatientNuevoStep = 1;
+            this.firstStepNuevoStyles();
+        }
+    }
+
+    isPatientUserNextStep() {
+        if (this.isPatientUserStep == 1) {
+            if (this.firstName != "" && this.firstName != null) {
+                this.isPatientUserStep = 2;
+                this.secondStepUserStyles();
+            }
+        } else if (this.isPatientUserStep == 2) {
+            this.isPatientUserFirstStep();
+        }
+    }
+
+    isPatientUserFirstStep() {
+        this.isPatientUserStep = 1;
+        this.firstStepUserStyles();
+    }
+
+    isPatientUserSecondStep() {
+        if (this.firstName != "" && this.firstName != null) {
+            this.isPatientUserStep = 2;
+            this.secondStepUserStyles();
+        }
+    }
+
+    secondStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+
+
+    secondStepNuevoStyles() {
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepNuevoStyles() {
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStepNuevo') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepNuevoParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepNuevo') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepNuevoParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+
+    secondStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
+    }
+
+    thirdStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepUserStyles() {
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStepUser') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepUserParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
     }
 }
