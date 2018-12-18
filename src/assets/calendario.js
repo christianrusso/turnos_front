@@ -276,8 +276,8 @@ $( document ).on( 'keydown', function ( e ) {
 });
 
 /* Menu */
-$("a#paciente-turno").addClass('activeTurno');
-$(".paciente-cluster").fadeIn();
+//$("a#paciente-turno").addClass('activeTurno');
+//$(".paciente-cluster").fadeIn();
 
 $('a#paciente-turno').click(function() {
   $(".paciente-cluster").fadeIn();

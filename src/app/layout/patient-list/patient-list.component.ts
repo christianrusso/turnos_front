@@ -244,14 +244,17 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     showClientTab() {
         $(".noexiste-cluster").fadeOut();
         $(".cliente-cluster").fadeIn();
+        $("#cliente-cluster-next").fadeIn();
         $("#cliente-turno").addClass('activeTurno'); 
         $("#noexiste-turno").removeClass('activeTurno');
         this.step = 1;
+        this.firstStepStyles();
     }
 
     showNoClientTab() {
-        this.step == 0;
-        $(".cliente-cluster").fadeOut(); 
+        this.step == 1;
+        $(".cliente-cluster").fadeOut();
+        $("#cliente-cluster-next").fadeOut();
         $(".noexiste-cluster").fadeIn();
         $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").addClass('activeTurno');

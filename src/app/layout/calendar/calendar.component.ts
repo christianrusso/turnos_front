@@ -27,6 +27,9 @@ import * as jsPDF from 'jspdf';
 import { Logo } from '../../model/logoForPdf';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as esLocale from 'date-fns/locale/es';
+
 declare var jsPDF: any; // Important
 
 @Component({
@@ -93,6 +96,11 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public currentDate: Date;
     public currentMonday: Date;
     public currentSunday: Date;
+
+    options: DatepickerOptions = {
+        displayFormat: 'DD/MM/YYYY',
+        locale: esLocale,
+    }
 
     constructor (
         private appointmentService: AppointmentService,
@@ -362,6 +370,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     // Pop up
     showRequestAppointment() {
+        $(".paciente-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        $("a#paciente-turno").removeClass('activeTurno');
+        $("a#cliente-turno").removeClass('activeTurno');
+        $("a#noexiste-turno").removeClass('activeTurno');
+
         $(".modal-agregar-turno").fadeIn();
         this.isPatientStep = 1;
         this.firstStepStyles();
