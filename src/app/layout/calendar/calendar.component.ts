@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AppointmentService } from '../../service/appointment.service';
 import { AppointmentFilter } from '../../model/appointment-filter.class';
 import { RequestedAppointments } from '../../model/requested-appointments.class';
@@ -25,6 +25,11 @@ import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { CancelAppointment } from '../../model/cancel-appointment.class';
 import * as jsPDF from 'jspdf';
 import { Logo } from '../../model/logoForPdf';
+import { } from 'googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as esLocale from 'date-fns/locale/es';
+
 declare var jsPDF: any; // Important
 
 @Component({
@@ -75,6 +80,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public week = new Array<WeekDay>();
     public logoForPdf=Logo;
 
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
+    public invalidPhone: boolean = false;
+
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../panel/assets/calendario.js');
     }
@@ -84,6 +96,11 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public currentDate: Date;
     public currentMonday: Date;
     public currentSunday: Date;
+
+    options: DatepickerOptions = {
+        displayFormat: 'DD/MM/YYYY',
+        locale: esLocale,
+    }
 
     constructor (
         private appointmentService: AppointmentService,
@@ -95,7 +112,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         private medicalInsuranceService: MedicalInsuranceService,
         private medicalPlanService: MedicalPlanService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ) {
         super();
         $("a#home-panel").removeClass('active');
@@ -118,6 +137,49 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.getAllDoctors();
         this.getAllPatients();
         this.getAllClientsNonPatients();
+    }
+
+    ngOnInit() {
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
+    }
+
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
     getAllSpecialties() {
@@ -238,7 +300,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         return new Date(
             date.getFullYear(),
             date.getMonth(),
-            date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1)
+            date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1),
+            -3,
+            0
         );
     }
 
@@ -246,7 +310,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         return new Date(
             date.getFullYear(),
             date.getMonth(),
-            date.getDate() - date.getDay() + (date.getDay() == 0 ? 0 : 7)
+            date.getDate() - date.getDay() + (date.getDay() == 0 ? 0 : 7),
+            20,
+            59
         );
     }
 
@@ -304,6 +370,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     // Pop up
     showRequestAppointment() {
+        $(".paciente-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        $("a#paciente-turno").removeClass('activeTurno');
+        $("a#cliente-turno").removeClass('activeTurno');
+        $("a#noexiste-turno").removeClass('activeTurno');
+
         $(".modal-agregar-turno").fadeIn();
         this.isPatientStep = 1;
         this.firstStepStyles();
@@ -503,6 +576,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     cancelAppointment() {
         this.appointmentService.cancelAppointmentByClinic(this.appointmentToCancel).subscribe(res => {
             this.toastrService.success('Turno cancelado exitosamente');
+            this.appointmentToCancel.comment = "";
+            this.closeCancelAppointment();
             this.reloadPage();
         });
     }
@@ -565,6 +640,12 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     isPatientNuevoNextStep() {
         if (this.isPatientNuevoStep == 1) {
+            if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+                this.invalidPhone = true;
+                return;
+            } else {
+                this.invalidPhone = false;
+            }
             if (this.firstName != "" && this.firstName != null) {
                 this.isPatientNuevoStep = 2;
                 this.secondStepNuevoStyles();

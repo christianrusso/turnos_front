@@ -87,12 +87,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     console.log(this.register);
     if(this.register.password == this.register.scondPassword){
-    this.registerService.register(this.register).subscribe(res => {
-      this.toastrService.success('Registrado correctamente.');
-      this.register= new Register();
-       this.cropperReady=false;
-       this.mytemplateForm.reset(); 
-    });
+      this.register.surname = "";
+      this.registerService.register(this.register).subscribe(res => {
+        this.toastrService.success('Registrado correctamente.');
+        this.register= new Register();
+         this.cropperReady=false;
+         this.mytemplateForm.reset();
+      });
     }
 
   }

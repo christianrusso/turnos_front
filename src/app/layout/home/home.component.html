@@ -1,4 +1,7 @@
-<section class="col-sm-12">
+<section class="col-sm-12" style="background-color: #f3f3f3;">
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        <span style="background-color: transparent; font-family: sf_ui_displayregular; font-size: 23px; margin-left: 14px;">Mis estadísticas</span>
+    </div>
     <div>
         <div class="col-sm-3">
             <div style="background-color: #454edb; text-align: center; height: 40px; vertical-align: middle; padding-top: 8px;">
@@ -30,7 +33,7 @@
                         <p style="font-family: sf_ui_displaylight; font-size: 12px; color: #e81f1f;">Cancelados</p>
                     </div>
                     <div style="border: 1px solid #ffab04; width: 138px; height: 116px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #ffab04; margin-bottom: -6px; padding-top: 18px;">{{statistics?.completedAppointments - statistics?.canceledAppointments}}</p>
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #ffab04; margin-bottom: -6px; padding-top: 18px;">{{statistics?.appointments - statistics?.completedAppointments - statistics?.canceledAppointments}}</p>
                         <p style="font-family: sf_ui_displaylight; font-size: 12px; color: #ffab04;">Pendientes</p>
                     </div>
                 </div>
@@ -90,11 +93,11 @@
                 </div>
                 <div style="display: inline-flex; margin-top: 34px;">
                     <div style="border: 1px solid #08b008; width: 120px; height: 111px; margin-right: 15px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #08b008; margin-bottom: -6px; padding-top: 18px;">{{statistics?.completedAppointments}}</p>
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #08b008; margin-bottom: -6px; padding-top: 18px;">{{statistics?.activeProfessionals}}</p>
                         <p style="font-family: sf_ui_displaylight; font-size: 12px; color: #08b008;">Activos</p>
                     </div>
                     <div style="border: 1px solid #e81f1f; width: 120px; height: 111px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #e81f1f; margin-bottom: -6px; padding-top: 18px;">{{statistics?.canceledAppointments}}</p>
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; color: #e81f1f; margin-bottom: -6px; padding-top: 18px;">{{statistics?.professionals - statistics?.activeProfessionals}}</p>
                         <p style="font-family: sf_ui_displaylight; font-size: 12px; color: #e81f1f;">Inactivos</p>
                     </div>
                 </div>

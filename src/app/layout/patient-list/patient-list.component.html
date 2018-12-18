@@ -111,7 +111,7 @@
         <!-- Clientes -->
         <div class="col-xs-12 cliente-cluster" (keyup.enter)="addPatientForClient()">
 
-            <div style="display: flex; border-bottom: 1px solid;">
+            <div style="display: flex; border-bottom: 1px solid;" [style.display]="step == 0 ? 'none' : 'flex'">
                 <div style="display: flex; margin: 0 auto; cursor: pointer;" id="firstStepParent" class="borderSelected" (click)="nextStep();">
                     <div class="circleFirst" id="firstStep" style="margin-bottom: 10px;"><span>1</span></div>
                     <div style="padding-left: 6px; padding-top: 5px;"><span style="font-family: sf_ui_displaylight; font-size: 14px;">Seleccionar Cliente</span></div>
@@ -223,8 +223,9 @@
             </div>
         </div>
 
-        <div class="col-xs-12 center" style="margin-top: 30px;" *ngIf="step == 2">
+        <div class="col-xs-12 center" style="margin-top: 30px;" *ngIf="step == 2" id="cliente-cluster-next">
             <a (click)="addPatientForClient()" id="add-cliente">AGREGAR</a>
+            <a (click)="nextStep()" id="add-cliente">ATRAS</a>
         </div>
 
         <!-- No Existe -->
@@ -241,12 +242,18 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="address">Direccion: </label><br>
-                    <input class="w100" type="text" id="address2" name="address" [(ngModel)]="address" >
+                    <input class="w100" type="text" id="address2" name="address" [(ngModel)]="address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" #search>
                 </div>
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <input class="w100" type="text" minlength="8" maxlength="12" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <div *ngIf="invalidPhone" class="alert alert-danger">
+                        <div>
+                            El teléfono debe contener entre 8 y 12 caracteres
+                        </div>
+
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="dni">Dni: </label><br>

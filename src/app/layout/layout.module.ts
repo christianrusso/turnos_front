@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelect2Module } from 'ng-select2';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 // Servicios
 import { AccountService } from '../service/account.service';
@@ -56,6 +58,11 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         NgSelect2Module,
         OwlDateTimeModule, 
         OwlNativeDateTimeModule,
+        NgDatepickerModule,
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyCeS0Tku62WXG03D8NKXgMxA6RNuBKbrSI",
+            libraries: ["places"]
+        }),
     ],
     declarations: [
         LayoutComponent,

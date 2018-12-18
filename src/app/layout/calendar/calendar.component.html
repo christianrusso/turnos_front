@@ -188,13 +188,14 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2">
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <label class="picker-fecha">
+                    <!--<label class="picker-fecha">
                         <input class="picker-fecha" style="font-family: sf_ui_displaymedium; color: #ccc!important; font-size: 12px;" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
-                    </label>
+                    </label>-->
+                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -212,8 +213,9 @@
                 </div>
 
             </div>
-            <div class="col-xs-12 center" *ngIf="isPatientStep == 2">
+            <div class="col-xs-12 center" *ngIf="isPatientStep == 2" style="z-index: 19;">
                 <a (click)="requestAppointmentForPatient()" id="add-paciente" class="buttonTitle">AGREGAR</a>
+                <a (click)="isPatientNextStep()" id="add-paciente" class="buttonTitle">ATRAS</a>
             </div>
 
             <div class="col-xs-12 tabla-popup-cliente" *ngIf="isPatientStep == 1">
@@ -264,13 +266,14 @@
                  </div>
              </div>
 
-            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientUserStep == 3">
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientUserStep == 3" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <label class="picker-fecha">
+                    <!--<label class="picker-fecha">
                         <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
-                    </label>
+                    </label>-->
+                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -351,12 +354,14 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 center ptop" *ngIf="isPatientUserStep == 1 || isPatientUserStep == 2">
+            <div class="col-xs-12 center ptop" *ngIf="isPatientUserStep == 1 || isPatientUserStep == 2" style="z-index: 19;">
                 <!--<a (click)="requestAppointmentForClient()" id="add-cliente">Agregar</a>-->
                 <a (click)="isPatientUserNextStep()" id="add-cliente">SIGUIENTE</a>
+                <a *ngIf="isPatientUserStep == 2" (click)="isPatientUserFirstStep()" id="add-cliente">ATRAS</a>
             </div>
-             <div class="col-xs-12 center ptop" *ngIf="isPatientUserStep == 3">
+             <div class="col-xs-12 center ptop" *ngIf="isPatientUserStep == 3" style="z-index: 19;">
                  <a (click)="requestAppointmentForClient()" id="add-cliente">AGREGAR</a>
+                 <a (click)="isPatientUserSecondStep()" id="add-cliente">ATRAS</a>
              </div>
         </div>
 
@@ -374,13 +379,14 @@
                  </div>
              </div>
 
-            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2">
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <label class="picker-fecha">
+                    <!--<label class="picker-fecha">
                         <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
-                    </label>
+                    </label>-->
+                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
                 </div>
                 
                 <div class="col-xs-12 col-sm-4">
@@ -399,8 +405,9 @@
 
             </div>
 
-             <div class="col-xs-12 center ptop" *ngIf="isPatientNuevoStep == 2">
+             <div class="col-xs-12 center ptop" *ngIf="isPatientNuevoStep == 2" style="z-index: 19;">
                  <a (click)="requestAppointmentForNonClient()" id="add-nuevo-paciente" class="buttonTitle">AGREGAR</a>
+                 <a (click)="isPatientNuevoNextStep()" id="add-nuevo-paciente" class="buttonTitle">ATRAS</a>
              </div>
 
             <div class="col-xs-12 center" style="margin-top: 50px;" *ngIf="isPatientNuevoStep == 1">
@@ -417,14 +424,20 @@
 
                 <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
                     <label for="address" class="inputLabel upperCase">Direccion: </label><br>
-                    <input class="w100 inputHeight" type="text" id="address2" name="address" [(ngModel)]="address" >
+                    <input class="w100 inputHeight" type="text" id="address2" name="address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" [(ngModel)]="address" #search>
                 </div>
 
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
 
                 <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
                     <label for="phoneNumber" class="inputLabel upperCase">Telefono: </label><br>
-                    <input class="w100 inputHeight" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <input class="w100 inputHeight" type="text" minlength="8" maxlength="12" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <div *ngIf="invalidPhone" class="alert alert-danger">
+                        <div>
+                            El teléfono debe contener entre 8 y 12 caracteres
+                        </div>
+
+                    </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-4 turno-picker-div text-left">
@@ -487,7 +500,7 @@
             </div>
 
             <div class="div-add-especialidad">
-                <a id="agregar-especialidad" (click)="cancelAppointment()">Cancelar</a>
+                <a id="agregar-especialidad" (click)="cancelAppointment()">Confirmar cancelación</a>
             </div>
         </form>
                 
