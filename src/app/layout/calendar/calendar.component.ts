@@ -76,7 +76,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public logoForPdf=Logo;
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../assets/calendario.js');
+        await this.loadScript('../panel/assets/calendario.js');
     }
 
     public days: Array<string>;
