@@ -34,9 +34,9 @@ export class EditarComponent extends BaseComponent {
     constructor(
         private registerService: RegisterService
     ){
-        this.getCityForSelect();
-
         super();
+
+        this.getCityForSelect();
 
         $("a#home-panel").removeClass('active');
         $("a#medicos-panel").removeClass('active');
