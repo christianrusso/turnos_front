@@ -147,7 +147,10 @@ export class EditarComponent extends BaseComponent {
     sendData() {
         if (this.rubro == 1) {
             var data = {
-                "Address": this.data.address
+                "Address": this.data.address,
+                "Description": this.data.description,
+                "CityId": this.data.city,
+                "Name": this.data.name
             }
             this.clinicService.sendClinicData(data).subscribe(res => {
             });

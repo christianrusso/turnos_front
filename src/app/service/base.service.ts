@@ -22,12 +22,12 @@ export class BaseService {
     ) { }
 
     protected getAll<T>(apiMethod: string, filter: any): Observable<T[]> {
-        return this.httpClient.get<T[]>(this.baseUrl + apiMethod, this.getRequestOptions())
+        return this.httpClient.get<T[]>(this.baseUrl + apiMethod, this.getRequestOptions(true))
         .catch(error => this.handleError<T[]>(error));
     }
 
     protected get<T>(apiMethod: string, filter: any): Observable<T> {
-        return this.httpClient.get<T>(this.baseUrl + apiMethod, this.getRequestOptions())
+        return this.httpClient.get<T>(this.baseUrl + apiMethod, this.getRequestOptions(true))
         .catch(error => this.handleError<T>(error));
     }
 
@@ -46,11 +46,15 @@ export class BaseService {
         let token: string = sessionStorage.getItem("token");
 
         if (token != null && token.length > 0) {
-            var headers = new HttpHeaders()
-            .set('Content-Type', 'application/json')
-            .set('Accept', 'application/json');
             if (useToken) {
-                headers.set('Authorization', 'Bearer ' + token);
+                var headers = new HttpHeaders()
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json')
+                .set('Authorization', 'Bearer ' + token);
+            } else {
+                var headers = new HttpHeaders()
+                .set('Content-Type', 'application/json')
+                .set('Accept', 'application/json');
             }
             return headers;
         } else {
