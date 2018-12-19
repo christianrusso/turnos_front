@@ -12,7 +12,7 @@ export class BaseService {
 
     //private baseUrl = window.location.protocol + '//' + window.location.hostname + ':5000/Api';
 
-    private baseUrl = 'https://www.orbitsa.xyz:4443/Api';
+    private baseUrl = 'https://orbitsa.xyz:4443/Api';
     private token: string;
 
     constructor(
@@ -31,25 +31,28 @@ export class BaseService {
         .catch(error => this.handleError<T>(error));
     }
 
-    protected post<T>(apiMethod: string, filter: any, data: any): Observable<T> {
-        return this.httpClient.post<T>(this.baseUrl + apiMethod, data, this.getRequestOptions())
+    protected post<T>(apiMethod: string, filter: any, data: any, useToken = true): Observable<T> {
+        return this.httpClient.post<T>(this.baseUrl + apiMethod, data, this.getRequestOptions(useToken))
         .catch(error => this.handleError<T>(error));
     }
 
-    protected getRequestOptions() {
+    protected getRequestOptions(useToken = true) {
         return {
-            headers: this.getHeaders()
+            headers: this.getHeaders(useToken)
         }
     }
 
-    protected getHeaders(): HttpHeaders {
+    protected getHeaders(useToken = true): HttpHeaders {
         let token: string = sessionStorage.getItem("token");
 
         if (token != null && token.length > 0) {
-            return new HttpHeaders()
+            var headers = new HttpHeaders()
             .set('Content-Type', 'application/json')
-            .set('Accept', 'application/json')
-            .set('Authorization', 'Bearer ' + token);
+            .set('Accept', 'application/json');
+            if (useToken) {
+                headers.set('Authorization', 'Bearer ' + token);
+            }
+            return headers;
         } else {
             return new HttpHeaders()
             .set('Content-Type', 'application/json')

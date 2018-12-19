@@ -2,7 +2,7 @@
     <div style="display: flex; text-align: center; border-bottom: 1px solid black; height: 35px;" class="col-sm-12 spaceBetweenBlocks">
         <div class="selectedOption col-sm-4" id="firstStep" style="cursor: pointer;" (click)="changeStep(1, 'firstStep');">Datos de registro</div>
         <div class="unselectedOption col-sm-4" id="secondStep" style="cursor: pointer;" (click)="changeStep(2, 'secondStep');">Datos de la clínica</div>
-        <div class="unselectedOption col-sm-4" id="thirdStep" style="cursor: pointer;" (click)="changeStep(3, 'thirdStep');">Configuración de pagos</div>
+        <div class="unselectedOption col-sm-4" id="thirdStep" style="cursor: pointer;">Configuración de pagos</div>
     </div>
 </div>
 <div *ngIf="step == 1">
@@ -28,18 +28,12 @@
                 <div style="display: flex;">
                     <div class="col-sm-4">
                         <p class="labelName">Razón Social</p>
-                        <input type="text" name="name" class="inputStyle" />
-                    </div>
-                </div>
-                <div style="display: flex;" class="topSpaceFields">
-                    <div class="col-sm-4">
-                        <p class="labelName">Email</p>
-                        <input type="text" name="mail" class="inputStyle" />
+                        <input type="text" name="name" class="inputStyle" [(ngModel)]="data.name" />
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Rubro</p>
                         <select class="form-control" name="businessType"
-                                id="businessType" required class="form-control inputStyle">
+                                id="businessType" required class="form-control inputStyle" readonly disabled [(ngModel)]="rubro">
                             <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
                         </select>
                     </div>
@@ -47,12 +41,12 @@
                 <div style="display: flex;" class="topSpaceFields">
                     <div class="col-sm-4">
                         <p class="labelName">Dirección</p>
-                        <input type="text" name="address" class="inputStyle" />
+                        <input type="text" name="address" class="inputStyle" [(ngModel)]="data.address" />
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Ciudad</p>
                         <select class="form-control inputStyle" [value]="-1" name="city" lang="es"
-                                name="city">
+                                name="city" [(ngModel)]="data.city">
                             <option *ngFor="let c of citys" [value]="c.id">{{c.text}}</option>
                         </select>
                     </div>
@@ -74,11 +68,8 @@
     </div>
     <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
-            <div class="col-sm-6" style="text-align: right;">
-                <button class="modifyButton modifySize">MODIFICAR</button>
-            </div>
-            <div class="col-sm-5" style="text-align: left;">
-                <button class="acceptButton acceptSize">ACEPTAR</button>
+            <div class="col-sm-12" style="text-align: center;">
+                <button class="acceptButton acceptSize" (click)="sendData()">MODIFICAR</button>
             </div>
         </div>
     </div>
@@ -88,44 +79,44 @@
     <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">AGREGAR DESCRIPCIÓN</p>
-            <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description"></textarea>
+            <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description" [(ngModel)]="data.description"></textarea>
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">HORARIOS DE ATENCIÓN</p>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Lunes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day1.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day1.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Martes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day2.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day2.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Miércoles</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day3.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day3.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Jueves</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day4.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day4.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Viernes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day5.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day5.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Sábado</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day6.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day6.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Domingo</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day0.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day0.end"></span>
             </div>
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
@@ -216,8 +207,8 @@
     </div>
     <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
-            <div class="col-sm-7" style="text-align: right;">
-                <button class="acceptButton acceptSize">ACEPTAR</button>
+            <div class="col-sm-12" style="text-align: center;">
+                <button class="acceptButton acceptSize" (click)="sendData()">MODIFICAR</button>
             </div>
         </div>
     </div>

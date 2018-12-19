@@ -12,8 +12,8 @@ import { AccessComponent } from './access.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AgmCoreModule } from '@agm/core';
-import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 import { NgSelect2Module } from 'ng-select2';
+import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 
 @NgModule({
     imports: [
