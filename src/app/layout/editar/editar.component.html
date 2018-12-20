@@ -9,7 +9,8 @@
     <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="display: flex; flex-wrap: wrap; clear: both; margin-top: 50px;">
             <div class="col-sm-4">
-                <img *ngIf="logo  == null" src="assets/img/Rectangle 18.png">
+                <img *ngIf="data.logo  == null" src="assets/img/Rectangle 18.png">
+                <img *ngIf="data.logo  != null" src="{{data.logo}}">
 
                 <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
@@ -125,12 +126,12 @@
                 <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
                     <img *ngIf="imageBig  == null" src="assets/img/Rectangle 18.png" class="bigImage">
 
-                    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                    <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                    [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 1)"
                                    (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                     <div class="fileStyle">
-                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
+                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
                                #imageBigEntity="ngModel" />
                     </div>
                 </div>
@@ -138,24 +139,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image1  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 2)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="image1" name="image1Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent2($event)" required [(ngModel)]="image1" name="image1Entity"
                                    #image1Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image2  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 3)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent2($event)" required [(ngModel)]="image2" name="image2Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent3($event)" required [(ngModel)]="image2" name="image2Entity"
                                    #image2Entity="ngModel" />
                         </div>
                     </div>
@@ -164,24 +165,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image3  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent4" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 4)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent3($event)" required [(ngModel)]="image3" name="image3Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent4($event)" required [(ngModel)]="image3" name="image3Entity"
                                    #image3Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image4  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent4" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent5" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 5)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent4($event)" required [(ngModel)]="image2" name="image4Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent5($event)" required [(ngModel)]="image2" name="image4Entity"
                                    #image4Entity="ngModel" />
                         </div>
                     </div>
@@ -190,24 +191,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image5  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent5" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent6" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 6)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent5($event)" required [(ngModel)]="image5" name="image5Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent6($event)" required [(ngModel)]="image5" name="image5Entity"
                                    #image5Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image6  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent6" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent7" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 7)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent6($event)" required [(ngModel)]="image6" name="image6Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent7($event)" required [(ngModel)]="image6" name="image6Entity"
                                    #image6Entity="ngModel" />
                         </div>
                     </div>
@@ -216,24 +217,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image7  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent7" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent8" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 8)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent7($event)" required [(ngModel)]="image7" name="image7Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent8($event)" required [(ngModel)]="image7" name="image7Entity"
                                    #image7Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image8  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent8" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent9" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 9)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent8($event)" required [(ngModel)]="image8" name="image8Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent9($event)" required [(ngModel)]="image8" name="image8Entity"
                                    #image8Entity="ngModel" />
                         </div>
                     </div>

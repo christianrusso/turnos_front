@@ -25,6 +25,7 @@ export class EditarComponent extends BaseComponent {
     imageChangedEvent6: any = '';
     imageChangedEvent7: any = '';
     imageChangedEvent8: any = '';
+    imageChangedEvent9: any = '';
     croppedImage: any = '';
     cropperReady = false;
     step = 1;
@@ -152,6 +153,9 @@ export class EditarComponent extends BaseComponent {
     }
     fileChangeEvent8(event: any): void {
         this.imageChangedEvent8 = event;
+    }
+    fileChangeEvent9(event: any): void {
+        this.imageChangedEvent9 = event;
     }
 
     imageCropped(event: ImageCroppedEvent) {
