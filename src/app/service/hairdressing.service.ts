@@ -21,7 +21,21 @@ export class HairdressingService extends BaseService {
     }
 
     public getHairdressingByFilter(hairdressingId) {
-        return this.post(this.url + "/GetByFilter", null, {HairdressingId: hairdressingId});
+        return this.post(this.url + "/GetByFilter", null, {
+            HairdressingId: hairdressingId,
+            AvailableAppointmentEndDate: "",
+            AvailableAppointmentStartDate: "",
+            Cities: [],
+            From: 0,
+            MedicalInsurances: [],
+            Score: 0,
+            ScoreQuantity: 0,
+            Specialties: [],
+            Stars: [],
+            Subspecialties: [],
+            medicalPlans: [],
+            to: 1
+        }, false);
     }
 
     public sendClinicData(data) {
