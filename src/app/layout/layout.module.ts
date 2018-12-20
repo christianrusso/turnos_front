@@ -23,6 +23,7 @@ import { StatisticsService } from '../service/statistics.service';
 import { DataService } from '../service/data.service';
 import { ClinicService } from '../service/clinic.service';
 import { HairdressingService } from '../service/hairdressing.service';
+import { ImageCropperModule } from '../imagecropper';
 
 //Servicios - Hairdressing
 import { HairdressingProfessionalService } from '../service/hairdressing.professional.service';
@@ -65,6 +66,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
             apiKey: "AIzaSyCeS0Tku62WXG03D8NKXgMxA6RNuBKbrSI",
             libraries: ["places"]
         }),
+        ImageCropperModule
     ],
     declarations: [
         LayoutComponent,

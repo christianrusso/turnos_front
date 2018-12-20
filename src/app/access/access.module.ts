@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AccessRoutingModule } from './access-routing.module';
+import { ImageCropperModule } from '../imagecropper';
 
 // Servicios
 import { AccountService } from './../service/account.service';
@@ -13,7 +14,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgSelect2Module } from 'ng-select2';
-import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 
 @NgModule({
     imports: [
@@ -25,17 +25,17 @@ import { ImageCropperComponent } from '../image-cropper/image-cropper.component'
             libraries: ["places"]
           }),
           NgSelect2Module,
+        ImageCropperModule
     ],
     declarations: [
         // Paginas principales del layout
         AccessComponent,
         LoginComponent,
-        RegisterComponent,
-        ImageCropperComponent
+        RegisterComponent
     ],
     // Servicios
     providers: [
-        AccountService,
+        AccountService
     ]
 })
 export class AccessModule {}

@@ -23,4 +23,8 @@ export class HairdressingService extends BaseService {
     public getHairdressingByFilter(hairdressingId) {
         return this.post(this.url + "/GetByFilter", null, {HairdressingId: hairdressingId});
     }
+
+    public sendClinicData(data) {
+        return this.post(this.url + "/UpdateInformation", null, data);
+    }
 }
