@@ -10,9 +10,9 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Injectable()
 export class BaseService {
 
-    private baseUrl = window.location.protocol + '//' + window.location.hostname + ':5000/Api';
+    //private baseUrl = window.location.protocol + '//' + window.location.hostname + ':5000/Api';
 
-    //private baseUrl = 'https://www.orbitsa.xyz:4443/Api';
+    private baseUrl = 'https://www.orbitsa.xyz:4443/Api';
     private token: string;
 
     constructor(
