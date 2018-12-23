@@ -2,18 +2,19 @@
     <div style="display: flex; text-align: center; border-bottom: 1px solid black; height: 35px;" class="col-sm-12 spaceBetweenBlocks">
         <div class="selectedOption col-sm-4" id="firstStep" style="cursor: pointer;" (click)="changeStep(1, 'firstStep');">Datos de registro</div>
         <div class="unselectedOption col-sm-4" id="secondStep" style="cursor: pointer;" (click)="changeStep(2, 'secondStep');">Datos de la clínica</div>
-        <div class="unselectedOption col-sm-4" id="thirdStep" style="cursor: pointer;" (click)="changeStep(3, 'thirdStep');">Configuración de pagos</div>
+        <div class="unselectedOption col-sm-4" id="thirdStep" style="cursor: pointer;">Configuración de pagos</div>
     </div>
 </div>
 <div *ngIf="step == 1">
     <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="display: flex; flex-wrap: wrap; clear: both; margin-top: 50px;">
             <div class="col-sm-4">
-                <img *ngIf="logo  == null" src="assets/img/Rectangle 18.png">
+                <img *ngIf="data.logo  == null" src="assets/img/Rectangle 18.png">
+                <img *ngIf="data.logo  != null" src="{{data.logo}}">
 
-                <!--<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
                                [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
-                               (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>-->
+                               (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
                 <div class="Logo-empresa">
                     <p class="pLogo">Logo empresa</p>
@@ -28,18 +29,12 @@
                 <div style="display: flex;">
                     <div class="col-sm-4">
                         <p class="labelName">Razón Social</p>
-                        <input type="text" name="name" class="inputStyle" />
-                    </div>
-                </div>
-                <div style="display: flex;" class="topSpaceFields">
-                    <div class="col-sm-4">
-                        <p class="labelName">Email</p>
-                        <input type="text" name="mail" class="inputStyle" />
+                        <input type="text" name="name" class="inputStyle" [(ngModel)]="data.name" />
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Rubro</p>
                         <select class="form-control" name="businessType"
-                                id="businessType" required class="form-control inputStyle">
+                                id="businessType" required class="form-control inputStyle" readonly disabled [(ngModel)]="rubro">
                             <option *ngFor="let r of rubros" [value]="r.id">{{r.text}}</option>
                         </select>
                     </div>
@@ -47,25 +42,25 @@
                 <div style="display: flex;" class="topSpaceFields">
                     <div class="col-sm-4">
                         <p class="labelName">Dirección</p>
-                        <input type="text" name="address" class="inputStyle" />
+                        <input type="text" name="address" class="inputStyle" [(ngModel)]="data.address" />
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Ciudad</p>
                         <select class="form-control inputStyle" [value]="-1" name="city" lang="es"
-                                name="city">
+                                name="city" [(ngModel)]="data.city">
                             <option *ngFor="let c of citys" [value]="c.id">{{c.text}}</option>
                         </select>
                     </div>
                 </div>
                 <div style="display: flex;" class="topSpaceFields">
                     <div class="col-sm-4">
-                        <p class="labelName">Contraseña</p>
-                        <input type="password" name="password" class="inputStyle" />
+                        <p class="labelName">Contraseña Actual</p>
+                        <input type="password" name="password" class="inputStyle" [(ngModel)]="oldPassword" />
                         <p class="smallTextPassword">Tiene que contener 8 caracteres como mínimo</p>
                     </div>
                     <div class="col-sm-4">
-                        <p class="labelName">Confirmar Contraseña</p>
-                        <input type="password" name="repassword" class="inputStyle" />
+                        <p class="labelName">Contraseña Nueva</p>
+                        <input type="password" name="repassword" class="inputStyle" [(ngModel)]="newPassword" />
                         <p class="smallTextPassword">Tiene que contener 8 caracteres como mínimo</p>
                     </div>
                 </div>
@@ -74,11 +69,8 @@
     </div>
     <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
-            <div class="col-sm-6" style="text-align: right;">
-                <button class="modifyButton modifySize">MODIFICAR</button>
-            </div>
-            <div class="col-sm-5" style="text-align: left;">
-                <button class="acceptButton acceptSize">ACEPTAR</button>
+            <div class="col-sm-12" style="text-align: center;">
+                <button class="acceptButton acceptSize" (click)="sendData()">MODIFICAR</button>
             </div>
         </div>
     </div>
@@ -88,44 +80,44 @@
     <div class="col-sm-10" style="background-color: white; height: 100%; margin-left: 8%;">
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">AGREGAR DESCRIPCIÓN</p>
-            <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description"></textarea>
+            <textarea style="resize: none; width: 100%; height: 195px;" class="descriptionStyle" name="description" [(ngModel)]="data.description"></textarea>
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
             <p class="labelStyle">HORARIOS DE ATENCIÓN</p>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Lunes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day1.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day1.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Martes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day2.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day2.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Miércoles</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day3.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day3.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Jueves</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day4.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day4.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Viernes</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day5.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day5.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Sábado</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day6.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day6.end"></span>
             </div>
             <div class="dayDiv col-sm-5">
                 <p class="dayStyle">Domingo</p>
-                <span class="desdeStyle">desde <input type="time" class="timeInputStyle"></span>
-                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle"></span>
+                <span class="desdeStyle">desde <input type="time" class="timeInputStyle" [(ngModel)]="day0.start"></span>
+                <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day0.end"></span>
             </div>
         </div>
         <div style="clear: both; margin-top: 50px;" class="col-sm-10">
@@ -134,8 +126,12 @@
                 <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
                     <img *ngIf="imageBig  == null" src="assets/img/Rectangle 18.png" class="bigImage">
 
+                    <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                   [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 1)"
+                                   (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                     <div class="fileStyle">
-                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
+                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
                                #imageBigEntity="ngModel" />
                     </div>
                 </div>
@@ -143,16 +139,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image1  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 2)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image1" name="image1Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent2($event)" required [(ngModel)]="image1" name="image1Entity"
                                    #image1Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image2  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 3)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image2Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent3($event)" required [(ngModel)]="image2" name="image2Entity"
                                    #image2Entity="ngModel" />
                         </div>
                     </div>
@@ -161,16 +165,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image3  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent4" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 4)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image3" name="image3Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent4($event)" required [(ngModel)]="image3" name="image3Entity"
                                    #image3Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image4  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent5" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 5)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image2" name="image4Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent5($event)" required [(ngModel)]="image2" name="image4Entity"
                                    #image4Entity="ngModel" />
                         </div>
                     </div>
@@ -179,16 +191,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image5  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent6" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 6)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image5" name="image5Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent6($event)" required [(ngModel)]="image5" name="image5Entity"
                                    #image5Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image6  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent7" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 7)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image6" name="image6Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent7($event)" required [(ngModel)]="image6" name="image6Entity"
                                    #image6Entity="ngModel" />
                         </div>
                     </div>
@@ -197,16 +217,24 @@
                     <div style="clear: both;">
                         <img *ngIf="image7  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent8" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 8)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image7" name="image7Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent8($event)" required [(ngModel)]="image7" name="image7Entity"
                                    #image7Entity="ngModel" />
                         </div>
                     </div>
                     <div style="clear: both;">
                         <img *ngIf="image8  == null" src="assets/img/Rectangle 18.png" class="smallImage">
 
+                        <image-cropper [imageChangedEvent]="imageChangedEvent9" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 9)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+
                         <div class="fileStyle">
-                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent($event)" required [(ngModel)]="image8" name="image8Entity"
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent9($event)" required [(ngModel)]="image8" name="image8Entity"
                                    #image8Entity="ngModel" />
                         </div>
                     </div>
@@ -216,8 +244,8 @@
     </div>
     <div class="col-sm-10" style="background-color: white; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; height: 100%; margin-left: 8%;">
         <div style="display: flex; clear: both;" class="spaceBetweenBlocks">
-            <div class="col-sm-7" style="text-align: right;">
-                <button class="acceptButton acceptSize">ACEPTAR</button>
+            <div class="col-sm-12" style="text-align: center;">
+                <button class="acceptButton acceptSize" (click)="sendData()">MODIFICAR</button>
             </div>
         </div>
     </div>

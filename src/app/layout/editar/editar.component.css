@@ -82,6 +82,7 @@
     margin-top: 50px;
     padding: 0px;
     margin-bottom: -25px;
+    width: 100%;
 }
 .dayStyle {
     font-family: sf_ui_displaysemibold;
@@ -91,12 +92,13 @@
 .desdeStyle {
     font-family: sf_ui_displaylight;
     font-size: 11px;
-    margin-left: 84px;
+    margin-left: 40px;
+    width: 121px;
 }
 .hastaStyle {
     font-family: sf_ui_displaylight;
     font-size: 11px;
-    margin-left: 47px;
+    margin-left: 15px;
 }
 .timeInputStyle {
     line-height: 15px;

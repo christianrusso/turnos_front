@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HairdressingPatient } from '../../model/hairdressing-patient.class';
 import { HairdressingPatientService } from '../../service/hairdressing-patient.service';
 import { HairdressingPatientFilter } from '../../model/hairdressing-patient-filter.class';
@@ -8,6 +8,8 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { BaseComponent } from '../../core/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { ClientFilter } from '../../model/client-filter.class';
+import { } from 'googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -29,9 +31,18 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public lastName: string;
     public address: string;
     public phoneNumber: string;
+    public invalidPhone: boolean = false;
     public dni: string;
     public email: string;
     public password: string;
+
+    public step = 0;
+
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
 
     public searchClientFilter = new ClientFilter();
 
@@ -39,7 +50,9 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         private patientService: HairdressingPatientService,
         private clientService: ClientService,
         private loaderService: Ng4LoadingSpinnerService,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ) {
         super();
         $("a#home-panel").removeClass('active');
@@ -49,6 +62,49 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         $("a#calendario-panel").removeClass('active');
         this.getAllPatientsByFilter();
         this.getAllClientsNonPatients();
+    }
+
+    ngOnInit() {
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
+    }
+
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
     private reloadPage(){
@@ -129,8 +185,9 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     showAddPatient(){
         this.cleanPatient();
         $(".modal-agregar-paciente").fadeIn();
-        $(".cliente-cluster").fadeIn();
-        $("#cliente-turno").addClass('activeTurno');
+        $(".noexiste-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").removeClass('activeTurno');
     }
 
@@ -143,16 +200,26 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         $(".cliente-cluster").fadeIn();
         $("#cliente-turno").addClass('activeTurno'); 
         $("#noexiste-turno").removeClass('activeTurno');
+        this.step = 1;
+        this.firstStepStyles();
     }
 
     showNoClientTab() {
-        $(".cliente-cluster").fadeOut(); 
+        this.step == 1;
+        $(".cliente-cluster").fadeOut();
         $(".noexiste-cluster").fadeIn();
         $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").addClass('activeTurno');
     }
 
     addPatientForNonClient() {
+        if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+            this.invalidPhone = true;
+            return;
+        } else {
+            this.invalidPhone = false;
+        }
+
         this.loaderService.show();
         let patient = new HairdressingPatient();
         patient.firstName = this.firstName;
@@ -228,5 +295,39 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
             this.toastrService.success('Paciente editado correctamente.');
             this.reloadPage();
         });
+    }
+
+    nextStep() {
+        if (this.step == 1) {
+            if (this.dni != "") {
+                this.step = 2;
+                this.secondStepStyles();
+            }
+        } else if (this.step == 2 || this.step == 0) {
+            this.step = 1;
+            this.firstStepStyles();
+        }
+    }
+
+    secondStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderSelected');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderSelected');
+    }
+
+    firstStepStyles() {
+        (document.querySelector('#firstStep') as HTMLElement).classList.remove('circleSecond');
+        (document.querySelector('#firstStep') as HTMLElement).classList.add('circleFirst');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.remove('borderUnselected');
+        (document.querySelector('#firstStepParent') as HTMLElement).classList.add('borderSelected');
+        (document.querySelector('#secondStep') as HTMLElement).classList.remove('circleFirst');
+        (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
+        (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
     }
 }

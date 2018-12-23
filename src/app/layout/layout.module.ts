@@ -21,6 +21,9 @@ import { MedicalInsuranceService } from '../service/medicalInsurance.service';
 import { ClientService } from '../service/client.service';
 import { StatisticsService } from '../service/statistics.service';
 import { DataService } from '../service/data.service';
+import { ClinicService } from '../service/clinic.service';
+import { HairdressingService } from '../service/hairdressing.service';
+import { ImageCropperModule } from '../imagecropper';
 
 //Servicios - Hairdressing
 import { HairdressingProfessionalService } from '../service/hairdressing.professional.service';
@@ -63,6 +66,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
             apiKey: "AIzaSyCeS0Tku62WXG03D8NKXgMxA6RNuBKbrSI",
             libraries: ["places"]
         }),
+        ImageCropperModule
     ],
     declarations: [
         LayoutComponent,
@@ -95,6 +99,8 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         ClientService,
         DataService,
         StatisticsService,
+        HairdressingService,
+        ClinicService,
 
         HairdressingProfessionalService,
         HairdressingSpecialtyService,
