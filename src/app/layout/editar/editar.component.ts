@@ -30,14 +30,23 @@ export class EditarComponent extends BaseComponent {
     cropperReady = false;
     step = 1;
     imageBig;
+    imageBigServer;
     image1;
+    image1Server;
     image2;
+    image2Server;
     image3;
+    image3Server;
     image4;
+    image4Server;
     image5;
+    image5Server;
     image6;
+    image6Server;
     image7;
+    image7Server;
     image8;
+    image8Server;
     mandatoryPayment = false;
     citys = [];
     public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }];
@@ -82,12 +91,14 @@ export class EditarComponent extends BaseComponent {
                 this.data = res[0];
                 this.changeCity();
                 this.selectDay();
+                this.selectImages();
             });
         } else if (this.rubro == 2) {
             this.hairdressingService.getHairdressingByFilter(1).subscribe(res => {
                 this.data = res[0];
                 this.changeCity();
                 this.selectDay();
+                this.selectImages();
             });
         }
     }
@@ -117,6 +128,36 @@ export class EditarComponent extends BaseComponent {
             } else if (this.data.openCloseHours[i].dayNumber == 6) {
                 this.day6 = this.data.openCloseHours[i];
             }
+        }
+    }
+
+    selectImages() {
+        if (this.data.images[0]) {
+            this.imageBigServer = this.data.images[0];
+        }
+        if (this.data.images[1]) {
+            this.image1Server = this.data.images[1];
+        }
+        if (this.data.images[2]) {
+            this.image2Server = this.data.images[2];
+        }
+        if (this.data.images[3]) {
+            this.image3Server = this.data.images[3];
+        }
+        if (this.data.images[4]) {
+            this.image4Server = this.data.images[4];
+        }
+        if (this.data.images[5]) {
+            this.image5Server = this.data.images[5];
+        }
+        if (this.data.images[6]) {
+            this.image6Server = this.data.images[6];
+        }
+        if (this.data.images[7]) {
+            this.image7Server = this.data.images[7];
+        }
+        if (this.data.images[8]) {
+            this.image8Server = this.data.images[8];
         }
     }
 
@@ -232,30 +273,48 @@ export class EditarComponent extends BaseComponent {
         }
         if (this.imageBig != "" && this.imageBig != null) {
             data.Images.push(this.imageBig);
+        } else if (this.imageBigServer != "" && this.imageBigServer != null) {
+            data.Images.push(this.imageBigServer);
         }
         if (this.image1 != "" && this.image1 != null) {
             data.Images.push(this.image1);
+        } else if (this.image1Server != "" && this.image1Server != null) {
+            data.Images.push(this.image1Server);
         }
         if (this.image2 != "" && this.image2 != null) {
             data.Images.push(this.image2);
+        } else if (this.image2Server != "" && this.image2Server != null) {
+            data.Images.push(this.image2Server);
         }
         if (this.image3 != "" && this.image3 != null) {
             data.Images.push(this.image3);
+        } else if (this.image3Server != "" && this.image3Server != null) {
+            data.Images.push(this.image3Server);
         }
         if (this.image4 != "" && this.image4 != null) {
             data.Images.push(this.image4);
+        } else if (this.image4Server != "" && this.image4Server != null) {
+            data.Images.push(this.image4Server);
         }
         if (this.image5 != "" && this.image5 != null) {
             data.Images.push(this.image5);
+        } else if (this.image5Server != "" && this.image5Server != null) {
+            data.Images.push(this.image5Server);
         }
         if (this.image6 != "" && this.image6 != null) {
             data.Images.push(this.image6);
+        } else if (this.image6Server != "" && this.image6Server != null) {
+            data.Images.push(this.image6Server);
         }
         if (this.image7 != "" && this.image7 != null) {
             data.Images.push(this.image7);
+        } else if (this.image7Server != "" && this.image7Server != null) {
+            data.Images.push(this.image7Server);
         }
         if (this.image8 != "" && this.image8 != null) {
             data.Images.push(this.image8);
+        } else if (this.image8Server != "" && this.image8Server != null) {
+            data.Images.push(this.image8Server);
         }
         if (this.day0.start != "" && this.day0.end != "") {
             data.OpenCloseHours.push(this.day0);
