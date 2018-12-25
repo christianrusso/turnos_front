@@ -200,7 +200,7 @@
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Médico</label><br>
-                    <ng-select2 [data]="doctorOptions" (valueChanged)="doctorChange($event)" [(ngModel)]="doctorOption" name="agregar-turnos" lang="es" style="text-align: center;"></ng-select2>
+                    <ng-select2 [data]="professionalOptions" (valueChanged)="professionalChange($event)" [(ngModel)]="professionalOption" name="agregar-turnos" lang="es" style="text-align: center;"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -274,7 +274,7 @@
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Médico</label><br>
-                    <ng-select2 style="text-align: center;" [data]="doctorOptions" (valueChanged)="doctorChange($event)" [(ngModel)]="doctorOption" name="agregar-turnos" lang="es"></ng-select2>
+                    <ng-select2 style="text-align: center;" [data]="professionalOptions" (valueChanged)="professionalChange($event)" [(ngModel)]="professionalOption" name="agregar-turnos" lang="es"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">

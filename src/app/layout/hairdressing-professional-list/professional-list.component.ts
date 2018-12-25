@@ -96,7 +96,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/medicos.js');
+        await this.loadScript('/assets/medicos.js');
     }
 
     getAllProfessionalsByFilter() {
