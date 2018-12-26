@@ -201,7 +201,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     getAllClientsNonPatients() {
         this.loaderService.show();
-        this.clientService.getAllClientsNonPatients().subscribe(res => {
+        this.clientService.getAllClientsNonHairdressingPatients().subscribe(res => {
             this.clients = res;
             this.loaderService.hide();
         });
