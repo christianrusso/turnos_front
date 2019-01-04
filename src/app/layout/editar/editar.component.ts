@@ -4,6 +4,7 @@ import { ImageCroppedEvent } from '../../image-cropper/image-cropper.component';
 import { SelectOption } from '../../model/select/select-option.class';
 import { RegisterService } from '../../service/register.service';
 import { ClinicService } from '../../service/clinic.service';
+import { LayoutComponent } from '../../layout/layout.component';
 import { HairdressingService } from '../../service/hairdressing.service';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import * as moment from 'moment';
@@ -74,7 +75,8 @@ export class EditarComponent extends BaseComponent {
         private clinicService: ClinicService,
         private hairdressingService: HairdressingService,
         private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private layoutComponent: LayoutComponent
     ){
         super();
 
@@ -391,11 +393,19 @@ export class EditarComponent extends BaseComponent {
             this.clinicService.sendClinicData(data).subscribe(res => {
                 this.newPassword = "";
                 this.oldPassword = "";
+                if (this.logo != "" && this.logo != null) {
+                    sessionStorage.setItem("logo", this.logo);
+                    this.layoutComponent.logo = this.logo;
+                }
             });
         } else if (this.rubro == 2) {
             this.hairdressingService.sendClinicData(data).subscribe(res => {
                 this.newPassword = "";
                 this.oldPassword = "";
+                if (this.logo != "" && this.logo != null) {
+                    sessionStorage.setItem("logo", this.logo);
+                    this.layoutComponent.logo = this.logo;
+                }
             });
         }
     }
