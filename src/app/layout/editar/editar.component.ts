@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, ElementRef, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../core/base.component';
 import { ImageCroppedEvent } from '../../image-cropper/image-cropper.component';
 import { SelectOption } from '../../model/select/select-option.class';
 import { RegisterService } from '../../service/register.service';
 import { ClinicService } from '../../service/clinic.service';
 import { HairdressingService } from '../../service/hairdressing.service';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import * as moment from 'moment';
 
 @Component({
@@ -62,10 +63,18 @@ export class EditarComponent extends BaseComponent {
     newPassword;
     oldPassword;
 
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
+    public latitude: number;
+    public longitude: number;
+    public zoom: number;
+
     constructor(
         private registerService: RegisterService,
         private clinicService: ClinicService,
-        private hairdressingService: HairdressingService
+        private hairdressingService: HairdressingService,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone
     ){
         super();
 
@@ -81,6 +90,46 @@ export class EditarComponent extends BaseComponent {
         this.rubro = sessionStorage.getItem("rubro");
 
         this.getInfo();
+    }
+
+    ngOnInit() {
+        this.setCurrentPosition();
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+
+            autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.data.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+        });
+    }
+
+    setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
     getInfo() {

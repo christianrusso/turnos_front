@@ -12,7 +12,7 @@
                 <img *ngIf="data.logo  == null" src="assets/img/Rectangle 18.png">
                 <img *ngIf="data.logo  != null" src="{{data.logo}}">
 
-                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
                                [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCropped($event)"
                                (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -42,7 +42,7 @@
                 <div style="display: flex;" class="topSpaceFields">
                     <div class="col-sm-4">
                         <p class="labelName">Dirección</p>
-                        <input type="text" name="address" class="inputStyle" [(ngModel)]="data.address" />
+                        <input type="text" name="address" class="inputStyle" [(ngModel)]="data.address" #search />
                     </div>
                     <div class="col-sm-4">
                         <p class="labelName">Ciudad</p>
