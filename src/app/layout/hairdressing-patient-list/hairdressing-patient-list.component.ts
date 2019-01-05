@@ -40,6 +40,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     @ViewChild("search")
     public searchElementRef: ElementRef;
+    @ViewChild("searchEdit")
+    public searchElementRefEdit: ElementRef;
     public latitude: number;
     public longitude: number;
     public zoom: number;
@@ -73,8 +75,14 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
             });
+            let autocompleteEdit = new google.maps.places.Autocomplete(this.searchElementRefEdit.nativeElement, {
+                types: ["address"]
+            });
 
             autocomplete.setComponentRestrictions(
+                {'country': ['ar']}
+            );
+            autocompleteEdit.setComponentRestrictions(
                 {'country': ['ar']}
             );
 
@@ -82,6 +90,23 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
                 this.ngZone.run(() => {
                     //get the place result
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    this.zoom = 12;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
+                        " " + place.address_components[5].long_name;
+
+                });
+            });
+
+            autocompleteEdit.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocompleteEdit.getPlace();
                     //verify result
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
