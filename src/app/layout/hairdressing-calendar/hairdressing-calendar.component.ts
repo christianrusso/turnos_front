@@ -154,8 +154,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
                     this.zoom = 12;
-                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name +
-                        " " + place.address_components[5].long_name;
+                    this.address = place.address_components[1].long_name + " " + place.address_components[0].long_name + " " + place.address_components[2].long_name + " " + place.address_components[4].long_name;
 
                 });
             });
