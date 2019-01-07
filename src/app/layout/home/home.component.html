@@ -40,44 +40,35 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div style="background-color: white; height: 340px; text-align: center;">
-                <img src="assets/img/iso-original.png" style="width: 20%; margin-top: 30px;">
-                <p style="font-family: sf_ui_displaymedium; font-size: 20px; color: #454edb; margin-top: 15px;">Reservas realizadas a través de Todo Reservas</p>
-                <p style="font-family: sf_ui_displaybold; font-size: 60px; color: #454edb; margin-top: 30px; margin-bottom: -11px;">700</p>
-                <p style="font-family: sf_ui_displaylight; font-size: 16px; color: #454edb;">Reservas totales</p>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="col-sm-6" style="margin-top: 25px;">
             <div style="background-color: white; text-align: center; height: 40px; vertical-align: middle; border-bottom: 1px solid #454edb; padding-top: 8px;">
                 <span style="font-family: sf_ui_displaymedium; font-size: 18px; color: #454edb;">Cantidad de pacientes</span>
             </div>
             <div style="background-color: white; height: 300px; text-align: center;">
                 <div>
-                    <p style="font-family: sf_ui_displaybold; font-size: 60px; padding-top: 20px; margin-bottom: -10px;">{{statistics?.patients}}</p>
+                    <p style="font-family: sf_ui_displaybold; font-size: 60px; padding-top: 73px; margin-bottom: -10px;">{{statistics?.patients}}</p>
                     <p style="font-family: sf_ui_displaylight; font-size: 16px;">Pacientes totales</p>
                 </div>
-                <div style="display: inline-flex; margin-top: 34px;">
-                    <div style="border: 1px solid #454edb; width: 125px; height: 116px; margin-right: 10px;">
-                        <img src="assets/img/nuevos.png" style="width: 17%; margin-top: 6px; margin-bottom: -9px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 18px;">3</p>
-                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Nuevos</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="col-sm-6" style="margin-top: 25px;">
+            <div style="background-color: white; height: 340px; text-align: center;">
+                <div style="background-color: white; text-align: center; height: 40px; vertical-align: middle; border-bottom: 1px solid #454edb; padding-top: 8px;">
+                    <span style="font-family: sf_ui_displaymedium; font-size: 18px; color: #454edb;">Tipos de Turnos</span>
+                </div>
+                <div style="display: inline-flex; margin-top: 77px;">
+                    <div style="border: 1px solid #454edb; width: 145px; height: 134px; margin-right: 10px;">
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 22px;">{{statistics?.mobileAppointments}}</p>
+                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Turnos Mobile</p>
                     </div>
-                    <div style="border: 1px solid #454edb; width: 125px; height: 116px; margin-right: 10px;">
-                        <img src="assets/img/yaregistrados.png" style="width: 17%; margin-top: 6px; margin-bottom: -9px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 18px;">30</p>
-                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Ya registrados</p>
+                    <div style="border: 1px solid #454edb; width: 145px; height: 134px; margin-right: 10px;">
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 22px;">{{statistics?.panelAppointments}}</p>
+                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Turnos Panel</p>
                     </div>
-                    <div style="border: 1px solid black; width: 125px; height: 116px; margin-right: 10px;">
-                        <img src="assets/img/obsocial.png" style="width: 17%; margin-top: 6px; margin-bottom: -9px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 18px;">23</p>
-                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Con Obra Social</p>
-                    </div>
-                    <div style="border: 1px solid black; width: 125px; height: 116px;">
-                        <img src="assets/img/particulares.png" style="width: 17%; margin-top: 6px; margin-bottom: -9px;">
-                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 18px;">11</p>
-                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Particulares</p>
+                    <div style="border: 1px solid #454edb; width: 145px; height: 134px; margin-right: 10px;">
+                        <p style="font-family: sf_ui_displaybold; font-size: 40px; margin-bottom: -6px; padding-top: 22px;">{{statistics?.webAppointments}}</p>
+                        <p style="font-family: sf_ui_displaylight; font-size: 12px;">Turnos Web</p>
                     </div>
                 </div>
             </div>
