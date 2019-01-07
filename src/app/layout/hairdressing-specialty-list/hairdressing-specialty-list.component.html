@@ -147,6 +147,12 @@
                 <br>
                 <div><strong>¿Cuanto tiempo dura este servicio?</strong></div>
                 <input class="time-input" type="time" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
+                <div *ngIf="invalidHour" class="alert alert-danger">
+                    <div>
+                        El horario ingresado es incorrecto
+                    </div>
+
+                </div>
             </div>
 
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">

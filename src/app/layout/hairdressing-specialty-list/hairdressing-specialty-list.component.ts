@@ -36,6 +36,8 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     public selectedSpecialty: Specialty;
     public selectedSubspecialty: Subspecialty;
 
+    public invalidHour = false;
+
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/especialidades.js');
     }
@@ -151,19 +153,24 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     }
 
     addSubspecialty() {
-        this.loaderService.show();
         let subspecialty = new Subspecialty();
         subspecialty.id = parseInt(this.subspecialtyId);
         subspecialty.specialtyId = this.selectedSpecialty.id;
-        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
-        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
-        subspecialty.price = this.newSubspecialtyPrice;
+        if (this.newSubspecialtyConsultationLength.length < 5) {
+            this.invalidHour = true;
+        } else {
+            this.invalidHour = false;
+            this.loaderService.show();
+            const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
+            subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+            subspecialty.price = this.newSubspecialtyPrice;
 
-        this.subspecialtyService.add(subspecialty).subscribe(ok => {
-            $(".modal-nueva-subespecialidad").fadeOut();
-            this.toastrService.success('Subespecialidad agregada correctamente.');
-            this.getSpecialtiesByLetter(this.letterFilter);
-        });
+            this.subspecialtyService.add(subspecialty).subscribe(ok => {
+                $(".modal-nueva-subespecialidad").fadeOut();
+                this.toastrService.success('Subespecialidad agregada correctamente.');
+                this.getSpecialtiesByLetter(this.letterFilter);
+            });
+        }
     }
 
     /* Remover subespecialidad */
