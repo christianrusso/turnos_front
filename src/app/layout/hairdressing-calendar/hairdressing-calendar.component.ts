@@ -327,8 +327,36 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     // Pop up
     showRequestAppointment() {
-        $(".modal-agregar-turno").fadeIn();
         this.professionalOption = ''
+        this.selectedHour = null;
+        this.selectedDate = new Date(this.currentDate);
+        this.appointments = [];
+
+        $(".paciente-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        $("a#paciente-turno").removeClass('activeTurno');
+        $("a#cliente-turno").removeClass('activeTurno');
+        $("a#noexiste-turno").removeClass('activeTurno');
+
+        $(".modal-agregar-turno").fadeIn();
+        this.isPatientStep = 1;
+        this.firstStepStyles();
+
+        this.isPatientNuevoStep = 1;
+        this.firstStepNuevoStyles();
+
+        this.isPatientUserStep = 1;
+        this.firstStepUserStyles();
+
+        this.selectedClient = null;
+        this.selectedPatient = null;
+        this.address = null;
+        this.firstName = null;
+        this.lastName = null;
+        this.phoneNumber = null;
+        this.dni = null;
+
         this.selectedHour = null;
         this.selectedDate = new Date(this.currentDate);
         this.appointments = [];
@@ -667,10 +695,6 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleFirst');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderUnselected');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderSelected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
     }
 
     thirdStepUserStyles() {
@@ -682,10 +706,6 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleSecond');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderUnselected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleFirst');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderSelected');
     }
 
     firstStepUserStyles() {
@@ -697,9 +717,5 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         (document.querySelector('#secondStepUser') as HTMLElement).classList.add('circleSecond');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.add('borderUnselected');
         (document.querySelector('#secondStepUserParent') as HTMLElement).classList.remove('borderSelected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.remove('circleFirst');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
-        (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
-        (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
     }
 }
