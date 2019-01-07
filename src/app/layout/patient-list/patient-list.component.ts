@@ -136,7 +136,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/pacientes.js');
+        await this.loadScript('../assets/pacientes.js');
     }
     
     medicalInsuranceFilterChange(selection){
