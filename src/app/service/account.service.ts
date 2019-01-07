@@ -27,4 +27,8 @@ export class AccountService extends BaseService {
     public logout(): Observable<Object> {
         return this.post<Object>(this.url + '/Logout', null, null);
     }
+
+    public profile(): Observable<Object> {
+        return this.get<Object>(this.url + '/GetProfile', null);
+    }
 }

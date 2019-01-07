@@ -3,8 +3,9 @@ import { BaseComponent } from '../../core/base.component';
 import { ImageCroppedEvent } from '../../image-cropper/image-cropper.component';
 import { SelectOption } from '../../model/select/select-option.class';
 import { RegisterService } from '../../service/register.service';
-import { ClinicService } from '../../service/clinic.service';
 import { LayoutComponent } from '../../layout/layout.component';
+import { AccountService } from '../../service/account.service';
+import { ClinicService } from '../../service/clinic.service';
 import { HairdressingService } from '../../service/hairdressing.service';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import * as moment from 'moment';
@@ -13,7 +14,7 @@ import * as moment from 'moment';
     selector: 'app-editar',
     templateUrl: './editar.component.html',
     styleUrls: ['./editar.component.css'],
-    providers: [RegisterService, ClinicService]
+    providers: [RegisterService, AccountService, ClinicService, HairdressingService]
 })
 export class EditarComponent extends BaseComponent {
 
@@ -72,6 +73,7 @@ export class EditarComponent extends BaseComponent {
 
     constructor(
         private registerService: RegisterService,
+        private accountService: AccountService,
         private clinicService: ClinicService,
         private hairdressingService: HairdressingService,
         private mapsAPILoader: MapsAPILoader,
@@ -137,21 +139,12 @@ export class EditarComponent extends BaseComponent {
     getInfo() {
         this.data={};
 
-        if (this.rubro == 1) {
-            this.clinicService.getClinicByFilter(1).subscribe(res => {
-                this.data = res[0];
-                this.changeCity();
-                this.selectDay();
-                this.selectImages();
-            });
-        } else if (this.rubro == 2) {
-            this.hairdressingService.getHairdressingByFilter(1).subscribe(res => {
-                this.data = res[0];
-                this.changeCity();
-                this.selectDay();
-                this.selectImages();
-            });
-        }
+        this.accountService.profile().subscribe(res => {
+            this.data = res;
+            this.changeCity();
+            this.selectDay();
+            this.selectImages();
+        });
     }
 
     changeCity() {
