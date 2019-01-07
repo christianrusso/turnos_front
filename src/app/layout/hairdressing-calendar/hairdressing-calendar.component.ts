@@ -365,6 +365,11 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         $(".modal-agregar-turno").fadeOut();
     }
 
+    dateChange(selection) {
+        this.professionalOption = null;
+        this.appointments = [];
+    }
+
     professionalChange(selection) {
         this.loaderService.show();
         this.selectedProfessional = selection.value;

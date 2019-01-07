@@ -195,7 +195,7 @@
                         <input class="picker-fecha" style="font-family: sf_ui_displaymedium; color: #ccc!important; font-size: 12px;" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
                     </label>-->
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChange($event)" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -269,7 +269,7 @@
                         <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
                     </label>-->
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChange($event)" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -367,7 +367,7 @@
                         <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
                     </label>-->
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChange($event)" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
