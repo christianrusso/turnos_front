@@ -90,6 +90,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public currentMonday: Date;
     public currentSunday: Date;
 
+    public isDay = false;
+
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
         locale: esLocale,
@@ -498,11 +500,13 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     }
 
     showCalendarDay() {
+        this.isDay = true;
         $(".semana-calendario").hide();
         $(".dia-calendario").show();
     }
 
     showCalendarWeek() {
+        this.isDay = false;
         $(".dia-calendario").hide();
         $(".semana-calendario").show();
     }
