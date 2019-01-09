@@ -59,6 +59,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public longitude: number;
     public zoom: number;
 
+    public searchDescription;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,
@@ -395,5 +397,13 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
         (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
         (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+    searchPatients() {
+        const filter = new PatientFilter();
+        filter.medicalInsuranceId = this.searchDescription;
+        this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
+            this.patients = res;
+        });
     }
 }
