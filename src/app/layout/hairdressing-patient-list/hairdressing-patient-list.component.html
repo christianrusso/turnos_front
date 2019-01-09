@@ -1,4 +1,4 @@
-<section class="pacientes-section col-xs-12">
+<section class="especialidades-section col-xs-12">
   
     <div class="col-xs-12 col-sm-12 col-md-12">
 
@@ -14,6 +14,12 @@
                     <div class="col-md-8">&nbsp;</div>
 
                     <div class="menu-acciones desk col-xs-12 col-md-4">
+                        <form action="" style="display: inline-block;">
+                            <div class="form-group">
+                                <input type="search" name="searchDescription" [(ngModel)]="searchDescription" (keyup.enter)="searchPatients()">
+                                <button type="button" (click)="searchPatients()"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                         <a id="agregar-medico" (click)="showAddPatient()">Agregar nuevo</a>
                     </div>
                 </div>

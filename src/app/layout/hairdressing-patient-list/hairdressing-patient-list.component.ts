@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ClientFilter } from '../../model/client-filter.class';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {PatientService} from "../../service/patient.service";
+import {PatientFilter} from "../../model/patient-filter.class";
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -47,6 +49,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public zoom: number;
 
     public searchClientFilter = new ClientFilter();
+
+    public searchDescription: string;
 
     constructor(
         private patientService: HairdressingPatientService,
@@ -354,5 +358,13 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         (document.querySelector('#secondStep') as HTMLElement).classList.add('circleSecond');
         (document.querySelector('#secondStepParent') as HTMLElement).classList.add('borderUnselected');
         (document.querySelector('#secondStepParent') as HTMLElement).classList.remove('borderSelected');
+    }
+
+    searchPatients() {
+        const filter = new HairdressingPatientFilter();
+        filter.FirstName = this.searchDescription;
+        this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
+            this.patients = res;
+        });
     }
 }
