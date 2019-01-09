@@ -57,7 +57,7 @@ export class HairdressingAppointmentService extends BaseService {
     }
 
     public completeAppointmentByClinic(appointment: IdFilter): Observable<Object> {
-        return this.post(this.url + '/CompleteAppointmentByClinic', null, appointment);
+        return this.post(this.url + '/CompleteAppointmentByHairdressing', null, appointment);
     }
 
     public cancelAppointmentByHairdressing(appointment: CancelAppointment): Observable<Object> {
