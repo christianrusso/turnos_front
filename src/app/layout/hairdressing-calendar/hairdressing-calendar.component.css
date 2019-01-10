@@ -23,7 +23,6 @@
     margin-top: 0;
     float: right;
     padding: 0;
-    background: transparent;
     transition: all 0.3s ease-in-out;
 }
 
@@ -82,7 +81,7 @@ margin-top: 4px;
 }
 
 .turno-cancelado {
-  background-color: #aeaeae !important;
+  background-color: #FFA0AA !important;
   cursor: default !important;
 }
 
@@ -157,4 +156,12 @@ margin-top: 4px;
 
 .inputHeight {
     height: 39px;
+}
+
+.reserved {
+    background: #9DDDAA !important;
+}
+
+.completed {
+    background: #E0E1F9 !important;
 }
