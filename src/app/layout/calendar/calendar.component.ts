@@ -29,6 +29,7 @@ import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
+import { ClientFilter } from '../../model/client-filter.class';
 
 declare var jsPDF: any; // Important
 
@@ -96,6 +97,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public currentDate: Date;
     public currentMonday: Date;
     public currentSunday: Date;
+
+    public searchClientFilter = new ClientFilter();
 
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
@@ -211,7 +214,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     getAllClientsNonPatients() {
         this.loaderService.show();
-        this.clientService.getAllClientsNonPatients().subscribe(res => {
+        this.clientService.getAllClientsNonPatientsByFilter(this.searchClientFilter).subscribe(res => {
             this.clients = res;
             this.loaderService.hide();
         });
