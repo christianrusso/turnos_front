@@ -58,7 +58,7 @@
                             <div class="pacientes-horario col-xs-12" *ngFor="let appointmentData of data.requestedAppointmentsPerHour">
 
                                 <div class="pacientes-medico col-xs-10">
-                                    <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments" [ngClass]="{'turno-cancelado': appointment.state == 2 }" >
+                                    <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments" [ngClass]="{'turno-cancelado': appointment.state == 2, 'reserved': (appointment.state == 1 || appointment.state == 4), 'completed': appointment.state == 3 }" >
                                         <span>{{ getHour(appointment.hour) }}</span>
                                         <p> - {{ appointment.patient }}</p>
                                         <div [hidden]="appointment.state != 3" [ngClass]="{'turno-paciente': appointment.state == 3 }">

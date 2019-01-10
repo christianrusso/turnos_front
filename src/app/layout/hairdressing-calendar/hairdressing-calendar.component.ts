@@ -26,6 +26,7 @@ import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
+import { ClientFilter } from '../../model/client-filter.class';
 declare var jsPDF: any; // Important
 
 import { TouchSequence } from 'selenium-webdriver';
@@ -79,6 +80,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public longitude: number;
     public zoom: number;
     public invalidPhone: boolean = false;
+
+    public searchClientFilter = new ClientFilter();
 
     async ngAfterViewInit(): Promise<void> {
         await this.loadScript('../assets/calendario.js');
@@ -202,7 +205,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     getAllClientsNonPatients() {
         this.loaderService.show();
-        this.clientService.getAllClientsNonHairdressingPatients().subscribe(res => {
+        this.clientService.getAllClientsNonHairdressingPatientsByFilter(this.searchClientFilter).subscribe(res => {
             this.clients = res;
             this.loaderService.hide();
         });

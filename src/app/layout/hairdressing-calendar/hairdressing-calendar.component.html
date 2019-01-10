@@ -219,7 +219,20 @@
             </div>
 
             <div class="col-xs-12 tabla-popup-cliente" *ngIf="isPatientStep == 1">
-                <h3>Seleccionar Paciente</h3>
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5" style="margin-top: 20px;">
+                    <div class="col-xs-3 selectClienteLabelEmail">
+                        <b>Buscar por Nombre y/o Apellido:</b>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" id="search-client-email" name="search-client-email">
+                    </div>
+                    <div class="col-xs-2 selectClienteLabelBuscarIsPatient" style="">
+                        <a id="search-cliente"><b style="color: #00ae00;">BUSCAR</b></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5" style="/*margin-top: 42px;*/">
+                    <h3>Seleccionar Paciente</h3>
+                </div>
                 <div class="col-xs-12 container-de-tabla">
                     <table id="table-agregar-turno" class="table table-sortable">
                         <thead>
@@ -288,7 +301,26 @@
             </div>
 
             <div class="col-xs-12 tabla-popup-cliente" *ngIf="isPatientUserStep == 1">
-                <h3>Seleccionar Cliente</h3>
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5" style="margin-top: 20px;">
+                    <div class="col-xs-3 selectClienteLabelEmail">
+                        <b>Buscar por email:</b>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" id="search-client-email" name="search-client-email" [(ngModel)]="searchClientFilter.email">
+                    </div>
+                    <div class="col-xs-3 selectClienteLabelDni">
+                        <b>Buscar por DNI:</b>
+                    </div>
+                    <div class="col-xs-2">
+                        <input type="text" id="search-client-dni" name="search-client-dni" [(ngModel)]="searchClientFilter.dni">
+                    </div>
+                    <div class="col-xs-2 selectClienteLabelBuscar" style="">
+                        <a (click)="getAllClientsNonPatients()" id="search-cliente"><b style="color: #00ae00;">BUSCAR</b></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5" style="margin-top: 42px;">
+                    <h3>Seleccionar Cliente</h3>
+                </div>
                 <div class="col-xs-12 container-de-tabla">
                     <table id="table-agregar-turno" class="table table-sortable">
                         <thead>
