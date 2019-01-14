@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   cropperReady = false;
-  public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }];
+  public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }, { id: "3", text: "Barberia" }, { id: "4", text: "Estética" }];
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
