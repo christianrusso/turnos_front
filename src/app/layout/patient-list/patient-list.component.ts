@@ -401,7 +401,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     searchPatients() {
         const filter = new PatientFilter();
-        filter.medicalInsuranceId = this.searchDescription;
+        filter.Text = this.searchDescription;
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
         });
