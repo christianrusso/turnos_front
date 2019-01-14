@@ -2704,6 +2704,7 @@ svg:not(:root){
   margin-right: 10px;
   padding-left: 5px;
   color:#777;
+  width: 375px;
 }
 
 .especialidades-section .letras{
