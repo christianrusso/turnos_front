@@ -169,12 +169,12 @@
                 </div>
             </div>
 
-            <div class="cl-container">
+            <div class="cl-container" style="display: flex;">
                 <div *ngIf="i == (profesionalSpecialities.length - 1)">
-                    <p (click)="addProfessionalSpeciality()">Más </p>
+                    <img (click)="addProfessionalSpeciality()" src="/assets/img/add.png" style="cursor: pointer;">
                 </div>
                 <div *ngIf="i > 0">
-                    <p (click)="removeProfessionalSpeciality(i)"> Menos</p>
+                    <img (click)="removeProfessionalSpeciality(i)" src="/assets/img/remove.png" style="cursor: pointer;">
                 </div>
             </div>
             
