@@ -169,12 +169,12 @@
                 </div>
             </div>
 
-            <div class="cl-container" style="display: flex;">
-                <div *ngIf="i == (profesionalSpecialities.length - 1)">
-                    <img (click)="addProfessionalSpeciality()" src="/assets/img/add.png" style="cursor: pointer;">
+            <div class="cl-container" style="display: flex; margin-top: 10px;">
+                <div *ngIf="i == (profesionalSpecialities.length - 1)" style="margin-right: 10px;">
+                    <span class="glyphicon glyphicon-plus-sign" (click)="addProfessionalSpeciality()" style="color: green;"></span>
                 </div>
                 <div *ngIf="i > 0">
-                    <img (click)="removeProfessionalSpeciality(i)" src="/assets/img/remove.png" style="cursor: pointer;">
+                    <span class="glyphicon glyphicon-minus-sign" (click)="removeProfessionalSpeciality(i)" style="color: red;"></span>
                 </div>
             </div>
             
