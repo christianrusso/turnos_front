@@ -169,12 +169,12 @@
                 </div>
             </div>
 
-            <div class="cl-container">
-                <div *ngIf="i == (profesionalSpecialities.length - 1)">
-                    <p (click)="addProfessionalSpeciality()">Más </p>
+            <div class="cl-container" style="display: flex; margin-top: 10px;">
+                <div *ngIf="i == (profesionalSpecialities.length - 1)" style="margin-right: 10px;">
+                    <span class="glyphicon glyphicon-plus-sign" (click)="addProfessionalSpeciality()" style="color: green;"></span>
                 </div>
                 <div *ngIf="i > 0">
-                    <p (click)="removeProfessionalSpeciality(i)"> Menos</p>
+                    <span class="glyphicon glyphicon-minus-sign" (click)="removeProfessionalSpeciality(i)" style="color: red;"></span>
                 </div>
             </div>
             
