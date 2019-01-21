@@ -61,6 +61,7 @@
                                     <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments" [ngClass]="{'turno-cancelado': appointment.state == 2, 'reserved': (appointment.state == 1 || appointment.state == 4), 'completed': appointment.state == 3 }" >
                                         <span>{{ getHour(appointment.hour) }}</span>
                                         <p> - {{ appointment.patient }}</p>
+                                        <span> - Uñas</span>
                                         <div [hidden]="appointment.state != 3" [ngClass]="{'turno-paciente': appointment.state == 3 }">
                                             <i class="fa fa-check"></i>
                                         </div>
@@ -190,7 +191,7 @@
 
             <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
-                    <label class="inputLabel">Fecha</label><br>
+                    <label class="inputLabel">Fecha</label>
                     <!--<label class="picker-fecha">
                         <input class="picker-fecha" style="font-family: sf_ui_displaymedium; color: #ccc!important; font-size: 12px;" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="patientDate" [owlDateTime]="patientDate">
                         <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #patientDate></owl-date-time>
@@ -199,12 +200,24 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
-                    <label class="inputLabel">Profesional</label><br>
+                    <label class="inputLabel">Profesional</label>
                     <ng-select2 [data]="professionalOptions" (valueChanged)="professionalChange($event)" [(ngModel)]="professionalOption" name="agregar-turnos" lang="es" style="text-align: center;"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
-                    <label class="inputLabel">Hora</label><br>
+                    <label class="inputLabel">Especialidad</label>
+                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                </div>
+            </div>
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2" style="z-index: 20;">
+
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Subespecialidad</label>
+                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Hora</label>
                     <label class="text-lowercase" [hidden]="appointments.length !== 0">El profesional no tiene turnos disponibles para la fecha elegida.</label>
                     <ng-select2 name="appointment" required [(ngModel)]="selectedHour" [hidden]="appointments.length === 0" style="text-align: center;">
                         <option value="">Seleccionar</option>
@@ -288,6 +301,18 @@
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Profesional</label><br>
                     <ng-select2 style="text-align: center;" [data]="professionalOptions" (valueChanged)="professionalChange($event)" [(ngModel)]="professionalOption" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Especialidad</label><br>
+                    <ng-select2 style="text-align: center;"lang="es"></ng-select2>
+                </div>
+            </div>
+
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientUserStep == 2" style="z-index: 20;">
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Subespecialidad</label><br>
+                    <ng-select2 style="text-align: center;"lang="es"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -405,6 +430,18 @@
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Profesional</label><br>
                     <ng-select2 style="text-align: center;" [data]="professionalOptions" (valueChanged)="professionalChange($event)" [(ngModel)]="professionalOption" name="agregar-turnos" lang="es"></ng-select2>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Especialidad</label><br>
+                    <ng-select2 style="text-align: center;"lang="es"></ng-select2>
+                </div>
+            </div>
+            <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2" style="z-index: 20;">
+
+                <div class="col-xs-12 col-sm-4">
+                    <label class="inputLabel">Subspecialidad</label><br>
+                    <ng-select2 style="text-align: center;"lang="es"></ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">

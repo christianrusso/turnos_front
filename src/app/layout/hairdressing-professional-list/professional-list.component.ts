@@ -76,6 +76,14 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
     public addProfessionalEnable = false;
 
+    public profesionalSpecialities = [
+        {
+            professionalSpecialty: "",
+            professionalSubspecialty: "",
+            professionalConsultationLength: ""
+        }
+    ];
+
     constructor(
         private hairdressingProfessionalService: HairdressingProfessionalService,
         private specialtyService: HairdressingSpecialtyService,
@@ -213,6 +221,13 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         sessionStorage.removeItem('hairdressingProfessionalId');
         this.butttonLabel = "Agregar";
         $(".modal-agregar-medico").fadeIn();
+        this.profesionalSpecialities = [
+            {
+                professionalSpecialty: "",
+                professionalSubspecialty: "",
+                professionalConsultationLength: ""
+            }
+        ];
     }
 
     hideAddProfessional() {
@@ -257,9 +272,13 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.professionalLastName = professional.lastName;
         const hours = Math.floor(professional.consultationLength / 60);
         const minutes = professional.consultationLength % 60;
-        this.professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
-        this.professionalSpecialty = professional.specialtyId.toString();
-        this.professionalSubspecialty = professional.subspecialtyId != null ? professional.subspecialtyId.toString() : "-1";
+        //this.professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        this.profesionalSpecialities[0].professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        this.profesionalSpecialities[0].professionalSpecialty = professional.specialtyId.toString();
+        this.specialtyChangeProfessional({value: this.profesionalSpecialities[0].professionalSpecialty});
+        this.profesionalSpecialities[0].professionalSubspecialty = professional.subspecialtyId != null ? professional.subspecialtyId.toString() : "-1";
+        //this.professionalSpecialty = professional.specialtyId.toString();
+        //this.professionalSubspecialty = professional.subspecialtyId != null ? professional.subspecialtyId.toString() : "-1";
 
         professional.workingHours.forEach(wh => {
             switch (wh.dayNumber){
@@ -336,9 +355,9 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
     specialtyChangeProfessional(selection) {
         this.loaderService.show();
-        this.professionalSpecialty = selection.value;
+        this.profesionalSpecialities[0].professionalSpecialty = selection.value;
         let filter = new IdFilter();
-        filter.id = this.professionalSpecialty != null ? parseInt(this.professionalSpecialty) : -1;
+        filter.id = this.profesionalSpecialities[0].professionalSpecialty != null ? parseInt(this.profesionalSpecialities[0].professionalSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
             this.subspecialtyOptionsProfessional = res;
             this.subspecialtyOptionsProfessional[0].text = 'Ninguna';
@@ -347,14 +366,14 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     }
 
     subspecialtyChangeProfessional(selection) {
-        this.professionalSubspecialty = selection.value;
+        this.profesionalSpecialities[0].professionalSubspecialty = selection.value;
 
         if (sessionStorage.getItem("hairdressingProfessionalId") != null) {
             sessionStorage.removeItem("hairdressingProfessionalId");
             return;
         }
 
-        let subspecialtyId = parseInt(this.professionalSubspecialty);
+        let subspecialtyId = parseInt(this.profesionalSpecialities[0].professionalSubspecialty);
         let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
         let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
 
@@ -365,13 +384,13 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
     addProfessional() {
         this.loaderService.show();
-        let subspecialtyId = parseInt(this.professionalSubspecialty);
+        let subspecialtyId = parseInt(this.profesionalSpecialities[0].professionalSubspecialty);
         let professional = new HairdressingProfessional();
         professional.firstName = this.professionalFirstName;
         professional.lastName = this.professionalLastName;
-        professional.specialtyId = parseInt(this.professionalSpecialty)
+        professional.specialtyId = parseInt(this.profesionalSpecialities[0].professionalSpecialty);
         professional.subspecialtyId = subspecialtyId != -1 ? subspecialtyId : null;
-        const consultationLengthString = this.professionalConsultationLength.split(':');
+        const consultationLengthString = this.profesionalSpecialities[0].professionalConsultationLength.split(':');
         professional.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
         professional.workingHours = [];
 
@@ -415,5 +434,23 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
          const hoursString = hours < 10 ? '0' + hours : hours;
          const minutesString = minutes < 10 ? '0' + minutes : minutes;
          return hoursString + ':' + minutesString; 
+     }
+
+     addProfessionalSpeciality() {
+        let lastElementPosition = this.profesionalSpecialities.length - 1;
+        if (this.profesionalSpecialities[lastElementPosition].professionalSpecialty != "" &&
+            this.profesionalSpecialities[lastElementPosition].professionalSubspecialty != "" &&
+            this.profesionalSpecialities[lastElementPosition].professionalConsultationLength != "")
+        this.profesionalSpecialities.push(
+            {
+                professionalSpecialty: "",
+                professionalSubspecialty: "",
+                professionalConsultationLength: ""
+            }
+        );
+     }
+
+     removeProfessionalSpeciality(index) {
+        this.profesionalSpecialities.splice(index, 1);
      }
 }

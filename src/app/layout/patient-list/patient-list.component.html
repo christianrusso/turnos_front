@@ -21,7 +21,7 @@
                     <div class="menu-acciones desk col-xs-12 col-md-8">
                         <form action="">
                             <div class="form-group">
-                                <input type="search" name="searchDescription" [(ngModel)]="searchDescription" (keyup.enter)="searchPatients()">
+                                <input placeholder="Ingrese nombre, apellido o email del Paciente" type="search" name="searchDescription" [(ngModel)]="searchDescription" (keyup.enter)="searchPatients()">
                                 <button type="button" (click)="searchPatients()"><i class="fa fa-search"></i></button>
                             </div>
                         </form>

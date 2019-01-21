@@ -362,7 +362,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     searchPatients() {
         const filter = new HairdressingPatientFilter();
-        filter.FirstName = this.searchDescription;
+        filter.Text = this.searchDescription;
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
         });

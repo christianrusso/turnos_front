@@ -20,7 +20,7 @@ export class LoginComponent extends BaseComponent {
     public email: string;
     public password: string;
     public rubro:string = "1";
-    public rubros:Array<SelectOption> = [{id:"1", text:"Clinica"},{id:"2", text:"Peluqueria"}]; 
+    public rubros:Array<SelectOption> = [{id:"1", text:"Clinica"},{id:"2", text:"Peluqueria"}, {id:"3", text:"Barberia"}, {id:"4", text:"Estética"}];
 
     constructor(
         private accountService: AccountService,
@@ -55,6 +55,8 @@ export class LoginComponent extends BaseComponent {
     private mapRubro(rubro) : string{
          if(rubro == "1") return "Clinic";
          if(rubro == "2") return "Hairdressing";
+         if(rubro == "3") return "Babershop";
+         if(rubro == "4") return "Esthetic";
 
          return "";
     }
