@@ -173,7 +173,7 @@
                 <div *ngIf="i == (profesionalSpecialities.length - 1)" style="margin-right: 10px;">
                     <span class="glyphicon glyphicon-plus-sign" (click)="addProfessionalSpeciality()" style="color: green;"></span>
                 </div>
-                <div *ngIf="i > 0">
+                <div *ngIf="i > 0 || profesionalSpecialities.length > 0">
                     <span class="glyphicon glyphicon-minus-sign" (click)="removeProfessionalSpeciality(i)" style="color: red;"></span>
                 </div>
             </div>
