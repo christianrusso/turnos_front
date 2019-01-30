@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Patient } from '../../model/patient.class';
+import { PatientFicha } from '../../model/patient-ficha.class';
 import { PatientService } from '../../service/patient.service';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { PatientFilter } from '../../model/patient-filter.class';
@@ -14,6 +15,8 @@ import { MedicalPlanService } from '../../service/medicalPlan.service';
 import { ClientFilter } from '../../model/client-filter.class';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as esLocale from 'date-fns/locale/es';
 
 @Component({
     selector: 'app-patient-list',
@@ -60,6 +63,15 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public zoom: number;
 
     public searchDescription;
+
+    public pacienteFicha = [];
+    public selectedDate: Date;
+    public addDescription: string;
+
+    options: DatepickerOptions = {
+        displayFormat: 'DD/MM/YYYY',
+        locale: esLocale,
+    }
 
     constructor(
         private patientService: PatientService,
@@ -340,6 +352,52 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.medicalInsurance = this.selectedPatient.medicalInsuranceId.toString();
         this.medicalPlan = this.selectedPatient.medicalPlanId.toString();
         $(".modal-editar-paciente").fadeIn();
+    }
+
+    showPacienteFicha(index: number) {
+        $(".modal-paciente").fadeIn();
+
+        if (index != -1) {
+            this.selectedPatient = this.patients[index];
+        }
+
+        this.loaderService.show();
+
+        let patient = new PatientFilter();
+        patient.Id = this.selectedPatient.id;
+
+        this.patientService.getMedicalRecords(patient).subscribe(res => {
+            this.pacienteFicha = res;
+
+            this.loaderService.hide();
+        });
+    }
+
+    deletePacienteFicha(index: number) {
+        this.loaderService.show();
+
+        let patient = new PatientFilter();
+        patient.Id = this.pacienteFicha[index].id;
+
+        this.patientService.removeMedicalRecord(patient).subscribe(res => {
+            this.pacienteFicha.splice(index, 1);
+
+            this.loaderService.hide();
+        });
+    }
+
+    addPacienteFicha(index: number) {
+        this.loaderService.show();
+
+        let patient = new PatientFicha();
+        patient.id = this.selectedPatient.id;
+        patient.description = this.addDescription;
+        patient.date = this.selectedDate.toJSON();
+
+        this.patientService.addMedicalRecord(patient).subscribe(res => {
+            this.addDescription = "";
+            this.showPacienteFicha(-1);
+        });
     }
 
     hideEditPatient(){

@@ -166,6 +166,10 @@ $('a.close-borrar-paciente').click(function() {
   $(".modal-borrar-paciente").fadeOut();
 });
 
+$('a.close-modal-paciente').click(function() {
+    $(".modal-paciente").fadeOut();
+});
+
 
 $( document ).on( 'keydown', function ( e ) {
     if ( e.keyCode === 27 ) { // ESC
