@@ -9,4 +9,5 @@ export class RequestHairdressingAppointmentNonClient {
     public dni: string;
     public email: string;
     public password: string;
+    public subspecialtyId: number;
 }

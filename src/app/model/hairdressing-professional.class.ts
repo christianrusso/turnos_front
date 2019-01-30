@@ -1,4 +1,5 @@
 import { WorkingHour } from "./working-hour.class";
+import { Subspecialty } from "./subspecialty.class";
 
 export class HairdressingProfessional {
     public id: number;
@@ -13,4 +14,5 @@ export class HairdressingProfessional {
     public consultationLength: number;
     public workingHours: Array<WorkingHour>;
     public active: boolean;
+    public subspecialties: Array<Subspecialty>;
 }

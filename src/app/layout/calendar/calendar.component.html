@@ -25,7 +25,7 @@
         </div>
 
         <div class="menu-acciones desk col-xs-12 col-sm-2">
-            <a (click)="dowloadPdf()"><i class="fa fa-print"></i></a>
+            <a (click)="dowloadPdf()"><i *ngIf="isDay" class="fa fa-print"></i></a>
             <a (click)="showRequestAppointment()" id="add-turno">Agregar turno</a>
         </div>
     </div>
@@ -61,6 +61,7 @@
                                     <div class="single-paciente" *ngFor="let appointment of appointmentData.appointments" [ngClass]="{'turno-cancelado': appointment.state == 2, 'reserved': (appointment.state == 1 || appointment.state == 4), 'completed': appointment.state == 3 }" >
                                         <span>{{ getHour(appointment.hour) }}</span>
                                         <p> - {{ appointment.patient }}</p>
+                                        <span> - {{appointment.subspecialty}}</span>
                                         <div [hidden]="appointment.state != 3" [ngClass]="{'turno-paciente': appointment.state == 3 }">
                                             <i class="fa fa-check"></i>
                                         </div>
@@ -191,7 +192,7 @@
             <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChanged($event)" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -201,14 +202,18 @@
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Especialidad</label>
-                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                    <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorEspChange($event)">
+                        <option *ngFor="let esp of doctorSpecialties" value="{{esp.specialtyId}}">{{esp.specialtyDescription}}</option>
+                    </ng-select2>
                 </div>
             </div>
             <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientStep == 2" style="z-index: 20;">
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Subespecialidad</label>
-                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                    <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorSubespChange($event)">
+                        <option *ngFor="let subesp of doctorSubspecialties" value="{{subesp.id}}">{{subesp.desc}}</option>
+                    </ng-select2>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -290,11 +295,7 @@
             <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientUserStep == 3" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <!--<label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="clientDate" [owlDateTime]="clientDate">
-                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #clientDate></owl-date-time>
-                    </label>-->
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChanged($event)" [options]="options" ></ng-datepicker>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -304,14 +305,18 @@
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Especialidad</label>
-                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                    <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorEspChange($event)">
+                        <option *ngFor="let esp of doctorSpecialties" value="{{esp.specialtyId}}">{{esp.specialtyDescription}}</option>
+                    </ng-select2>
                 </div>
             </div>
              <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientUserStep == 3" style="z-index: 20;">
 
                  <div class="col-xs-12 col-sm-4">
                      <label class="inputLabel">Subespecialidad</label>
-                     <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                     <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorSubespChange($event)">
+                         <option *ngFor="let subesp of doctorSubspecialties" value="{{subesp.id}}">{{subesp.desc}}</option>
+                     </ng-select2>
                  </div>
 
                 <div class="col-xs-12 col-sm-4">
@@ -434,11 +439,7 @@
             <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2" style="z-index: 20;">
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Fecha</label><br>
-                    <!--<label class="picker-fecha">
-                        <input class="picker-fecha" [(ngModel)]="selectedDate" (ngModelChange)="dayChange($event)" [owlDateTimeTrigger]="noclientDate" [owlDateTime]="noclientDate">
-                        <owl-date-time [pickerType]="'calendar'" [startAt]="startAt" #noclientDate></owl-date-time>
-                    </label>-->
-                    <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
+                    <ng-datepicker [(ngModel)]="selectedDate" (ngModelChange)="dateChanged($event)" [options]="options" ></ng-datepicker>
                 </div>
                 
                 <div class="col-xs-12 col-sm-4">
@@ -448,14 +449,18 @@
 
                 <div class="col-xs-12 col-sm-4">
                     <label class="inputLabel">Especialidad</label>
-                    <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                    <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorEspChange($event)">
+                        <option *ngFor="let esp of doctorSpecialties" value="{{esp.specialtyId}}">{{esp.specialtyDescription}}</option>
+                    </ng-select2>
                 </div>
             </div>
              <div class="col-xs-12 p-c-2 turno-picker" *ngIf="isPatientNuevoStep == 2" style="z-index: 20;">
 
                  <div class="col-xs-12 col-sm-4">
                      <label class="inputLabel">Subespecialidad</label>
-                     <ng-select2 lang="es" style="text-align: center;"></ng-select2>
+                     <ng-select2 lang="es" style="text-align: center;" (valueChanged)="doctorSubespChange($event)">
+                         <option *ngFor="let subesp of doctorSubspecialties" value="{{subesp.id}}">{{subesp.desc}}</option>
+                     </ng-select2>
                  </div>
 
                 <div class="col-xs-12 col-sm-4">

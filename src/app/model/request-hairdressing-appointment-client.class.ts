@@ -8,4 +8,5 @@ export class RequestHairdressingAppointmentClient {
     public address: string;
     public phoneNumber: string;
     public dni: string;
+    public subspecialtyId: number;
 }

@@ -10,4 +10,5 @@ export class RequestAppointmentNonClient {
     public medicalPlanId: number;
     public email: string;
     public password: string;
+    public subspecialtyId: number;
 }

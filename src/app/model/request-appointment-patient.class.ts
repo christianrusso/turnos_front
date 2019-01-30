@@ -3,4 +3,5 @@ export class RequestAppointmentPatient {
     public time: string;
     public doctorId: number;
     public patientId: number;
+    public subspecialtyId: number;
 }
