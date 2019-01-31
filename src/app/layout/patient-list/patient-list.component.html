@@ -110,18 +110,11 @@
             <a class="close-modal-paciente">X</a>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%;" [hidden]="pacienteFicha.length > 0">
-            <p style="text-align: center;">Este paciente no posee registros.</p>
+        <div>
+            <span id="addFicha" style="cursor: pointer; background-color: #454edb; color: white; border-radius: 7px; padding: 9px; margin-left: 10px;">+</span>
         </div>
 
-        <div *ngFor="let ficha of pacienteFicha; let i = index;" style="margin: 0px; width: 100%;" [hidden]="pacienteFicha.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
-            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 90%; margin-left: 10px;">
-                <span>{{ficha.dateTime | date:'dd/MM/yyyy hh:mm'}} - {{ficha.description}}</span>
-                <a (click)="deletePacienteFicha(i)"><i class="fa fa-trash"></i></a>
-            </div>
-        </div>
-
-        <div class="listado-menu-2" style="margin: 5px;">
+        <div class="listado-menu-2" style="margin: 5px; display: none; margin-top: 30px;" id="newFicha">
             <div>
                 <label>Fecha</label><br>
                 <ng-datepicker [(ngModel)]="selectedDate"[options]="options" ></ng-datepicker>
@@ -131,7 +124,19 @@
                 <textarea [(ngModel)]="addDescription" rows="7" cols="70"></textarea>
             </div>
             <div class="menu-acciones">
-                <a (click)="addPacienteFicha(i)">AGREGAR</a>
+                <a (click)="addPacienteFicha(i)">ENVIAR</a>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length > 0">
+            <p style="text-align: center;">Este paciente no posee registros.</p>
+        </div>
+
+        <div *ngFor="let ficha of pacienteFicha; let i = index;" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 90%; margin-left: 10px;">
+                <span>{{ficha.dateTime | date:'dd/MM/yyyy'}} - {{ficha.description}}</span>
+                <a (click)="editPacienteFicha(i)"><i class="fa fa-pencil"></i></a>
+                <a (click)="deletePacienteFicha(i)"><i class="fa fa-trash"></i></a>
             </div>
         </div>
     </div>

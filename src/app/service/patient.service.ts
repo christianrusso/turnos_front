@@ -57,4 +57,8 @@ export class PatientService extends BaseService {
     public addMedicalRecord(ficha: PatientFicha): Observable<Object> {
         return this.post(this.url + "/AddMedicalRecord", null, ficha);
     }
+
+    public editMedicalRecord(ficha: PatientFicha): Observable<Object> {
+        return this.post(this.url + "/EditMedicalRecord", null, ficha);
+    }
 }

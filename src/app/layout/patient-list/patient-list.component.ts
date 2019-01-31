@@ -67,6 +67,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public pacienteFicha = [];
     public selectedDate: Date;
     public addDescription: string;
+    public isEditing = false;
+    public editingId: number;
 
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
@@ -387,14 +389,46 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     addPacienteFicha(index: number) {
+        if (!this.isEditing) {
+            this.loaderService.show();
+
+            let patient = new PatientFicha();
+            patient.id = this.selectedPatient.id;
+            patient.description = this.addDescription;
+            patient.datetime = this.selectedDate.toJSON();
+
+            this.patientService.addMedicalRecord(patient).subscribe(res => {
+                this.addDescription = "";
+                this.showPacienteFicha(-1);
+            });
+        } else {
+            this.editFicha();
+        }
+    }
+
+    editPacienteFicha(index: number) {
+        this.addDescription = this.pacienteFicha[index].description;
+        this.selectedDate = this.pacienteFicha[index].dateTime;
+        this.editingId = this.pacienteFicha[index].id;
+        this.isEditing = true;
+    }
+
+    editFicha() {
         this.loaderService.show();
 
         let patient = new PatientFicha();
-        patient.id = this.selectedPatient.id;
+        patient.id = this.editingId;
         patient.description = this.addDescription;
-        patient.date = this.selectedDate.toJSON();
+        if (typeof this.selectedDate !== "object") {
+            patient.datetime = String(this.selectedDate);
+        } else {
+            patient.datetime = this.selectedDate.toJSON();
+        }
 
-        this.patientService.addMedicalRecord(patient).subscribe(res => {
+        this.isEditing = false;
+        this.editingId = null;
+
+        this.patientService.editMedicalRecord(patient).subscribe(res => {
             this.addDescription = "";
             this.showPacienteFicha(-1);
         });
