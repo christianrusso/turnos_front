@@ -131,6 +131,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").addClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.currentDate = new Date();
         this.startAt = new Date();
         this.currentMonday = this.getMondayOfWeek(this.currentDate);

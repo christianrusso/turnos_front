@@ -98,6 +98,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.getAllProfessionalsByFilter();
         this.getAllSpecialties();
         this.getAllSubspecialties();

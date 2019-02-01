@@ -102,6 +102,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.getAllDoctorsByFilter();
         this.getAllSpecialties();
         this.getAllSubspecialties();

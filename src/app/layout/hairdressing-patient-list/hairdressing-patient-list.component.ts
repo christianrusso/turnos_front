@@ -82,6 +82,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         $("a#especialidades-panel").removeClass('active');
         $("a#pacientes-panel").addClass('active');
         $("a#calendario-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.getAllPatientsByFilter();
         this.getAllClientsNonPatients();
     }

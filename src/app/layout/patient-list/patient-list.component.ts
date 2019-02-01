@@ -94,6 +94,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $("a#pacientes-panel").addClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.getAllPatientsByFilter();
         this.getAllMedicalInsurance();
         this.getAllClientsNonPatients();
