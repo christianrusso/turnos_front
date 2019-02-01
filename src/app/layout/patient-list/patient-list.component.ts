@@ -73,6 +73,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
         locale: esLocale,
+        maxDate: new Date(Date.now()),
+        useEmptyBarTitle: false
     }
 
     constructor(

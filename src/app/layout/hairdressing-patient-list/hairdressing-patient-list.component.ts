@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HairdressingPatient } from '../../model/hairdressing-patient.class';
+import { PatientFicha } from '../../model/patient-ficha.class';
 import { HairdressingPatientService } from '../../service/hairdressing-patient.service';
 import { HairdressingPatientFilter } from '../../model/hairdressing-patient-filter.class';
 import { Client } from '../../model/client.class';
@@ -12,6 +13,8 @@ import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {PatientService} from "../../service/patient.service";
 import {PatientFilter} from "../../model/patient-filter.class";
+import { DatepickerOptions } from 'ng2-datepicker';
+import * as esLocale from 'date-fns/locale/es';
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -51,6 +54,19 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public searchClientFilter = new ClientFilter();
 
     public searchDescription: string;
+
+    public pacienteFicha = [];
+    public selectedDate: Date;
+    public addDescription: string;
+    public isEditing = false;
+    public editingId: number;
+
+    options: DatepickerOptions = {
+        displayFormat: 'DD/MM/YYYY',
+        locale: esLocale,
+        maxDate: new Date(Date.now()),
+        useEmptyBarTitle: false
+    }
 
     constructor(
         private patientService: HairdressingPatientService,
@@ -302,6 +318,84 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.phoneNumber = this.selectedPatient.phoneNumber;
         this.dni = this.selectedPatient.dni;
         $(".modal-editar-paciente").fadeIn();
+    }
+
+    showPacienteFicha(index: number) {
+        $(".modal-paciente").fadeIn();
+
+        if (index != -1) {
+            this.selectedPatient = this.patients[index];
+        }
+
+        this.loaderService.show();
+
+        let patient = new PatientFilter();
+        patient.Id = this.selectedPatient.id;
+
+        this.patientService.getMedicalRecords(patient).subscribe(res => {
+            this.pacienteFicha = res;
+
+            this.loaderService.hide();
+        });
+    }
+
+    deletePacienteFicha(index: number) {
+        this.loaderService.show();
+
+        let patient = new PatientFilter();
+        patient.Id = this.pacienteFicha[index].id;
+
+        this.patientService.removeMedicalRecord(patient).subscribe(res => {
+            this.pacienteFicha.splice(index, 1);
+
+            this.loaderService.hide();
+        });
+    }
+
+    addPacienteFicha(index: number) {
+        if (!this.isEditing) {
+            this.loaderService.show();
+
+            let patient = new PatientFicha();
+            patient.id = this.selectedPatient.id;
+            patient.description = this.addDescription;
+            patient.datetime = this.selectedDate.toJSON();
+
+            this.patientService.addMedicalRecord(patient).subscribe(res => {
+                this.addDescription = "";
+                this.showPacienteFicha(-1);
+            });
+        } else {
+            this.editFicha();
+        }
+    }
+
+    editPacienteFicha(index: number) {
+        this.addDescription = this.pacienteFicha[index].description;
+        this.selectedDate = this.pacienteFicha[index].dateTime;
+        this.editingId = this.pacienteFicha[index].id;
+        this.isEditing = true;
+    }
+
+    editFicha() {
+        this.loaderService.show();
+
+        let patient = new PatientFicha();
+        patient.id = this.editingId;
+        patient.description = this.addDescription;
+        if (typeof this.selectedDate !== "object") {
+            patient.datetime = String(this.selectedDate);
+        } else {
+            patient.datetime = this.selectedDate.toJSON();
+        }
+
+        this.isEditing = false;
+        this.editingId = null;
+
+        this.patientService.editMedicalRecord(patient).subscribe(res => {
+            this.addDescription = "";
+            this.showPacienteFicha(-1);
+        });
     }
 
     hideEditPatient(){

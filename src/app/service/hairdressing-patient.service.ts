@@ -7,6 +7,8 @@ import { RequestAppointmentClient } from '../model/request-appointment-client.cl
 import { HairdressingPatientFilter } from '../model/hairdressing-patient-filter.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { PatientFilter } from '../model/patient-filter.class';
+import { PatientFicha } from '../model/patient-ficha.class';
 
 @Injectable()
 export class HairdressingPatientService extends BaseService {
@@ -43,5 +45,21 @@ export class HairdressingPatientService extends BaseService {
 
     public getAllPatientsByFilter(filter: HairdressingPatientFilter): Observable<HairdressingPatient[]> {
         return this.post(this.url + "/GetByFilter", null, filter);
+    }
+
+    public getMedicalRecords(filter: PatientFilter): Observable<Object[]> {
+        return this.post(this.url + "/GetMedicalRecords", null, filter);
+    }
+
+    public removeMedicalRecord(filter: PatientFilter): Observable<Object> {
+        return this.post(this.url + "/RemoveMedicalRecord", null, filter);
+    }
+
+    public addMedicalRecord(ficha: PatientFicha): Observable<Object> {
+        return this.post(this.url + "/AddRecord", null, ficha);
+    }
+
+    public editMedicalRecord(ficha: PatientFicha): Observable<Object> {
+        return this.post(this.url + "/EditMedicalRecord", null, ficha);
     }
 }

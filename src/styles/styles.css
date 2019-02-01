@@ -3463,3 +3463,7 @@ a {
   height: 38px !important;
   border-radius: 6px;
 }
+
+.ngx-datepicker-calendar-container {
+  z-index: 100;
+}
