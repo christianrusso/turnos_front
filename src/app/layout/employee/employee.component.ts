@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseComponent } from '../../core/base.component';
-import { StatisticsService } from '../../service/statistics.service';
+import { EmployeeService } from '../../service/employee.service';
 import * as moment from 'moment';
 
 @Component({
@@ -10,24 +10,15 @@ import * as moment from 'moment';
 })
 export class EmployeeComponent extends BaseComponent {
 
-    public day;
-    public nrDay;
-    public month;
-    public statistics;
+    public employees = [];
     public rubro;
 
     constructor(
-        private statisticsService: StatisticsService,
+        private employeeService: EmployeeService,
     ){
         super();
 
-        this.day = moment().locale("es").format('dddd');
-        this.nrDay = moment().locale("es").date();
-        this.month = moment().locale("es").format("MMMM");
-
         this.rubro = sessionStorage.getItem("rubro");
-
-        this.getStatistics();
 
         $("a#empleado-panel").addClass('active');
         $("a#home-panel").removeClass('active');
@@ -38,17 +29,8 @@ export class EmployeeComponent extends BaseComponent {
         $("a#obrassocial-panel").removeClass('active');
     }
 
-    getStatistics() {
+    getEmployees() {
         if (this.rubro == 1) {
-            this.statisticsService.getAllStatistics().subscribe(res => {
-                this.statistics = res;
-                console.log(this.statistics);
-            });
-        } else if (this.rubro == 2) {
-            this.statisticsService.getAllStatisticsHairdress().subscribe(res => {
-                this.statistics = res;
-                console.log(this.statistics);
-            });
         }
     }
 }

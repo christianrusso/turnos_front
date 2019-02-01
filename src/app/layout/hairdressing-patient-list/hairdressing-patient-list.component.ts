@@ -60,6 +60,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public addDescription: string;
     public isEditing = false;
     public editingId: number;
+    public previousDate;
 
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
@@ -373,9 +374,14 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     editPacienteFicha(index: number) {
         this.addDescription = this.pacienteFicha[index].description;
+        this.previousDate = this.selectedDate;
         this.selectedDate = this.pacienteFicha[index].dateTime;
         this.editingId = this.pacienteFicha[index].id;
         this.isEditing = true;
+        if ($("#newFicha").not(":visible")) {
+            $("#newFicha").show();
+            $("#addFicha").html("-");
+        }
     }
 
     editFicha() {
@@ -389,6 +395,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         } else {
             patient.datetime = this.selectedDate.toJSON();
         }
+        this.selectedDate = this.previousDate;
+        this.previousDate = null;
 
         this.isEditing = false;
         this.editingId = null;
