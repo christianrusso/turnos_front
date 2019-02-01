@@ -3,4 +3,5 @@ export class RequestHairdressingAppointmentPatient {
     public time: string;
     public professionalId: number;
     public patientId: number;
+    public subspecialtyId: number;
 }

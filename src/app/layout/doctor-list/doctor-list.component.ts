@@ -29,6 +29,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public selectedDoctorName = '';
     public selectedDoctor: Doctor;
     public selectedDoctorWorkingHours = new Array<WorkingHour>();
+    public selectedDoctorSubspecialities = new Array<Subspecialty>();
 
     public specialtyOptions: Array<Select2OptionData>;
     public specialtyFilter: string;
@@ -76,6 +77,15 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public doctorSundayWhStart: string;
     public doctorSundayWhEnd: string;
 
+    public addProfessionalEnable = false;
+    public doctorSpecialities = [
+        {
+            doctorSpecialty: "",
+            doctorSubspecialty: "",
+            doctorConsultationLength: ""
+        }
+    ];
+
     public addDoctorEnable = false;
 
     constructor(
@@ -92,6 +102,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.getAllDoctorsByFilter();
         this.getAllSpecialties();
         this.getAllSubspecialties();
@@ -126,7 +137,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
             this.addDoctorEnable = res.length > 1;
             this.specialtyOptions = res;
             this.specialtyFilter = "-1";
-            this.specialtyOptionsDoctor = res.map(x => Object.assign({}, x));;
+            this.specialtyOptionsDoctor = res.map(x => Object.assign({}, x));
             this.specialtyOptionsDoctor.shift();
             this.doctorSpecialty = "-1";
             this.loaderService.hide();
@@ -226,6 +237,11 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.selectedDoctorWorkingHours = this.doctors[index].workingHours;
     }
 
+    showDoctorEspecialidades(index: number) {
+        $(".modal-especialidades").fadeIn();
+        this.selectedDoctorSubspecialities = this.doctors[index].subspecialties;
+    }
+
     editDoctor(index: number) {
         let doctor = this.doctors[index];
 
@@ -257,11 +273,22 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorId = doctor.id;
         this.doctorFirstName = doctor.firstName;
         this.doctorLastName = doctor.lastName;
-        const hours = Math.floor(doctor.consultationLength / 60);
-        const minutes = doctor.consultationLength % 60;
-        this.doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
-        this.doctorSpecialty = doctor.specialtyId.toString();
-        this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : "-1";
+        //this.doctorSpecialty = doctor.specialtyId.toString();
+        //this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : "-1";
+        this.doctorSpecialities = [];
+        this.doctors[index].subspecialties.forEach(sub => {
+            const hours = Math.floor(sub.consultationLength / 60);
+            const minutes = sub.consultationLength % 60;
+            const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+            this.doctorSpecialities.push(
+                {
+                    doctorSpecialty: sub.specialtyId.toString(),
+                    doctorSubspecialty: sub.subspecialtyId.toString(),
+                    doctorConsultationLength: doctorConsultationLength
+                }
+            );
+            this.specialtyChangeDoctor({value: sub.specialtyId.toString()});
+        });
 
         doctor.workingHours.forEach(wh => {
             switch (wh.dayNumber){
@@ -371,10 +398,17 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         let doctor = new Doctor();
         doctor.firstName = this.doctorFirstName;
         doctor.lastName = this.doctorLastName;
-        doctor.specialtyId = parseInt(this.doctorSpecialty)
-        doctor.subspecialtyId = subspecialtyId != -1 ? subspecialtyId : null;
-        const consultationLengthString = this.doctorConsultationLength.split(':');
-        doctor.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        doctor.subspecialties = [];
+        for (var i = 0; i < this.doctorSpecialities.length; i++) {
+            if (this.doctorSpecialities[i].doctorSpecialty != "" && this.doctorSpecialities[i].doctorSubspecialty != "" &&
+                this.doctorSpecialities[i].doctorConsultationLength != "") {
+                const consultationLengthString = this.doctorSpecialities[i].doctorConsultationLength.split(':');
+                let subSpec = new Subspecialty();
+                subSpec.subspecialtyId = parseInt(this.doctorSpecialities[i].doctorSubspecialty);
+                subSpec.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+                doctor.subspecialties.push(subSpec);
+            }
+        }
         doctor.workingHours = [];
 
         if (this.doctorMondayWorks) doctor.workingHours.push(this.getWorkingHourFromString(1, this.doctorMondayWhStart, this.doctorMondayWhEnd));
@@ -418,4 +452,22 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
          const minutesString = minutes < 10 ? '0' + minutes : minutes;
          return hoursString + ':' + minutesString; 
      }
+
+    addProfessionalSpeciality() {
+        let lastElementPosition = this.doctorSpecialities.length - 1;
+        if (this.doctorSpecialities[lastElementPosition].doctorSpecialty != "" &&
+            this.doctorSpecialities[lastElementPosition].doctorSubspecialty != "" &&
+            this.doctorSpecialities[lastElementPosition].doctorConsultationLength != "")
+            this.doctorSpecialities.push(
+                {
+                    doctorSpecialty: "",
+                    doctorSubspecialty: "",
+                    doctorConsultationLength: ""
+                }
+            );
+    }
+
+    removeProfessionalSpeciality(index) {
+        this.doctorSpecialities.splice(index, 1);
+    }
 }

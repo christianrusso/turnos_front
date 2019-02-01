@@ -7,6 +7,7 @@ import { HairdressingSpecialtyService } from '../../service/hairdressing.special
 import { HairdressingSubspecialtyService } from '../../service/hairdressing.subspecialty.service';
 import { IdFilter } from '../../model/id-filter.class';
 import { HairdressingProfessionalService } from '../../service/hairdressing.professional.service';
+import { HairdressingProfessionalFilter } from '../../model/hairdressing-professional-filter.class';
 import { GetHairdressingAppointment } from '../../model/get-hairdressing-appointment.class';
 import { HairdressingPatientService } from '../../service/hairdressing-patient.service';
 import { HairdressingPatient } from '../../model/hairdressing-patient.class';
@@ -53,9 +54,13 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public selectedProfessional: string;
     public selectedPatient: HairdressingPatient;
     public selectedClient: Client;
+    public selectedSubspecialty: number;
     public professionalOptions: Array<Select2OptionData>;
     public appointments = new Array<string>();
     public professionalOption: string;
+    public professionalSpecialties = [];
+    public professionalSubspecialties = [];
+    public professionalData;
 
     public firstName: string;
     public lastName: string;
@@ -119,6 +124,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").addClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.currentDate = new Date();
         this.startAt = new Date();
         this.currentMonday = this.getMondayOfWeek(this.currentDate);
@@ -371,18 +377,70 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     }
 
     dateChange(selection) {
-        this.professionalOption = null;
+        this.selectedProfessional = "";
+        this.professionalOption = "";
+        this.professionalSpecialties = [{}];
+        this.professionalSubspecialties = [{}];
         this.appointments = [];
+        this.selectedSubspecialty = null;
     }
 
     professionalChange(selection) {
         this.loaderService.show();
         this.selectedProfessional = selection.value;
-        let getAppointment = new GetHairdressingAppointment();
-        getAppointment.professionalId = parseInt(this.selectedProfessional);
-        getAppointment.day = this.selectedDate;
-        this.appointmentService.getAllAvailablesForDay(getAppointment).subscribe(res => {
-            this.appointments = [];
+        let filter = new HairdressingProfessionalFilter();
+        filter.id = selection.value;
+        this.professionalSpecialties = [{}];
+        this.professionalSubspecialties = [{}];
+        this.appointments = [];
+        this.selectedSubspecialty = null;
+        let repeated = [];
+        this.professionalService.getAllProfessionalsByFilter(filter).subscribe(res => {
+            this.professionalData = res;
+            res.forEach(doc =>{
+                doc.subspecialties.forEach(esp =>{
+                    if (repeated.indexOf(esp.specialtyId) === -1) {
+                        repeated.push(esp.specialtyId);
+                        this.professionalSpecialties.push(
+                            {
+                                specialtyId: esp.specialtyId,
+                                specialtyDescription: esp.specialtyDescription
+                            }
+                        );
+                    }
+                })
+            });
+            this.loaderService.hide();
+        });
+    }
+
+    professionalEspChange(selection) {
+        this.professionalSubspecialties = [{}];
+        this.selectedSubspecialty = null;
+        this.appointments = [];
+        this.professionalData.forEach(doc => {
+            doc.subspecialties.forEach(esp => {
+                if (esp.specialtyId == selection.value) {
+                    this.professionalSubspecialties.push(
+                        {
+                            id: esp.subspecialtyId,
+                            desc: esp.subspecialtyDescription
+                        }
+                    );
+                }
+            });
+        });
+    }
+
+    professionalSubespChange(selection) {
+        this.loaderService.show();
+        let appointment = new GetHairdressingAppointment();
+        appointment.subspecialtyId = selection.value;
+        appointment.professionalId = parseInt(this.selectedProfessional);
+        appointment.day = this.selectedDate;
+        this.appointments = [];
+        this.selectedSubspecialty = selection.value;
+        this.appointmentService.getAllAvailablesForDay(appointment).subscribe(res => {
             res.forEach(appointment => {
                 this.appointments.push(this.getHour(appointment));
             });
@@ -422,6 +480,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.day = this.selectedDate.toJSON();
         requestAppointment.time = this.selectedHour;
         requestAppointment.patientId = this.selectedPatient.id;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForPatient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();
@@ -447,6 +506,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.phoneNumber = this.phoneNumber;
         requestAppointment.dni = this.dni;
         requestAppointment.clientId = this.selectedClient.id;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForClient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();
@@ -469,6 +529,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.dni = this.dni;
         requestAppointment.email = this.email;
         requestAppointment.password = this.password;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForNonClient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();

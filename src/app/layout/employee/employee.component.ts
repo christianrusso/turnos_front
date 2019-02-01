@@ -5,10 +5,10 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    templateUrl: './employee.component.html',
+    styleUrls: ['./employee.component.css']
 })
-export class HomeComponent extends BaseComponent {
+export class EmployeeComponent extends BaseComponent {
 
     public day;
     public nrDay;
@@ -29,8 +29,8 @@ export class HomeComponent extends BaseComponent {
 
         this.getStatistics();
 
-        $("a#home-panel").addClass('active');
-        $("a#empleado-panel").removeClass('active');
+        $("a#empleado-panel").addClass('active');
+        $("a#home-panel").removeClass('active');
         $("a#medicos-panel").removeClass('active');
         $("a#especialidades-panel").removeClass('active');
         $("a#pacientes-panel").removeClass('active');

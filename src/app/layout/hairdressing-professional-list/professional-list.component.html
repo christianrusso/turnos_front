@@ -43,9 +43,8 @@
                             <tr>
                                 <th onclick="sortTable2(0)">Nombre y Apellido <i class="fa fa-sort-desc"></i></th>
                                 <th onclick="sortTable2(1)">Especialidad <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(2)">Sub Especialidad <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(3)">Estado <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(4)" class="text-center">Horario</th>
+                                <th onclick="sortTable2(2)">Estado <i class="fa fa-sort-desc"></i></th>
+                                <th onclick="sortTable2(3)" class="text-center">Horario</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -53,8 +52,7 @@
                         <tbody>
                             <tr *ngFor="let professional of professionals; let i = index">
                                 <td>{{ professional.lastName + ' ' + professional.firstName | truncate }}</td>
-                                <td>{{ professional.specialtyDescription | truncate }}</td>
-                                <td>{{ professional.subspecialtyDescription | truncate }}</td>
+                                <td><a class="link-modal-especialidades" (click)="showProfessionalEspecialidades(i)">VER MÁS</a></td>
                                 <td class="state" [ngClass]="professional.state ? 'active' : 'inactive'"><span></span>{{ professional.state ? 'Activo' : 'Inactivo' }}</td>
                                 <td align="center"><a class="link-modal-horarios" (click)="showProfessionalWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
                                 <td class="actions">
@@ -98,6 +96,28 @@
             
 </div>
 <!-- // modal horarios -->
+
+<!-- Modal Especialidades -->
+<div class="col-xs-12 modal-especialidades">
+    <div class="inside-modal-horarios col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-horarios col-xs-12">
+            <h2>Especialidades y Subespecialidades</h2>
+            <a class="close-modal-especialidades">X</a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%;" [hidden]="selectedProfessionalSubspecialities.length > 0">
+            <p style="text-align: center;">Este profesional no tiene especialidades asignadas.</p>
+        </div>
+
+        <div *ngFor="let sub of selectedProfessionalSubspecialities" style="margin: 0px; width: 100%;" [hidden]="selectedProfessionalSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%;">
+                <p>Especialidad: {{sub.specialtyDescription}} - Subespecialidad: {{sub.subspecialtyDescription}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- // modal especialidades -->
 
 <!-- Modal Eliminar Médico -->
 <div class="col-xs-12 modal-borrar-medico" (keyup.enter)="removeSelectedProfessional()">
@@ -173,7 +193,7 @@
                 <div *ngIf="i == (profesionalSpecialities.length - 1)" style="margin-right: 10px;">
                     <span class="glyphicon glyphicon-plus-sign" (click)="addProfessionalSpeciality()" style="color: green;"></span>
                 </div>
-                <div *ngIf="i > 0">
+                <div *ngIf="i > 0 || profesionalSpecialities.length > 1">
                     <span class="glyphicon glyphicon-minus-sign" (click)="removeProfessionalSpeciality(i)" style="color: red;"></span>
                 </div>
             </div>

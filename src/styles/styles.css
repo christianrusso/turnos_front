@@ -1650,7 +1650,7 @@ ul {
 .medicos-section .col-md-offset-1{
 }
 
-.modal-horarios, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .modal-informacion, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
+.modal-horarios, .modal-especialidades, .modal-paciente, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .modal-informacion, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
   position: absolute;
   z-index: 99;
   background: rgba(203, 208, 221, 0.7);
@@ -1905,7 +1905,7 @@ ul {
   font-size: 13.5px;
 }
 
-.close-modal-horarios,.close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-informacion, .close-modal-agregar-paciente, .close-modal-editar-paciente{
+.close-modal-horarios, .close-modal-especialidades, .close-modal-paciente, .close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-informacion, .close-modal-agregar-paciente, .close-modal-editar-paciente{
   position: absolute;
   top: 8px;
   right: 20px;
@@ -3462,4 +3462,8 @@ a {
 .select2-container .select2-selection--single {
   height: 38px !important;
   border-radius: 6px;
+}
+
+.ngx-datepicker-calendar-container {
+  z-index: 100;
 }

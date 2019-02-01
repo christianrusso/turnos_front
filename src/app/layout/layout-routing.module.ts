@@ -17,6 +17,7 @@ import { HairdressingSpecialtyListComponent } from './hairdressing-specialty-lis
 import { HairdressingPatientListComponent } from './hairdressing-patient-list/hairdressing-patient-list.component'
 import { HairdressingCalendarComponent } from './hairdressing-calendar/hairdressing-calendar.component';
 import {EditarComponent} from "./editar/editar.component";
+import { EmployeeComponent } from "./employee/employee.component";
 
 const routes: Routes = [
     {
@@ -38,6 +39,8 @@ const routes: Routes = [
             { path: 'HairdressingSpecialtyList', component: HairdressingSpecialtyListComponent },
             { path: 'HairdressingPatientList', component: HairdressingPatientListComponent },
             { path: 'HairdressingCalendar', component: HairdressingCalendarComponent },
+
+            { path: 'Employee', component: EmployeeComponent }
         ]
     }
 ];

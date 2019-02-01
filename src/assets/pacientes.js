@@ -166,6 +166,20 @@ $('a.close-borrar-paciente').click(function() {
   $(".modal-borrar-paciente").fadeOut();
 });
 
+$('a.close-modal-paciente').click(function() {
+    $(".modal-paciente").fadeOut();
+});
+
+$('#addFicha').click(function() {
+    if ($("#newFicha").is(":visible")) {
+        $("#newFicha").hide();
+        $("#addFicha").html("+");
+    } else {
+        $("#newFicha").show();
+        $("#addFicha").html("-");
+    }
+});
+
 
 $( document ).on( 'keydown', function ( e ) {
     if ( e.keyCode === 27 ) { // ESC

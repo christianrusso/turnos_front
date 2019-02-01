@@ -9,4 +9,5 @@ export class RequestAppointmentClient {
     public phoneNumber: string;
     public dni: string;
     public medicalPlanId: number;
+    public subspecialtyId: number;
 }

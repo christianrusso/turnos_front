@@ -232,6 +232,10 @@ $('a.close-modal-horarios').click(function() {
   $(".modal-horarios").fadeOut();
 });
 
+$('a.close-modal-especialidades').click(function() {
+    $(".modal-especialidades").fadeOut();
+});
+
 /***
   MODAL AGREGAR MEDICO
 ***/

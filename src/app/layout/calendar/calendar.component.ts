@@ -7,6 +7,7 @@ import { SpecialtyService } from '../../service/specialty.service';
 import { SubspecialtyService } from '../../service/subspecialty.service';
 import { IdFilter } from '../../model/id-filter.class';
 import { DoctorService } from '../../service/doctor.service';
+import { DoctorFilter } from '../../model/doctor-filter.class';
 import { GetAppointment } from '../../model/get-appointment.class';
 import { PatientService } from '../../service/patient.service';
 import { Patient } from '../../model/patient.class';
@@ -56,9 +57,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public selectedDoctor: string;
     public selectedPatient: Patient;
     public selectedClient: Client;
+    public selectedSubspecialty: number;
     public doctorOptions: Array<Select2OptionData>;
     public appointments = new Array<string>();
     public doctorOption: string;
+    public doctorSpecialties = [];
+    public doctorSubspecialties = [];
+    public doctorData;
 
     public firstName: string;
     public lastName: string;
@@ -126,6 +131,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").addClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.currentDate = new Date();
         this.startAt = new Date();
         this.currentMonday = this.getMondayOfWeek(this.currentDate);
@@ -408,14 +414,71 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         $(".modal-agregar-turno").fadeOut();
     }
 
+    dateChanged(selection) {
+        this.selectedDoctor = "";
+        this.doctorOption = "";
+        this.doctorSpecialties = [{}];
+        this.doctorSubspecialties = [{}];
+        this.appointments = [];
+        this.selectedSubspecialty = null;
+    }
+
     doctorChange(selection) {
         this.loaderService.show();
         this.selectedDoctor = selection.value;
-        let getAppointment = new GetAppointment();
-        getAppointment.doctorId = parseInt(this.selectedDoctor);
-        getAppointment.day = this.selectedDate;
-        this.appointmentService.getAllAvailablesForDay(getAppointment).subscribe(res => {
-            this.appointments = [];
+        let filter = new DoctorFilter();
+        filter.id = selection.value;
+        this.doctorSpecialties = [{}];
+        this.doctorSubspecialties = [{}];
+        this.appointments = [];
+        this.selectedSubspecialty = null;
+        let repeated = [];
+        this.doctorService.getAllDoctorsByFilter(filter).subscribe(res => {
+            this.doctorData = res;
+            res.forEach(doc =>{
+                doc.subspecialties.forEach(esp =>{
+                    if (repeated.indexOf(esp.specialtyId) === -1) {
+                        repeated.push(esp.specialtyId);
+                        this.doctorSpecialties.push(
+                            {
+                                specialtyId: esp.specialtyId,
+                                specialtyDescription: esp.specialtyDescription
+                            }
+                        );
+                    }
+                })
+            });
+            this.loaderService.hide();
+        });
+    }
+
+    doctorEspChange(selection) {
+        this.doctorSubspecialties = [{}];
+        this.selectedSubspecialty = null;
+        this.appointments = [];
+        this.doctorData.forEach(doc => {
+            doc.subspecialties.forEach(esp => {
+                if (esp.specialtyId == selection.value) {
+                    this.doctorSubspecialties.push(
+                        {
+                            id: esp.subspecialtyId,
+                            desc: esp.subspecialtyDescription
+                        }
+                    );
+                }
+            });
+        });
+    }
+
+    doctorSubespChange(selection) {
+        this.loaderService.show();
+        let appointment = new GetAppointment();
+        appointment.subspecialtyId = selection.value;
+        appointment.doctorId = parseInt(this.selectedDoctor);
+        appointment.day = this.selectedDate;
+        this.appointments = [];
+        this.selectedSubspecialty = selection.value;
+        this.appointmentService.getAllAvailablesForDay(appointment).subscribe(res => {
             res.forEach(appointment => {
                 this.appointments.push(this.getHour(appointment));
             });
@@ -454,6 +517,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.day = this.selectedDate.toJSON();
         requestAppointment.time = this.selectedHour;
         requestAppointment.patientId = this.selectedPatient.id;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForPatient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();
@@ -480,6 +544,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.dni = this.dni;
         requestAppointment.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
         requestAppointment.clientId = this.selectedClient.id;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForClient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();
@@ -503,6 +568,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
         requestAppointment.email = this.email;
         requestAppointment.password = this.password;
+        requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForNonClient(requestAppointment).subscribe(ok => {
             $(".modal-agregar-turno").fadeOut();

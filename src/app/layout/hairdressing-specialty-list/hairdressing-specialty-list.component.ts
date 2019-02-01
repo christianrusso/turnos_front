@@ -56,6 +56,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         $("a#pacientes-panel").removeClass('active');
         $("a#calendario-panel").removeClass('active');
         $("a#obrassocial-panel").removeClass('active');
+        $("a#empleado-panel").removeClass('active');
         this.selectedSpecialty = new Specialty();
         this.selectedSubspecialty = new Subspecialty();
         this.getSpecialtiesByLetter('*');

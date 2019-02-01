@@ -43,9 +43,8 @@
                             <tr>
                                 <th onclick="sortTable2(0)">Nombre y Apellido <i class="fa fa-sort-desc"></i></th>
                                 <th onclick="sortTable2(1)">Especialidad <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(2)">Sub Especialidad <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(3)">Estado <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable2(4)" class="text-center">Horario</th>
+                                <th onclick="sortTable2(2)">Estado <i class="fa fa-sort-desc"></i></th>
+                                <th onclick="sortTable2(3)" class="text-center">Horario</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -53,8 +52,7 @@
                         <tbody>
                             <tr *ngFor="let doctor of doctors; let i = index">
                                 <td>{{ doctor.firstName + ' ' + doctor.lastName | truncate }}</td>
-                                <td>{{ doctor.specialtyDescription | truncate }}</td>
-                                <td>{{ doctor.subspecialtyDescription | truncate }}</td>
+                                <td><a class="link-modal-especialidades" (click)="showDoctorEspecialidades(i)">VER MÁS</a></td>
                                 <td class="state" [ngClass]="doctor.state ? 'active' : 'inactive'"><span></span>{{ doctor.state ? 'Activo' : 'Inactivo' }}</td>
                                 <td align="center"><a class="link-modal-horarios" (click)="showDoctorWorkingHours(i)"><i class="fa fa-eye"></i></a></td>
                                 <td class="actions">
@@ -98,6 +96,28 @@
             
 </div>
 <!-- // modal horarios -->
+
+<!-- Modal Especialidades -->
+<div class="col-xs-12 modal-especialidades">
+    <div class="inside-modal-horarios col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-horarios col-xs-12">
+            <h2>Especialidades y Subespecialidades</h2>
+            <a class="close-modal-especialidades">X</a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length > 0">
+            <p style="text-align: center;">Este medico no tiene especialidades asignadas.</p>
+        </div>
+
+        <div *ngFor="let sub of selectedDoctorSubspecialities" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%;">
+                <p>Especialidad: {{sub.specialtyDescription}} - Subespecialidad: {{sub.subspecialtyDescription}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- // modal especialidades -->
 
 <!-- Modal Eliminar Médico -->
 <div class="col-xs-12 modal-borrar-medico" (keyup.enter)="removeSelectedDoctor()">
@@ -150,27 +170,37 @@
                 <h3>Datos profesionales</h3>
             </div>
 
-            <div class="col-xs-12 col-sm-8">
-                <ng-select2 [data]="specialtyOptionsDoctor" [value]="doctorSpecialty" (valueChanged)="specialtyChangeDoctor($event)" [options]="{placeholder: 'Especialidad'}" name="especialidad-medico-modal" lang="es"></ng-select2>
-            </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1" style="display: flex;" *ngFor="let speciality of doctorSpecialities; let i = index;">
 
-            <div class="col-xs-12 col-sm-4">
-            </div>
+                <div style="margin-right: 10px;">
+                    <ng-select2 [data]="specialtyOptionsDoctor" [(ngModel)]="doctorSpecialities[i].doctorSpecialty" (valueChanged)="specialtyChangeDoctor($event)" [options]="{placeholder: 'Especialidad'}" name="especialidad-medico-modal" lang="es"></ng-select2>
+                </div>
 
-            <div class="col-xs-12 col-sm-8">
-                <ng-select2 [data]="subspecialtyOptionsDoctor" [value]="doctorSubspecialty" (valueChanged)="subspecialtyChangeDoctor($event)" [options]="{placeholder: 'Subespecialidad'}" name="subespecialidad-medico-modal" lang="es"></ng-select2>
+                <div style="margin-right: 10px;">
+                    <ng-select2 [data]="subspecialtyOptionsDoctor" [(ngModel)]="doctorSpecialities[i].doctorSubspecialty" (valueChanged)="subspecialtyChangeDoctor($event)" [options]="{placeholder: 'Subespecialidad'}" name="subespecialidad-medico-modal" lang="es"></ng-select2>
+                </div>
+
+                <div class="cl-container" style="margin-right: 10px;">
+                    <!--<div class="col-xs-12 col-sm-4">
+                        <h3>Duración de consulta</h3>
+                    </div>-->
+                    <div>
+                        <input class="time-input" type="time" [(ngModel)]="doctorSpecialities[i].doctorConsultationLength" style="height: 38px;">
+                    </div>
+                </div>
+
+                <div class="cl-container" style="display: flex; margin-top: 10px;">
+                    <div *ngIf="i == (doctorSpecialities.length - 1)" style="margin-right: 10px;">
+                        <span class="glyphicon glyphicon-plus-sign" (click)="addProfessionalSpeciality()" style="color: green;"></span>
+                    </div>
+                    <div *ngIf="i > 0 || doctorSpecialities.length > 1">
+                        <span class="glyphicon glyphicon-minus-sign" (click)="removeProfessionalSpeciality(i)" style="color: red;"></span>
+                    </div>
+                </div>
+
             </div>
             
         </div>
-
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 cl-container">
-                <div class="col-xs-12 col-sm-4">
-                    <h3>Duración de consulta</h3>
-                </div>
-                <div class="col-xs-12 col-sm-8">
-                    <input class="time-input" type="time" [(ngModel)]="doctorConsultationLength">
-                </div>
-            </div>
 
 
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">

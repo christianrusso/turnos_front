@@ -42,6 +42,7 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { AppointmentConfirmationComponent } from './appointment-confirmation/appointment-confirmation.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MedicalInsuranceComponent } from './medical-insurance-list/medical-insurance-list.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 //hairdressing
 import { HairdressingProfessionalListComponent } from './hairdressing-professional-list/professional-list.component';
@@ -77,6 +78,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         DoctorListComponent,
         AppointmentConfirmationComponent,
         CalendarComponent,
+        EmployeeComponent,
         MedicalInsuranceComponent,
         TruncatePipe,
         SafeHtml,
