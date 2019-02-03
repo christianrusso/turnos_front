@@ -391,7 +391,7 @@ export class EditarComponent extends BaseComponent {
                     this.layoutComponent.logo = this.logo;
                 }
             });
-        } else if (this.rubro == 2) {
+        } else {
             this.hairdressingService.sendClinicData(data).subscribe(res => {
                 this.newPassword = "";
                 this.oldPassword = "";

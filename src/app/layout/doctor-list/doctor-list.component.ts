@@ -40,7 +40,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public butttonLabel: string;
 
     public specialtyOptionsDoctor: Array<Select2OptionData>;
-    public subspecialtyOptionsDoctor: Array<Select2OptionData>;
+    public subspecialtyOptionsDoctor = [];
 
     public doctorId: number;
     public doctorFirstName: string;
@@ -276,6 +276,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         //this.doctorSpecialty = doctor.specialtyId.toString();
         //this.doctorSubspecialty = doctor.subspecialtyId != null ? doctor.subspecialtyId.toString() : "-1";
         this.doctorSpecialities = [];
+        let count = 0;
         this.doctors[index].subspecialties.forEach(sub => {
             const hours = Math.floor(sub.consultationLength / 60);
             const minutes = sub.consultationLength % 60;
@@ -287,7 +288,8 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
                     doctorConsultationLength: doctorConsultationLength
                 }
             );
-            this.specialtyChangeDoctor({value: sub.specialtyId.toString()});
+            this.specialtyChangeDoctor({value: sub.specialtyId.toString()}, count);
+            count++;
         });
 
         doctor.workingHours.forEach(wh => {
@@ -363,19 +365,18 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         }
     }
 
-    specialtyChangeDoctor(selection) {
+    specialtyChangeDoctor(selection, index) {
         this.loaderService.show();
         this.doctorSpecialty = selection.value;
         let filter = new IdFilter();
         filter.id = this.doctorSpecialty != null ? parseInt(this.doctorSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
-            this.subspecialtyOptionsDoctor = res;
-            this.subspecialtyOptionsDoctor[0].text = 'Ninguna';
+            this.subspecialtyOptionsDoctor[index] = res;
             this.loaderService.hide();
         });
     }
 
-    subspecialtyChangeDoctor(selection) {
+    subspecialtyChangeDoctor(selection, index) {
         this.doctorSubspecialty = selection.value;
 
         if (sessionStorage.getItem("doctorId") != null) {
@@ -389,7 +390,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
 
         const hours = Math.floor(consultationLength / 60);
         const minutes = consultationLength % 60;
-        this.doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        this.doctorSpecialities[index].doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
     }
 
     addDoctor() {

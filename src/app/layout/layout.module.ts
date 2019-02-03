@@ -24,6 +24,7 @@ import { DataService } from '../service/data.service';
 import { ClinicService } from '../service/clinic.service';
 import { HairdressingService } from '../service/hairdressing.service';
 import { ImageCropperModule } from '../imagecropper';
+import { EmployeeService } from '../service/employee.service';
 
 //Servicios - Hairdressing
 import { HairdressingProfessionalService } from '../service/hairdressing.professional.service';
@@ -103,6 +104,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         StatisticsService,
         HairdressingService,
         ClinicService,
+        EmployeeService,
 
         HairdressingProfessionalService,
         HairdressingSpecialtyService,

@@ -69,6 +69,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public addDescription: string;
     public isEditing = false;
     public editingId: number;
+    public previousDate;
 
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
@@ -411,9 +412,14 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     editPacienteFicha(index: number) {
         this.addDescription = this.pacienteFicha[index].description;
+        this.previousDate = this.selectedDate;
         this.selectedDate = this.pacienteFicha[index].dateTime;
         this.editingId = this.pacienteFicha[index].id;
         this.isEditing = true;
+        if ($("#newFicha").not(":visible")) {
+            $("#newFicha").show();
+            $("#addFicha").html("-");
+        }
     }
 
     editFicha() {
@@ -427,6 +433,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         } else {
             patient.datetime = this.selectedDate.toJSON();
         }
+        this.selectedDate = this.previousDate;
+        this.previousDate = null;
 
         this.isEditing = false;
         this.editingId = null;

@@ -38,7 +38,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     public butttonLabel: string;
 
     public specialtyOptionsProfessional: Array<Select2OptionData>;
-    public subspecialtyOptionsProfessional: Array<Select2OptionData>;
+    public subspecialtyOptionsProfessional = [];
 
     public professionalId: number;
     public professionalFirstName: string;
@@ -278,6 +278,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.professionalLastName = professional.lastName;
 
         this.profesionalSpecialities = [];
+        let count = 0;
         this.professionals[index].subspecialties.forEach(sub => {
             const hours = Math.floor(sub.consultationLength / 60);
             const minutes = sub.consultationLength % 60;
@@ -289,7 +290,8 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
                     professionalConsultationLength: doctorConsultationLength
                 }
             );
-            this.specialtyChangeProfessional({value: sub.specialtyId.toString()});
+            this.specialtyChangeProfessional({value: sub.specialtyId.toString()}, count);
+            count++;
         });
 
         professional.workingHours.forEach(wh => {
@@ -365,19 +367,18 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         }
     }
 
-    specialtyChangeProfessional(selection) {
+    specialtyChangeProfessional(selection, index) {
         this.loaderService.show();
         this.professionalSpecialty = selection.value;
         let filter = new IdFilter();
         filter.id = this.professionalSpecialty != null ? parseInt(this.professionalSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
-            this.subspecialtyOptionsProfessional = res;
-            this.subspecialtyOptionsProfessional[0].text = 'Ninguna';
+            this.subspecialtyOptionsProfessional[index] = res;
             this.loaderService.hide();
         });
     }
 
-    subspecialtyChangeProfessional(selection) {
+    subspecialtyChangeProfessional(selection, index) {
         this.professionalSubspecialty = selection.value;
 
         if (sessionStorage.getItem("hairdressingProfessionalId") != null) {
@@ -391,7 +392,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
         const hours = Math.floor(consultationLength / 60);
         const minutes = consultationLength % 60;
-        this.professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        this.profesionalSpecialities[index].professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
     }
 
     addProfessional() {
