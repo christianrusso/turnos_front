@@ -44,7 +44,7 @@ export class HomeComponent extends BaseComponent {
                 this.statistics = res;
                 console.log(this.statistics);
             });
-        } else if (this.rubro == 2) {
+        } else {
             this.statisticsService.getAllStatisticsHairdress().subscribe(res => {
                 this.statistics = res;
                 console.log(this.statistics);

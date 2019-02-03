@@ -30,7 +30,5 @@ export class EmployeeComponent extends BaseComponent {
     }
 
     getEmployees() {
-        if (this.rubro == 1) {
-        }
     }
 }
