@@ -30,7 +30,7 @@ import * as esLocale from 'date-fns/locale/es';
 import { ClientFilter } from '../../model/client-filter.class';
 declare var jsPDF: any; // Important
 
-import { TouchSequence } from 'selenium-webdriver';
+import { TouchSequence, FileDetector } from 'selenium-webdriver';
 @Component({
     selector: 'app-hairdressing-calendar',
     templateUrl: './hairdressing-calendar.component.html',
@@ -89,7 +89,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public searchClientFilter = new ClientFilter();
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../assets/calendario.js');
+        await this.loadScript('../panel/assets/calendario.js');
     }
 
     public days: Array<string>;
@@ -286,6 +286,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     nextDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() + 1);
         this.getCurrentDateAppointments();
+        console.log(this.currentDate);
     }
 
     previousDay(): void {
@@ -309,6 +310,9 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         this.loaderService.show();
         let filter = new AppointmentFilter();
         filter.day = this.currentDate;
+
+        console.log("aca va el filter.day");
+        console.log(filter.day);
         filter.specialtyId = this.specialtyFilter != "-1" ? parseInt(this.specialtyFilter) : null;
         filter.subSpecialtyId = this.subspecialtyFilter != "-1" ? parseInt(this.subspecialtyFilter) : null;
         this.appointmentService.getRequestedAppointmentsByFilter(filter).subscribe(res => {

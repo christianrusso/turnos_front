@@ -49,6 +49,7 @@ export class HairdressingAppointmentService extends BaseService {
     }
 
     public getRequestedAppointmentsByFilter(appointmentFilter: AppointmentFilter): Observable<RequestedHairdressingAppointments[]> {
+        console.log(appointmentFilter);
         return this.post(this.url + '/GetRequestedAppointmentsByFilter', null, appointmentFilter);
     }
 
