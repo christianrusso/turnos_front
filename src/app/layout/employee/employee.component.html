@@ -9,23 +9,11 @@
             <div class="col-xs-12 listado-menu-2">
                 <h1 class="col-xxs-12 col-xs-12 col-sm-12">Listado de Empleados</h1>
 
-                <!--<div class="menu-medicos col-xs-12 col-sm-12">
-                    <form class="col-sm-8">
-                        <div class="form-group">
-                            <label for="">Especialidad</label>
-                            <ng-select2 [data]="specialtyOptions" [value]="-1" (valueChanged)="specialtyChange($event)" name="especialidad-medico-seccion" lang="es">
-                            </ng-select2>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="">Sub especialidad</label>
-                            <ng-select2 [data]="subspecialtyOptions" [value]="-1" (valueChanged)="subspecialtyChange($event)" name="subespecialidad-medico-seccion" lang="es"></ng-select2>
-                        </div>
-                    </form>
-                    <div class="menu-acciones desk col-xs-12 col-sm-4">
-                        <a id="agregar-medico" [ngClass]="{'btn-disabled' : !addDoctorEnable}" (click)="addDoctorEnable && showAddDoctor()">Agregar médico</a>
+                <div class="menu-medicos col-xs-12 col-sm-12">
+                    <div class="menu-acciones desk col-xs-12 col-sm-12">
+                        <a id="agregar-medico" (click)="showModalAdd()">Agregar Empleado</a>
                     </div>
-                </div>-->
+                </div>
 
 
 
@@ -46,9 +34,9 @@
 
                         <tbody>
                         <tr *ngFor="let emp of employees; let i = index">
-                            <td></td>
+                            <td>{{emp.email}}</td>
                             <td class="actions">
-                                <a class="borrar-med"><i class="fa fa-trash"></i></a>
+                                <a class="borrar-med" (click)="removeEmployee(emp.email)"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -61,3 +49,29 @@
     </div>
 
 </section>
+
+<!-- Modal Agregar Empleado -->
+<div class="col-xs-12 modal-empleado">
+    <div class="inside-modal-horarios col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-horarios col-xs-12">
+            <h2>Empleado</h2>
+            <a class="close-modal-empleado">X</a>
+        </div>
+
+        <div class="listado-menu-2" style="margin: 5px; margin-top: 30px;" id="newFicha">
+            <div>
+                <label>Email</label><br>
+                <input type="text" id="email" name="email" [(ngModel)]="email" style="width: 100%;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label>Password</label><br>
+                <input type="password" id="pass" name="pass" [(ngModel)]="password" style="width: 100%;">
+            </div>
+            <div class="menu-acciones">
+                <a (click)="addEmployee()">ENVIAR</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- // modal Agregar Empleado -->

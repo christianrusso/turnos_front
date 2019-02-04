@@ -9,9 +9,9 @@ import { ClientFilter } from '../model/client-filter.class';
 import { Employee } from '../model/employee.class';
 
 @Injectable()
-export class EmployeeService extends BaseService {
+export class HairdressingEmployeeService extends BaseService {
 
-    private url = '/Employee';
+    private url = '/HairdressingEmployee';
 
     constructor(
         protected httpClient: HttpClient,
