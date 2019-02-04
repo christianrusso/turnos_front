@@ -32,6 +32,7 @@ import { HairdressingSpecialtyService } from '../service/hairdressing.specialty.
 import { HairdressingSubspecialtyService } from '../service/hairdressing.subspecialty.service';
 import { HairdressingPatientService } from '../service/hairdressing-patient.service';
 import { HairdressingAppointmentService } from '../service/hairdressing-appointment.service';
+import { HairdressingEmployeeService } from '../service/hairdressing.employee.service';
 
 // Pantallas y componentes
 import { LayoutComponent } from './layout.component';
@@ -105,6 +106,7 @@ import { SafeHtml } from '../pipe/safe-html.pipe';
         HairdressingService,
         ClinicService,
         EmployeeService,
+        HairdressingEmployeeService,
 
         HairdressingProfessionalService,
         HairdressingSpecialtyService,
