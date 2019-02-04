@@ -86,7 +86,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
     showAddSpecialty() {
         this.loaderService.show()
         this.specialtyOptions = [];
-        this.dataService.getSpecialtiesForSelect({id:2}).subscribe(res => {
+        this.dataService.getSpecialtiesForSelect({id:sessionStorage.getItem("rubro")}).subscribe(res => {
             this.specialtyOptions = res;
             this.loaderService.hide();
             $(".modal-nueva-especialidad").fadeIn();
