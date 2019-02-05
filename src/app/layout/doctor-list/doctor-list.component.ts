@@ -371,6 +371,11 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         let filter = new IdFilter();
         filter.id = this.doctorSpecialty != null ? parseInt(this.doctorSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].id == "-1") {
+                    res.splice(i, 1);
+                }
+            }
             this.subspecialtyOptionsDoctor[index] = res;
             this.loaderService.hide();
         });
@@ -469,6 +474,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     }
 
     removeProfessionalSpeciality(index) {
+        this.subspecialtyOptionsDoctor.splice(index, 1);
         this.doctorSpecialities.splice(index, 1);
     }
 }

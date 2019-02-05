@@ -373,6 +373,11 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         let filter = new IdFilter();
         filter.id = this.professionalSpecialty != null ? parseInt(this.professionalSpecialty) : -1;
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
+            for (let i = 0; i < res.length; i++) {
+                if (res[i].id == "-1") {
+                    res.splice(i, 1);
+                }
+            }
             this.subspecialtyOptionsProfessional[index] = res;
             this.loaderService.hide();
         });
@@ -471,6 +476,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
      }
 
      removeProfessionalSpeciality(index) {
+        this.subspecialtyOptionsProfessional.splice(index, 1);
         this.profesionalSpecialities.splice(index, 1);
      }
 }
