@@ -109,9 +109,14 @@
             <p style="text-align: center;">Este profesional no tiene especialidades asignadas.</p>
         </div>
 
-        <div *ngFor="let sub of selectedProfessionalSubspecialities" style="margin: 0px; width: 100%;" [hidden]="selectedProfessionalSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
-            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%;">
-                <p>Especialidad: {{sub.specialtyDescription}} - Subespecialidad: {{sub.subspecialtyDescription}}</p>
+        <div *ngFor="let sub of selectedProfessionalSubspecialities; let i = index;" style="margin: 0px; width: 100%;" [hidden]="selectedProfessionalSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%; display: flex;">
+                <div style="width: 50%;">
+                    <b>{{selectedProfessionalSubspecialities[i][0].specialtyDescription}} </b>
+                </div>
+                <div style="width: 50%;">
+                    <p *ngFor="let subesp of selectedProfessionalSubspecialities[i]">{{subesp.subspecialtyDescription}}</p>
+                </div>
             </div>
         </div>
     </div>

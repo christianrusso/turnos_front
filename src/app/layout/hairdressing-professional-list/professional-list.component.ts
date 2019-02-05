@@ -27,7 +27,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     public selectedProfessionalName = '';
     public selectedProfessional: HairdressingProfessional;
     public selectedProfessionalWorkingHours = new Array<WorkingHour>();
-    public selectedProfessionalSubspecialities = new Array<Subspecialty>();
+    public selectedProfessionalSubspecialities = new Array();
 
     public specialtyOptions: Array<Select2OptionData>;
     public specialtyFilter: string;
@@ -242,7 +242,16 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
     showProfessionalEspecialidades(index: number) {
         $(".modal-especialidades").fadeIn();
-        this.selectedProfessionalSubspecialities = this.professionals[index].subspecialties;
+        this.selectedProfessionalSubspecialities = [];
+        for (let i = 0; i < this.professionals[index].subspecialties.length; i++) {
+            if (!this.selectedProfessionalSubspecialities[this.professionals[index].subspecialties[i].specialtyId]) {
+                this.selectedProfessionalSubspecialities[this.professionals[index].subspecialties[i].specialtyId] = new Array();
+            }
+        }
+        for (let i = 0; i < this.professionals[index].subspecialties.length; i++) {
+            this.selectedProfessionalSubspecialities[this.professionals[index].subspecialties[i].specialtyId].push(this.professionals[index].subspecialties[i]);
+        }
+        this.selectedProfessionalSubspecialities.splice(0, 1);
     }
 
     editProfessional(index: number) {

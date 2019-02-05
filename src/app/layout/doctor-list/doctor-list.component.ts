@@ -29,7 +29,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public selectedDoctorName = '';
     public selectedDoctor: Doctor;
     public selectedDoctorWorkingHours = new Array<WorkingHour>();
-    public selectedDoctorSubspecialities = new Array<Subspecialty>();
+    public selectedDoctorSubspecialities = new Array();
 
     public specialtyOptions: Array<Select2OptionData>;
     public specialtyFilter: string;
@@ -239,7 +239,16 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
 
     showDoctorEspecialidades(index: number) {
         $(".modal-especialidades").fadeIn();
-        this.selectedDoctorSubspecialities = this.doctors[index].subspecialties;
+        this.selectedDoctorSubspecialities = [];
+        for (let i = 0; i < this.doctors[index].subspecialties.length; i++) {
+            if (!this.selectedDoctorSubspecialities[this.doctors[index].subspecialties[i].specialtyId]) {
+                this.selectedDoctorSubspecialities[this.doctors[index].subspecialties[i].specialtyId] = new Array();
+            }
+        }
+        for (let i = 0; i < this.doctors[index].subspecialties.length; i++) {
+            this.selectedDoctorSubspecialities[this.doctors[index].subspecialties[i].specialtyId].push(this.doctors[index].subspecialties[i]);
+        }
+        this.selectedDoctorSubspecialities.splice(0, 1);
     }
 
     editDoctor(index: number) {
