@@ -3,4 +3,6 @@ export class Appointment {
     public hour: Date;
     public patient: string;
     public state: number;
+    public specialty: string;
+    public subspecialty: string;
 }

@@ -105,6 +105,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     public searchClientFilter = new ClientFilter();
 
+    public isDay = false;
+
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
         locale: esLocale,
@@ -603,11 +605,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     }
 
     showCalendarDay() {
+        this.isDay = true;
         $(".semana-calendario").hide();
         $(".dia-calendario").show();
     }
 
     showCalendarWeek() {
+        this.isDay = false;
         $(".dia-calendario").hide();
         $(".semana-calendario").show();
     }
@@ -667,7 +671,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
                 element.requestedAppointmentsPerHour.forEach(paciente => {
                     paciente.appointments.forEach(hour => {
                         var fecha = new Date(hour.hour);
-                       rows.push([hour.patient,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
+                       rows.push([hour.patient + " - " + hour.specialty + " - " + hour.subspecialty,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
                     });                                
                 });
                // rows.push(row2);   
