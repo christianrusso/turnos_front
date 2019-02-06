@@ -26,6 +26,10 @@ export class SubspecialtyService extends BaseService {
         return this.post(this.url + '/Add', null, subspecialty);
     }
 
+    public edit(subspecialty: Subspecialty): Observable<Object> {
+        return this.post(this.url + '/Edit', null, subspecialty);
+    }
+
     public remove(subspecialty: Subspecialty): Observable<Object> {
         return this.post(this.url + '/Remove', null, subspecialty);
     }
