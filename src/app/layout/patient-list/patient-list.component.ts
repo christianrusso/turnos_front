@@ -418,7 +418,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.isEditing = true;
         if ($("#newFicha").not(":visible")) {
             $("#newFicha").show();
-            $("#addFicha").html("-");
+            $("#addFicha").html("VER TODAS LAS FICHAS");
         }
     }
 

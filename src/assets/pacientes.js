@@ -173,10 +173,10 @@ $('a.close-modal-paciente').click(function() {
 $('#addFicha').click(function() {
     if ($("#newFicha").is(":visible")) {
         $("#newFicha").hide();
-        $("#addFicha").html("+");
+        $("#addFicha").html("AGREGAR FICHA NUEVA");
     } else {
         $("#newFicha").show();
-        $("#addFicha").html("-");
+        $("#addFicha").html("VER TODAS LAS FICHAS");
     }
 });
 
