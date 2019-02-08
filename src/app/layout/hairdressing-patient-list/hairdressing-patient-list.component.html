@@ -132,7 +132,7 @@
                 </tr>
                 <tr *ngFor="let ficha of pacienteFicha; let i = index;">
                     <td class="itemFichaTable"><span>{{ficha.dateTime | date:'dd/MM/yyyy'}}</span></td>
-                    <td class="itemFichaTable"><span>{{ficha.description}}</span></td>
+                    <td class="itemFichaTable"><span>{{ (ficha.description.length>25)? (ficha.description | slice:0:25)+'..':(ficha.description) }}</span></td>
                     <td><a (click)="editPacienteFicha(i)"><i class="fa fa-pencil" style="color: black;"></i></a></td>
                     <td><a (click)="deletePacienteFicha(i)"><i class="fa fa-trash" style="color: black;"></i></a></td>
                 </tr>
