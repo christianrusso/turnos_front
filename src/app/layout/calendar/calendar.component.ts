@@ -941,7 +941,6 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
                 }
             }
             this.loaderService.hide();
-            console.log(this.doctorSubspecialitiesMessage);
         });
     }
 }

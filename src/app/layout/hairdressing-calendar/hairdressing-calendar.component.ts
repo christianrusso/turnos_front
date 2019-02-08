@@ -109,6 +109,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public professionalSubspecialtiesToBlock: Array<Select2OptionData>;
     public professionalSubspecialtyToBlock;
     public professionalSubspecialtyToUnblock;
+    public professionalSubspecialitiesMessage = [];
 
     constructor (
         private appointmentService: HairdressingAppointmentService,
@@ -291,11 +292,13 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     nextDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() + 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     previousDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() - 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     nextWeek(): void {
@@ -572,6 +575,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         this.isDay = true;
         $(".semana-calendario").hide();
         $(".dia-calendario").show();
+
+        this.getBlocked();
     }
 
     showCalendarWeek() {
@@ -836,6 +841,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
             this.toastrService.success('Subespecialidad del profesional ' + this.professionalDataToBlock[0].firstName + ' ' + this.professionalDataToBlock[0].lastName + ' bloqueada para el día indicado.');
             this.loaderService.hide();
             this.professionalSubspecialtyToBlock = null;
+            this.getBlocked();
             $(".modal-bloquear-especialidad").fadeOut();
         });
     }
@@ -852,7 +858,32 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
             this.toastrService.success('Subespecialidad del profesional ' + this.professionalDataToBlock[0].firstName + ' ' + this.professionalDataToBlock[0].lastName + ' desbloqueada para el día indicado.');
             this.loaderService.hide();
             this.professionalSubspecialtyToUnblock = null;
+            this.getBlocked();
             $(".modal-bloquear-especialidad").fadeOut();
+        });
+    }
+
+    getBlocked() {
+        this.loaderService.show();
+
+        this.professionalSubspecialitiesMessage = [];
+
+        const filter = new HairdressingProfessionalFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.professionalService.getBlocked(filter).subscribe(res => {
+            for (let i = 0; i < res.length; i++) {
+                if(typeof this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] == 'undefined') {
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = "";
+                }
+                if (this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] == "") {
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = res[i].subspecialtyDescription;
+                } else {
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] += ", " + res[i].subspecialtyDescription;
+                }
+            }
+            this.loaderService.hide();
+            console.log(res);
         });
     }
 }

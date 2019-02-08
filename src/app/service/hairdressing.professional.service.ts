@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
 import { HairdressingProfessional } from '../model/hairdressing-professional.class';
 import { HairdressingProfessionalFilter } from '../model/hairdressing-professional-filter.class';
+import { HairdressingProfessionalBlockedSubspecialty } from '../model/hairdressingProfessionalBlockedSubspecialty.class';
 import { SelectOption } from '../model/select/select-option.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -51,5 +52,9 @@ export class HairdressingProfessionalService extends BaseService {
 
     public unblockDay(filter: HairdressingProfessionalFilter): Observable<HairdressingProfessional[]> {
         return this.post(this.url + "/UnblockDay", null, filter);
+    }
+
+    public getBlocked(filter: HairdressingProfessionalFilter): Observable<HairdressingProfessionalBlockedSubspecialty[]> {
+        return this.post(this.url + "/GetProfessionalBlockedSubspecialties", null, filter);
     }
 }
