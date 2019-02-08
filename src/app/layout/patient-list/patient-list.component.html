@@ -111,7 +111,7 @@
         </div>
 
         <div style="width: 100%; text-align: center;">
-            <button id="addFicha" style="cursor: pointer; background-color: #0059fe; color: white; font-family: sf_ui_displaybold; font-size: 12px; border-radius: 5px; padding: 9px; width: 85%;">AGREGAR FICHA NUEVA</button>
+            <button (click)="fichaOpenClose()" id="addFicha" style="cursor: pointer; background-color: #0059fe; color: white; font-family: sf_ui_displaybold; font-size: 12px; border-radius: 5px; padding: 9px; width: 85%;">AGREGAR FICHA NUEVA</button>
         </div>
 
         <div class="listado-menu-2" style="margin-left: 8%; display: none; margin-top: 20px;" id="newFicha">
@@ -128,15 +128,15 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length > 0">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length > 0 || fichaOpenForm">
             <p style="text-align: center;">Este paciente no posee registros.</p>
         </div>
 
-        <div [hidden]="pacienteFicha.length == 0" style="text-align: center; margin-top: 20px;">
+        <div [hidden]="pacienteFicha.length == 0 || fichaOpenForm" style="text-align: center; margin-top: 20px;">
             <table style="width: 85%; margin-left: 7.5%;">
                 <tr style="background-color: #f2f2f2; height: 34px;">
                     <td class="headFichaTable">FECHA</td>
-                    <td class="headFichaTable">DESCRIPCIÓN</td>
+                    <td class="headFichaTable" style="width: 30%;">DESCRIPCIÓN</td>
                     <td class="headFichaTable">EDITAR</td>
                     <td class="headFichaTable">ELIMINAR</td>
                 </tr>

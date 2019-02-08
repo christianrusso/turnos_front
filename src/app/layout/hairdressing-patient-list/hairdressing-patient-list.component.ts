@@ -69,6 +69,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         useEmptyBarTitle: false
     }
 
+    fichaOpenForm = false;
+
     constructor(
         private patientService: HairdressingPatientService,
         private clientService: ClientService,
@@ -380,7 +382,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.isEditing = true;
         if ($("#newFicha").not(":visible")) {
             $("#newFicha").show();
-            $("#addFicha").html("-");
+            $("#addFicha").html("VER TODAS LAS FICHAS");
+            this.fichaOpenForm = true;
         }
     }
 
@@ -469,5 +472,17 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
         });
+    }
+
+    fichaOpenClose() {
+        if ($("#newFicha").is(":visible")) {
+            $("#newFicha").hide();
+            $("#addFicha").html("AGREGAR FICHA NUEVA");
+            this.fichaOpenForm = false;
+        } else {
+            $("#newFicha").show();
+            $("#addFicha").html("VER TODAS LAS FICHAS");
+            this.fichaOpenForm = true;
+        }
     }
 }

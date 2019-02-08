@@ -170,16 +170,6 @@ $('a.close-modal-paciente').click(function() {
     $(".modal-paciente").fadeOut();
 });
 
-$('#addFicha').click(function() {
-    if ($("#newFicha").is(":visible")) {
-        $("#newFicha").hide();
-        $("#addFicha").html("AGREGAR FICHA NUEVA");
-    } else {
-        $("#newFicha").show();
-        $("#addFicha").html("VER TODAS LAS FICHAS");
-    }
-});
-
 
 $( document ).on( 'keydown', function ( e ) {
     if ( e.keyCode === 27 ) { // ESC

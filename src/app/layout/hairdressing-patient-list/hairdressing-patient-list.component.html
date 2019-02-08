@@ -94,40 +94,49 @@
 
 <!-- Modal Ficha Paciente -->
 <div class="col-xs-12 modal-paciente">
-    <div class="inside-modal-horarios col-xs-12 col-sm-6 col-sm-offset-3" style="max-width: 600px; height: 600px;">
+    <div class="inside-modal-horarios col-xs-12 col-sm-6 col-sm-offset-3" style="max-width: 600px; height: 600px; background-color: white;">
         <div class="header-modal-horarios col-xs-12">
             <h2>Ficha del Paciente</h2>
             <a class="close-modal-paciente">X</a>
         </div>
 
-        <div>
-            <span id="addFicha" style="cursor: pointer; background-color: #454edb; color: white; border-radius: 7px; padding: 9px; margin-left: 10px;">+</span>
+        <div style="width: 100%; text-align: center;">
+            <button (click)="fichaOpenClose()" id="addFicha" style="cursor: pointer; background-color: #0059fe; color: white; font-family: sf_ui_displaybold; font-size: 12px; border-radius: 5px; padding: 9px; width: 85%;">AGREGAR FICHA NUEVA</button>
         </div>
 
-        <div class="listado-menu-2" style="margin: 5px; display: none; margin-top: 30px;" id="newFicha">
+        <div class="listado-menu-2" style="margin-left: 8%; display: none; margin-top: 20px;" id="newFicha">
             <div>
-                <label>Fecha</label><br>
+                <label class="addFichaFields">Fecha</label><br>
                 <ng-datepicker [(ngModel)]="selectedDate" [options]="options" ></ng-datepicker>
             </div>
             <div>
-                <label>Descripción</label><br>
+                <label class="addFichaFields">Descripción</label><br>
                 <textarea [(ngModel)]="addDescription" rows="7" cols="70"></textarea>
             </div>
-            <div class="menu-acciones">
-                <a (click)="addPacienteFicha(i)">ENVIAR</a>
+            <div class="menu-acciones" style="margin-top: 10px; width: 93%; text-align: center;">
+                <a (click)="addPacienteFicha(i)" style="font-family: sf_ui_displaybold; font-size: 12px;">GUARDAR</a>
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length > 0">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-2" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length > 0 || fichaOpenForm">
             <p style="text-align: center;">Este paciente no posee registros.</p>
         </div>
 
-        <div *ngFor="let ficha of pacienteFicha; let i = index;" style="margin: 0px; width: 100%; margin-top: 50px;" [hidden]="pacienteFicha.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
-            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 90%; margin-left: 10px;">
-                <span>{{ficha.dateTime | date:'dd/MM/yyyy'}} - {{ficha.description}}</span>
-                <a (click)="editPacienteFicha(i)"><i class="fa fa-pencil"></i></a>
-                <a (click)="deletePacienteFicha(i)"><i class="fa fa-trash"></i></a>
-            </div>
+        <div [hidden]="pacienteFicha.length == 0 || fichaOpenForm" style="text-align: center; margin-top: 20px;">
+            <table style="width: 85%; margin-left: 7.5%;">
+                <tr style="background-color: #f2f2f2; height: 34px;">
+                    <td class="headFichaTable">FECHA</td>
+                    <td class="headFichaTable" style="width: 30%;">DESCRIPCIÓN</td>
+                    <td class="headFichaTable">EDITAR</td>
+                    <td class="headFichaTable">ELIMINAR</td>
+                </tr>
+                <tr *ngFor="let ficha of pacienteFicha; let i = index;">
+                    <td class="itemFichaTable"><span>{{ficha.dateTime | date:'dd/MM/yyyy'}}</span></td>
+                    <td class="itemFichaTable"><span>{{ficha.description}}</span></td>
+                    <td><a (click)="editPacienteFicha(i)"><i class="fa fa-pencil" style="color: black;"></i></a></td>
+                    <td><a (click)="deletePacienteFicha(i)"><i class="fa fa-trash" style="color: black;"></i></a></td>
+                </tr>
+            </table>
         </div>
     </div>
 
