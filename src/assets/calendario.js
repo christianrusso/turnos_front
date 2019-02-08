@@ -269,6 +269,10 @@ $('a.close-modal-agregar-turno').click(function() {
   $(".modal-agregar-turno").fadeOut();
 });
 
+$('a.close-modal-bloquear-especialidad').click(function() {
+    $(".modal-bloquear-especialidad").fadeOut();
+});
+
 $( document ).on( 'keydown', function ( e ) {
     if ( e.keyCode === 27 ) { // ESC
       $(".modal-agregar-turno").fadeOut();

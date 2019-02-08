@@ -44,4 +44,12 @@ export class HairdressingProfessionalService extends BaseService {
     public getAllProfessionalsForSelect(): Observable<SelectOption[]> {
         return this.getAll<SelectOption>(this.url + "/GetAllForSelect", null);
     }
+
+    public blockDay(filter: HairdressingProfessionalFilter): Observable<HairdressingProfessional[]> {
+        return this.post(this.url + "/BlockDay", null, filter);
+    }
+
+    public unblockDay(filter: HairdressingProfessionalFilter): Observable<HairdressingProfessional[]> {
+        return this.post(this.url + "/UnblockDay", null, filter);
+    }
 }

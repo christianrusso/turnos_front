@@ -44,4 +44,12 @@ export class DoctorService extends BaseService {
     public getAllDoctorsForSelect(): Observable<SelectOption[]> {
         return this.getAll<SelectOption>(this.url + "/GetAllForSelect", null);
     }
+
+    public blockDay(filter: DoctorFilter): Observable<Doctor[]> {
+        return this.post(this.url + "/BlockDay", null, filter);
+    }
+
+    public unblockDay(filter: DoctorFilter): Observable<Doctor[]> {
+        return this.post(this.url + "/UnblockDay", null, filter);
+    }
 }
