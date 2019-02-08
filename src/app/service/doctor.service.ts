@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BaseService } from './base.service';
 import { Doctor } from '../model/doctor.class';
 import { DoctorFilter } from '../model/doctor-filter.class';
+import { DoctorBlockedSubspecialty } from '../model/doctorBlockedSubspecialty.class';
 import { SelectOption } from '../model/select/select-option.class';
 import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -51,5 +52,9 @@ export class DoctorService extends BaseService {
 
     public unblockDay(filter: DoctorFilter): Observable<Doctor[]> {
         return this.post(this.url + "/UnblockDay", null, filter);
+    }
+
+    public getBlocked(filter: DoctorFilter): Observable<DoctorBlockedSubspecialty[]> {
+        return this.post(this.url + "/GetDoctorBlockedSubspecialties", null, filter);
     }
 }

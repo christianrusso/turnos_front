@@ -7,6 +7,7 @@ import { SpecialtyService } from '../../service/specialty.service';
 import { SubspecialtyService } from '../../service/subspecialty.service';
 import { IdFilter } from '../../model/id-filter.class';
 import { DoctorService } from '../../service/doctor.service';
+import { DoctorBlockedSubspecialty } from '../../model/doctorBlockedSubspecialty.class';
 import { DoctorFilter } from '../../model/doctor-filter.class';
 import { GetAppointment } from '../../model/get-appointment.class';
 import { PatientService } from '../../service/patient.service';
@@ -116,6 +117,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public doctorSubspecialtiesToBlock: Array<Select2OptionData>;
     public doctorSubspecialtyToBlock;
     public doctorSubspecialtyToUnblock;
+    public doctorSubspecialitiesMessage = [];
 
     constructor (
         private appointmentService: AppointmentService,
@@ -335,11 +337,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     nextDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() + 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     previousDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() - 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     nextWeek(): void {
@@ -613,6 +617,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.isDay = true;
         $(".semana-calendario").hide();
         $(".dia-calendario").show();
+
+        this.getBlocked();
     }
 
     showCalendarWeek() {
@@ -893,6 +899,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             this.toastrService.success('Subespecialidad del médico ' + this.doctorDataToBlock[0].firstName + ' ' + this.doctorDataToBlock[0].lastName + ' bloqueada para el día indicado.');
             this.loaderService.hide();
             this.doctorSubspecialtyToBlock = null;
+            this.getBlocked();
             $(".modal-bloquear-especialidad").fadeOut();
         });
     }
@@ -909,7 +916,32 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             this.toastrService.success('Subespecialidad del médico ' + this.doctorDataToBlock[0].firstName + ' ' + this.doctorDataToBlock[0].lastName + ' desbloqueada para el día indicado.');
             this.loaderService.hide();
             this.doctorSubspecialtyToUnblock = null;
+            this.getBlocked();
             $(".modal-bloquear-especialidad").fadeOut();
+        });
+    }
+
+    getBlocked() {
+        this.loaderService.show();
+
+        this.doctorSubspecialitiesMessage = [];
+
+        const filter = new DoctorFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.doctorService.getBlocked(filter).subscribe(res => {
+            for (let i = 0; i < res.length; i++) {
+                if(typeof this.doctorSubspecialitiesMessage[res[i].doctor] == 'undefined') {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] = "";
+                }
+                if (this.doctorSubspecialitiesMessage[res[i].doctor] == "") {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] = res[i].subspecialtyDescription;
+                } else {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] += ", " + res[i].subspecialtyDescription;
+                }
+            }
+            this.loaderService.hide();
+            console.log(this.doctorSubspecialitiesMessage);
         });
     }
 }
