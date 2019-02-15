@@ -47,33 +47,54 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     public professionalSubspecialty: string;
     public professionalConsultationLength: string;
 
-    public professionalMondayWorks: boolean;;
+    public professionalMondayWorks: boolean;
     public professionalMondayWhStart: string;
     public professionalMondayWhEnd: string;
+    public professionalMondaySplit: boolean;
+    public professionalMondaySecondWhStart: string;
+    public professionalMondaySecondWhEnd: string;
 
     public professionalTuesdayWorks: boolean;
     public professionalTuesdayWhStart: string;
     public professionalTuesdayWhEnd: string;
+    public professionalTuesdaySplit: boolean;
+    public professionalTuesdaySecondWhStart: string;
+    public professionalTuesdaySecondWhEnd: string;
 
     public professionalWednesdayWorks: boolean;
     public professionalWednesdayWhStart: string;
     public professionalWednesdayWhEnd: string;
+    public professionalWednesdaySplit: boolean;
+    public professionalWednesdaySecondWhStart: string;
+    public professionalWednesdaySecondWhEnd: string;
 
     public professionalThursdayWorks: boolean;
     public professionalThursdayWhStart: string;
     public professionalThursdayWhEnd: string;
+    public professionalThursdaySplit: boolean;
+    public professionalThursdaySecondWhStart: string;
+    public professionalThursdaySecondWhEnd: string;
 
     public professionalFridayWorks: boolean;
     public professionalFridayWhStart: string;
     public professionalFridayWhEnd: string;
+    public professionalFridaySplit: boolean;
+    public professionalFridaySecondWhStart: string;
+    public professionalFridaySecondWhEnd: string;
 
     public professionalSaturdayWorks: boolean;
     public professionalSaturdayWhStart: string;
     public professionalSaturdayWhEnd: string;
+    public professionalSaturdaySplit: boolean;
+    public professionalSaturdaySecondWhStart: string;
+    public professionalSaturdaySecondWhEnd: string;
 
     public professionalSundayWorks: boolean;
     public professionalSundayWhStart: string;
     public professionalSundayWhEnd: string;
+    public professionalSundaySplit: boolean;
+    public professionalSundaySecondWhStart: string;
+    public professionalSundaySecondWhEnd: string;
 
     public addProfessionalEnable = false;
     public profesionalSpecialities = [
@@ -219,6 +240,30 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.professionalSaturdayWhEnd = '21:00';
         this.professionalSundayWhStart = '09:00';
         this.professionalSundayWhEnd = '21:00';
+
+        this.professionalMondaySecondWhStart = '';
+        this.professionalMondaySecondWhEnd = '';
+        this.professionalTuesdaySecondWhStart = '';
+        this.professionalTuesdaySecondWhEnd = '';
+        this.professionalWednesdaySecondWhStart = '';
+        this.professionalWednesdaySecondWhEnd = '';
+        this.professionalThursdaySecondWhStart = '';
+        this.professionalThursdaySecondWhEnd = '';
+        this.professionalFridaySecondWhStart = '';
+        this.professionalFridaySecondWhEnd = '';
+        this.professionalSaturdaySecondWhStart = '';
+        this.professionalSaturdaySecondWhEnd = '';
+        this.professionalSundaySecondWhStart = '';
+        this.professionalSundaySecondWhEnd = '';
+
+        this.professionalMondaySplit = false;
+        this.professionalTuesdaySplit = false;
+        this.professionalWednesdaySplit = false;
+        this.professionalThursdaySplit = false;
+        this.professionalFridaySplit = false;
+        this.professionalSaturdaySplit = false;
+        this.professionalSundaySplit = false;
+
         sessionStorage.removeItem('hairdressingProfessionalId');
         this.butttonLabel = "Agregar";
         $(".modal-agregar-medico").fadeIn();
@@ -281,6 +326,29 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.professionalSundayWhStart = '09:00';
         this.professionalSundayWhEnd = '21:00';
 
+        this.professionalMondaySecondWhStart = '';
+        this.professionalMondaySecondWhEnd = '';
+        this.professionalTuesdaySecondWhStart = '';
+        this.professionalTuesdaySecondWhEnd = '';
+        this.professionalWednesdaySecondWhStart = '';
+        this.professionalWednesdaySecondWhEnd = '';
+        this.professionalThursdaySecondWhStart = '';
+        this.professionalThursdaySecondWhEnd = '';
+        this.professionalFridaySecondWhStart = '';
+        this.professionalFridaySecondWhEnd = '';
+        this.professionalSaturdaySecondWhStart = '';
+        this.professionalSaturdaySecondWhEnd = '';
+        this.professionalSundaySecondWhStart = '';
+        this.professionalSundaySecondWhEnd = '';
+
+        this.professionalMondaySplit = false;
+        this.professionalTuesdaySplit = false;
+        this.professionalWednesdaySplit = false;
+        this.professionalThursdaySplit = false;
+        this.professionalFridaySplit = false;
+        this.professionalSaturdaySplit = false;
+        this.professionalSundaySplit = false;
+
         sessionStorage.setItem('hairdressingProfessionalId', professional.id.toString());
         this.professionalId = professional.id;
         this.professionalFirstName = professional.firstName;
@@ -306,39 +374,81 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         professional.workingHours.forEach(wh => {
             switch (wh.dayNumber){
                 case 1:
+                    if (this.professionalMondayWorks == false) {
+                        this.professionalMondayWhStart = this.getHourFromString(wh.start);
+                        this.professionalMondayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalMondaySplit = true;
+                        this.professionalMondaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalMondaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalMondayWorks = true;
-                    this.professionalMondayWhStart = this.getHourFromString(wh.start);
-                    this.professionalMondayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 2:
+                    if (this.professionalTuesdayWorks == false) {
+                        this.professionalTuesdayWhStart = this.getHourFromString(wh.start);
+                        this.professionalTuesdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalTuesdaySplit = true;
+                        this.professionalTuesdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalTuesdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalTuesdayWorks = true;
-                    this.professionalTuesdayWhStart = this.getHourFromString(wh.start);
-                    this.professionalTuesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 3:
+                    if (this.professionalWednesdayWorks == false) {
+                        this.professionalWednesdayWhStart = this.getHourFromString(wh.start);
+                        this.professionalWednesdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalWednesdaySplit = true;
+                        this.professionalWednesdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalWednesdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalWednesdayWorks = true;
-                    this.professionalWednesdayWhStart = this.getHourFromString(wh.start);
-                    this.professionalWednesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 4:
+                    if (this.professionalThursdayWorks == false) {
+                        this.professionalThursdayWhStart = this.getHourFromString(wh.start);
+                        this.professionalThursdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalThursdaySplit = true;
+                        this.professionalThursdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalThursdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalThursdayWorks = true;
-                    this.professionalThursdayWhStart = this.getHourFromString(wh.start);
-                    this.professionalThursdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 5:
+                    if (this.professionalFridayWorks == false) {
+                        this.professionalFridayWhStart = this.getHourFromString(wh.start);
+                        this.professionalFridayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalFridaySplit = true;
+                        this.professionalFridaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalFridaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalFridayWorks = true;
-                    this.professionalFridayWhStart = this.getHourFromString(wh.start);
-                    this.professionalFridayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 6:
+                    if (this.professionalSaturdayWorks == false) {
+                        this.professionalSaturdayWhStart = this.getHourFromString(wh.start);
+                        this.professionalSaturdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalSaturdaySplit = true;
+                        this.professionalSaturdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalSaturdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalSaturdayWorks = true;
-                    this.professionalSaturdayWhStart = this.getHourFromString(wh.start);
-                    this.professionalSaturdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 0:
+                    if (this.professionalSundayWorks == false) {
+                        this.professionalSundayWhStart = this.getHourFromString(wh.start);
+                        this.professionalSundayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.professionalSundaySplit = true;
+                        this.professionalSundaySecondWhStart = this.getHourFromString(wh.start);
+                        this.professionalSundaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.professionalSundayWorks = true;
-                    this.professionalSundayWhStart = this.getHourFromString(wh.start);
-                    this.professionalSundayWhEnd = this.getHourFromString(wh.end);
                     break;
             }
         });
@@ -435,6 +545,14 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         if (this.professionalFridayWorks) professional.workingHours.push(this.getWorkingHourFromString(5, this.professionalFridayWhStart, this.professionalFridayWhEnd));
         if (this.professionalSaturdayWorks) professional.workingHours.push(this.getWorkingHourFromString(6, this.professionalSaturdayWhStart, this.professionalSaturdayWhEnd));
         if (this.professionalSundayWorks) professional.workingHours.push(this.getWorkingHourFromString(0, this.professionalSundayWhStart, this.professionalSundayWhEnd));
+
+        if (this.professionalMondaySplit) professional.workingHours.push(this.getWorkingHourFromString(1, this.professionalMondaySecondWhStart, this.professionalMondaySecondWhEnd));
+        if (this.professionalTuesdaySplit) professional.workingHours.push(this.getWorkingHourFromString(2, this.professionalTuesdaySecondWhStart, this.professionalTuesdaySecondWhEnd));
+        if (this.professionalWednesdaySplit) professional.workingHours.push(this.getWorkingHourFromString(3, this.professionalWednesdaySecondWhStart, this.professionalWednesdaySecondWhEnd));
+        if (this.professionalThursdaySplit) professional.workingHours.push(this.getWorkingHourFromString(4, this.professionalThursdaySecondWhStart, this.professionalThursdaySecondWhEnd));
+        if (this.professionalFridaySplit) professional.workingHours.push(this.getWorkingHourFromString(5, this.professionalFridaySecondWhStart, this.professionalFridaySecondWhEnd));
+        if (this.professionalSaturdaySplit) professional.workingHours.push(this.getWorkingHourFromString(6, this.professionalSaturdaySecondWhStart, this.professionalSaturdaySecondWhEnd));
+        if (this.professionalSundaySplit) professional.workingHours.push(this.getWorkingHourFromString(0, this.professionalSundaySecondWhStart, this.professionalSundaySecondWhEnd));
 
         if (this.butttonLabel == "Agregar") { // Agregar professional
             this.hairdressingProfessionalService.add(professional).subscribe(ok => {

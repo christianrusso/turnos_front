@@ -213,14 +213,17 @@
                 <div class="col-xs-3 col-sm-3">
                     <strong>Disponible</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Día</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Desde</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Hasta</strong>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <strong>Partir Horario</strong>
                 </div>
             </div>
 
@@ -228,14 +231,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalMondayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Lunes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalMondayWhStart" [disabled]="!professionalMondayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalMondayWhEnd" [disabled]="!professionalMondayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalMondaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalMondaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalMondaySecondWhStart" [disabled]="!professionalMondayWorks" [hidden]="!professionalMondaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalMondaySecondWhEnd" [disabled]="!professionalMondayWorks" [hidden]="!professionalMondaySplit">
                 </div>
             </div>
 
@@ -243,14 +261,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalTuesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Martes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalTuesdayWhStart" [disabled]="!professionalTuesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalTuesdayWhEnd" [disabled]="!professionalTuesdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalTuesdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalTuesdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalTuesdaySecondWhStart" [disabled]="!professionalTuesdayWorks" [hidden]="!professionalTuesdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalTuesdaySecondWhEnd" [disabled]="!professionalTuesdayWorks" [hidden]="!professionalTuesdaySplit">
                 </div>
             </div>
 
@@ -258,14 +291,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalWednesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Miercoles
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalWednesdayWhStart" [disabled]="!professionalWednesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalWednesdayWhEnd" [disabled]="!professionalWednesdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalWednesdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalWednesdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalWednesdaySecondWhStart" [disabled]="!professionalWednesdayWorks" [hidden]="!professionalWednesdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalWednesdaySecondWhEnd" [disabled]="!professionalWednesdayWorks" [hidden]="!professionalWednesdaySplit">
                 </div>
             </div>
 
@@ -273,14 +321,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalThursdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Jueves
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalThursdayWhStart" [disabled]="!professionalThursdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalThursdayWhEnd" [disabled]="!professionalThursdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalThursdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalThursdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalThursdaySecondWhStart" [disabled]="!professionalThursdayWorks" [hidden]="!professionalThursdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalThursdaySecondWhEnd" [disabled]="!professionalThursdayWorks" [hidden]="!professionalThursdaySplit">
                 </div>
             </div>
 
@@ -288,14 +351,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalFridayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Viernes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalFridayWhStart" [disabled]="!professionalFridayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalFridayWhEnd" [disabled]="!professionalFridayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalFridaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalFridaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalFridaySecondWhStart" [disabled]="!professionalFridayWorks" [hidden]="!professionalFridaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalFridaySecondWhEnd" [disabled]="!professionalFridayWorks" [hidden]="!professionalFridaySplit">
                 </div>
             </div>
 
@@ -303,14 +381,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalSaturdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Sabado
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalSaturdayWhStart" [disabled]="!professionalSaturdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalSaturdayWhEnd" [disabled]="!professionalSaturdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalSaturdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalSaturdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalSaturdaySecondWhStart" [disabled]="!professionalSaturdayWorks" [hidden]="!professionalSaturdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalSaturdaySecondWhEnd" [disabled]="!professionalSaturdayWorks" [hidden]="!professionalSaturdaySplit">
                 </div>
             </div>
 
@@ -318,14 +411,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="professionalSundayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Domingo
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalSundayWhStart" [disabled]="!professionalSundayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="professionalSundayWhEnd" [disabled]="!professionalSundayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="professionalSundaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!professionalSundaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalSundaySecondWhStart" [disabled]="!professionalSundayWorks" [hidden]="!professionalSundaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="professionalSundaySecondWhEnd" [disabled]="!professionalSundayWorks" [hidden]="!professionalSundaySplit">
                 </div>
             </div>
                 
