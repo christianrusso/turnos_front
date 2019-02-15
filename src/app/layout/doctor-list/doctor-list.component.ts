@@ -49,33 +49,54 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     public doctorSubspecialty: string;
     public doctorConsultationLength: string;
 
-    public doctorMondayWorks: boolean;;
+    public doctorMondayWorks: boolean;
     public doctorMondayWhStart: string;
     public doctorMondayWhEnd: string;
+    public doctorMondaySplit: boolean;
+    public doctorMondaySecondWhStart: string;
+    public doctorMondaySecondWhEnd: string;
 
     public doctorTuesdayWorks: boolean;
     public doctorTuesdayWhStart: string;
     public doctorTuesdayWhEnd: string;
+    public doctorTuesdaySplit: boolean;
+    public doctorTuesdaySecondWhStart: string;
+    public doctorTuesdaySecondWhEnd: string;
 
     public doctorWednesdayWorks: boolean;
     public doctorWednesdayWhStart: string;
     public doctorWednesdayWhEnd: string;
+    public doctorWednesdaySplit: boolean;
+    public doctorWednesdaySecondWhStart: string;
+    public doctorWednesdaySecondWhEnd: string;
 
     public doctorThursdayWorks: boolean;
     public doctorThursdayWhStart: string;
     public doctorThursdayWhEnd: string;
+    public doctorThursdaySplit: boolean;
+    public doctorThursdaySecondWhStart: string;
+    public doctorThursdaySecondWhEnd: string;
 
     public doctorFridayWorks: boolean;
     public doctorFridayWhStart: string;
     public doctorFridayWhEnd: string;
+    public doctorFridaySplit: boolean;
+    public doctorFridaySecondWhStart: string;
+    public doctorFridaySecondWhEnd: string;
 
     public doctorSaturdayWorks: boolean;
     public doctorSaturdayWhStart: string;
     public doctorSaturdayWhEnd: string;
+    public doctorSaturdaySplit: boolean;
+    public doctorSaturdaySecondWhStart: string;
+    public doctorSaturdaySecondWhEnd: string;
 
     public doctorSundayWorks: boolean;
     public doctorSundayWhStart: string;
     public doctorSundayWhEnd: string;
+    public doctorSundaySplit: boolean;
+    public doctorSundaySecondWhStart: string;
+    public doctorSundaySecondWhEnd: string;
 
     public addProfessionalEnable = false;
     public doctorSpecialities = [
@@ -223,6 +244,30 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorSaturdayWhEnd = '21:00';
         this.doctorSundayWhStart = '09:00';
         this.doctorSundayWhEnd = '21:00';
+
+        this.doctorMondaySecondWhStart = '';
+        this.doctorMondaySecondWhEnd = '';
+        this.doctorTuesdaySecondWhStart = '';
+        this.doctorTuesdaySecondWhEnd = '';
+        this.doctorWednesdaySecondWhStart = '';
+        this.doctorWednesdaySecondWhEnd = '';
+        this.doctorThursdaySecondWhStart = '';
+        this.doctorThursdaySecondWhEnd = '';
+        this.doctorFridaySecondWhStart = '';
+        this.doctorFridaySecondWhEnd = '';
+        this.doctorSaturdaySecondWhStart = '';
+        this.doctorSaturdaySecondWhEnd = '';
+        this.doctorSundaySecondWhStart = '';
+        this.doctorSundaySecondWhEnd = '';
+
+        this.doctorMondaySplit = false;
+        this.doctorTuesdaySplit = false;
+        this.doctorWednesdaySplit = false;
+        this.doctorThursdaySplit = false;
+        this.doctorFridaySplit = false;
+        this.doctorSaturdaySplit = false;
+        this.doctorSundaySplit = false;
+
         sessionStorage.removeItem('doctorId');
         this.butttonLabel = "Agregar";
         $(".modal-agregar-medico").fadeIn();
@@ -278,6 +323,29 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorSundayWhStart = '09:00';
         this.doctorSundayWhEnd = '21:00';
 
+        this.doctorMondaySecondWhStart = '';
+        this.doctorMondaySecondWhEnd = '';
+        this.doctorTuesdaySecondWhStart = '';
+        this.doctorTuesdaySecondWhEnd = '';
+        this.doctorWednesdaySecondWhStart = '';
+        this.doctorWednesdaySecondWhEnd = '';
+        this.doctorThursdaySecondWhStart = '';
+        this.doctorThursdaySecondWhEnd = '';
+        this.doctorFridaySecondWhStart = '';
+        this.doctorFridaySecondWhEnd = '';
+        this.doctorSaturdaySecondWhStart = '';
+        this.doctorSaturdaySecondWhEnd = '';
+        this.doctorSundaySecondWhStart = '';
+        this.doctorSundaySecondWhEnd = '';
+
+        this.doctorMondaySplit = false;
+        this.doctorTuesdaySplit = false;
+        this.doctorWednesdaySplit = false;
+        this.doctorThursdaySplit = false;
+        this.doctorFridaySplit = false;
+        this.doctorSaturdaySplit = false;
+        this.doctorSundaySplit = false;
+
         sessionStorage.setItem('doctorId', doctor.id.toString());
         this.doctorId = doctor.id;
         this.doctorFirstName = doctor.firstName;
@@ -304,39 +372,81 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         doctor.workingHours.forEach(wh => {
             switch (wh.dayNumber){
                 case 1:
+                    if (this.doctorMondayWorks == false) {
+                        this.doctorMondayWhStart = this.getHourFromString(wh.start);
+                        this.doctorMondayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorMondaySplit = true;
+                        this.doctorMondaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorMondaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorMondayWorks = true;
-                    this.doctorMondayWhStart = this.getHourFromString(wh.start);
-                    this.doctorMondayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 2:
+                    if (this.doctorTuesdayWorks == false) {
+                        this.doctorTuesdayWhStart = this.getHourFromString(wh.start);
+                        this.doctorTuesdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorTuesdaySplit = true;
+                        this.doctorTuesdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorTuesdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorTuesdayWorks = true;
-                    this.doctorTuesdayWhStart = this.getHourFromString(wh.start);
-                    this.doctorTuesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 3:
+                    if (this.doctorWednesdayWorks == false) {
+                        this.doctorWednesdayWhStart = this.getHourFromString(wh.start);
+                        this.doctorWednesdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorWednesdaySplit = true;
+                        this.doctorWednesdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorWednesdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorWednesdayWorks = true;
-                    this.doctorWednesdayWhStart = this.getHourFromString(wh.start);
-                    this.doctorWednesdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 4:
+                    if (this.doctorThursdayWorks == false) {
+                        this.doctorThursdayWhStart = this.getHourFromString(wh.start);
+                        this.doctorThursdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorThursdaySplit = true;
+                        this.doctorThursdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorThursdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorThursdayWorks = true;
-                    this.doctorThursdayWhStart = this.getHourFromString(wh.start);
-                    this.doctorThursdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 5:
+                    if (this.doctorFridayWorks == false) {
+                        this.doctorFridayWhStart = this.getHourFromString(wh.start);
+                        this.doctorFridayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorFridaySplit = true;
+                        this.doctorFridaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorFridaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorFridayWorks = true;
-                    this.doctorFridayWhStart = this.getHourFromString(wh.start);
-                    this.doctorFridayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 6:
+                    if (this.doctorSaturdayWorks == false) {
+                        this.doctorSaturdayWhStart = this.getHourFromString(wh.start);
+                        this.doctorSaturdayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorSaturdaySplit = true;
+                        this.doctorSaturdaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorSaturdaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorSaturdayWorks = true;
-                    this.doctorSaturdayWhStart = this.getHourFromString(wh.start);
-                    this.doctorSaturdayWhEnd = this.getHourFromString(wh.end);
                     break;
                 case 0:
+                    if (this.doctorSundayWorks == false) {
+                        this.doctorSundayWhStart = this.getHourFromString(wh.start);
+                        this.doctorSundayWhEnd = this.getHourFromString(wh.end);
+                    } else {
+                        this.doctorSundaySplit = true;
+                        this.doctorSundaySecondWhStart = this.getHourFromString(wh.start);
+                        this.doctorSundaySecondWhEnd = this.getHourFromString(wh.end);
+                    }
                     this.doctorSundayWorks = true;
-                    this.doctorSundayWhStart = this.getHourFromString(wh.start);
-                    this.doctorSundayWhEnd = this.getHourFromString(wh.end);
                     break;
             }
         });
@@ -433,6 +543,14 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         if (this.doctorFridayWorks) doctor.workingHours.push(this.getWorkingHourFromString(5, this.doctorFridayWhStart, this.doctorFridayWhEnd));
         if (this.doctorSaturdayWorks) doctor.workingHours.push(this.getWorkingHourFromString(6, this.doctorSaturdayWhStart, this.doctorSaturdayWhEnd));
         if (this.doctorSundayWorks) doctor.workingHours.push(this.getWorkingHourFromString(0, this.doctorSundayWhStart, this.doctorSundayWhEnd));
+
+        if (this.doctorMondaySplit) doctor.workingHours.push(this.getWorkingHourFromString(1, this.doctorMondaySecondWhStart, this.doctorMondaySecondWhEnd));
+        if (this.doctorTuesdaySplit) doctor.workingHours.push(this.getWorkingHourFromString(2, this.doctorTuesdaySecondWhStart, this.doctorTuesdaySecondWhEnd));
+        if (this.doctorWednesdaySplit) doctor.workingHours.push(this.getWorkingHourFromString(3, this.doctorWednesdaySecondWhStart, this.doctorWednesdaySecondWhEnd));
+        if (this.doctorThursdaySplit) doctor.workingHours.push(this.getWorkingHourFromString(4, this.doctorThursdaySecondWhStart, this.doctorThursdaySecondWhEnd));
+        if (this.doctorFridaySplit) doctor.workingHours.push(this.getWorkingHourFromString(5, this.doctorFridaySecondWhStart, this.doctorFridaySecondWhEnd));
+        if (this.doctorSaturdaySplit) doctor.workingHours.push(this.getWorkingHourFromString(6, this.doctorSaturdaySecondWhStart, this.doctorSaturdaySecondWhEnd));
+        if (this.doctorSundaySplit) doctor.workingHours.push(this.getWorkingHourFromString(0, this.doctorSundaySecondWhStart, this.doctorSundaySecondWhEnd));
 
         if (this.butttonLabel == "Agregar") { // Agregar doctor
             this.doctorService.add(doctor).subscribe(ok => {
