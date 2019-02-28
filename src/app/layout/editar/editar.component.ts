@@ -65,6 +65,8 @@ export class EditarComponent extends BaseComponent {
     newPassword;
     oldPassword;
 
+    showEndLeyend = false;
+
     @ViewChild("search")
     public searchElementRef: ElementRef;
     public latitude: number;
@@ -299,6 +301,8 @@ export class EditarComponent extends BaseComponent {
     }
 
     sendData() {
+        this.showEndLeyend = false;
+
         var data = {
             "Address": this.data.address,
             "Description": this.data.description,
@@ -390,6 +394,7 @@ export class EditarComponent extends BaseComponent {
                     sessionStorage.setItem("logo", this.logo);
                     this.layoutComponent.logo = this.logo;
                 }
+                this.showEndLeyend = true;
             });
         } else {
             this.hairdressingService.sendClinicData(data).subscribe(res => {
@@ -399,6 +404,7 @@ export class EditarComponent extends BaseComponent {
                     sessionStorage.setItem("logo", this.logo);
                     this.layoutComponent.logo = this.logo;
                 }
+                this.showEndLeyend = true;
             });
         }
     }
