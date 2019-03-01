@@ -28,6 +28,8 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     public specialtyId: string;
     public subspecialtyId: string;
     public newSubspecialtyConsultationLength: string;
+    public newSubspecialtyIndication: string;
+    public editSubspecialtyName: string;
 
     public letterFilter: string;
     public searchDescription: string;
@@ -156,11 +158,14 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         subspecialty.specialtyId = this.selectedSpecialty.id;
         const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
         subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        subspecialty.indications = this.newSubspecialtyIndication;
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {
             $(".modal-nueva-subespecialidad").fadeOut();
             this.toastrService.success('Subespecialidad agregada correctamente.');
             this.getSpecialtiesByLetter(this.letterFilter);
+            this.newSubspecialtyIndication = "";
+            this.newSubspecialtyConsultationLength = "";
         });
     }
 
@@ -168,6 +173,44 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
     showRemoveSubspecialty(specialtyIndex: number, subspecialtyIndex: number) {
         this.selectedSubspecialty = this.specialties[specialtyIndex].subspecialties[subspecialtyIndex];
         $(".modal-borrar-subespecialidad").fadeIn();
+    }
+
+    editSubspecialty(specialtyIndex: number, subspecialtyIndex: number) {
+        this.selectedSubspecialty = this.specialties[specialtyIndex].subspecialties[subspecialtyIndex];
+        this.newSubspecialtyIndication = this.selectedSubspecialty.indications;
+        this.editSubspecialtyName = this.selectedSubspecialty.description;
+        this.subspecialtyId = this.selectedSubspecialty.id.toString();
+
+        const hours = Math.floor(this.selectedSubspecialty.consultationLength / 60);
+        const minutes = this.selectedSubspecialty.consultationLength % 60;
+        const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+
+        this.newSubspecialtyConsultationLength = doctorConsultationLength;
+
+        $(".modal-editar-subespecialidad").fadeIn();
+    }
+
+    sendEditSubscpecialty() {
+        this.loaderService.show();
+        let subspecialty = new Subspecialty();
+        subspecialty.id = parseInt(this.subspecialtyId);
+        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
+        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        subspecialty.indications = this.newSubspecialtyIndication;
+
+        this.subspecialtyService.edit(subspecialty).subscribe(ok => {
+            $(".modal-editar-subespecialidad").fadeOut();
+            this.toastrService.success('Subespecialidad editada correctamente.');
+            this.getSpecialtiesByLetter(this.letterFilter);
+            this.newSubspecialtyIndication = "";
+            this.newSubspecialtyConsultationLength = "";
+        });
+    }
+
+    convertHoursAndMinutesToString(hours: number, minutes: number): string {
+        const hoursString = hours < 10 ? '0' + hours : hours;
+        const minutesString = minutes < 10 ? '0' + minutes : minutes;
+        return hoursString + ':' + minutesString;
     }
 
     removeSubspecialty() {

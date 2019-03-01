@@ -124,6 +124,10 @@ $('a.close-modal-borrar-subespecialidad').click(function() {
   $(".modal-borrar-subespecialidad").fadeOut();
 });
 
+$('a.close-modal-editar-subespecialidad').click(function() {
+    $(".modal-editar-subespecialidad").fadeOut();
+});
+
 $( document ).on( 'keydown', function ( e ) {
     if ( e.keyCode === 27 ) { // ESC
       $(".modal-nueva-especialidad").fadeOut();

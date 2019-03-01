@@ -7,4 +7,5 @@ export class Subspecialty {
     public price: number;
     public subspecialtyId: number;
     public subspecialtyDescription: string;
+    public indications: string;
 }

@@ -78,6 +78,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         useEmptyBarTitle: false
     }
 
+    fichaOpenForm = false;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,
@@ -418,7 +420,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.isEditing = true;
         if ($("#newFicha").not(":visible")) {
             $("#newFicha").show();
-            $("#addFicha").html("-");
+            $("#addFicha").html("VER TODAS LAS FICHAS");
+            this.fichaOpenForm = true;
         }
     }
 
@@ -508,5 +511,17 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
         });
+    }
+
+    fichaOpenClose() {
+        if ($("#newFicha").is(":visible")) {
+            $("#newFicha").hide();
+            $("#addFicha").html("AGREGAR FICHA NUEVA");
+            this.fichaOpenForm = false;
+        } else {
+            $("#newFicha").show();
+            $("#addFicha").html("VER TODAS LAS FICHAS");
+            this.fichaOpenForm = true;
+        }
     }
 }

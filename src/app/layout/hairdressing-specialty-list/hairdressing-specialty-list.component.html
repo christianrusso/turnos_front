@@ -73,7 +73,9 @@
                                 <a class="agregar-subespecialidad" (click)="showAddSubspecialty(i)">Agregar subespecialidad</a>
                                 <div>
                                     <p *ngFor="let subspecialty of specialty.subspecialties; let j = index">
-                                        {{ subspecialty.description + ' (' + (subspecialty.price != null ? '$' + subspecialty.price : 'Gratis') + ')' }} <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
+                                        {{ subspecialty.description + ' (' + (subspecialty.price != null ? '$' + subspecialty.price : 'Gratis') + ')' }}
+                                        <i class="fa fa-pencil" (click)="editSubspecialty(i,j)"></i>
+                                        <i class="fa fa-close" (click)="showRemoveSubspecialty(i,j)"></i>
                                     </p>
                                 </div>
                             </div>
@@ -160,6 +162,12 @@
                 <input class="priceInput" type="number" [(ngModel)]="newSubspecialtyPrice" name="newSubspecialtyPrice" />
             </div>
 
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <br>
+                <div><strong>Indicaciones</strong></div>
+                <textarea [(ngModel)]="newSubspecialtyIndication" name="newSubspecialtyIndication"></textarea>
+            </div>
+
             <div class="div-add-especialidad">
                 <a id="agregar-subespecialidad" (click)="addSubspecialty()">Agregar</a>
             </div>
@@ -169,6 +177,50 @@
             
 </div>
 <!-- // modal nueva sub especialidad -->
+
+<!-- Modal Editar Sub especialidad -->
+<div class="col-xs-12 modal-editar-subespecialidad" (keyup.enter)="sendEditSubscpecialty()">
+    <div class="inside-modal-nueva-especialidad col-xs-12 col-sm-6 col-sm-offset-3">
+        <div class="header-modal-nueva-subespecialidad col-xs-12">
+            <h2>Nueva subespecialidad</h2>
+            <a class="close-modal-editar-subespecialidad">X</a>
+        </div>
+
+        <form action="">
+            <div class="col-xs-12 col-md-12">
+                <label for="">Subespecialidad</label>
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div>{{editSubspecialtyName}}</div>
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <br>
+                <div><strong>¿Cuanto tiempo dura esta consulta?</strong></div>
+                <input class="time-input" type="time" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <span><strong>Precio de la consulta</strong></span><br/>
+                <input class="priceInput" type="number" [(ngModel)]="newSubspecialtyPrice" name="newSubspecialtyPrice" />
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <br>
+                <div><strong>Indicaciones</strong></div>
+                <textarea [(ngModel)]="newSubspecialtyIndication" name="newSubspecialtyIndication"></textarea>
+            </div>
+
+            <div class="div-add-especialidad">
+                <a id="editar-subespecialidad" (click)="sendEditSubscpecialty()">Agregar</a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+<!-- // modal Editar sub especialidad -->
 
 <!-- Modal Eliminar Especialidad -->
 <div class="col-xs-12 modal-borrar-especialidad" (keyup.enter)="removeSpecialty()">

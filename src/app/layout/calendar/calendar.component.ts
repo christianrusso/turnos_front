@@ -7,6 +7,7 @@ import { SpecialtyService } from '../../service/specialty.service';
 import { SubspecialtyService } from '../../service/subspecialty.service';
 import { IdFilter } from '../../model/id-filter.class';
 import { DoctorService } from '../../service/doctor.service';
+import { DoctorBlockedSubspecialty } from '../../model/doctorBlockedSubspecialty.class';
 import { DoctorFilter } from '../../model/doctor-filter.class';
 import { GetAppointment } from '../../model/get-appointment.class';
 import { PatientService } from '../../service/patient.service';
@@ -105,10 +106,18 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     public searchClientFilter = new ClientFilter();
 
+    public isDay = false;
+
     options: DatepickerOptions = {
         displayFormat: 'DD/MM/YYYY',
         locale: esLocale,
     }
+
+    public doctorDataToBlock;
+    public doctorSubspecialtiesToBlock: Array<Select2OptionData>;
+    public doctorSubspecialtyToBlock;
+    public doctorSubspecialtyToUnblock;
+    public doctorSubspecialitiesMessage = [];
 
     constructor (
         private appointmentService: AppointmentService,
@@ -328,11 +337,13 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     nextDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() + 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     previousDay(): void {
         this.currentDate.setDate(this.currentDate.getDate() - 1);
         this.getCurrentDateAppointments();
+        this.getBlocked();
     }
 
     nextWeek(): void {
@@ -603,11 +614,15 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     }
 
     showCalendarDay() {
+        this.isDay = true;
         $(".semana-calendario").hide();
         $(".dia-calendario").show();
+
+        this.getBlocked();
     }
 
     showCalendarWeek() {
+        this.isDay = false;
         $(".dia-calendario").hide();
         $(".semana-calendario").show();
     }
@@ -667,7 +682,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
                 element.requestedAppointmentsPerHour.forEach(paciente => {
                     paciente.appointments.forEach(hour => {
                         var fecha = new Date(hour.hour);
-                       rows.push([hour.patient,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
+                       rows.push([hour.patient + " - " + hour.specialty + " - " + hour.subspecialty,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+fecha.getMinutes()])
                     });                                
                 });
                // rows.push(row2);   
@@ -842,5 +857,90 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.remove('borderSelected');
         (document.querySelector('#thirdStepUser') as HTMLElement).classList.add('circleSecond');
         (document.querySelector('#thirdStepUserParent') as HTMLElement).classList.add('borderUnselected');
+    }
+
+    openLockModal(id) {
+        this.getDoctorByFilter(id);
+        $(".modal-bloquear-especialidad").fadeIn();
+    }
+
+    getDoctorByFilter(id) {
+        this.loaderService.show();
+        this.doctorDataToBlock = null;
+        let myData = [];
+
+        const filter = new DoctorFilter();
+        filter.id = id;
+
+        this.doctorService.getAllDoctorsByFilter(filter).subscribe(res => {
+            this.doctorDataToBlock = res;
+            for (let i = 0; i < this.doctorDataToBlock[0].subspecialties.length; i++) {
+                myData.push(
+                    {
+                        id: this.doctorDataToBlock[0].subspecialties[i].subspecialtyId.toString(),
+                        text: this.doctorDataToBlock[0].subspecialties[i].subspecialtyDescription
+                    }
+                );
+            }
+            this.doctorSubspecialtiesToBlock = myData;
+            this.loaderService.hide();
+        });
+    }
+
+    blockSubspecialty() {
+        this.loaderService.show();
+
+        const filter = new DoctorFilter();
+        filter.id = this.doctorDataToBlock[0].id;
+        filter.subspecialtyId = this.doctorSubspecialtyToBlock;
+        filter.day = this.currentDate.toJSON();
+
+        this.doctorService.blockDay(filter).subscribe(res => {
+            this.toastrService.success('Subespecialidad del médico ' + this.doctorDataToBlock[0].firstName + ' ' + this.doctorDataToBlock[0].lastName + ' bloqueada para el día indicado.');
+            this.loaderService.hide();
+            this.doctorSubspecialtyToBlock = null;
+            this.getBlocked();
+            $(".modal-bloquear-especialidad").fadeOut();
+        });
+    }
+
+    unblockSubspecialty() {
+        this.loaderService.show();
+
+        const filter = new DoctorFilter();
+        filter.id = this.doctorDataToBlock[0].id;
+        filter.subspecialtyId = this.doctorSubspecialtyToUnblock;
+        filter.day = this.currentDate.toJSON();
+
+        this.doctorService.unblockDay(filter).subscribe(res => {
+            this.toastrService.success('Subespecialidad del médico ' + this.doctorDataToBlock[0].firstName + ' ' + this.doctorDataToBlock[0].lastName + ' desbloqueada para el día indicado.');
+            this.loaderService.hide();
+            this.doctorSubspecialtyToUnblock = null;
+            this.getBlocked();
+            $(".modal-bloquear-especialidad").fadeOut();
+        });
+    }
+
+    getBlocked() {
+        this.loaderService.show();
+
+        this.doctorSubspecialitiesMessage = [];
+
+        const filter = new DoctorFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.doctorService.getBlocked(filter).subscribe(res => {
+            for (let i = 0; i < res.length; i++) {
+                if(typeof this.doctorSubspecialitiesMessage[res[i].doctor] == 'undefined') {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] = "";
+                }
+                if (this.doctorSubspecialitiesMessage[res[i].doctor] == "") {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] = res[i].subspecialtyDescription;
+                } else {
+                    this.doctorSubspecialitiesMessage[res[i].doctor] += ", " + res[i].subspecialtyDescription;
+                }
+            }
+            this.loaderService.hide();
+        });
     }
 }

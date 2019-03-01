@@ -109,9 +109,14 @@
             <p style="text-align: center;">Este medico no tiene especialidades asignadas.</p>
         </div>
 
-        <div *ngFor="let sub of selectedDoctorSubspecialities" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
-            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%;">
-                <p>Especialidad: {{sub.specialtyDescription}} - Subespecialidad: {{sub.subspecialtyDescription}}</p>
+        <div *ngFor="let sub of selectedDoctorSubspecialities; let i = index;" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+            <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%; display: flex;">
+                <div style="width: 50%;">
+                    <b>{{selectedDoctorSubspecialities[i][0].specialtyDescription}} </b>
+                </div>
+                <div style="width: 50%;">
+                    <p *ngFor="let subesp of selectedDoctorSubspecialities[i]">{{subesp.subspecialtyDescription}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -210,14 +215,17 @@
                 <div class="col-xs-3 col-sm-3">
                     <strong>Disponible</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Día</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Desde</strong>
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <strong>Hasta</strong>
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <strong>Partir Horario</strong>
                 </div>
             </div>
 
@@ -225,14 +233,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorMondayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Lunes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorMondayWhStart" [disabled]="!doctorMondayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorMondayWhEnd" [disabled]="!doctorMondayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorMondaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorMondaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorMondaySecondWhStart" [disabled]="!doctorMondayWorks" [hidden]="!doctorMondaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorMondaySecondWhEnd" [disabled]="!doctorMondayWorks" [hidden]="!doctorMondaySplit">
                 </div>
             </div>
 
@@ -240,14 +263,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorTuesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Martes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorTuesdayWhStart" [disabled]="!doctorTuesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorTuesdayWhEnd" [disabled]="!doctorTuesdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorTuesdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorTuesdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorTuesdaySecondWhStart" [disabled]="!doctorTuesdayWorks" [hidden]="!doctorTuesdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorTuesdaySecondWhEnd" [disabled]="!doctorTuesdayWorks" [hidden]="!doctorTuesdaySplit">
                 </div>
             </div>
 
@@ -255,14 +293,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorWednesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Miercoles
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorWednesdayWhStart" [disabled]="!doctorWednesdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorWednesdayWhEnd" [disabled]="!doctorWednesdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorWednesdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorWednesdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorWednesdaySecondWhStart" [disabled]="!doctorWednesdayWorks" [hidden]="!doctorWednesdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorWednesdaySecondWhEnd" [disabled]="!doctorWednesdayWorks" [hidden]="!doctorWednesdaySplit">
                 </div>
             </div>
 
@@ -270,14 +323,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorThursdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Jueves
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorThursdayWhStart" [disabled]="!doctorThursdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorThursdayWhEnd" [disabled]="!doctorThursdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorThursdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorThursdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorThursdaySecondWhStart" [disabled]="!doctorThursdayWorks" [hidden]="!doctorThursdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorThursdaySecondWhEnd" [disabled]="!doctorThursdayWorks" [hidden]="!doctorThursdaySplit">
                 </div>
             </div>
 
@@ -285,14 +353,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorFridayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Viernes
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorFridayWhStart" [disabled]="!doctorFridayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorFridayWhEnd" [disabled]="!doctorFridayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorFridaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorFridaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorFridaySecondWhStart" [disabled]="!doctorFridayWorks" [hidden]="!doctorFridaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorFridaySecondWhEnd" [disabled]="!doctorFridayWorks" [hidden]="!doctorFridaySplit">
                 </div>
             </div>
 
@@ -300,14 +383,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorSaturdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Sabado
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorSaturdayWhStart" [disabled]="!doctorSaturdayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorSaturdayWhEnd" [disabled]="!doctorSaturdayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorSaturdaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorSaturdaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorSaturdaySecondWhStart" [disabled]="!doctorSaturdayWorks" [hidden]="!doctorSaturdaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorSaturdaySecondWhEnd" [disabled]="!doctorSaturdayWorks" [hidden]="!doctorSaturdaySplit">
                 </div>
             </div>
 
@@ -315,14 +413,29 @@
                 <div class="col-xs-3 col-sm-3">
                     <input type="checkbox" [(ngModel)]="doctorSundayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     Domingo
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorSundayWhStart" [disabled]="!doctorSundayWorks">
                 </div>
-                <div class="col-xs-3 col-sm-3">
+                <div class="col-xs-2 col-sm-2">
                     <input class="time-input" type="time" [(ngModel)]="doctorSundayWhEnd" [disabled]="!doctorSundayWorks">
+                </div>
+                <div class="col-xs-3 col-sm-3">
+                    <input class="" type="checkbox" [(ngModel)]="doctorSundaySplit">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center wh-container" [hidden]="!doctorSundaySplit">
+                <div class="col-xs-3 col-sm-3">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorSundaySecondWhStart" [disabled]="!doctorSundayWorks" [hidden]="!doctorSundaySplit">
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <input class="time-input" type="time" [(ngModel)]="doctorSundaySecondWhEnd" [disabled]="!doctorSundayWorks" [hidden]="!doctorSundaySplit">
                 </div>
             </div>
                 

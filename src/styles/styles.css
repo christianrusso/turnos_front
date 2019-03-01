@@ -1650,7 +1650,7 @@ ul {
 .medicos-section .col-md-offset-1{
 }
 
-.modal-horarios, .modal-especialidades, .modal-empleado, .modal-paciente, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .modal-informacion, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
+.modal-horarios, .modal-especialidades, .modal-bloquear-especialidad, .modal-empleado, .modal-paciente, .modal-borrar-medico, .modal-borrar-paciente, .modal-editar-especialidad, .modal-nueva-subespecialidad, .modal-editar-subespecialidad, .modal-agregar-medico, .modal-agregar-turno, .modal-nueva-obra-social, .modal-obra-social, .borrar-obra-social, .modal-nueva-especialidad, .modal-borrar-especialidad, .modal-borrar-subespecialidad, .modal-nuevo-plan, .modal-informacion, .borrar-plan, .modal-agregar-paciente, .modal-editar-paciente{
   position: absolute;
   z-index: 99;
   background: rgba(203, 208, 221, 0.7);
@@ -1905,7 +1905,7 @@ ul {
   font-size: 13.5px;
 }
 
-.close-modal-horarios, .close-modal-especialidades, .close-modal-empleado, .close-modal-paciente, .close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-informacion, .close-modal-agregar-paciente, .close-modal-editar-paciente{
+.close-modal-horarios, .close-modal-bloquear-especialidad, .close-modal-editar-subespecialidad, .close-modal-especialidades, .close-modal-empleado, .close-modal-paciente, .close-modal-agregar-turno,.close-borrar-paciente,.close-borrar-medico,.close-modal-nueva-subespecialidad, .close-modal-nueva-obra-social, .close-modal-editar-especialidad, .close-modal-agregar-medico, .close-modal-obra-social, .close-borrar-obra-social, .close-modal-nueva-especialidad, .close-modal-borrar-especialidad, .close-modal-borrar-subespecialidad, .close-modal-nuevo-plan, .close-modal-informacion, .close-modal-agregar-paciente, .close-modal-editar-paciente{
   position: absolute;
   top: 8px;
   right: 20px;
@@ -2365,7 +2365,7 @@ svg:not(:root){
   opacity: .7;
 }
 
-#agregar-medico-btn, #guardar-plan-social,#guardar-plan, #agregar-especialidad, #editar-especialidad,  #editar-especialidad, #agregar-subespecialidad{
+#agregar-medico-btn, #guardar-plan-social,#guardar-plan, #agregar-especialidad, #editar-especialidad,  #editar-especialidad, #agregar-subespecialidad, #editar-subespecialidad{
   background: #0dae2d;
   color: #fff;
   padding: 8px 10px;
@@ -2916,6 +2916,9 @@ svg:not(:root){
 }
 
 .body-especialidades i.fa.fa-close{
+  cursor: pointer;
+}
+.fa-pencil {
   cursor: pointer;
 }
 .inside-modal-nueva-especialidad {
