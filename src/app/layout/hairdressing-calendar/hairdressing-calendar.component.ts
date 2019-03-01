@@ -31,6 +31,7 @@ import { ClientFilter } from '../../model/client-filter.class';
 declare var jsPDF: any; // Important
 
 import { TouchSequence } from 'selenium-webdriver';
+import {HairdressingPatientFilter} from "../../model/hairdressing-patient-filter.class";
 @Component({
     selector: 'app-hairdressing-calendar',
     templateUrl: './hairdressing-calendar.component.html',
@@ -85,6 +86,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public longitude: number;
     public zoom: number;
     public invalidPhone: boolean = false;
+    public searchEmail:string;
 
     public searchClientFilter = new ClientFilter();
 
@@ -226,6 +228,16 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     getAllPatients() {
         this.loaderService.show();
         this.patientService.getAllPatients().subscribe(res => {
+            this.patients = res;
+            this.loaderService.hide();
+        });
+    }
+
+    getAllPatientsByFilter() {
+        this.loaderService.show();
+        let filter = new HairdressingPatientFilter();
+        filter.email = this.searchEmail;
+        this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
             this.loaderService.hide();
         });
