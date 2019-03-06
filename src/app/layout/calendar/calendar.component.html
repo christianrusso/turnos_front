@@ -54,7 +54,7 @@
                         <div class="col-xs-12 col-sm-3 col-3" *ngFor="let data of requestedAppointmentsPerDoctor">
 
                             <h3>{{ data.doctorLastName + ' ' + data.doctorFirstName | truncate }}
-                                <i *ngIf="doctorSubspecialitiesMessage[data.doctorId]" title="{{doctorSubspecialitiesMessage[data.doctorId]}}" class="fa fa-lock" aria-hidden="true" style="cursor: pointer; color: red;" (click)="openLockModal(data.doctorId)"></i>
+                                <i *ngIf="doctorSubspecialitiesMessage[data.doctorId]" title="Subespecialidades Bloqueadas:{{doctorSubspecialitiesMessage[data.doctorId]}}" class="fa fa-lock" aria-hidden="true" style="cursor: pointer; color: red;" (click)="openLockModal(data.doctorId)"></i>
                                 <i *ngIf="!doctorSubspecialitiesMessage[data.doctorId]" class="fa fa-lock" aria-hidden="true" style="cursor: pointer;" (click)="openLockModal(data.doctorId)"></i>
                             </h3>
 
@@ -615,7 +615,7 @@
                     <label for="">Subespecialidad a desbloquear:</label>
                 </div>
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <ng-select2 [data]="doctorSubspecialtiesToBlock" [(ngModel)]="doctorSubspecialtyToUnblock" [value]="-1" name="especialidad-medico-seccion" lang="es">
+                    <ng-select2 [data]="doctorSubspecialtiesToUnBlock" [(ngModel)]="doctorSubspecialtyToUnblock" [value]="-1" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
                 </div>
             </div>

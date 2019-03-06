@@ -112,6 +112,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public professionalSubspecialtyToBlock;
     public professionalSubspecialtyToUnblock;
     public professionalSubspecialitiesMessage = [];
+    public professionalSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
     constructor (
         private appointmentService: HairdressingAppointmentService,
@@ -816,6 +817,22 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     openLockModal(id) {
         this.getProfessionalByFilter(id);
         $(".modal-bloquear-especialidad").fadeIn();
+
+        const filter = new HairdressingProfessionalFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.professionalService.getBlocked(filter).subscribe(res => {
+            let myData = [];
+            for (let i = 0; i < res.length; i++) {
+                myData.push(
+                    {
+                        id: res[i].subspecialtyId.toString(),
+                        text: res[i].subspecialtyDescription
+                    }
+                );
+            }
+            this.professionalSubspecialtiesToUnBlock = myData;
+        });
     }
 
     getProfessionalByFilter(id) {
@@ -889,9 +906,9 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
                     this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = "";
                 }
                 if (this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] == "") {
-                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = res[i].subspecialtyDescription;
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = "\x0A" + res[i].subspecialtyDescription;
                 } else {
-                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] += ", " + res[i].subspecialtyDescription;
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] += "\x0A" + res[i].subspecialtyDescription;
                 }
             }
             this.loaderService.hide();

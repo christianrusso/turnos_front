@@ -118,6 +118,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public doctorSubspecialtyToBlock;
     public doctorSubspecialtyToUnblock;
     public doctorSubspecialitiesMessage = [];
+    public doctorSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
     constructor (
         private appointmentService: AppointmentService,
@@ -862,6 +863,22 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     openLockModal(id) {
         this.getDoctorByFilter(id);
         $(".modal-bloquear-especialidad").fadeIn();
+
+        const filter = new DoctorFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.doctorService.getBlocked(filter).subscribe(res => {
+            let myData = [];
+            for (let i = 0; i < res.length; i++) {
+                myData.push(
+                    {
+                        id: res[i].subspecialtyId.toString(),
+                        text: res[i].subspecialtyDescription
+                    }
+                );
+            }
+            this.doctorSubspecialtiesToUnBlock = myData;
+        });
     }
 
     getDoctorByFilter(id) {
@@ -935,9 +952,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
                     this.doctorSubspecialitiesMessage[res[i].doctor] = "";
                 }
                 if (this.doctorSubspecialitiesMessage[res[i].doctor] == "") {
-                    this.doctorSubspecialitiesMessage[res[i].doctor] = res[i].subspecialtyDescription;
+                    this.doctorSubspecialitiesMessage[res[i].doctor] = "\x0A" + res[i].subspecialtyDescription;
                 } else {
-                    this.doctorSubspecialitiesMessage[res[i].doctor] += ", " + res[i].subspecialtyDescription;
+                    this.doctorSubspecialitiesMessage[res[i].doctor] += "\x0A" + res[i].subspecialtyDescription;
                 }
             }
             this.loaderService.hide();
