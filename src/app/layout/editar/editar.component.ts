@@ -150,11 +150,14 @@ export class EditarComponent extends BaseComponent {
     }
 
     changeCity() {
-        for (var i = 0; i < this.citys.length; i++) {
-            if (this.citys[i].text == this.data.city) {
-                this.data.city = this.citys[i].id;
+        const interval = window.setInterval(() => {
+            for (var i = 0; i < this.citys.length; i++) {
+                if (this.citys[i].text == this.data.city) {
+                    this.data.city = this.citys[i].id;
+                }
             }
-        }
+            window.clearInterval(interval);
+        }, 500);
     }
 
     selectDay() {

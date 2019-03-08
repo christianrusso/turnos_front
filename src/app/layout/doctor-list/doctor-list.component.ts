@@ -355,14 +355,14 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         this.doctorSpecialities = [];
         let count = 0;
         this.doctors[index].subspecialties.forEach(sub => {
-            const hours = Math.floor(sub.consultationLength / 60);
-            const minutes = sub.consultationLength % 60;
-            const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+            //const hours = Math.floor(sub.consultationLength / 60);
+            //const minutes = sub.consultationLength % 60;
+            //const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
             this.doctorSpecialities.push(
                 {
                     doctorSpecialty: sub.specialtyId.toString(),
                     doctorSubspecialty: sub.subspecialtyId.toString(),
-                    doctorConsultationLength: doctorConsultationLength
+                    doctorConsultationLength: sub.consultationLength.toString()
                 }
             );
             this.specialtyChangeDoctor({value: sub.specialtyId.toString()}, count);
@@ -512,9 +512,9 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
         let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
 
-        const hours = Math.floor(consultationLength / 60);
-        const minutes = consultationLength % 60;
-        this.doctorSpecialities[index].doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        //const hours = Math.floor(consultationLength / 60);
+        //const minutes = consultationLength % 60;
+        this.doctorSpecialities[index].doctorConsultationLength = consultationLength.toString();
     }
 
     addDoctor() {
@@ -527,10 +527,10 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
         for (var i = 0; i < this.doctorSpecialities.length; i++) {
             if (this.doctorSpecialities[i].doctorSpecialty != "" && this.doctorSpecialities[i].doctorSubspecialty != "" &&
                 this.doctorSpecialities[i].doctorConsultationLength != "") {
-                const consultationLengthString = this.doctorSpecialities[i].doctorConsultationLength.split(':');
+                const consultationLengthString = this.doctorSpecialities[i].doctorConsultationLength;
                 let subSpec = new Subspecialty();
                 subSpec.subspecialtyId = parseInt(this.doctorSpecialities[i].doctorSubspecialty);
-                subSpec.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+                subSpec.consultationLength = parseInt(consultationLengthString);
                 doctor.subspecialties.push(subSpec);
             }
         }

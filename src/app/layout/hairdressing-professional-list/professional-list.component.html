@@ -190,7 +190,7 @@
                     <h3>Duración de consulta</h3>
                 </div>-->
                 <div>
-                    <input class="time-input" type="time" [(ngModel)]="profesionalSpecialities[i].professionalConsultationLength" style="height: 38px;">
+                    <input class="time-input" type="number" step="15" min="15" onkeydown="return false" [(ngModel)]="profesionalSpecialities[i].professionalConsultationLength" style="height: 38px;">
                 </div>
             </div>
 

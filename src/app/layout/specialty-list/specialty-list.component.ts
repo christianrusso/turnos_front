@@ -156,8 +156,8 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         let subspecialty = new Subspecialty();
         subspecialty.id = parseInt(this.subspecialtyId);
         subspecialty.specialtyId = this.selectedSpecialty.id;
-        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
-        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        const consultationLengthString = this.newSubspecialtyConsultationLength;
+        subspecialty.consultationLength = parseInt(consultationLengthString);
         subspecialty.indications = this.newSubspecialtyIndication;
 
         this.subspecialtyService.add(subspecialty).subscribe(ok => {
@@ -185,7 +185,7 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         const minutes = this.selectedSubspecialty.consultationLength % 60;
         const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
 
-        this.newSubspecialtyConsultationLength = doctorConsultationLength;
+        this.newSubspecialtyConsultationLength = this.selectedSubspecialty.consultationLength.toString();
 
         $(".modal-editar-subespecialidad").fadeIn();
     }
@@ -194,8 +194,8 @@ export class SpecialtyListComponent extends BaseComponent implements AfterViewIn
         this.loaderService.show();
         let subspecialty = new Subspecialty();
         subspecialty.id = parseInt(this.subspecialtyId);
-        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
-        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        const consultationLengthString = this.newSubspecialtyConsultationLength;
+        subspecialty.consultationLength = parseInt(consultationLengthString);
         subspecialty.indications = this.newSubspecialtyIndication;
 
         this.subspecialtyService.edit(subspecialty).subscribe(ok => {

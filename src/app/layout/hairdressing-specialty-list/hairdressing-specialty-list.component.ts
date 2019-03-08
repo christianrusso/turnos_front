@@ -164,8 +164,8 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         } else {
             this.invalidHour = false;
             this.loaderService.show();
-            const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
-            subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+            const consultationLengthString = this.newSubspecialtyConsultationLength;
+            subspecialty.consultationLength = parseInt(consultationLengthString);
             subspecialty.price = this.newSubspecialtyPrice;
             subspecialty.indications = this.newSubspecialtyIndication;
 
@@ -197,7 +197,7 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         const minutes = this.selectedSubspecialty.consultationLength % 60;
         const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
 
-        this.newSubspecialtyConsultationLength = doctorConsultationLength;
+        this.newSubspecialtyConsultationLength = this.selectedSubspecialty.consultationLength.toString();
 
         $(".modal-editar-subespecialidad").fadeIn();
     }
@@ -206,8 +206,8 @@ export class HairdressingSpecialtyListComponent extends BaseComponent implements
         this.loaderService.show();
         let subspecialty = new Subspecialty();
         subspecialty.id = parseInt(this.subspecialtyId);
-        const consultationLengthString = this.newSubspecialtyConsultationLength.split(':');
-        subspecialty.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+        const consultationLengthString = this.newSubspecialtyConsultationLength;
+        subspecialty.consultationLength = parseInt(consultationLengthString);
         subspecialty.indications = this.newSubspecialtyIndication;
         subspecialty.price = this.newSubspecialtyPrice;
 
