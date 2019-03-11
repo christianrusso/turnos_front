@@ -89,7 +89,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public searchClientFilter = new ClientFilter();
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/calendario.js');
+        await this.loadScript('assets/calendario.js');
     }
 
     public days: Array<string>;
