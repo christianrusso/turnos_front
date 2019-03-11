@@ -13,6 +13,6 @@ export class SearchUser {
     public  UserId:number;
     public  ClientId:number;
     public  PatientId:number;
-    public  IsClient:boolean;
-    public  IsPatient:boolean;
+    public  isClient:boolean;
+    public  isPatient:boolean;
 }

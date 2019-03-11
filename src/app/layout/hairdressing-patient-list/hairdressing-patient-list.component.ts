@@ -184,16 +184,13 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         });
     }
 
-    getSearchUser(){
+    getSearchUser() {
         this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
             this.searchUser = res;
 
-            this.searchUser.IsClient = true;
-            this.searchUser.IsPatient = false;
-
-            if(this.searchUser.IsClient){ //ya es cliente
+            if(this.searchUser.isClient){ //ya es cliente
                 this.showClientTab();
-            }else if(this.searchUser.IsPatient){ //es paciente y no cliente.
+            }else if(this.searchUser.isPatient){ //es paciente y no cliente.
                 this.showNoClientTab();  
             }else{ //no es nada
                 $(".existe-cluster").fadeIn();                
