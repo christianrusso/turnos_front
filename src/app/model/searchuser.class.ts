@@ -1,18 +1,18 @@
 export class SearchUser {
     public  Id: number;
-    public  FirstName:string;
-    public  LastName:string;
-    public  Address:string;
-    public  PhoneNumber:string;
-    public  Email:string;
-    public  Dni:string;
-    public  MedicalInsurance:string;
-    public  MedicalInsuranceId:string;
-    public  MedicalPlan:string;
-    public  MedicalPlanId:number;
-    public  UserId:number;
-    public  ClientId:number;
-    public  PatientId:number;
-    public  IsClient:boolean;
-    public  IsPatient:boolean;
+    public  firstName:string;
+    public  lastName:string;
+    public  address:string;
+    public  phoneNumber:string;
+    public  email:string;
+    public  dni:string;
+    public  medicalInsurance:string;
+    public  medicalInsuranceId:string;
+    public  medicalPlan:string;
+    public  medicalPlanId:number;
+    public  userId:number;
+    public  clientId:number;
+    public  patientId:number;
+    public  isClient:boolean;
+    public  isPatient:boolean;
 }
