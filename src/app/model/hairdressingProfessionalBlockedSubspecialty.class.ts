@@ -4,4 +4,5 @@ import { Subspecialty } from "./subspecialty.class";
 export class HairdressingProfessionalBlockedSubspecialty {
     public hairdressingProfessional: number;
     public subspecialtyDescription: string;
+    public subspecialtyId:number;
 }

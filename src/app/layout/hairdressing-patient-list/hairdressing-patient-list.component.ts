@@ -15,6 +15,8 @@ import {PatientService} from "../../service/patient.service";
 import {PatientFilter} from "../../model/patient-filter.class";
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
+import { SearchUserFilter } from '../../model/searchuser.filter.class';
+import { SearchUser } from '../../model/searchuser.class';
 
 @Component({
     selector: 'app-hairdressing-patient-list',
@@ -52,6 +54,9 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public zoom: number;
 
     public searchClientFilter = new ClientFilter();
+
+    public searchUserFilter = new SearchUserFilter();
+    public searchUser = new SearchUser();
 
     public searchDescription: string;
 
@@ -179,6 +184,24 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         });
     }
 
+    getSearchUser(){
+        this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
+            this.searchUser = res;
+
+            this.searchUser.IsClient = true;
+            this.searchUser.IsPatient = false;
+
+            if(this.searchUser.IsClient){ //ya es cliente
+                this.showClientTab();
+            }else if(this.searchUser.IsPatient){ //es paciente y no cliente.
+                this.showNoClientTab();  
+            }else{ //no es nada
+                $(".existe-cluster").fadeIn();                
+            }
+        });
+        
+    }
+
     getAllPatientsByFilter() {
         this.loaderService.show();
         const filter = new HairdressingPatientFilter();
@@ -235,10 +258,13 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.cleanPatient();
         $(".modal-agregar-paciente").fadeIn();
         $(".noexiste-cluster").fadeOut();
+        $(".existe-cluster").fadeOut();
         $(".cliente-cluster").fadeOut();
         $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").removeClass('activeTurno');
     }
+
+    
 
     hideAddPatient(){
         $(".modal-agregar-paciente").fadeOut();

@@ -54,7 +54,7 @@
                         <div class="col-xs-12 col-sm-3 col-3" *ngFor="let data of requestedAppointmentsPerProfessional">
 
                             <h3>{{ data.professionalFirstName + ' ' + data.professionalLastName | truncate }}
-                                <i *ngIf="professionalSubspecialitiesMessage[data.professionalId]" title="{{professionalSubspecialitiesMessage[data.professionalId]}}" class="fa fa-lock" aria-hidden="true" style="cursor: pointer; color: red;" (click)="openLockModal(data.professionalId)"></i>
+                                <i *ngIf="professionalSubspecialitiesMessage[data.professionalId]" title="Subespecialidades Bloqueadas:{{professionalSubspecialitiesMessage[data.professionalId]}}" class="fa fa-lock" aria-hidden="true" style="cursor: pointer; color: red;" (click)="openLockModal(data.professionalId)"></i>
                                 <i *ngIf="!professionalSubspecialitiesMessage[data.professionalId]" class="fa fa-lock" aria-hidden="true" style="cursor: pointer;" (click)="openLockModal(data.professionalId)"></i>
                             </h3>
 
@@ -240,10 +240,10 @@
                         <b>Buscar por Nombre y/o Apellido:</b>
                     </div>
                     <div class="col-xs-2">
-                        <input type="text" id="search-client-email" name="search-client-email">
+                        <input type="text" id="search-client-email" name="search-client-email" [(ngModel)]="searchEmail">
                     </div>
                     <div class="col-xs-2 selectClienteLabelBuscarIsPatient" style="">
-                        <a id="search-cliente"><b style="color: #00ae00;">BUSCAR</b></a>
+                        <a id="search-cliente" (click)="getAllPatientsByFilter()"><b style="color: #00ae00;">BUSCAR</b></a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-lg-12 col-md-12 col-sm-5" style="/*margin-top: 42px;*/">
@@ -585,7 +585,7 @@
                     <label for="">Subespecialidad a desbloquear:</label>
                 </div>
                 <div class="col-xs-12 col-md-10 col-md-offset-1">
-                    <ng-select2 [data]="professionalSubspecialtiesToBlock" [(ngModel)]="professionalSubspecialtyToUnblock" [value]="-1" name="especialidad-medico-seccion" lang="es">
+                    <ng-select2 [data]="professionalSubspecialtiesToUnBlock" [(ngModel)]="professionalSubspecialtyToUnblock" [value]="-1" name="especialidad-medico-seccion" lang="es">
                     </ng-select2>
                 </div>
             </div>

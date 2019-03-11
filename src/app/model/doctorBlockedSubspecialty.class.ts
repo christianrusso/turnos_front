@@ -4,4 +4,5 @@ import { Subspecialty } from "./subspecialty.class";
 export class DoctorBlockedSubspecialty {
     public doctor: number;
     public subspecialtyDescription: string;
+    public subspecialtyId: number;
 }

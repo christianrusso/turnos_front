@@ -29,8 +29,9 @@ import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
 import { ClientFilter } from '../../model/client-filter.class';
 declare var jsPDF: any; // Important
+import { TouchSequence } from 'selenium-webdriver';
+import {HairdressingPatientFilter} from "../../model/hairdressing-patient-filter.class";
 
-import { TouchSequence, FileDetector } from 'selenium-webdriver';
 @Component({
     selector: 'app-hairdressing-calendar',
     templateUrl: './hairdressing-calendar.component.html',
@@ -85,6 +86,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public longitude: number;
     public zoom: number;
     public invalidPhone: boolean = false;
+    public searchEmail:string;
 
     public searchClientFilter = new ClientFilter();
 
@@ -110,6 +112,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public professionalSubspecialtyToBlock;
     public professionalSubspecialtyToUnblock;
     public professionalSubspecialitiesMessage = [];
+    public professionalSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
     constructor (
         private appointmentService: HairdressingAppointmentService,
@@ -226,6 +229,16 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     getAllPatients() {
         this.loaderService.show();
         this.patientService.getAllPatients().subscribe(res => {
+            this.patients = res;
+            this.loaderService.hide();
+        });
+    }
+
+    getAllPatientsByFilter() {
+        this.loaderService.show();
+        let filter = new HairdressingPatientFilter();
+        filter.email = this.searchEmail;
+        this.patientService.getAllPatientsByFilter(filter).subscribe(res => {
             this.patients = res;
             this.loaderService.hide();
         });
@@ -808,6 +821,22 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     openLockModal(id) {
         this.getProfessionalByFilter(id);
         $(".modal-bloquear-especialidad").fadeIn();
+
+        const filter = new HairdressingProfessionalFilter();
+        filter.day = this.currentDate.toJSON();
+
+        this.professionalService.getBlocked(filter).subscribe(res => {
+            let myData = [];
+            for (let i = 0; i < res.length; i++) {
+                myData.push(
+                    {
+                        id: res[i].subspecialtyId.toString(),
+                        text: res[i].subspecialtyDescription
+                    }
+                );
+            }
+            this.professionalSubspecialtiesToUnBlock = myData;
+        });
     }
 
     getProfessionalByFilter(id) {
@@ -881,9 +910,9 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
                     this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = "";
                 }
                 if (this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] == "") {
-                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = res[i].subspecialtyDescription;
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] = "\x0A" + res[i].subspecialtyDescription;
                 } else {
-                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] += ", " + res[i].subspecialtyDescription;
+                    this.professionalSubspecialitiesMessage[res[i].hairdressingProfessional] += "\x0A" + res[i].subspecialtyDescription;
                 }
             }
             this.loaderService.hide();

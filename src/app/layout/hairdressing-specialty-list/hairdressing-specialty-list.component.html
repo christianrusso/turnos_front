@@ -147,8 +147,8 @@
             
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <br>
-                <div><strong>¿Cuanto tiempo dura este servicio?</strong></div>
-                <input class="time-input" type="time" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
+                <div><strong>¿Cuantos minútos dura este servicio?</strong></div>
+                <input class="time-input" type="number" step="15" min="15" onkeydown="return false" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
                 <div *ngIf="invalidHour" class="alert alert-danger">
                     <div>
                         El horario ingresado es incorrecto
@@ -197,8 +197,8 @@
 
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
                 <br>
-                <div><strong>¿Cuanto tiempo dura esta consulta?</strong></div>
-                <input class="time-input" type="time" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
+                <div><strong>¿Cuanto minútos dura esta consulta?</strong></div>
+                <input class="time-input" type="number" step="15" min="15" onkeydown="return false" [(ngModel)]="newSubspecialtyConsultationLength" name="newSubspecialtyConsultationLength">
             </div>
 
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">

@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { PatientFilter } from '../model/patient-filter.class';
 import { PatientFicha } from '../model/patient-ficha.class';
+import { SearchUserFilter } from '../model/searchuser.filter.class';
+import { SearchUser } from '../model/searchuser.class';
 
 @Injectable()
 export class HairdressingPatientService extends BaseService {
@@ -61,5 +63,9 @@ export class HairdressingPatientService extends BaseService {
 
     public editMedicalRecord(ficha: PatientFicha): Observable<Object> {
         return this.post(this.url + "/EditMedicalRecord", null, ficha);
+    }
+
+    public searchUser(user: SearchUserFilter): Observable<SearchUser> {
+        return this.post(this.url + "/Search", null, user);
     }
 }

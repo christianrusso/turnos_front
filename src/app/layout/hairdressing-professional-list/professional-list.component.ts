@@ -357,9 +357,9 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         this.profesionalSpecialities = [];
         let count = 0;
         this.professionals[index].subspecialties.forEach(sub => {
-            const hours = Math.floor(sub.consultationLength / 60);
-            const minutes = sub.consultationLength % 60;
-            const doctorConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+            //const hours = Math.floor(sub.consultationLength / 60);
+            //const minutes = sub.consultationLength % 60;
+            const doctorConsultationLength = sub.consultationLength.toString();
             this.profesionalSpecialities.push(
                 {
                     professionalSpecialty: sub.specialtyId.toString(),
@@ -514,9 +514,9 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         let subspecialty = this.subspecialties.find(s => s.id == subspecialtyId);
         let consultationLength = subspecialty != null ? subspecialty.consultationLength : 0;
 
-        const hours = Math.floor(consultationLength / 60);
-        const minutes = consultationLength % 60;
-        this.profesionalSpecialities[index].professionalConsultationLength = this.convertHoursAndMinutesToString(hours, minutes);
+        //const hours = Math.floor(consultationLength / 60);
+        //const minutes = consultationLength % 60;
+        this.profesionalSpecialities[index].professionalConsultationLength = consultationLength.toString();
     }
 
     addProfessional() {
@@ -529,10 +529,10 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         for (var i = 0; i < this.profesionalSpecialities.length; i++) {
             if (this.profesionalSpecialities[i].professionalSpecialty != "" && this.profesionalSpecialities[i].professionalSubspecialty != "" &&
                 this.profesionalSpecialities[i].professionalConsultationLength != "") {
-                const consultationLengthString = this.profesionalSpecialities[i].professionalConsultationLength.split(':');
+                const consultationLengthString = this.profesionalSpecialities[i].professionalConsultationLength;
                 let subSpec = new Subspecialty();
                 subSpec.subspecialtyId = parseInt(this.profesionalSpecialities[i].professionalSubspecialty);
-                subSpec.consultationLength = parseInt(consultationLengthString[0], 10) * 60 + parseInt(consultationLengthString[1], 10);
+                subSpec.consultationLength = parseInt(consultationLengthString);
                 professional.subspecialties.push(subSpec);
             }
         }
