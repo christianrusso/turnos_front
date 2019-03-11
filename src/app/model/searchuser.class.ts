@@ -1,6 +1,6 @@
 export class SearchUser {
-    public Id: number;
-    public FirstName:string;
+    public  Id: number;
+    public  FirstName:string;
     public  LastName:string;
     public  Address:string;
     public  PhoneNumber:string;

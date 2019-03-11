@@ -187,10 +187,13 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     getSearchUser(){
         this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
             this.searchUser = res;
+            
 
-            this.searchUser.IsClient = true;
-            this.searchUser.IsPatient = false;
+            console.log(res);
+            console.log(this.searchUser);
+            console.log(this.searchUser.IsClient);
 
+            
             if(this.searchUser.IsClient){ //ya es cliente
                 this.showClientTab();
             }else if(this.searchUser.IsPatient){ //es paciente y no cliente.
