@@ -17,6 +17,8 @@ import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
+import { SearchUserFilter } from '../../model/searchuser.filter.class';
+import { SearchUser } from '../../model/searchuser.class';
 
 @Component({
     selector: 'app-patient-list',
@@ -51,6 +53,9 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public password: string;
 
     public searchClientFilter = new ClientFilter();
+
+    public searchUserFilter = new SearchUserFilter();
+    public searchUser = new SearchUser();
 
     public addPatientEnable = false;
 
@@ -168,9 +173,11 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
     
     medicalInsuranceChange(selection){
-        this.loaderService.show();
-        this.medicalInsurance = selection.value;
-        this.getAllMedicalPlansOfInsurance();
+        if (selection.value != null) {
+            this.loaderService.show();
+            this.medicalInsurance = selection.value;
+            this.getAllMedicalPlansOfInsurance();
+        }
     }
 
     getAllPatients() {
@@ -179,6 +186,34 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
             this.patients = res;
             this.loaderService.hide();
         });
+    }
+
+    getSearchUser() {
+        $(".existe-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
+            this.searchUser = res;
+
+            if(this.searchUser.isPatient){ //ya es paciente
+                $(".existe-cluster").fadeIn();
+            }else if(this.searchUser.isClient){ //no paciente y cliente
+                this.firstName = this.searchUser.firstName;
+                this.lastName = this.searchUser.lastName;
+                this.dni = this.searchUser.dni;
+                this.address = this.searchUser.address;
+                this.phoneNumber = this.searchUser.phoneNumber;
+                this.medicalInsurance = this.searchUser.medicalInsuranceId != null ? this.searchUser.medicalInsuranceId : null;
+                this.medicalPlan = this.searchUser.medicalPlanId != null ? this.searchUser.medicalPlanId.toString() : null;
+
+                this.selectedClient = new Client();
+                this.selectedClient.id = this.searchUser.clientId;
+                this.showClientTab();
+            }else{ //no es nada
+                this.showNoClientTab();
+            }
+        });
+
     }
 
     getAllPatientsByFilter() {
@@ -251,9 +286,9 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     showAddPatient(){
         this.cleanPatient();
-        this.firstStepStyles();
         $(".modal-agregar-paciente").fadeIn();
         $(".cliente-cluster").fadeIn();
+        $(".existe-cluster").fadeOut();
         $("#cliente-turno").removeClass('activeTurno');
         $("#noexiste-turno").removeClass('activeTurno');
         this.step = 0;
@@ -270,7 +305,6 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         $("#cliente-turno").addClass('activeTurno'); 
         $("#noexiste-turno").removeClass('activeTurno');
         this.step = 1;
-        this.firstStepStyles();
     }
 
     showNoClientTab() {
