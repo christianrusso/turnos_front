@@ -52,7 +52,7 @@ export class EditarComponent extends BaseComponent {
     image8Server;
     mandatoryPayment = false;
     citys = [];
-    public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }];
+    public rubros: Array<SelectOption> = [{ id: "1", text: "Clinica" }, { id: "2", text: "Peluqueria" }, { id: "3", text: "Barberia" }, { id: "4", text: "Estetica" }];
     rubro;
     data;
     day0 = {dayNumber: 0, start: "", end: ""};
