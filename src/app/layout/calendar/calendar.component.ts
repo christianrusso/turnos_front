@@ -120,6 +120,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public doctorSubspecialitiesMessage = [];
     public doctorSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
+    public date = new Date();
+
     constructor (
         private appointmentService: AppointmentService,
         private specialtyService: SpecialtyService,
@@ -367,6 +369,16 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         filter.subSpecialtyId = this.subspecialtyFilter != "-1" ? parseInt(this.subspecialtyFilter) : null;
         this.appointmentService.getRequestedAppointmentsByFilter(filter).subscribe(res => {
             this.requestedAppointmentsPerDoctor = res;
+            this.requestedAppointmentsPerDoctor.forEach(element => {
+                if (element.requestedAppointmentsPerHour.length > 0) {
+                    element.requestedAppointmentsPerHour.forEach(paciente => {
+                        paciente.appointments.forEach(hour => {
+                            var fecha = new Date(hour.hour);
+                            hour.fecha = fecha;
+                        });
+                    });
+                }
+            });
             this.loaderService.hide();
         });
     }

@@ -72,8 +72,8 @@
                                             <i class="fa fa-times"></i>
                                         </div>
                                         <div [hidden]="appointment.state != 1" [ngClass]="{'hover-paciente': appointment.state == 1 }" >
-                                            <i class="fa fa-check" aria-hidden="true" (click)="completeAppointment(appointment.id)"></i>
-                                            <i class="fa fa-times" aria-hidden="true" (click)="showCancelAppointment(appointment.id)"></i>
+                                            <i class="fa fa-check" *ngIf="appointment.fecha <= date" aria-hidden="true" (click)="completeAppointment(appointment.id)"></i>
+                                            <i class="fa fa-times" *ngIf="appointment.fecha > date" aria-hidden="true" (click)="showCancelAppointment(appointment.id)"></i>
                                         </div>
                                     </div>
                                 </div>

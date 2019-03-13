@@ -5,4 +5,5 @@ export class Appointment {
     public state: number;
     public specialty: string;
     public subspecialty: string;
+    public fecha: Date;
 }

@@ -114,6 +114,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public professionalSubspecialitiesMessage = [];
     public professionalSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
+    public date = new Date();
+
     constructor (
         private appointmentService: HairdressingAppointmentService,
         private specialtyService: HairdressingSpecialtyService,
@@ -332,12 +334,20 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         let filter = new AppointmentFilter();
         filter.day = this.currentDate;
 
-        console.log("aca va el filter.day");
-        console.log(filter.day);
         filter.specialtyId = this.specialtyFilter != "-1" ? parseInt(this.specialtyFilter) : null;
         filter.subSpecialtyId = this.subspecialtyFilter != "-1" ? parseInt(this.subspecialtyFilter) : null;
         this.appointmentService.getRequestedAppointmentsByFilter(filter).subscribe(res => {
             this.requestedAppointmentsPerProfessional = res;
+            this.requestedAppointmentsPerProfessional.forEach(element => {
+                if (element.requestedAppointmentsPerHour.length > 0) {
+                    element.requestedAppointmentsPerHour.forEach(paciente => {
+                        paciente.appointments.forEach(hour => {
+                            var fecha = new Date(hour.hour);
+                            hour.fecha = fecha;
+                        });
+                    });
+                }
+            });
             this.loaderService.hide();
         });
     }
