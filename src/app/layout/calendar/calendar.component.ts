@@ -32,6 +32,8 @@ import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { DatepickerOptions } from 'ng2-datepicker';
 import * as esLocale from 'date-fns/locale/es';
 import { ClientFilter } from '../../model/client-filter.class';
+import {SearchUserFilter} from "../../model/searchuser.filter.class";
+import {SearchUser} from "../../model/searchuser.class";
 
 declare var jsPDF: any; // Important
 
@@ -122,6 +124,9 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     public date = new Date();
 
+    public searchUserFilter = new SearchUserFilter();
+    public searchUser = new SearchUser();
+
     constructor (
         private appointmentService: AppointmentService,
         private specialtyService: SpecialtyService,
@@ -156,8 +161,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.getAllSubSpecialties();
         this.getAllMedicalInsurance();
         this.getAllDoctors();
-        this.getAllPatients();
-        this.getAllClientsNonPatients();
+        //this.getAllPatients();
+        //this.getAllClientsNonPatients();
     }
 
     ngOnInit() {
@@ -530,7 +535,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     }
 
     requestAppointmentForPatient() {
-        if (this.selectedPatient == null) {
+        if (this.dni == null) {
             this.toastrService.error('Debe seleccionar un paciente.');
             return;
         }
@@ -540,7 +545,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.doctorId = parseInt(this.selectedDoctor);
         requestAppointment.day = this.selectedDate.toJSON();
         requestAppointment.time = this.selectedHour;
-        requestAppointment.patientId = this.selectedPatient.id;
+        requestAppointment.patientId = this.selectedClient.id;
         requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForPatient(requestAppointment).subscribe(ok => {
@@ -726,7 +731,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     isPatientNextStep() {
         if (this.isPatientStep == 1) {
-            if (this.selectedPatient.dni != "") {
+            if (this.dni != "") {
                 this.isPatientStep = 2;
                 this.secondStepStyles();
             }
@@ -971,5 +976,47 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             }
             this.loaderService.hide();
         });
+    }
+
+    getSearchUser() {
+        $(".paciente-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
+            this.searchUser = res;
+
+            if (this.searchUser.isPatient || this.searchUser.isClient) {
+                this.firstName = this.searchUser.firstName;
+                this.lastName = this.searchUser.lastName;
+                this.dni = this.searchUser.dni;
+                this.address = this.searchUser.address;
+                this.phoneNumber = this.searchUser.phoneNumber;
+                this.medicalInsurance = this.searchUser.medicalInsuranceId != null ? this.searchUser.medicalInsuranceId : null;
+                this.medicalPlan = this.searchUser.medicalPlanId != null ? this.searchUser.medicalPlanId.toString() : null;
+
+                this.selectedClient = new Client();
+                this.selectedClient.id = this.searchUser.clientId;
+            } else {
+                this.firstName = null;
+                this.lastName = null;
+                this.dni = null;
+                this.address = null;
+                this.phoneNumber = null;
+                this.medicalInsurance = null;
+                this.medicalPlan = null;
+
+                this.selectedClient = new Client();
+                this.selectedClient.id = null;
+            }
+
+            if(this.searchUser.isPatient){ //ya es paciente
+                this.showPatientTab();
+            }else if(this.searchUser.isClient){ //usuario de tu turno
+                this.showClientTab();
+            }else{ //nuevo usuario
+                this.showNoClientTab();
+            }
+        });
+
     }
 }

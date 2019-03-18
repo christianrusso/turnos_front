@@ -12,7 +12,8 @@ export class BaseService {
 
     //private baseUrl = window.location.protocol + '//' + window.location.hostname + ':5000/Api';
 
-    private baseUrl = 'https://todoreservas.com.ar:4443/api';
+    //private baseUrl = 'https://todoreservas.com.ar:4443/api';
+    private baseUrl = 'http://localhost:5000/api';
     private token: string;
 
     constructor(
