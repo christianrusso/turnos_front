@@ -31,6 +31,8 @@ import { ClientFilter } from '../../model/client-filter.class';
 declare var jsPDF: any; // Important
 import { TouchSequence } from 'selenium-webdriver';
 import {HairdressingPatientFilter} from "../../model/hairdressing-patient-filter.class";
+import {SearchUserFilter} from "../../model/searchuser.filter.class";
+import {SearchUser} from "../../model/searchuser.class";
 
 @Component({
     selector: 'app-hairdressing-calendar',
@@ -115,6 +117,9 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public professionalSubspecialtiesToUnBlock: Array<Select2OptionData>;
 
     public date = new Date();
+
+    public searchUserFilter = new SearchUserFilter();
+    public searchUser = new SearchUser();
 
     constructor (
         private appointmentService: HairdressingAppointmentService,
@@ -504,7 +509,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     }
 
     requestAppointmentForPatient() {
-        if (this.selectedPatient == null) {
+        if (this.dni == null) {
             this.toastrService.error('Debe seleccionar un paciente.');
             return;
         }
@@ -514,7 +519,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.professionalId = parseInt(this.selectedProfessional);
         requestAppointment.day = this.selectedDate.toJSON();
         requestAppointment.time = this.selectedHour;
-        requestAppointment.patientId = this.selectedPatient.id;
+        requestAppointment.patientId = this.searchUser.clientId;
         requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
         this.appointmentService.requestAppointmentForPatient(requestAppointment).subscribe(ok => {
@@ -697,7 +702,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     isPatientNextStep() {
         if (this.isPatientStep == 1) {
-            if (this.selectedPatient.dni != "") {
+            if (this.dni != "") {
                 this.isPatientStep = 2;
                 this.secondStepStyles();
             }
@@ -928,5 +933,43 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
             this.loaderService.hide();
             console.log(res);
         });
+    }
+
+    getSearchUser() {
+        $(".paciente-cluster").fadeOut();
+        $(".cliente-cluster").fadeOut();
+        $(".noexiste-cluster").fadeOut();
+        this.patientService.searchUser(this.searchUserFilter).subscribe(res => {
+            this.searchUser = res;
+
+            if (this.searchUser.isPatient || this.searchUser.isClient) {
+                this.firstName = this.searchUser.firstName;
+                this.lastName = this.searchUser.lastName;
+                this.dni = this.searchUser.dni;
+                this.address = this.searchUser.address;
+                this.phoneNumber = this.searchUser.phoneNumber;
+
+                this.selectedClient = new Client();
+                this.selectedClient.id = this.searchUser.clientId;
+            } else {
+                this.firstName = null;
+                this.lastName = null;
+                this.dni = null;
+                this.address = null;
+                this.phoneNumber = null;
+
+                this.selectedClient = new Client();
+                this.selectedClient.id = null;
+            }
+
+            if(this.searchUser.isPatient){ //ya es paciente
+                this.showPatientTab();
+            }else if(this.searchUser.isClient){ //usuario de tu turno
+                this.showClientTab();
+            }else{ //nuevo usuario
+                this.showNoClientTab();
+            }
+        });
+
     }
 }
