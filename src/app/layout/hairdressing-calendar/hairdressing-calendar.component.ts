@@ -671,8 +671,8 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
                 element.requestedAppointmentsPerHour.forEach(paciente => {
                     paciente.appointments.forEach(hour => {
                         var fecha = new Date(hour.hour);
-                       rows.push([hour.patient,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+(fecha.getMinutes()<10?'0':'') + fecha.getMinutes()])
-                    });                                
+                       rows.push([hour.patient + " - " + hour.specialty + " - " + hour.subspecialty,fecha.getDate()+"/"+(fecha.getMonth()+1)+"/"+fecha.getFullYear(),fecha.getHours()+":"+(fecha.getMinutes()<10?'0':'') + fecha.getMinutes()])
+                    });
                 });
                // rows.push(row2);   
                 if (block > 44) {
