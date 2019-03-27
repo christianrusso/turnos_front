@@ -42,9 +42,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
+    public username: string;
     public invalidPhone: boolean = false;
-    public dni: string;
     public medicalInsuranceOptions: Array<Select2OptionData>;
     public medicalInsurance: string;
     public medicalPlanOptions: Array<Select2OptionData>;
@@ -200,9 +199,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
             }else if(this.searchUser.isClient){ //no paciente y cliente
                 this.firstName = this.searchUser.firstName;
                 this.lastName = this.searchUser.lastName;
-                this.dni = this.searchUser.dni;
                 this.address = this.searchUser.address;
-                this.phoneNumber = this.searchUser.phoneNumber;
+                this.username = this.searchUser.username;
                 this.medicalInsurance = this.searchUser.medicalInsuranceId != null ? this.searchUser.medicalInsuranceId : null;
                 this.medicalPlan = this.searchUser.medicalPlanId != null ? this.searchUser.medicalPlanId.toString() : null;
 
@@ -273,8 +271,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.firstName = "";
         this.lastName = "";
         this.address = "";
-        this.phoneNumber = "";
-        this.dni = "";
+        this.username = "";
         this.medicalInsurance = "-1";
         this.medicalPlan = "-1";
         this.email = "";
@@ -327,7 +324,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
     }
 
     addPatientForNonClient() {
-        if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+        if (this.username.length < 8 || this.username.length > 12) {
             this.invalidPhone = true;
             return;
         } else {
@@ -338,10 +335,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
+        patient.username = this.username;;
         patient.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
-        patient.email = this.email;
         patient.password = this.password;
 
         this.patientService.addForNonClient(patient).subscribe(ok => {
@@ -358,8 +353,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
+        patient.username = this.username;
         patient.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
 
         this.patientService.add(patient).subscribe(ok => {
@@ -379,8 +373,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.firstName = this.selectedClient.firstName;
         this.lastName = this.selectedClient.lastName;
         this.address = this.selectedClient.address;
-        this.phoneNumber = this.selectedClient.phoneNumber;
-        this.dni = this.selectedClient.dni;
+        this.username = this.selectedClient.username;
     }
 
     // Edit Patient
@@ -389,8 +382,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         this.firstName = this.selectedPatient.firstName;
         this.lastName = this.selectedPatient.lastName;
         this.address = this.selectedPatient.address;
-        this.phoneNumber = this.selectedPatient.phoneNumber;
-        this.dni = this.selectedPatient.dni;
+        this.username = this.selectedPatient.username;
         this.medicalInsurance = this.selectedPatient.medicalInsuranceId.toString();
         this.medicalPlan = this.selectedPatient.medicalPlanId.toString();
         $(".modal-editar-paciente").fadeIn();
@@ -494,8 +486,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
+        patient.username = this.username;
         patient.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
 
         this.patientService.edit(patient).subscribe(ok => {
@@ -507,7 +498,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     nextStep() {
         if (this.step == 1) {
-            if (this.dni != "") {
+            if (this.username != "") {
                 this.step = 2;
                 this.secondStepStyles();
             }

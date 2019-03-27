@@ -7,9 +7,7 @@ export class Patient {
     public medicalPlan: string;
     public medicalPlanId: number;
     public address: string;
-    public phoneNumber: string;
-    public email: string;
-    public dni: string;
+    public username: string;
     public reservedAppointments: number;
     public concretedAppointments: number;
     public clientId: number;

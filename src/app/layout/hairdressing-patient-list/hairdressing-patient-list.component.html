@@ -34,8 +34,7 @@
                         <thead>
                             <tr style="background-color: #454edb; color: white;">
                                 <th onclick="sortTable(0)">Nombre y Apellido<i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable(1)">Email <i class="fa fa-sort-desc"></i></th>
-                                <th onclick="sortTable(2)">Telefono <i class="fa fa-sort-desc"></i></th>
+                                <th onclick="sortTable(1)">Email o Telefono<i class="fa fa-sort-desc"></i></th>
                                 <th>Turnos Totales </th>
                                 <th>Turnos Completados </th>
                                 <th></th>
@@ -45,8 +44,7 @@
                         <tbody>
                             <tr *ngFor="let patient of patients; let i = index">
                                 <td>{{ patient.firstName + ' ' + patient.lastName | truncate }}</td>
-                                <td>{{ patient.email | truncate }}</td>
-                                <td>{{ patient.phoneNumber | truncate }}</td>
+                                <td>{{ patient.username | truncate }}</td>
                                 <td>{{ patient.reservedAppointments}}</td>
                                 <td>{{ patient.concretedAppointments}}</td>
                                 <td class="actions">
@@ -187,7 +185,7 @@
                 <div style="display: flex; margin-top: 20px;">
                     <div class="col-xs-12 col-sm-3 turno-picker-div">
                         <label for="phoneNumber" class="labelForm">Telefono: </label>
-                        <input type="text" id="phoneNumber" readonly name="phoneNumber" [(ngModel)]="phoneNumber" >
+                        <input type="text" id="phoneNumber" readonly name="phoneNumber" [(ngModel)]="username" >
                     </div>
                 </div>
                 <!--<div class="col-xs-12 col-sm-3 turno-picker-div">
@@ -285,7 +283,7 @@
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="username" >
                 </div>
                 
             </div>

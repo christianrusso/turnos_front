@@ -196,7 +196,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
                 this.firstName = this.searchUser.firstName;
                 this.lastName = this.searchUser.lastName;
                 this.address = this.searchUser.address;
-
+                this.username = this.searchUser.username;
                 this.selectedClient = new Client();
                 this.selectedClient.id = this.searchUser.clientId;
                 this.showClientTab();  
