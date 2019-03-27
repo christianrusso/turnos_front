@@ -3,9 +3,7 @@ export class HairdressingPatient {
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
-    public email: string;
-    public dni: string;
+    public username: string;
     public reservedAppointments: number;
     public concretedAppointments: number;
     public clientId: number;

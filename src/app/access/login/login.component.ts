@@ -38,7 +38,7 @@ export class LoginComponent extends BaseComponent {
     public login() {
         this.loaderService.show();
         let loginData = new Login();
-        loginData.email = this.email;
+        loginData.Username = this.email;
         loginData.password = this.password;
         loginData.businessType = this.mapRubro(this.rubro);
         this.accountService.login(loginData).subscribe(

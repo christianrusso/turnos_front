@@ -6,8 +6,7 @@ export class RequestAppointmentClient {
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
-    public dni: string;
+    public username: string;
     public medicalPlanId: number;
     public subspecialtyId: number;
 }

@@ -1,5 +1,5 @@
 export class Login {
-    public email: string;
+    public Username: string;
     public password: string;
     public businessType: string;
 }

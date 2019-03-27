@@ -37,10 +37,9 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
+    public username: string;
     public invalidPhone: boolean = false;
-    public dni: string;
-    public email: string;
+    
     public password: string;
 
     public step = 0;
@@ -196,9 +195,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
             }else if(this.searchUser.isClient){ //no paciente y cliente
                 this.firstName = this.searchUser.firstName;
                 this.lastName = this.searchUser.lastName;
-                this.dni = this.searchUser.dni;
                 this.address = this.searchUser.address;
-                this.phoneNumber = this.searchUser.phoneNumber;
 
                 this.selectedClient = new Client();
                 this.selectedClient.id = this.searchUser.clientId;
@@ -253,9 +250,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.firstName = "";
         this.lastName = "";
         this.address = "";
-        this.phoneNumber = "";
-        this.dni = "";
-        this.email = "";
+        this.username = "";
         this.password = "";
         this.searchClientFilter.email = "";
         this.searchClientFilter.dni = "";
@@ -296,21 +291,19 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
     }
 
     addPatientForNonClient() {
-        if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+        /*if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
             this.invalidPhone = true;
             return;
         } else {
             this.invalidPhone = false;
-        }
+        }*/
 
         this.loaderService.show();
         let patient = new HairdressingPatient();
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
-        patient.email = this.email;
+        patient.username = this.username;
         patient.password = this.password;
 
         this.patientService.addForNonClient(patient).subscribe(ok => {
@@ -327,8 +320,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
+        patient.username = this.username;
 
         this.patientService.add(patient).subscribe(ok => {
             $(".modal-agregar-paciente").fadeOut();
@@ -343,8 +335,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.firstName = this.selectedClient.firstName;
         this.lastName = this.selectedClient.lastName;
         this.address = this.selectedClient.address;
-        this.phoneNumber = this.selectedClient.phoneNumber;
-        this.dni = this.selectedClient.dni;
+        this.username = this.selectedClient.username;
+        
     }
 
     // Edit Patient
@@ -353,8 +345,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         this.firstName = this.selectedPatient.firstName;
         this.lastName = this.selectedPatient.lastName;
         this.address = this.selectedPatient.address;
-        this.phoneNumber = this.selectedPatient.phoneNumber;
-        this.dni = this.selectedPatient.dni;
+        this.username = this.selectedPatient.username;
         $(".modal-editar-paciente").fadeIn();
     }
 
@@ -456,8 +447,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         patient.firstName = this.firstName;
         patient.lastName = this.lastName;
         patient.address = this.address;
-        patient.phoneNumber = this.phoneNumber;
-        patient.dni = this.dni;
+        patient.username = this.username;
 
         this.patientService.edit(patient).subscribe(ok => {
             $(".modal-editar-paciente").fadeOut();
@@ -468,7 +458,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     nextStep() {
         if (this.step == 1) {
-            if (this.dni != "") {
+            if (this.username != "") {
                 this.step = 2;
                 this.secondStepStyles();
             }

@@ -3,9 +3,7 @@ export class SearchUser {
     public  firstName:string;
     public  lastName:string;
     public  address:string;
-    public  phoneNumber:string;
-    public  email:string;
-    public  dni:string;
+    public  username:string;
     public  medicalInsurance:string;
     public  medicalInsuranceId:string;
     public  medicalPlan:string;

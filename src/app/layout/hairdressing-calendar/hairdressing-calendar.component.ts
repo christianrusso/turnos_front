@@ -68,9 +68,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
-    public dni: string;
-    public email: string;
+    public username: string;
     public password: string;
 
     public isPatientStep = 1;
@@ -404,8 +402,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         this.address = null;
         this.firstName = null;
         this.lastName = null;
-        this.phoneNumber = null;
-        this.dni = null;
+        this.username = null;
 
         this.selectedHour = null;
         this.selectedDate = new Date(this.currentDate);
@@ -504,12 +501,11 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         this.firstName = this.selectedClient.firstName;
         this.lastName = this.selectedClient.lastName;
         this.address = this.selectedClient.address;
-        this.phoneNumber = this.selectedClient.phoneNumber;
-        this.dni = this.selectedClient.dni;
+        this.username = this.selectedClient.username;
     }
 
     requestAppointmentForPatient() {
-        if (this.dni == null) {
+        if (this.username == null) {
             this.toastrService.error('Debe seleccionar un paciente.');
             return;
         }
@@ -543,8 +539,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.firstName = this.firstName;
         requestAppointment.lastName = this.lastName;
         requestAppointment.address = this.address;
-        requestAppointment.phoneNumber = this.phoneNumber;
-        requestAppointment.dni = this.dni;
+        requestAppointment.username = this.username;
         requestAppointment.clientId = this.selectedClient.id;
         requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
@@ -565,9 +560,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
         requestAppointment.firstName = this.firstName;
         requestAppointment.lastName = this.lastName;
         requestAppointment.address = this.address;
-        requestAppointment.phoneNumber = this.phoneNumber;
-        requestAppointment.dni = this.dni;
-        requestAppointment.email = this.email;
+        requestAppointment.username = this.username;
         requestAppointment.password = this.password;
         requestAppointment.subspecialtyId = this.selectedSubspecialty;
 
@@ -702,7 +695,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     isPatientNextStep() {
         if (this.isPatientStep == 1) {
-            if (this.dni != "") {
+            if (this.username != "") {
                 this.isPatientStep = 2;
                 this.secondStepStyles();
             }
@@ -714,12 +707,7 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
 
     isPatientNuevoNextStep() {
         if (this.isPatientNuevoStep == 1) {
-            if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
-                this.invalidPhone = true;
-                return;
-            } else {
-                this.invalidPhone = false;
-            }
+            
             if (this.firstName != "" && this.firstName != null) {
                 this.isPatientNuevoStep = 2;
                 this.secondStepNuevoStyles();
@@ -945,18 +933,16 @@ export class HairdressingCalendarComponent extends BaseComponent implements Afte
             if (this.searchUser.isPatient || this.searchUser.isClient) {
                 this.firstName = this.searchUser.firstName;
                 this.lastName = this.searchUser.lastName;
-                this.dni = this.searchUser.dni;
                 this.address = this.searchUser.address;
-                this.phoneNumber = this.searchUser.phoneNumber;
+                this.username = this.searchUser.username;
 
                 this.selectedClient = new Client();
                 this.selectedClient.id = this.searchUser.clientId;
             } else {
                 this.firstName = null;
                 this.lastName = null;
-                this.dni = null;
                 this.address = null;
-                this.phoneNumber = null;
+                this.username = null;
 
                 this.selectedClient = new Client();
                 this.selectedClient.id = null;

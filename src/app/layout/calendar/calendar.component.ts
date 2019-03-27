@@ -71,8 +71,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
-    public dni: string;
+    public username: string;
     public medicalInsuranceOptions: Array<Select2OptionData>;
     public medicalInsurance: string;
     public medicalPlanOptions: Array<Select2OptionData>;
@@ -430,8 +429,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.address = null;
         this.firstName = null;
         this.lastName = null;
-        this.phoneNumber = null;
-        this.dni = null;
+        this.username = null;
 
         this.doctorOption = '';
         this.selectedHour = null;
@@ -530,12 +528,11 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         this.firstName = this.selectedClient.firstName;
         this.lastName = this.selectedClient.lastName;
         this.address = this.selectedClient.address;
-        this.phoneNumber = this.selectedClient.phoneNumber;
-        this.dni = this.selectedClient.dni;
+        this.username = this.selectedClient.username;
     }
 
     requestAppointmentForPatient() {
-        if (this.dni == null) {
+        if (this.username == null) {
             this.toastrService.error('Debe seleccionar un paciente.');
             return;
         }
@@ -569,8 +566,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.firstName = this.firstName;
         requestAppointment.lastName = this.lastName;
         requestAppointment.address = this.address;
-        requestAppointment.phoneNumber = this.phoneNumber;
-        requestAppointment.dni = this.dni;
+        requestAppointment.username = this.username;
         requestAppointment.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
         requestAppointment.clientId = this.selectedClient.id;
         requestAppointment.subspecialtyId = this.selectedSubspecialty;
@@ -592,8 +588,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
         requestAppointment.firstName = this.firstName;
         requestAppointment.lastName = this.lastName;
         requestAppointment.address = this.address;
-        requestAppointment.phoneNumber = this.phoneNumber;
-        requestAppointment.dni = this.dni;
+        requestAppointment.username = this.username;
         requestAppointment.medicalPlanId = this.medicalPlan != "-1" ? parseInt(this.medicalPlan) : null;
         requestAppointment.email = this.email;
         requestAppointment.password = this.password;
@@ -731,7 +726,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     isPatientNextStep() {
         if (this.isPatientStep == 1) {
-            if (this.dni != "") {
+            if (this.username != "") {
                 this.isPatientStep = 2;
                 this.secondStepStyles();
             }
@@ -743,7 +738,7 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
 
     isPatientNuevoNextStep() {
         if (this.isPatientNuevoStep == 1) {
-            if (this.phoneNumber.length < 8 || this.phoneNumber.length > 12) {
+            if (this.username.length < 8 || this.username.length > 12) {
                 this.invalidPhone = true;
                 return;
             } else {
@@ -988,9 +983,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             if (this.searchUser.isPatient || this.searchUser.isClient) {
                 this.firstName = this.searchUser.firstName;
                 this.lastName = this.searchUser.lastName;
-                this.dni = this.searchUser.dni;
                 this.address = this.searchUser.address;
-                this.phoneNumber = this.searchUser.phoneNumber;
+                this.username = this.searchUser.username;
                 this.medicalInsurance = this.searchUser.medicalInsuranceId != null ? this.searchUser.medicalInsuranceId : null;
                 this.medicalPlan = this.searchUser.medicalPlanId != null ? this.searchUser.medicalPlanId.toString() : null;
 
@@ -999,9 +993,8 @@ export class CalendarComponent extends BaseComponent implements AfterViewInit {
             } else {
                 this.firstName = null;
                 this.lastName = null;
-                this.dni = null;
                 this.address = null;
-                this.phoneNumber = null;
+                this.username = null;
                 this.medicalInsurance = null;
                 this.medicalPlan = null;
 

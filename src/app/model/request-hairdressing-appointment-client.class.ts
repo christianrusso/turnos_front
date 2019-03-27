@@ -6,7 +6,6 @@ export class RequestHairdressingAppointmentClient {
     public firstName: string;
     public lastName: string;
     public address: string;
-    public phoneNumber: string;
-    public dni: string;
+    public username: string;
     public subspecialtyId: number;
 }

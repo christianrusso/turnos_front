@@ -1,10 +1,7 @@
 export class Client {
     public id: number;
-    public email: string;
-
     public firstName:string;
     public lastName:string;
     public address:string;
-    public phoneNumber:string;
-    public dni:string;
+    public username:string;
 }

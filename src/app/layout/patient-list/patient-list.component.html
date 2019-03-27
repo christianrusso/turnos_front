@@ -163,7 +163,7 @@
         <div class="col-xs-12 buttons-turno table-cluster2" style="margin-bottom: 25px;">
             <h3 style="font-family: sf_ui_displaysemibold; font-size: 14px;">BUSCAR USUARIO</h3>
             <div class="col-xs-3 selectClienteLabelDni">
-                <b>Buscar por DNI o Email:</b>
+                <b>Buscar por Tel o Email:</b>
             </div>
             <div class="col-xs-2">
                 <input type="text" id="search-client-dni" name="search-client-dni" [(ngModel)]="searchUserFilter.user">
@@ -188,10 +188,7 @@
                         <label for="lastName" class="labelForm">Apellido: </label>
                         <input type="text" id="lastName" readonly name="lastName" [(ngModel)]="lastName" >
                     </div>
-                    <div class="col-xs-12 col-sm-3 turno-picker-div">
-                        <label for="dni" class="labelForm">Dni: </label><br>
-                        <input type="text" id="dni" readonly name="dni" [(ngModel)]="dni" >
-                    </div>
+                    
                     <div class="col-xs-12 col-sm-3 turno-picker-div">
                         <label for="address" class="labelForm">Direccion: </label>
                         <input type="text" id="address" readonly name="address" [(ngModel)]="address" >
@@ -255,10 +252,7 @@
 
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input class="w100" type="text" id="dni2" name="dni" [(ngModel)]="dni" >
-                </div>
+               
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="">Obra social</label><br>
                     <ng-select2 [data]="medicalInsuranceOptions" [value]="-1" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">
@@ -323,10 +317,7 @@
                     <label for="phoneNumber">Telefono: </label><br>
                     <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="phoneNumber" >
                 </div>
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input class="w100" type="text" id="dni-edit" name="dni" [(ngModel)]="dni" >
-                </div>
+               
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="">Obra social</label><br>
                     <ng-select2 [data]="medicalInsuranceOptions" [value]="medicalInsurance" (valueChanged)="medicalInsuranceChange($event)" name="especialidad-medico-seccion" lang="es">

@@ -153,7 +153,7 @@
         <div class="col-xs-12 buttons-turno table-cluster2" style="margin-bottom: 25px;">
             <h3 style="font-family: sf_ui_displaysemibold; font-size: 14px;">BUSCAR USUARIO</h3>
             <div class="col-xs-3 selectClienteLabelDni">
-                <b>Buscar por DNI o Email:</b>
+                <b>Buscar por Tel o Email:</b>
             </div>
             <div class="col-xs-2">
                 <input type="text" id="search-client-dni" name="search-client-dni" [(ngModel)]="searchUserFilter.user">
@@ -178,10 +178,7 @@
                         <label for="lastName" class="labelForm">Apellido: </label>
                         <input type="text" id="lastName" readonly name="lastName" [(ngModel)]="lastName" >
                     </div>
-                    <div class="col-xs-12 col-sm-3 turno-picker-div">
-                        <label for="dni" class="labelForm">Dni: </label><br>
-                        <input type="text" id="dni" readonly name="dni" [(ngModel)]="dni" >
-                    </div>
+                    
                     <div class="col-xs-12 col-sm-3 turno-picker-div">
                         <label for="address" class="labelForm">Direccion: </label>
                         <input type="text" id="address" readonly name="address" [(ngModel)]="address" >
@@ -229,8 +226,8 @@
                 </div>
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" minlength="8" maxlength="12" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <label for="phoneNumber">Email o Telefono: </label><br>
+                    <input class="w100" type="text" id="phoneNumber2" name="phoneNumber" [(ngModel)]="username" >
                     <div *ngIf="invalidPhone" class="alert alert-danger">
                         <div>
                             El teléfono debe contener entre 8 y 12 caracteres
@@ -238,14 +235,8 @@
 
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input class="w100" type="text" id="dni2" name="dni" [(ngModel)]="dni" >
-                </div>
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="email">Email: </label><br>
-                    <input class="w100" type="text" id="email2" name="email" [(ngModel)]="email" >
-                </div>
+                
+                
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="password">Contraseña: </label><br>
@@ -296,10 +287,7 @@
                     <label for="phoneNumber">Telefono: </label><br>
                     <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="phoneNumber" >
                 </div>
-                <div class="col-xs-12 col-sm-4 turno-picker-div">
-                    <label for="dni">Dni: </label><br>
-                    <input class="w100" type="text" id="dni-edit" name="dni" [(ngModel)]="dni" >
-                </div>
+                
             </div>
 
             <div class="col-xs12 col-sm-12">&nbsp;</div>
