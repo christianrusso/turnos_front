@@ -18,6 +18,8 @@ import { HairdressingPatientListComponent } from './hairdressing-patient-list/ha
 import { HairdressingCalendarComponent } from './hairdressing-calendar/hairdressing-calendar.component';
 import {EditarComponent} from "./editar/editar.component";
 import { EmployeeComponent } from "./employee/employee.component";
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const routes: Routes = [
     {
@@ -47,6 +49,6 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule, AngularMultiSelectModule, NgMultiSelectDropDownModule ]
 })
 export class LayoutRoutingModule {}
