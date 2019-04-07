@@ -35,6 +35,7 @@
         "jspdf": "^1.4.1",
         "jspdf-autotable": "^2.3.5",
         "moment": "^2.22.2",
+        "ng-multiselect-dropdown": "^0.2.3",
         "ng-pick-datetime": "^5.2.5",
         "ng-select2": "^1.0.5",
         "ng2-charts": "^1.6.0",

@@ -113,6 +113,7 @@
 .inputFileStyle {
     font-size: 0px;
 }
+
 input[type=checkbox]
 {
     /* Double-sized Checkboxes */
@@ -122,6 +123,7 @@ input[type=checkbox]
     -o-transform: scale(2); /* Opera */
     padding: 10px;
 }
+
 .checkboxLabelStyle {
     margin-left: 20px;
     margin-bottom: 20px;

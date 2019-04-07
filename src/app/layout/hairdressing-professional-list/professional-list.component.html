@@ -1,3 +1,5 @@
+
+
 <section class="medicos-section col-xs-12">
   
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -175,23 +177,20 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1" style="display: flex;" *ngFor="let speciality of profesionalSpecialities; let i = index;">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1" *ngFor="let speciality of profesionalSpecialities; let i = index;">
 
             <div style="margin-right: 10px;">
                 <ng-select2 [data]="specialtyOptionsProfessional" [(ngModel)]="profesionalSpecialities[i].professionalSpecialty" (valueChanged)="specialtyChangeProfessional($event, i)" [options]="{placeholder: 'Especialidad'}" name="especialidad-medico-modal" lang="es"></ng-select2>
             </div>
 
             <div style="margin-right: 10px;">
-                <ng-select2 [data]="subspecialtyOptionsProfessional[i]" [(ngModel)]="profesionalSpecialities[i].professionalSubspecialty" (valueChanged)="subspecialtyChangeProfessional($event, i)" [options]="{placeholder: 'Subespecialidad'}" name="subespecialidad-medico-modal" lang="es"></ng-select2>
-            </div>
-
-            <div class="cl-container" style="margin-right: 10px;">
-                <!--<div class="col-xs-12 col-sm-4">
-                    <h3>Duración de consulta</h3>
-                </div>-->
-                <div>
-                    <input class="time-input" type="number" step="15" min="15" onkeydown="return false" [(ngModel)]="profesionalSpecialities[i].professionalConsultationLength" style="height: 38px;">
-                </div>
+                <ng-multiselect-dropdown
+                    [placeholder]="'Subespecialidad'"
+                    [data]="subspecialtyOptionsProfessional[i]"
+                    [(ngModel)]="profesionalSpecialities[i].professionalSubspecialties"
+                    [settings]="dropdownSettings"
+                    name=subespecialidad-medico-modal>
+                </ng-multiselect-dropdown>
             </div>
 
             <div class="cl-container" style="display: flex; margin-top: 10px;">
@@ -465,3 +464,4 @@
     </div>
 </div>
 <!-- // Modal Informacion -->
+
