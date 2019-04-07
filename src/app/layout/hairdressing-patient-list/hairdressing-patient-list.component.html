@@ -47,7 +47,13 @@
                                 <td>{{ patient.username | truncate }}</td>
                                 <td>{{ patient.reservedAppointments}}</td>
                                 <td>{{ patient.concretedAppointments}}</td>
-                                <td class="actions">
+                                <td class="actions" >
+                                    <a *ngIf="patient.username.indexOf('@') == -1" href="https://web.whatsapp.com/send?phone=+549{{ patient.username }}&amp;text=¡Hola {{patient.firstName }}!" target="_blank" id="wp-float">
+                                        <i class="fa fa-whatsapp"></i>
+                                    </a>
+                                    <a *ngIf="patient.username.indexOf('@') != -1" href="mailto:{{ patient.username }}" target="_top" id="wp-float">
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
                                     <a (click)="showEditPatient(i)"><i class="fa fa-pencil"></i></a>
                                     <a (click)="showPacienteFicha(i)"><i class="fa fa-sticky-note-o"></i></a>
                                     <a class="borrar-paciente" (click)="setSelectedPatient(i)"><i class="fa fa-trash"></i></a>
@@ -112,7 +118,7 @@
                 <textarea [(ngModel)]="addDescription" rows="7" cols="70"></textarea>
             </div>
             <div class="menu-acciones" style="margin-top: 10px; width: 93%; text-align: center;">
-                <a (click)="addPacienteFicha(i)" style="font-family: sf_ui_displaybold; font-size: 12px;">GUARDAR</a>
+                <a (click)="addPacienteFicha()" style="font-family: sf_ui_displaybold; font-size: 12px;">GUARDAR</a>
             </div>
         </div>
 
@@ -233,9 +239,6 @@
 
                     </div>
                 </div>
-                
-                
-                <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="password">Contraseña: </label><br>
                     <input class="w100" type="password" id="password2" name="password" [(ngModel)]="password" >

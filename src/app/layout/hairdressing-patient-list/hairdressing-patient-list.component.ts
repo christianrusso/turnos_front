@@ -381,7 +381,7 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
         });
     }
 
-    addPacienteFicha(index: number) {
+    addPacienteFicha() {
         if (!this.isEditing) {
             this.loaderService.show();
 

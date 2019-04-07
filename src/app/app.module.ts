@@ -6,7 +6,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ToastrModule } from 'ngx-toastr'
 import { AuthGuard } from './guard/auth.guard';
-
 import { AppRoutingModule } from './app.module.routing';
 import { AppComponent } from './app.component';
 

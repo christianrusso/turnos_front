@@ -124,7 +124,7 @@
                 <textarea [(ngModel)]="addDescription" rows="7" cols="70"></textarea>
             </div>
             <div class="menu-acciones" style="margin-top: 10px; width: 93%; text-align: center;">
-                <a (click)="addPacienteFicha(i)" style="font-family: sf_ui_displaybold; font-size: 12px;">GUARDAR</a>
+                <a (click)="addPacienteFicha()" style="font-family: sf_ui_displaybold; font-size: 12px;">GUARDAR</a>
             </div>
         </div>
 
@@ -244,7 +244,7 @@
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" minlength="8" maxlength="12" id="phoneNumber2" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <input class="w100" type="text" minlength="8" maxlength="12" id="phoneNumber2" name="phoneNumber" [(ngModel)]="username" >
                     <div *ngIf="invalidPhone" class="alert alert-danger">
                         <div>
                             El teléfono debe contener entre 8 y 12 caracteres
@@ -315,7 +315,7 @@
                 <div class="col-xs12 col-sm-12">&nbsp;</div>
                 <div class="col-xs-12 col-sm-4 turno-picker-div">
                     <label for="phoneNumber">Telefono: </label><br>
-                    <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="phoneNumber" >
+                    <input class="w100" type="text" id="phoneNumber-edit" name="phoneNumber" [(ngModel)]="username" >
                 </div>
                
                 <div class="col-xs-12 col-sm-4 turno-picker-div">

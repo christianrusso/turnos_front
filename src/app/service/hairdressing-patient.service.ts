@@ -50,11 +50,11 @@ export class HairdressingPatientService extends BaseService {
     }
 
     public getMedicalRecords(filter: PatientFilter): Observable<Object[]> {
-        return this.post(this.url + "/GetMedicalRecords", null, filter);
+        return this.post(this.url + "/GetRecords", null, filter);
     }
 
     public removeMedicalRecord(filter: PatientFilter): Observable<Object> {
-        return this.post(this.url + "/RemoveMedicalRecord", null, filter);
+        return this.post(this.url + "/RemoveRecord", null, filter);
     }
 
     public addMedicalRecord(ficha: PatientFicha): Observable<Object> {
@@ -62,7 +62,7 @@ export class HairdressingPatientService extends BaseService {
     }
 
     public editMedicalRecord(ficha: PatientFicha): Observable<Object> {
-        return this.post(this.url + "/EditMedicalRecord", null, ficha);
+        return this.post(this.url + "/EditRecord", null, ficha);
     }
 
     public searchUser(user: SearchUserFilter): Observable<SearchUser> {

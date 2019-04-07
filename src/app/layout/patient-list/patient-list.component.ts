@@ -26,6 +26,8 @@ import { SearchUser } from '../../model/searchuser.class';
     styleUrls: ['./patient-list.component.css'],
 })
 
+
+
 export class PatientListComponent extends BaseComponent implements AfterViewInit {
     
     public patients = new Array<Patient>();
@@ -420,7 +422,7 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
         });
     }
 
-    addPacienteFicha(index: number) {
+    addPacienteFicha() {
         if (!this.isEditing) {
             this.loaderService.show();
 
