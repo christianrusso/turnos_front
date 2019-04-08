@@ -135,9 +135,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 1)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
                                    #imageBigEntity="ngModel" />
+                            <span (click)="deleteImage('-1')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -150,9 +151,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 2)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent2($event)" required [(ngModel)]="image1" name="image1Entity"
                                    #image1Entity="ngModel" />
+                            <span (click)="deleteImage('1')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -165,9 +167,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 3)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent3($event)" required [(ngModel)]="image2" name="image2Entity"
                                    #image2Entity="ngModel" />
+                            <span (click)="deleteImage('2')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -180,9 +183,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 4)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent4($event)" required [(ngModel)]="image3" name="image3Entity"
                                    #image3Entity="ngModel" />
+                            <span (click)="deleteImage('3')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -195,9 +199,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 5)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent5($event)" required [(ngModel)]="image2" name="image4Entity"
                                    #image4Entity="ngModel" />
+                            <span (click)="deleteImage('4')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -210,9 +215,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 6)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent6($event)" required [(ngModel)]="image5" name="image5Entity"
                                    #image5Entity="ngModel" />
+                            <span (click)="deleteImage('5')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -225,9 +231,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 7)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent7($event)" required [(ngModel)]="image6" name="image6Entity"
                                    #image6Entity="ngModel" />
+                            <span (click)="deleteImage('6')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -240,9 +247,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 8)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent8($event)" required [(ngModel)]="image7" name="image7Entity"
                                    #image7Entity="ngModel" />
+                            <span (click)="deleteImage('7')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -255,9 +263,10 @@
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 9)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                        <div class="fileStyle">
+                        <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent9($event)" required [(ngModel)]="image8" name="image8Entity"
                                    #image8Entity="ngModel" />
+                            <span (click)="deleteImage('8')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>

@@ -180,6 +180,45 @@ export class EditarComponent extends BaseComponent {
         }
     }
 
+    deleteImage(image) {
+        if (image == '-1') {
+            this.imageBig = null;
+            this.imageBigServer = null;
+        }
+        if (image == '1') {
+            this.image1 = null;
+            this.image1Server = null;
+        }
+        if (image == '2') {
+            this.image2 = null;
+            this.image2Server = null;
+        }
+        if (image == '3') {
+            this.image3 = null;
+            this.image3Server = null;
+        }
+        if (image == '4') {
+            this.image4 = null;
+            this.image4Server = null;
+        }
+        if (image == '5') {
+            this.image5 = null;
+            this.image5Server = null;
+        }
+        if (image == '6') {
+            this.image6 = null;
+            this.image6Server = null;
+        }
+        if (image == '7') {
+            this.image7 = null;
+            this.image7Server = null;
+        }
+        if (image == '8') {
+            this.image8 = null;
+            this.image8Server = null;
+        }
+    }
+
     selectImages() {
         if (this.data.images[0]) {
             this.imageBigServer = this.data.images[0];
