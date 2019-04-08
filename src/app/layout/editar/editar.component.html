@@ -123,28 +123,30 @@
                 <span class="hastaStyle">hasta <input type="time" class="timeInputStyle" [(ngModel)]="day0.end"></span>
             </div>
         </div>
-        <div style="clear: both; margin-top: 50px;" class="col-sm-10">
+        <div style="clear: both; margin-top: 50px;" class="col-sm-12">
             <p class="labelStyle">AGREGAR FOTOS</p>
-            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-10">
-                <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
-                    <img *ngIf="imageBigServer == null && imageBig == null" src="assets/img/Rectangle 18.png" class="bigImage">
-                    <img *ngIf="imageBigServer != null && imageBig == null" src="{{imageBigServer}}">
+            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-12">
+                <div class="col-sm-4">
+                    <div style="clear: both;">
+                        <img *ngIf="imageBigServer == null && imageBig == null" src="assets/img/Rectangle 18.png" class="bigImage">
+                        <img *ngIf="imageBigServer != null && imageBig == null" src="{{imageBigServer}}" class="smallImage">
 
-                    <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
-                                   [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 1)"
-                                   (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
+                        <image-cropper [imageChangedEvent]="imageChangedEvent1" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+                                       [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 1)"
+                                       (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
-                    <div class="fileStyle">
-                        <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
-                               #imageBigEntity="ngModel" />
+                        <div class="fileStyle">
+                            <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
+                                   #imageBigEntity="ngModel" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image1Server == null && image1 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image1Server != null && image1 == null" src="{{image1Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent2" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 2)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -153,11 +155,13 @@
                                    #image1Entity="ngModel" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image2Server == null && image2 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image2Server != null && image2 == null" src="{{image2Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent3" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 3)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -167,12 +171,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image3Server == null && image3 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image3Server != null && image3 == null" src="{{image3Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent4" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent4" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 4)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -181,11 +185,13 @@
                                    #image3Entity="ngModel" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image4Server == null && image4 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image4Server != null && image4 == null" src="{{image4Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent5" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent5" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 5)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -195,12 +201,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image5Server == null && image5 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image5Server != null && image5 == null" src="{{image5Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent6" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent6" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 6)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -209,11 +215,13 @@
                                    #image5Entity="ngModel" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image6Server == null && image6 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image6Server != null && image6 == null" src="{{image6Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent7" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent7" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 7)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -223,12 +231,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image7Server == null && image7 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image7Server != null && image7 == null" src="{{image7Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent8" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent8" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 8)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -237,11 +245,13 @@
                                    #image7Entity="ngModel" />
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-4">
                     <div style="clear: both;">
                         <img *ngIf="image8Server == null && image8 == null" src="assets/img/Rectangle 18.png" class="smallImage">
                         <img *ngIf="image8Server != null && image8 == null" src="{{image8Server}}" class="smallImage">
 
-                        <image-cropper [imageChangedEvent]="imageChangedEvent9" [maintainAspectRatio]="true" [aspectRatio]="3 / 3"
+                        <image-cropper [imageChangedEvent]="imageChangedEvent9" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
                                        [resizeToWidth]="168" [roundCropper]="false" format="png" outputType="both" (imageCropped)="imageCroppedSubImage($event, 9)"
                                        (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" [style.display]="cropperReady ? null : 'none'"></image-cropper>
 
@@ -251,6 +261,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-12">
+            </div>
+            <div style="display: flex; flex-wrap: wrap; padding-left: 0px;" class="col-sm-12">
             </div>
         </div>
     </div>
