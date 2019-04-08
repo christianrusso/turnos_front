@@ -138,7 +138,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent1($event)" required [(ngModel)]="imageBig" name="imageBigEntity"
                                    #imageBigEntity="ngModel" />
-                            <span (click)="deleteImage('-1')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('-1')" *ngIf="imageBigServer != null && imageBig == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent2($event)" required [(ngModel)]="image1" name="image1Entity"
                                    #image1Entity="ngModel" />
-                            <span (click)="deleteImage('1')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('1')" *ngIf="image1Server != null && image1 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent3($event)" required [(ngModel)]="image2" name="image2Entity"
                                    #image2Entity="ngModel" />
-                            <span (click)="deleteImage('2')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('2')" *ngIf="image2Server != null && image2 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent4($event)" required [(ngModel)]="image3" name="image3Entity"
                                    #image3Entity="ngModel" />
-                            <span (click)="deleteImage('3')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('3')" *ngIf="image3Server != null && image3 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent5($event)" required [(ngModel)]="image2" name="image4Entity"
                                    #image4Entity="ngModel" />
-                            <span (click)="deleteImage('4')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('4')" *ngIf="image4Server != null && image4 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -218,7 +218,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent6($event)" required [(ngModel)]="image5" name="image5Entity"
                                    #image5Entity="ngModel" />
-                            <span (click)="deleteImage('5')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('5')" *ngIf="image5Server != null && image5 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent7($event)" required [(ngModel)]="image6" name="image6Entity"
                                    #image6Entity="ngModel" />
-                            <span (click)="deleteImage('6')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('6')" *ngIf="image6Server != null && image6 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent8($event)" required [(ngModel)]="image7" name="image7Entity"
                                    #image7Entity="ngModel" />
-                            <span (click)="deleteImage('7')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('7')" *ngIf="image7Server != null && image7 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
@@ -266,7 +266,7 @@
                         <div class="fileStyle" style="display: flex;">
                             <input type="file" class="inputFileStyle" (change)="fileChangeEvent9($event)" required [(ngModel)]="image8" name="image8Entity"
                                    #image8Entity="ngModel" />
-                            <span (click)="deleteImage('8')" style="cursor: pointer; width: 56%; text-align: right;">X</span>
+                            <span (click)="deleteImage('8')" *ngIf="image8Server != null && image8 == null" style="cursor: pointer; width: 56%; text-align: right;">X</span>
                         </div>
                     </div>
                 </div>
