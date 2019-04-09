@@ -16,11 +16,8 @@ import { SelectOption } from '../../model/select/select-option.class';
 })
 
 export class LoginComponent extends BaseComponent {
-
     public email: string;
     public password: string;
-    public rubro:string = "1";
-    public rubros:Array<SelectOption> = [{id:"1", text:"Clinica"},{id:"2", text:"Peluqueria"}, {id:"3", text:"Barberia"}, {id:"4", text:"Estética"}];
 
     constructor(
         private accountService: AccountService,
@@ -31,33 +28,18 @@ export class LoginComponent extends BaseComponent {
         sessionStorage.clear();
     }
 
-    public onRubroChange(newValue) {
-        this.rubro = newValue; 
-    }
-
     public login() {
         this.loaderService.show();
         let loginData = new Login();
         loginData.Username = this.email;
         loginData.password = this.password;
-        loginData.businessType = this.mapRubro(this.rubro);
         this.accountService.login(loginData).subscribe(
             res => {
                 sessionStorage.setItem("token", res.token);
                 sessionStorage.setItem("logo", res.logo);
-                sessionStorage.setItem("rubro", this.rubro);
                 this.loaderService.hide();
                 this.router.navigate(['Layout']);
             }
         );
-    }
-
-    private mapRubro(rubro) : string{
-         if(rubro == "1") return "Clinic";
-         if(rubro == "2") return "Hairdressing";
-         if(rubro == "3") return "Babershop";
-         if(rubro == "4") return "Esthetic";
-
-         return "";
     }
 }

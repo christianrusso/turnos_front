@@ -14,8 +14,7 @@ export class HomeComponent extends BaseComponent {
     public nrDay;
     public month;
     public statistics;
-    public rubro;
-
+    
     constructor(
         private statisticsService: StatisticsService,
     ){
@@ -24,8 +23,6 @@ export class HomeComponent extends BaseComponent {
         this.day = moment().locale("es").format('dddd');
         this.nrDay = moment().locale("es").date();
         this.month = moment().locale("es").format("MMMM");
-
-        this.rubro = sessionStorage.getItem("rubro");
 
         this.getStatistics();
 
@@ -39,16 +36,9 @@ export class HomeComponent extends BaseComponent {
     }
 
     getStatistics() {
-        if (this.rubro == 1) {
-            this.statisticsService.getAllStatistics().subscribe(res => {
-                this.statistics = res;
-                console.log(this.statistics);
-            });
-        } else {
-            this.statisticsService.getAllStatisticsHairdress().subscribe(res => {
-                this.statistics = res;
-                console.log(this.statistics);
-            });
-        }
+        this.statisticsService.getAllStatisticsHairdress().subscribe(res => {
+            this.statistics = res;
+            console.log(this.statistics);
+        });
     }
 }
