@@ -104,7 +104,6 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
         }
     ];
     public dropdownSettings = {};
-    public specialtiesAdded = [];
 
     public pageNumber = 1;
     objectKeys = Object.keys;
@@ -376,7 +375,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
             }
             else
             {
-                let subs = new Array();
+                let subs = [];
                 subs.push({ id: sub.specialtyId, text: sub.subspecialtyDescription});
                 this.profesionalSpecialities.push(
                     {
@@ -385,7 +384,6 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
                     }
                 );
             }
-            
             this.specialtyChangeProfessional({value: sub.specialtyId.toString()}, count);
             count++;
         });
@@ -507,12 +505,15 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
 
     specialtyChangeProfessional(selection, index) {
         this.loaderService.show();
+        if (this.profesionalSpecialities != null &&
+            this.profesionalSpecialities.some(s => s.professionalSpecialty == selection.value)) {
+            this.toastrService.error('La especialidad "' + this.specialtyOptions[index].text + '" ya se encuentra ingresada.');
+            this.loaderService.hide();
+            return;
+        }
         this.professionalSpecialty = selection.value;
-        this.specialtyOptionsProfessional[index].text
-        this.specialtiesAdded.push({ index: index, id: selection.Value });
         let filter = new IdFilter();
         filter.id = this.professionalSpecialty != null ? parseInt(this.professionalSpecialty) : -1;
-        this.profesionalSpecialities[index].professionalSubspecialties = new Array();
         this.subspecialtyService.getAllOfSpecialtyForSelect(filter).subscribe(res => {
             for (let i = 0; i < res.length; i++) {
                 if (res[i].id == "-1") {
@@ -520,8 +521,8 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
                 }
             }
             this.subspecialtyOptionsProfessional[index] = res;
-            this.loaderService.hide();
         });
+        this.loaderService.hide();
     }
 
     addProfessional() {
@@ -535,7 +536,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
                 this.profesionalSpecialities[i].professionalSubspecialties.forEach(sub => {
                     let subSpec = new Subspecialty();
                     subSpec.subspecialtyId = sub.id;
-                    subSpec.consultationLength = this.subspecialties[sub.id].consultationLength;
+                    subSpec.consultationLength = this.subspecialties.find(s => s.id == sub.id).consultationLength;
                     professional.subspecialties.push(subSpec);
                 });
             }
@@ -595,7 +596,8 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
      addProfessionalSpeciality() {
         let lastElementPosition = this.profesionalSpecialities.length - 1;
         let specialty = this.profesionalSpecialities[lastElementPosition].professionalSpecialty;
-        if (specialty != "" && this.profesionalSpecialities[lastElementPosition].professionalSubspecialties != []) {
+        if (specialty != "" && this.profesionalSpecialities[lastElementPosition].professionalSubspecialties.length > 0) {
+            /*
             for (let i = 0; i < this.profesionalSpecialities.length - 1; i++) {
                 if (this.profesionalSpecialities[i].professionalSpecialty ==
                     this.profesionalSpecialities[lastElementPosition].professionalSpecialty) {
@@ -604,6 +606,7 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
                     return;
                 }
             }
+            */
             this.profesionalSpecialities.push(
             {
                 professionalSpecialty: "",
