@@ -63,6 +63,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="arrowsDiv">
+                    <i class="arrow right"></i>
+                    <i>{{pageNumber}}</i>
+                    <i class="arrow left"></i>
+                </div>
             </div>
             <!-- // listado de medicos -->
         </div>
@@ -109,13 +114,13 @@
             <p style="text-align: center;">Este medico no tiene especialidades asignadas.</p>
         </div>
 
-        <div *ngFor="let sub of selectedDoctorSubspecialities; let i = index;" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
+        <div *ngFor="let key of objectKeys(selectedDoctorSubspecialities); let i = index;" style="margin: 0px; width: 100%;" [hidden]="selectedDoctorSubspecialities.length == 0" class="col-xs-12 col-sm-6 col-sm-offset-3  horarios-separador" >
             <div class="col-xs-12 col-sm-4 col-sm-offset-2" style="width: 100%; display: flex;">
                 <div style="width: 50%;">
-                    <b>{{selectedDoctorSubspecialities[i][0].specialtyDescription}} </b>
+                    <b>{{selectedDoctorSubspecialities[key][0].specialtyDescription}} </b>
                 </div>
                 <div style="width: 50%;">
-                    <p *ngFor="let subesp of selectedDoctorSubspecialities[i]">{{subesp.subspecialtyDescription}}</p>
+                    <p *ngFor="let subesp of selectedDoctorSubspecialities[key]">{{subesp.subspecialtyDescription}}</p>
                 </div>
             </div>
         </div>

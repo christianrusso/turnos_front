@@ -106,6 +106,9 @@ export class HairdressingProfessionalListComponent extends BaseComponent impleme
     public dropdownSettings = {};
     public specialtiesAdded = [];
 
+    public pageNumber = 1;
+    objectKeys = Object.keys;
+
     constructor(
         private hairdressingProfessionalService: HairdressingProfessionalService,
         private specialtyService: HairdressingSpecialtyService,

@@ -113,3 +113,28 @@
     background-color: #aeaeae !important;
     cursor: not-allowed;
   }
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  margin-top: 5px;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  margin-top: 5px;
+  margin-right: 9px;
+}
+
+.arrowsDiv {
+  width: 45px;
+  float: right;
+}

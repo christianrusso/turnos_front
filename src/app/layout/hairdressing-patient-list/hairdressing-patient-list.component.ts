@@ -75,6 +75,8 @@ export class HairdressingPatientListComponent extends BaseComponent implements A
 
     fichaOpenForm = false;
 
+    public pageNumber = 1;
+
     constructor(
         private patientService: HairdressingPatientService,
         private clientService: ClientService,

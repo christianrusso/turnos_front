@@ -86,6 +86,8 @@ export class PatientListComponent extends BaseComponent implements AfterViewInit
 
     fichaOpenForm = false;
 
+    public pageNumber = 1;
+
     constructor(
         private patientService: PatientService,
         private clientService: ClientService,

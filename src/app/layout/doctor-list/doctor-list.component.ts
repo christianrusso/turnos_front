@@ -109,6 +109,9 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
 
     public addDoctorEnable = false;
 
+    public pageNumber = 1;
+    objectKeys = Object.keys;
+
     constructor(
         private doctorService: DoctorService,
         private specialtyService: SpecialtyService,
@@ -130,7 +133,7 @@ export class DoctorListComponent extends BaseComponent implements AfterViewInit 
     }
 
     async ngAfterViewInit(): Promise<void> {
-        await this.loadScript('../panel/assets/medicos.js');
+        await this.loadScript('assets/medicos.js');
     }
 
     getAllDoctorsByFilter() {
